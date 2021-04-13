@@ -13,16 +13,13 @@ const App = () => {
     if (iframeRef.current) {
       iframeRef.current.onload = function () {
         if (iframeRef.current.contentWindow.errorLoad) {
-          window.errorLoad = {
-            error: true,
-            message: "Error load pdf",
-          };
-          return;
+          iframeRef.current.postMessage(
+            {
+              message: "Error loading pdf",
+            },
+            "*"
+          );
         }
-        window.errorLoad = {
-          error: false,
-          message: "Success",
-        };
       };
     }
   }, [iframeRef.current]);
