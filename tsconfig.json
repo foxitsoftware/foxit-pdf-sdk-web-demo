@@ -1,0 +1,14 @@
+{
+    "compilerOptions": {
+        "target": "ES5",
+        "module": "umd",
+        "strict": true,
+        "jsx": "react",
+        "allowSyntheticDefaultImports": true,
+        "esModuleInterop": true,
+        "noImplicitAny": true,
+        "moduleResolution": "Node",
+        "noEmit": true
+    },
+    "include": ["src/**/*"]
+}
