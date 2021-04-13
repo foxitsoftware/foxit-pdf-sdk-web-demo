@@ -14,8 +14,15 @@ const App = () => {
       iframeRef.current.onload = function () {
         if (iframeRef.current.contentWindow.errorLoad) {
           window.postMessage(
-            JSON.stringify(iframeRef.current.contentWindow.errorLoad),
+            JSON.stringify({
+              message: "Error pdf load",
+            }),
             "*"
+          );
+          console.log(
+            JSON.stringify({
+              message: "Error pdf load",
+            })
           );
         }
       };
