@@ -1,24 +1,22 @@
 import { Layout } from "antd";
 import "antd/dist/antd.less";
 import "./app.less";
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Switch, Route, HashRouter } from "react-router-dom";
 import { examples } from "./foundation/examples";
 const { Content } = Layout;
 
 const App = () => {
   const iframeRef = useRef<any>();
+  const [isError, setIsError] = useState<boolean>(false);
 
   useEffect(() => {
     if (iframeRef.current) {
       iframeRef.current.onload = function () {
         if (iframeRef.current.contentWindow.errorLoad) {
-          window.top.postMessage(
-            JSON.stringify({
-              message: "Error pdf load",
-            }),
-            "*"
-          );
+          setIsError(true);
+        } else {
+          setIsError(false);
         }
       };
     }
@@ -35,6 +33,17 @@ const App = () => {
                   {examples.map((it) => {
                     return (
                       <Route path={"/examples/" + it.baseName} key={it.name}>
+                        {isError && (
+                          <h2
+                            style={{
+                              margin: 0,
+                              background: "white",
+                              textAlign: "center",
+                            }}
+                          >
+                            Error load pdf
+                          </h2>
+                        )}
                         <iframe
                           ref={iframeRef}
                           className="fv__catalog-app-previewer"
