@@ -1,0 +1,41 @@
+.wrapBlock, .wrapBlock-flex{
+    position: absolute;
+}
+.wrapBlock-flex {
+    display: flex;
+}
+.triangle {
+    height: 40px;
+    width: 40px;
+    background-color: #272D38;
+    margin: auto;
+    transform:translateY(50%) rotate(45deg);
+    z-index: 1;
+}
+.rigth {
+    transform:translateX(50%) rotate(45deg);
+}
+.modalWindow {
+    background-color: #272D38;
+    border-radius: 8px;
+    padding: 16px;
+    z-index: 10;
+}
+.header {
+    color: #FFFFFF;
+    font-size: 20px;
+}
+.description {
+    color: #FFFFFF;
+    font-size: 14px;
+}
+.navigation {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+.btnPrev, .btnNext {
+    border: none;
+    background: none;
+    color: #9FA4AD;
+}

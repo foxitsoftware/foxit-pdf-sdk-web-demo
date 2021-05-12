@@ -4,6 +4,7 @@ import "./app.less";
 import React, { useEffect, useRef, useState } from "react";
 import { Switch, Route, HashRouter } from "react-router-dom";
 import { examples } from "./foundation/examples";
+import {InfoModal} from "./components/infoModal/InfoModal"
 const { Content } = Layout;
 
 const App = () => {
@@ -22,6 +23,14 @@ const App = () => {
     }
   }, [iframeRef.current]);
 
+  const clickNext = () => {
+    console.log("next")
+  }
+
+  const clickPrev = () => {
+    console.log('prev')
+  }
+
   return (
     <>
       <HashRouter>
@@ -33,6 +42,7 @@ const App = () => {
                   {examples.map((it) => {
                     return (
                       <Route path={"/examples/" + it.baseName} key={it.name}>
+                        <InfoModal positionX = "100px" positionY = "100px" sideTriangle = "rigth" header="Header Info" description="new Page new modal" clickNext = {clickNext} clickPrev = {clickPrev}/>
                         {isError ? (
                           <div className="fv-catalog-app-error">
                             <div className="fv-catalog-app-error-box">
