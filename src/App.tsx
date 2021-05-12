@@ -4,12 +4,17 @@ import "./app.less";
 import React, { useEffect, useRef, useState } from "react";
 import { Switch, Route, HashRouter } from "react-router-dom";
 import { examples } from "./foundation/examples";
-import {InfoModal} from "./components/infoModal/InfoModal"
+import {InfoModal} from "./components/tooltip/Tooltip";
+import { closeSidebar, createCalloutAnnotation, createCustomStamp, disableAll, hideAll, markAndRedactAStringOfText, movePage, openSidebar, rotatePage } from "./snippets/snippets"
 const { Content } = Layout;
+
+
 
 const App = () => {
   const iframeRef = useRef<any>();
   const [isError, setIsError] = useState<boolean>(false);
+  const [curent, setCurent] = useState<number>(0)
+  const [isDoneScene, changeDone] = useState<boolean>(true)
 
   useEffect(() => {
     if (iframeRef.current) {
@@ -20,15 +25,29 @@ const App = () => {
           setIsError(false);
         }
       };
+      console.dir(iframeRef.current.baseURI.split("/")[iframeRef.current.baseURI.split("/").length-1])
     }
   }, [iframeRef.current]);
 
+  const scens = [
+    {positionX:"75px", positionY:"75px", sideTriangle:"top", header:"Create & edit", description:"The toolbar has everything you need. Print, protect, edit, comment, and much more.", func: () => openSidebar(iframeRef.current.contentWindow.pdfui, 'sidebar-bookmark')},
+    {positionX:"250px", positionY:"120px", sideTriangle:"rigth", header:"Navigate the PDF", description:"Use the sidebar to see pages, annotations, form information, and to search the PDF.", func: () => closeSidebar(iframeRef.current.contentWindow.pdfui)},
+    {positionX:"125px", positionY:"75px", sideTriangle:"top", header:"Test with your own PDF", description:"Upload a file and test our capabilities.", func: () => {}},
+  ]
+  
+  
   const clickNext = () => {
-    console.log("next")
+    setCurent(curent+1)
+    scens[curent].func()
   }
 
-  const clickPrev = () => {
-    console.log('prev')
+  const clickPrev = async() => {
+    setCurent(curent-1)
+    scens[curent].func()
+  }
+
+  const clickDone = () => {
+    changeDone(false)
   }
 
   return (
@@ -42,7 +61,18 @@ const App = () => {
                   {examples.map((it) => {
                     return (
                       <Route path={"/examples/" + it.baseName} key={it.name}>
-                        <InfoModal positionX = "100px" positionY = "100px" sideTriangle = "rigth" header="Header Info" description="new Page new modal" clickNext = {clickNext} clickPrev = {clickPrev}/>
+                        {isDoneScene && <InfoModal 
+                          positionX = {scens[curent].positionX} 
+                          positionY =  {scens[curent].positionY} 
+                          sideTriangle =  {scens[curent].sideTriangle} 
+                          header= {scens[curent].header} 
+                          description= {scens[curent].description} 
+                          isFirst = {Boolean(curent)}
+                          isLast = {scens.length-1 === curent}  
+                          clickNext = {clickNext} 
+                          clickPrev = {clickPrev}
+                          clickDone = {clickDone}
+                        />}
                         {isError ? (
                           <div className="fv-catalog-app-error">
                             <div className="fv-catalog-app-error-box">

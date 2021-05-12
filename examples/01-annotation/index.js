@@ -1,7 +1,6 @@
 import * as UIExtension from 'UIExtension';
 import '@foxitsoftware/foxit-pdf-sdk-for-web-library/lib/UIExtension.vw.css';
 import './index.css';
-import { hideAll } from '../../src/snippets/snippets'
 
 const { PDFUI, PDFViewCtrl } = UIExtension;
 const { DeviceInfo, Events } = PDFViewCtrl;
@@ -27,7 +26,7 @@ const pdfui = new PDFUI({
 
 //Toolbar element show/hide control
 pdfui.getRootComponent().then((root) => {
-    hideAll(pdfui, 'freetext-callout,@viewer,comment-tab,home-tab,fv--home-tab-paddle,fv--home-tab-paddle *');
+    // hideAll(pdfui, 'freetext-callout,@viewer,comment-tab,home-tab,fv--home-tab-paddle,fv--home-tab-paddle *');
     //Get 'comment' tab
     const commentTab = root.getComponentByName('comment-tab');
     commentTab.active();

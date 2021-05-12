@@ -1,7 +1,6 @@
 import * as UIExtension from 'UIExtension';
 import '@foxitsoftware/foxit-pdf-sdk-for-web-library/lib/UIExtension.vw.css';
 import './index.css';
-import { openSidebar } from '../../src/snippets/snippets.js';
 
 const { PDFUI, PDFViewCtrl } = UIExtension;
 const { DeviceInfo } = PDFViewCtrl;
@@ -31,7 +30,7 @@ window.addEventListener(DeviceInfo.isDesktop ? 'resize' : 'orientationchange', f
 });
 
 pdfui.addViewerEventListener(PDFViewCtrl.ViewerEvents.openFileSuccess, () => {
-    openSidebar(pdfui, 'sidebar-bookmark');
+    window.pdfui = pdfui;
 });
 
 pdfui.openPDFByHttpRangeRequest(
