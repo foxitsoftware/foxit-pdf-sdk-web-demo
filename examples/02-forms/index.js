@@ -6,7 +6,9 @@ import { hideAll } from '../../src/snippets/snippets'
 const { PDFUI, PDFViewCtrl } = UIExtension;
 const { DeviceInfo, Events } = PDFViewCtrl;
 const File_Type = PDFViewCtrl.PDF.constant.File_Type;
-
+pdfui.addViewerEventListener(PDFViewCtrl.ViewerEvents.openFileSuccess, () => {
+    window.pdfui = pdfui;
+});
 const libPath = '/lib/';
 const pdfui = new PDFUI({
     viewerOptions: {

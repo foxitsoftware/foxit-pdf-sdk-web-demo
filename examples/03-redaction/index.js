@@ -23,7 +23,9 @@ const pdfui = new PDFUI({
     addons: DeviceInfo.isMobile ? '/lib/uix-addons/allInOne.mobile.js' : '/lib/uix-addons/allInOne.js',
 });
 
-
+pdfui.addViewerEventListener(PDFViewCtrl.ViewerEvents.openFileSuccess, () => {
+    window.pdfui = pdfui;
+});
 //This method forces the viewer into mobile layout view. Use it instead of the responsive mobile design
 //DeviceInfo.isMobile = true;
 

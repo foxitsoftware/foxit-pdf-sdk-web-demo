@@ -25,14 +25,7 @@ const pdfui = new PDFUI({
 });
 
 //Toolbar element show/hide control
-pdfui.getRootComponent().then((root) => {
-    // hideAll(pdfui, 'freetext-callout,@viewer,comment-tab,home-tab,fv--home-tab-paddle,fv--home-tab-paddle *');
-    //Get 'comment' tab
-    const commentTab = root.getComponentByName('comment-tab');
-    commentTab.active();
-    const commentTabGroup = root.getComponentByName('comment-tab-group-text');
-    commentTabGroup.setRetainCount(4);
-})
+
 
 window.addEventListener(DeviceInfo.isDesktop ? 'resize' : 'orientationchange', () => {
     pdfui.redraw();
@@ -57,6 +50,9 @@ pdfui.addViewerEventListener(Events.annotationAdded, (annots) => {
 });
 pdfui.addViewerEventListener(Events.annotationRemoved, (removedAnnots) => {
     console.log('annotations removed', removedAnnots);
+});
+pdfui.addViewerEventListener(PDFViewCtrl.ViewerEvents.openFileSuccess, () => {
+    window.pdfui = pdfui;
 });
 
 const AnnotType = PDFViewCtrl.PDF.annots.constant.Annot_Type;
@@ -194,6 +190,14 @@ function createTypeWriter(pdfDoc, pageIndex) {
         pageIndex
     );
 }
+pdfui.getRootComponent().then((root) => {
+    // hideAll(pdfui, 'freetext-callout,@viewer,comment-tab,home-tab,fv--home-tab-paddle,fv--home-tab-paddle *');
+    //Get 'comment' tab
+    const commentTab = root.getComponentByName('comment-tab');
+    commentTab.active();
+    const commentTabGroup = root.getComponentByName('comment-tab-group-text');
+    commentTabGroup.setRetainCount(4);
+})
 function createTextNote(pdfDoc, pageIndex) {
     const left = 500;
     const top = 500;
@@ -220,3 +224,4 @@ function createAnnotation(pdfDoc, annotJson, pageIndex) {
         return pdfPage.addAnnot(annotJson);
     });
 }
+

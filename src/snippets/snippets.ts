@@ -30,10 +30,16 @@ export function movePage(pdfui: any, fromIndex: any, toIndex: any) {
     });
 }
 
+export function openTab(pdfui: any, tab:string) {
+    return pdfui.getRootComponent().then((root: any) => {
+        const commentTab = root.getComponentByName(tab);
+        commentTab.active();
+    })
+}
+
 export function createCalloutAnnotation(pdfui: any) {
     return pdfui.getRootComponent().then((root: any) => {
-        const commentTab = root.getComponentByName('comment-tab');
-        commentTab.active();
+
         const restore = disableAll(pdfui, 'freetext-callout,@alert @xbutton');
         return pdfui.alert('Click OK to create callout').then(() => {
             restore();

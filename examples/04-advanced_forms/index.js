@@ -22,7 +22,9 @@ const pdfui = new PDFUI({
     appearance: UIExtension.appearances.adaptive,
     addons: DeviceInfo.isMobile ? '/lib/uix-addons/allInOne.mobile.js' : '/lib/uix-addons/allInOne.js',
 });
-
+pdfui.addViewerEventListener(PDFViewCtrl.ViewerEvents.openFileSuccess, () => {
+    window.pdfui = pdfui;
+});
 //Toolbar element show/hide control
 pdfui.getRootComponent().then((root) => {
     hideAll(pdfui, '@viewer,home-tab,fv--home-tab-paddle,fv--home-tab-paddle *');
