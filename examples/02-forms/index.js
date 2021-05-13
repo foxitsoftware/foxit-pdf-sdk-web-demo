@@ -6,9 +6,6 @@ import { hideAll } from '../../src/snippets/snippets'
 const { PDFUI, PDFViewCtrl } = UIExtension;
 const { DeviceInfo, Events } = PDFViewCtrl;
 const File_Type = PDFViewCtrl.PDF.constant.File_Type;
-pdfui.addViewerEventListener(PDFViewCtrl.ViewerEvents.openFileSuccess, () => {
-    window.pdfui = pdfui;
-});
 const libPath = '/lib/';
 const pdfui = new PDFUI({
     viewerOptions: {
@@ -25,7 +22,9 @@ const pdfui = new PDFUI({
     appearance: UIExtension.appearances.adaptive,
     addons: DeviceInfo.isMobile ? '/lib/uix-addons/allInOne.mobile.js' : '/lib/uix-addons/allInOne.js',
 });
-
+pdfui.addViewerEventListener(PDFViewCtrl.ViewerEvents.openFileSuccess, () => {
+    window.pdfui = pdfui;
+});
 //Toolbar element show/hide control
 pdfui.getRootComponent().then((root) => {
     hideAll(pdfui, '@viewer,form-tab,home-tab,fv--form-tab-paddle,fv--form-tab-paddle *,fv--home-tab-paddle,fv--home-tab-paddle *');
