@@ -37,7 +37,11 @@ window.addEventListener(DeviceInfo.isDesktop ? 'resize' : 'orientationchange', (
 });
 
 pdfui.addViewerEventListener(Events.openFileSuccess, () => {
-    console.info('open file success');
+    console.info("open file success");
+    pdfui.getRootComponent().then((root) => {
+      const commentTab = root.getComponentByName("edit-tab");
+      commentTab.active();
+    });
 });
 
 pdfui

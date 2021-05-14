@@ -19,7 +19,7 @@ export function rotatePage(pdfui: any) {
       return doc.getPageByIndex(0);
     })
     .then((page: any) => {
-      return page.setRotation(2);
+      return page.setRotation(1);
     });
 }
 

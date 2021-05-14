@@ -76,7 +76,7 @@ const App = () => {
       header: "Rotate pages",
       description: "Right-click the page thumbnail to fix the page.",
       func: () =>
-        openSidebar(iframeRef.current.contentWindow.pdfui, "sidebar-bookmark"),
+        openSidebar(iframeRef.current.contentWindow.pdfui, "sidebar-thumbnail-panel").then(() => rotatePage(iframeRef.current.contentWindow.pdfui)),
     },
     {
       positionX: "250px",
