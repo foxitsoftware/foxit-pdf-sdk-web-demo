@@ -5,6 +5,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { Switch, Route, HashRouter } from "react-router-dom";
 import { examples } from "./foundation/examples";
 import {InfoModal} from "./components/tooltip/Tooltip";
+import {useHistory} from "react-router-dom"
 import { closeSidebar, openTab, createCalloutAnnotation, createCustomStamp, disableAll, hideAll, markAndRedactAStringOfText, movePage, openSidebar, rotatePage } from "./snippets/snippets"
 
 const { Content } = Layout;
@@ -16,6 +17,8 @@ const App = () => {
   const [isError, setIsError] = useState<boolean>(false);
   const [curent, setCurent] = useState<number>(0)
   const [isDoneScene, changeDone] = useState<boolean>(true)
+  let location = useHistory()
+  console.log(location.location.hash)
   const defaultScene = [
     {positionX:"75px", positionY:"75px", sideTriangle:"top", header:"Create & edit", description:"The toolbar has everything you need. Print, protect, edit, comment, and much more.", func: () => closeSidebar(iframeRef.current.contentWindow.pdfui)},
     {positionX:"250px", positionY:"120px", sideTriangle:"rigth", header:"Navigate the PDF", description:"Use the sidebar to see pages, annotations, form information, and to search the PDF.", func: () => openSidebar(iframeRef.current.contentWindow.pdfui, 'sidebar-bookmark')},
@@ -33,7 +36,6 @@ const App = () => {
         }
         case "01-annotation": {
           setCurentScene(annotation);
-          
           break;
         }
         case "02-forms": {
@@ -78,20 +80,19 @@ const App = () => {
     {positionX:"75%", positionY:"280px", sideTriangle:"rigth", header:"Leave your note", description:"Click directly in the PDF to leave a note in context.", func: () => closeSidebar(iframeRef.current.contentWindow.pdfui)},
     {positionX:"436px", positionY:"75px", sideTriangle:"top", header:"Create a callout", description:"Add a callout annotation to the page to highlight a detail or part of the document. You can freely move, resize or add text to the annotation after that.", func: () => {openSidebar(iframeRef.current.contentWindow.pdfui, 'comment-list-sidebar-panel')}},
     {positionX:"747px", positionY:"75px", sideTriangle:"top", header:"Stamp", description:"Let's create your own stamp to easily mark your pages.", func: () => {}},
-    {positionX:"800px", positionY:"510px", sideTriangle:"top", header:"Create a stamp", description:"You can create your own custom stamps using the Custom Stamps option. Click on any of the stamps to add on the page", func: () => iframeRef.current.contentWindow.pdfui.prompt(location.origin + '/assets/stamp.jpg', 'Custom stamp image url').then((url:string) => {createCustomStamp(iframeRef.current.contentWindow.pdfui, url);})},
+    {positionX:"800px", positionY:"510px", sideTriangle:"top", header:"Create a stamp", description:"You can create your own custom stamps using the Custom Stamps option. Click on any of the stamps to add on the page", func: () => iframeRef.current.contentWindow.pdfui.prompt('/assets/stamp.jpg', 'Custom stamp image url').then((url:string) => {createCustomStamp(iframeRef.current.contentWindow.pdfui, url);})},
     {positionX:"75%", positionY:"300px", sideTriangle:"rigth", header:"Stamp", description:"Click to stamp anywhere on the page.", func: () => {}},
     {positionX:"935px", positionY:"75px", sideTriangle:"top", header:"Attach a link, image, video, or an entire file", description:"Keep related content together.", func: () => {}},
   ]
   
 
-  const form = [
+  const redaction = [
     {positionX:"351px", positionY:"75px", sideTriangle:"top", header:"Select what to redact", description:"Select Mark for Redaction to begin selecting text, an area, or a whole page to redact.", func: () => {}},
     {positionX:"475px", positionY:"75px", sideTriangle:"top", header:"Apply the redaction", description:"Ready to redact what you selected? Click “Apply”.", func: () => closeSidebar(iframeRef.current.contentWindow.pdfui)},
     {positionX:"565px", positionY:"75px", sideTriangle:"top", header:"Search & Redact", description:"Search for terms in the whole PDF, and choose which to redact.", func: () => {createCalloutAnnotation(iframeRef.current.contentWindow.pdfui)}},
     {positionX:"300px", positionY:"100px", sideTriangle:"rigth", header:"Search for terms", description:"Additionally, you can search a word or phrase in the document and select which instances of it you want to redact.", func: () => {openSidebar(iframeRef.current.contentWindow.pdfui, 'sidebar-search')}},
   ]
-  
-  const redaction = [
+  const form = [
     {positionX:"385px", positionY:"75px", sideTriangle:"top", header:"Form builder", description:"Let’s create this form! Select the Create Text Field tool and place one in the document.", func: () => closeSidebar(iframeRef.current.contentWindow.pdfui)},
     {positionX:"430px", positionY:"75px", sideTriangle:"top", header:"Create a signature field", description:"Create a desginated space for a signature. Select the tool, then click & drag.", func: () => openSidebar(iframeRef.current.contentWindow.pdfui, 'sidebar-field')},
     {positionX:"335px", positionY:"75px", sideTriangle:"top", header:"Add more form fields", description:"Test out more types of fields! Checkboxes, radio input, dropdowns, and more await you in the toolbar.", func: () => {}},

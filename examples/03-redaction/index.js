@@ -38,7 +38,13 @@ pdfui.getRootComponent().then((root) => {
     const protectTabGroup = root.getComponentByName('protect-tab-group-text');
     protectTabGroup.setRetainCount(4);
 })
-
+pdfui.addViewerEventListener(Events.openFileSuccess, () => {
+    console.info("open file success");
+    pdfui.getRootComponent().then((root) => {
+      const commentTab = root.getComponentByName("protect-tab");
+      commentTab.active();
+    });
+});
 window.addEventListener(DeviceInfo.isDesktop ? 'resize' : 'orientationchange', () => {
     pdfui.redraw();
 });
@@ -51,7 +57,6 @@ pdfui
     .openPDFByHttpRangeRequest(
         {
             range: {
-                //Default PDF file path
                 url: '/assets/FoxitPDFSDKforWeb_DemoGuide.pdf',
             },
         },
