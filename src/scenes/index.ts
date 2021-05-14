@@ -4,6 +4,7 @@ import {
   createCustomStamp,
   movePage,
   openSidebar,
+  rotatePage,
 } from "../snippets";
 
 const editPdf = [
