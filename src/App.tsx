@@ -16,7 +16,6 @@ const App = () => {
   const [isDoneScene, changeDone] = useState<boolean>(true);
   const [isSuccess, setIsSuccess] = useState<boolean>(false);
   const [scene, setCurentScene] = useState<any>(editPdf);
-  console.log(locationDom);
 
   const clickNext = () => {
     setCurent((prevCurent) => {
@@ -66,7 +65,7 @@ const App = () => {
   useEffect(() => {
     changeDone(true);
     setIsSuccess(false);
-    setCurent(0)
+    setCurent(0);
   }, [locationDom.hash]);
 
   return (
