@@ -9,43 +9,54 @@ interface Props {
   description: string;
   isFirst: boolean;
   isLast: boolean;
-  clickNext: () => void;
-  clickPrev: () => void;
-  clickDone: () => void;
+  handleNext: () => void;
+  handlePrev: () => void;
+  handleDone: () => void;
 }
 
 // sideTriangle, header, description, clickNext, clickPrev
-export const Tooltip = React.memo((props: Props) => {
-  return (
-    <div
-      className={
-        props.sideTriangle === "rigth" ? "wrapBlock-flex" : "wrapBlock"
-      }
-      style={{ top: props.positionY, left: props.positionX }}
-    >
-      <div className={`triangle ${props.sideTriangle}`}></div>
-      <div className="modalWindow">
-        <h1 className="header">{props.header}</h1>
-        <span className="description">{props.description}</span>
-        <div className="navigation">
-          <div>
-            {props.isFirst && (
-              <button onClick={() => props.clickPrev()} className="btn btnPrev">
-                Previous
+export const Tooltip: React.FC<Props> = React.memo(
+  ({
+    positionX,
+    positionY,
+    sideTriangle,
+    header,
+    isFirst,
+    isLast,
+    description,
+    handleDone,
+    handleNext,
+    handlePrev,
+  }) => {
+    return (
+      <div
+        className={sideTriangle === "rigth" ? "wrapBlock-flex" : "wrapBlock"}
+        style={{ top: positionY, left: positionX }}
+      >
+        <div className={`triangle ${sideTriangle}`}></div>
+        <div className="modalWindow">
+          <h1 className="header">{header}</h1>
+          <span className="description">{description}</span>
+          <div className="navigation">
+            <div>
+              {isFirst && (
+                <button onClick={() => handlePrev()} className="btn btnPrev">
+                  Previous
+                </button>
+              )}
+            </div>
+            {isLast ? (
+              <button onClick={() => handleDone()} className="btn btnNext">
+                Done
+              </button>
+            ) : (
+              <button onClick={() => handleNext()} className="btn btnNext">
+                Next
               </button>
             )}
           </div>
-          {props.isLast ? (
-            <button onClick={() => props.clickDone()} className="btn btnNext">
-              Done
-            </button>
-          ) : (
-            <button onClick={() => props.clickNext()} className="btn btnNext">
-              Next
-            </button>
-          )}
         </div>
       </div>
-    </div>
-  );
-});
+    );
+  }
+);

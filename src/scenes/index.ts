@@ -1,14 +1,9 @@
 import {
   closeSidebar,
-  openTab,
   createCalloutAnnotation,
   createCustomStamp,
-  disableAll,
-  hideAll,
-  markAndRedactAStringOfText,
   movePage,
   openSidebar,
-  rotatePage,
 } from "../snippets";
 
 const editPdf = [
@@ -79,7 +74,7 @@ const annotation = [
     header: "Add a note",
     description:
       "The ‘Note’ tool adds a note annotation to the top-left of the PDF page. You can drag-and-drop it to your desired location.",
-    func: (ref: any) => {},
+    func: () => {},
   },
   {
     positionX: "75%",
@@ -109,7 +104,7 @@ const annotation = [
     sideTriangle: "top",
     header: "Stamp",
     description: "Let's create your own stamp to easily mark your pages.",
-    func: (ref: any) => {},
+    func: () => {},
   },
   {
     positionX: "800px",
@@ -131,7 +126,7 @@ const annotation = [
     sideTriangle: "rigth",
     header: "Stamp",
     description: "Click to stamp anywhere on the page.",
-    func: (ref: any) => {},
+    func: () => {},
   },
   {
     positionX: "935px",
@@ -139,7 +134,7 @@ const annotation = [
     sideTriangle: "top",
     header: "Attach a link, image, video, or an entire file",
     description: "Keep related content together.",
-    func: (ref: any) => {},
+    func: () => {},
   },
 ];
 
@@ -212,7 +207,7 @@ const form = [
     header: "Add more form fields",
     description:
       "Test out more types of fields! Checkboxes, radio input, dropdowns, and more await you in the toolbar.",
-    func: (ref: any) => {},
+    func: () => {},
   },
 ];
 
