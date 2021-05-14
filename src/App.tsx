@@ -17,7 +17,7 @@ const App = () => {
   const [isSuccess, setIsSuccess] = useState<boolean>(false);
   const [scene, setCurentScene] = useState<any>(editPdf);
 
-  const clickNext = () => {
+  const handleNext = () => {
     setCurent((prevCurent) => {
       const newCurent = prevCurent + 1;
       scene[newCurent].func(iframeRef);
@@ -25,7 +25,7 @@ const App = () => {
     });
   };
 
-  const clickPrev = () => {
+  const handlePrev = () => {
     setCurent((prevCurent) => {
       const newCurent = prevCurent - 1;
       scene[newCurent].func(iframeRef);
@@ -33,7 +33,7 @@ const App = () => {
     });
   };
 
-  const clickDone = useCallback(() => {
+  const handleDone = useCallback(() => {
     changeDone(false);
   }, []);
 
@@ -87,9 +87,9 @@ const App = () => {
                           description={scene[curent].description}
                           isFirst={Boolean(curent)}
                           isLast={scene.length - 1 === curent}
-                          clickNext={clickNext}
-                          clickPrev={clickPrev}
-                          clickDone={clickDone}
+                          handleNext={handleNext}
+                          handlePrev={handlePrev}
+                          handleDone={handleDone}
                         />
                       )}
                       <iframe
