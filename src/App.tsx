@@ -66,6 +66,7 @@ const App = () => {
   useEffect(() => {
     changeDone(true);
     setIsSuccess(false);
+    setCurent(0)
   }, [locationDom.hash]);
 
   return (
