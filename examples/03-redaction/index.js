@@ -1,7 +1,6 @@
 import * as UIExtension from 'UIExtension';
 import '@foxitsoftware/foxit-pdf-sdk-for-web-library/lib/UIExtension.vw.css';
 import './index.css';
-import { hideAll } from '../../src/snippets/snippets'
 
 const { PDFUI, PDFViewCtrl } = UIExtension;
 const { DeviceInfo, Events } = PDFViewCtrl;
@@ -24,7 +23,9 @@ const pdfui = new PDFUI({
     addons: DeviceInfo.isMobile ? '/lib/uix-addons/allInOne.mobile.js' : '/lib/uix-addons/allInOne.js',
 });
 
-
+pdfui.addViewerEventListener(PDFViewCtrl.ViewerEvents.openFileSuccess, () => {
+    window.pdfui = pdfui;
+});
 //This method forces the viewer into mobile layout view. Use it instead of the responsive mobile design
 //DeviceInfo.isMobile = true;
 
@@ -37,7 +38,13 @@ pdfui.getRootComponent().then((root) => {
     const protectTabGroup = root.getComponentByName('protect-tab-group-text');
     protectTabGroup.setRetainCount(4);
 })
-
+pdfui.addViewerEventListener(Events.openFileSuccess, () => {
+    console.info("open file success");
+    pdfui.getRootComponent().then((root) => {
+      const commentTab = root.getComponentByName("protect-tab");
+      commentTab.active();
+    });
+});
 window.addEventListener(DeviceInfo.isDesktop ? 'resize' : 'orientationchange', () => {
     pdfui.redraw();
 });
@@ -50,7 +57,6 @@ pdfui
     .openPDFByHttpRangeRequest(
         {
             range: {
-                //Default PDF file path
                 url: '/assets/FoxitPDFSDKforWeb_DemoGuide.pdf',
             },
         },

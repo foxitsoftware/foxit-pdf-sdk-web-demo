@@ -1,7 +1,6 @@
 import * as UIExtension from 'UIExtension';
 import '@foxitsoftware/foxit-pdf-sdk-for-web-library/lib/UIExtension.vw.css';
 import './index.css';
-import { hideAll } from '../../src/snippets/snippets'
 
 const { PDFUI, PDFViewCtrl } = UIExtension;
 const { DeviceInfo, Events } = PDFViewCtrl;
@@ -23,7 +22,9 @@ const pdfui = new PDFUI({
     appearance: UIExtension.appearances.adaptive,
     addons: DeviceInfo.isMobile ? '/lib/uix-addons/allInOne.mobile.js' : '/lib/uix-addons/allInOne.js',
 });
-
+pdfui.addViewerEventListener(PDFViewCtrl.ViewerEvents.openFileSuccess, () => {
+    window.pdfui = pdfui;
+});
 //Toolbar element show/hide control
 pdfui.getRootComponent().then((root) => {
     hideAll(pdfui, '@viewer,home-tab,fv--home-tab-paddle,fv--home-tab-paddle *');
@@ -36,7 +37,11 @@ window.addEventListener(DeviceInfo.isDesktop ? 'resize' : 'orientationchange', (
 });
 
 pdfui.addViewerEventListener(Events.openFileSuccess, () => {
-    console.info('open file success');
+    console.info("open file success");
+    pdfui.getRootComponent().then((root) => {
+      const commentTab = root.getComponentByName("edit-tab");
+      commentTab.active();
+    });
 });
 
 pdfui
