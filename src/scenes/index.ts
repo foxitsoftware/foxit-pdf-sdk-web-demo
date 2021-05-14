@@ -4,6 +4,7 @@ import {
   createCustomStamp,
   movePage,
   openSidebar,
+  rotatePage,
 } from "../snippets";
 
 const editPdf = [
@@ -53,7 +54,7 @@ const advanced_forms = [
     header: "Rotate pages",
     description: "Right-click the page thumbnail to fix the page.",
     func: (ref: any) =>
-      openSidebar(ref.current.contentWindow.pdfui, "sidebar-bookmark"),
+    openSidebar(ref.current.contentWindow.pdfui, 'sidebar-thumbnail-panel').then(() => rotatePage(ref.current.contentWindow.pdfui)),
   },
   {
     positionX: "250px",
