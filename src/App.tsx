@@ -23,60 +23,58 @@ const App = () => {
   ]
   const [scene, setCurentScene] = useState<any>(defaultScene)
   console.log(iframeRef)
+  
   useEffect(() => {
     if (iframeRef.current) {
+      switch(iframeRef.current.baseURI.split("/")[iframeRef.current.baseURI.split("/").length-1]){
+        case "00-hello": {
+          setCurentScene(defaultScene);
+          break;
+        }
+        case "01-annotation": {
+          setCurentScene(annotation);
+          
+          break;
+        }
+        case "02-forms": {
+          setCurentScene(form);
+          break;
+        }
+        case "03-redaction": {
+          setCurentScene(redaction);
+          break;
+        }
+        case "04-advanced_forms": {
+          setCurentScene(advanced_forms);
+          break;
+        }
+      }
       iframeRef.current.onload = function () {
+        
         if (iframeRef.current.contentWindow.errorLoad) {
           setIsError(true);
         } else {
           setIsError(false);
         }
         console.log(iframeRef.current.contentWindow.pdfui)
-        switch(iframeRef.current.baseURI.split("/")[iframeRef.current.baseURI.split("/").length-1]){
-          case "00-hello": {
-            setCurentScene(defaultScene);
-            break;
-          }
-          case "01-annotation": {
-            setCurentScene(annotation);
-             iframeRef.current.onload = async () => {
-              await iframeRef.current.contentWindow.pdfui.getRootComponent().then((root:any) => {
-                const commentTab =  root.getComponentByName('comment-tab');
-                commentTab.active();
-              })
-            }
-            break;
-          }
-          case "02-forms": {
-            setCurentScene(scens4);
-            break;
-          }
-          case "03-redaction": {
-            setCurentScene(form);
-            break;
-          }
-          case "04-advanced_forms": {
-            setCurentScene(scens2);
-            break;
-          }
-        }
       };
+      
       console.dir(iframeRef.current.baseURI.split("/")[iframeRef.current.baseURI.split("/").length-1])
       console.log(scene)
+      if(iframeRef.current.contentWindow.pdfui){
+        advanced_forms[1].func()}
     }
   }, [iframeRef.current]);
+ 
 
-
-
-
-  const scens2 = [
+  const advanced_forms = [
     {positionX:"75px", positionY:"75px", sideTriangle:"top", header:"Directly edit PDF content", description:"Select the Edit tool to move or modify text, images, and shapes within the PDF.", func: () => closeSidebar(iframeRef.current.contentWindow.pdfui)},
     {positionX:"250px", positionY:"280px", sideTriangle:"rigth", header:"Rotate pages", description:"Right-click the page thumbnail to fix the page.", func: () => openSidebar(iframeRef.current.contentWindow.pdfui, 'sidebar-bookmark')},
     {positionX:"250px", positionY:"300px", sideTriangle:"rigth", header:"Reorder pages", description:"Click & drag pages to put pages in the right order in the Thumbnail sidebar.", func: () => {}},
   ]
 
   const annotation = [
-    {positionX:"65px", positionY:"75px", sideTriangle:"top", header:"Add a note", description:"The ‘Note’ tool adds a note annotation to the top-left of the PDF page. You can drag-and-drop it to your desired location.", func: () => {}},
+    {positionX:"65px", positionY:"75px", sideTriangle:"top", header:"Add a note", description:"The ‘Note’ tool adds a note annotation to the top-left of the PDF page. You can drag-and-drop it to your desired location.", func: () => console.log("sad")},
     {positionX:"75%", positionY:"280px", sideTriangle:"rigth", header:"Leave your note", description:"Click directly in the PDF to leave a note in context.", func: () => closeSidebar(iframeRef.current.contentWindow.pdfui)},
     {positionX:"436px", positionY:"75px", sideTriangle:"top", header:"Create a callout", description:"Add a callout annotation to the page to highlight a detail or part of the document. You can freely move, resize or add text to the annotation after that.", func: () => {openSidebar(iframeRef.current.contentWindow.pdfui, 'comment-list-sidebar-panel')}},
     {positionX:"747px", positionY:"75px", sideTriangle:"top", header:"Stamp", description:"Let's create your own stamp to easily mark your pages.", func: () => {}},
@@ -86,19 +84,18 @@ const App = () => {
   ]
   
 
-  const scens4 = [
+  const form = [
     {positionX:"351px", positionY:"75px", sideTriangle:"top", header:"Select what to redact", description:"Select Mark for Redaction to begin selecting text, an area, or a whole page to redact.", func: () => {}},
     {positionX:"475px", positionY:"75px", sideTriangle:"top", header:"Apply the redaction", description:"Ready to redact what you selected? Click “Apply”.", func: () => closeSidebar(iframeRef.current.contentWindow.pdfui)},
     {positionX:"565px", positionY:"75px", sideTriangle:"top", header:"Search & Redact", description:"Search for terms in the whole PDF, and choose which to redact.", func: () => {createCalloutAnnotation(iframeRef.current.contentWindow.pdfui)}},
     {positionX:"300px", positionY:"100px", sideTriangle:"rigth", header:"Search for terms", description:"Additionally, you can search a word or phrase in the document and select which instances of it you want to redact.", func: () => {openSidebar(iframeRef.current.contentWindow.pdfui, 'sidebar-search')}},
   ]
-
-  const form = [
+  
+  const redaction = [
     {positionX:"385px", positionY:"75px", sideTriangle:"top", header:"Form builder", description:"Let’s create this form! Select the Create Text Field tool and place one in the document.", func: () => closeSidebar(iframeRef.current.contentWindow.pdfui)},
     {positionX:"430px", positionY:"75px", sideTriangle:"top", header:"Create a signature field", description:"Create a desginated space for a signature. Select the tool, then click & drag.", func: () => openSidebar(iframeRef.current.contentWindow.pdfui, 'sidebar-field')},
     {positionX:"335px", positionY:"75px", sideTriangle:"top", header:"Add more form fields", description:"Test out more types of fields! Checkboxes, radio input, dropdowns, and more await you in the toolbar.", func: () => {}},
   ]
-
   const clickNext = () => {
     setCurent((prevCurent) => {
       const newCurent = prevCurent+1
