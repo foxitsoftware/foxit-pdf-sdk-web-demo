@@ -25,8 +25,6 @@ const pdfui = new PDFUI({
     : libPath + "uix-addons/allInOne.js",
 });
 
-window.pdfui = pdfui;
-
 window.addEventListener(
   DeviceInfo.isDesktop ? "resize" : "orientationchange",
   function (e) {
