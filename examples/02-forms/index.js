@@ -1,7 +1,7 @@
 import * as UIExtension from "UIExtension";
 import "@foxitsoftware/foxit-pdf-sdk-for-web-library/lib/UIExtension.vw.css";
 import "./index.css";
-import { hideAll } from "../../src/snippets/snippets";
+import { hideAll } from "../../src/snippets";
 
 const { PDFUI, PDFViewCtrl } = UIExtension;
 const { DeviceInfo, Events } = PDFViewCtrl;

@@ -1,5 +1,5 @@
 import React from "react";
-import "./modal.css";
+import "./tooltip.css";
 
 interface Props {
   positionY: string;
@@ -15,42 +15,37 @@ interface Props {
 }
 
 // sideTriangle, header, description, clickNext, clickPrev
-export function InfoModal(props: Props) {
+export const Tooltip = React.memo((props: Props) => {
   return (
-    <>
-      <div
-        className={
-          props.sideTriangle === "rigth" ? "wrapBlock-flex" : "wrapBlock"
-        }
-        style={{ top: props.positionY, left: props.positionX }}
-      >
-        <div className={`triangle ${props.sideTriangle}`}></div>
-        <div className="modalWindow">
-          <h1 className="header">{props.header}</h1>
-          <span className="description">{props.description}</span>
-          <div className="navigation">
-            <div>
-              {props.isFirst && (
-                <button
-                  onClick={() => props.clickPrev()}
-                  className="btn btnPrev"
-                >
-                  Previous
-                </button>
-              )}
-            </div>
-            {props.isLast ? (
-              <button onClick={() => props.clickDone()} className="btn btnNext">
-                Done
-              </button>
-            ) : (
-              <button onClick={() => props.clickNext()} className="btn btnNext">
-                Next
+    <div
+      className={
+        props.sideTriangle === "rigth" ? "wrapBlock-flex" : "wrapBlock"
+      }
+      style={{ top: props.positionY, left: props.positionX }}
+    >
+      <div className={`triangle ${props.sideTriangle}`}></div>
+      <div className="modalWindow">
+        <h1 className="header">{props.header}</h1>
+        <span className="description">{props.description}</span>
+        <div className="navigation">
+          <div>
+            {props.isFirst && (
+              <button onClick={() => props.clickPrev()} className="btn btnPrev">
+                Previous
               </button>
             )}
           </div>
+          {props.isLast ? (
+            <button onClick={() => props.clickDone()} className="btn btnNext">
+              Done
+            </button>
+          ) : (
+            <button onClick={() => props.clickNext()} className="btn btnNext">
+              Next
+            </button>
+          )}
         </div>
       </div>
-    </>
+    </div>
   );
-}
+});
