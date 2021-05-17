@@ -16,7 +16,8 @@ const App = () => {
   const [isDoneScene, changeDone] = useState<boolean>(true);
   const [isSuccess, setIsSuccess] = useState<boolean>(false);
   const [scene, setCurentScene] = useState<any>(editPdf);
-
+  const [el, setEl] = useState<any>()
+  window.onload = () => console.log(document.getElementsByName(`change-color-dropdown`).length)
   const handleNext = () => {
     setCurent((prevCurent) => {
       const newCurent = prevCurent + 1;
@@ -32,7 +33,15 @@ const App = () => {
       return newCurent;
     });
   };
-
+  const getOffset = async(el:any) => {
+    if(el.length){
+      const rect = el.getBoundingClientRect();
+      return {
+        left: rect.left + window.scrollX,
+        top: rect.top + window.scrollY,
+      };
+    }
+  }
   const handleDone = useCallback(() => {
     changeDone(false);
   }, []);
@@ -63,11 +72,21 @@ const App = () => {
   }, [locationDom.hash]);
 
   useEffect(() => {
+    console.log(scene[curent].elementName)
+    
     changeDone(true);
     setIsSuccess(false);
     setCurent(0);
   }, [locationDom.hash]);
-
+  useEffect( () => {
+    setEl( iframeRef.current.contentDocument.getElementsByName(`change-color-dropdown`))
+    if(el){
+      let originalLog = console.log;
+      console.log = function(el:any) {
+          originalLog(JSON.parse(JSON.stringify(el)));
+      };
+    }  
+  },[el])
   return (
     <HashRouter>
       <Layout className="fv__catalog-app">
@@ -78,7 +97,7 @@ const App = () => {
                 {examples.map((it) => {
                   return (
                     <Route path={"/examples/" + it.baseName} key={it.name}>
-                      {isDoneScene && isSuccess && (
+                      {(isDoneScene && isSuccess) && (
                         <Tooltip
                           positionX={scene[curent].positionX}
                           positionY={scene[curent].positionY}

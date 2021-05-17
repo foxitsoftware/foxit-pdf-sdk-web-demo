@@ -11,6 +11,7 @@ const editPdf = [
   {
     positionX: "75px",
     positionY: "75px",
+    elementName: "fv__ui-change-color-dropdown fv__ui-dropdown",
     sideTriangle: "top",
     header: "Create & edit",
     description:
