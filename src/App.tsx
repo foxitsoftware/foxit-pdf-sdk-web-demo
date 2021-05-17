@@ -17,7 +17,6 @@ const App = () => {
   const [isSuccess, setIsSuccess] = useState<boolean>(false);
   const [scene, setCurentScene] = useState<any>(editPdf);
   const [el, setEl] = useState<any>()
-  window.onload = () => console.log(document.getElementsByName(`change-color-dropdown`).length)
   const handleNext = () => {
     setCurent((prevCurent) => {
       const newCurent = prevCurent + 1;
@@ -69,6 +68,8 @@ const App = () => {
         break;
       }
     }
+    
+    iframeRef.current.contentDocument.addEventListener('load',()=> console.dir( iframeRef.current.contentDocument.anchors["create-text"]))
   }, [locationDom.hash]);
 
   useEffect(() => {
@@ -82,9 +83,6 @@ const App = () => {
     setEl( iframeRef.current.contentDocument.getElementsByName(`change-color-dropdown`))
     if(el){
       let originalLog = console.log;
-      console.log = function(el:any) {
-          originalLog(JSON.parse(JSON.stringify(el)));
-      };
     }  
   },[el])
   return (

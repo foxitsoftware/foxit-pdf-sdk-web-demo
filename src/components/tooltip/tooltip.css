@@ -1,5 +1,6 @@
 .wrapBlock, .wrapBlock-flex{
     position: absolute;
+    margin: 12px 0px;
 }
 .wrapBlock-flex {
     display: flex;
