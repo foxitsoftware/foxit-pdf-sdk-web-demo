@@ -4,6 +4,16 @@
 .wrapBlock-flex {
     display: flex;
 }
+.dot-top {
+    position: absolute;
+    left: 40%;
+    top: -15%;
+}
+.dot-rigth {
+    position: absolute;
+    left: -35px;
+    top: 35%;
+}
 .triangle {
     height: 40px;
     width: 40px;
