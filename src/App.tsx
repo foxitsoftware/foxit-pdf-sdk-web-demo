@@ -14,12 +14,31 @@ const App = () => {
   const locationDom = useLocation();
   const [curent, setCurent] = useState<number>(0);
   const [isDoneScene, changeDone] = useState<boolean>(true);
+  const [isLoad, setIsLoad] = useState<boolean>(false);
   const [isSuccess, setIsSuccess] = useState<boolean>(false);
   const [scene, setCurentScene] = useState<any>(editPdf);
+  const [locationTooltipX, setLocationTooltipX] = useState<string>("")
+  const [locationTooltipY, setLocationTooltipY] = useState<string>("")
+
+
+  const getElement = (curent:number) => {
+    console.log(curent)
+    console.log("file load");
+    setIsSuccess(true);
+    console.log(
+      getOffset(
+        iframeRef.current.contentDocument.getElementsByName(
+          scene[curent].elementName
+        )
+      )
+    );
+  }
+
 
   const handleNext = () => {
     setCurent((prevCurent) => {
       const newCurent = prevCurent + 1;
+      getElement(newCurent)
       scene[newCurent].func(iframeRef);
       return newCurent;
     });
@@ -29,10 +48,21 @@ const App = () => {
     setCurent((prevCurent) => {
       const newCurent = prevCurent - 1;
       scene[newCurent].func(iframeRef);
+      getElement(newCurent)
       return newCurent;
     });
   };
-
+  const getOffset = (el: any) => {
+    if (el.length) {
+      const rect = el[0].getBoundingClientRect();
+      setLocationTooltipX(`${rect.left + window.scrollX - 100}px`)
+      setLocationTooltipY(`${rect.top + window.scrollY+40}px`)
+      return {
+        left: rect.left + window.scrollX,
+        top: rect.top + window.scrollY,
+      };
+    }
+  };
   const handleDone = useCallback(() => {
     changeDone(false);
   }, []);
@@ -60,13 +90,27 @@ const App = () => {
         break;
       }
     }
+
+    // iframeRef.current.contentDocument.addEventListener("load", () =>
+    //   console.dir(iframeRef.current.contentDocument.anchors["create-text"])
+    // );
   }, [locationDom.hash]);
+
+
 
   useEffect(() => {
     changeDone(true);
-    setIsSuccess(false);
+    setIsLoad(false);
     setCurent(0);
   }, [locationDom.hash]);
+
+  useEffect(() => {
+    if (iframeRef.current) {
+      if (iframeRef.current.contentWindow.pdfui) {
+        iframeRef.current.contentWindow.pdfui.addViewerEventListener("open-file-success",() => { getElement(curent) })
+      }
+    }
+  }, [isLoad]);
 
   return (
     <HashRouter>
@@ -80,8 +124,8 @@ const App = () => {
                     <Route path={"/examples/" + it.baseName} key={it.name}>
                       {isDoneScene && isSuccess && (
                         <Tooltip
-                          positionX={scene[curent].positionX}
-                          positionY={scene[curent].positionY}
+                          positionX={scene[curent].sideTriangle === "top"?locationTooltipX:scene[curent].positionX}
+                          positionY={scene[curent].sideTriangle === "top"?locationTooltipY:scene[curent].positionY}
                           sideTriangle={scene[curent].sideTriangle}
                           header={scene[curent].header}
                           description={scene[curent].description}
@@ -93,7 +137,10 @@ const App = () => {
                         />
                       )}
                       <iframe
-                        onLoad={() => setIsSuccess(true)}
+                        onLoad={() => {
+                          setIsLoad(true);
+                          // console.log(iframeRef.current.contentWindow.pdfui);
+                        }}
                         ref={iframeRef}
                         className="fv__catalog-app-previewer"
                         src={it.path}

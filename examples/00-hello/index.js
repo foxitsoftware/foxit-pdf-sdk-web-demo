@@ -24,14 +24,14 @@ const pdfui = new PDFUI({
     ? libPath + "uix-addons/allInOne.mobile.js"
     : libPath + "uix-addons/allInOne.js",
 });
-
+window.pdfui = pdfui;
 window.addEventListener(
   DeviceInfo.isDesktop ? "resize" : "orientationchange",
   function (e) {
     pdfui.redraw();
   }
 );
-
+// console.log(PDFViewCtrl.ViewerEvents.openFileSuccess);
 pdfui.addViewerEventListener(PDFViewCtrl.ViewerEvents.openFileSuccess, () => {
   window.pdfui = pdfui;
 });

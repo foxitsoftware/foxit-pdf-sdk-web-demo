@@ -1,4 +1,5 @@
 import React from "react";
+import {Dot} from "./../dot/Dot"
 import "./tooltip.css";
 
 interface Props {
@@ -33,6 +34,7 @@ export const Tooltip: React.FC<Props> = React.memo(
         className={sideTriangle === "rigth" ? "wrapBlock-flex" : "wrapBlock"}
         style={{ top: positionY, left: positionX }}
       >
+        <div className = {sideTriangle === "rigth" ? "dot-rigth": "dot-top"}><Dot /></div>
         <div className={`triangle ${sideTriangle}`}></div>
         <div className="modalWindow">
           <h1 className="header">{header}</h1>
