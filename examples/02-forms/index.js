@@ -24,6 +24,7 @@ const pdfui = new PDFUI({
     ? "/lib/uix-addons/allInOne.mobile.js"
     : "/lib/uix-addons/allInOne.js",
 });
+window.pdfui = pdfui;
 pdfui.addViewerEventListener(PDFViewCtrl.ViewerEvents.openFileSuccess, () => {
   window.pdfui = pdfui;
 });

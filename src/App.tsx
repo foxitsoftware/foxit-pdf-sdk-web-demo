@@ -16,7 +16,7 @@ const App = () => {
   const [isDoneScene, changeDone] = useState<boolean>(true);
   const [isSuccess, setIsSuccess] = useState<boolean>(false);
   const [scene, setCurentScene] = useState<any>(editPdf);
-  const [el, setEl] = useState<any>()
+  const [el, setEl] = useState<any>();
   const handleNext = () => {
     setCurent((prevCurent) => {
       const newCurent = prevCurent + 1;
@@ -32,15 +32,15 @@ const App = () => {
       return newCurent;
     });
   };
-  const getOffset = async(el:any) => {
-    if(el.length){
-      const rect = el.getBoundingClientRect();
+  const getOffset = (el: any) => {
+    if (el.length) {
+      const rect = el[0].getBoundingClientRect();
       return {
         left: rect.left + window.scrollX,
         top: rect.top + window.scrollY,
       };
     }
-  }
+  };
   const handleDone = useCallback(() => {
     changeDone(false);
   }, []);
@@ -68,23 +68,41 @@ const App = () => {
         break;
       }
     }
-    
-    iframeRef.current.contentDocument.addEventListener('load',()=> console.dir( iframeRef.current.contentDocument.anchors["create-text"]))
+
+    // iframeRef.current.contentDocument.addEventListener("load", () =>
+    //   console.dir(iframeRef.current.contentDocument.anchors["create-text"])
+    // );
   }, [locationDom.hash]);
 
   useEffect(() => {
-    console.log(scene[curent].elementName)
-    
+    // console.log(scene[curent].elementName);
+
     changeDone(true);
     setIsSuccess(false);
     setCurent(0);
   }, [locationDom.hash]);
-  useEffect( () => {
-    setEl( iframeRef.current.contentDocument.getElementsByName(`change-color-dropdown`))
-    if(el){
-      let originalLog = console.log;
-    }  
-  },[el])
+  useEffect(() => {
+    // console.log(iframeRef);
+    if (iframeRef.current) {
+      if (iframeRef.current.contentWindow.pdfui) {
+        iframeRef.current.contentWindow.pdfui.addViewerEventListener(
+          "open-file-success",
+          () => {
+            console.log("file load");
+            setIsSuccess(true);
+          }
+        );
+        console.log(
+          getOffset(
+            iframeRef.current.contentDocument.getElementsByName(
+              "download-file-button"
+            )
+          )
+        );
+      }
+    }
+  }, [iframeRef.current]);
+
   return (
     <HashRouter>
       <Layout className="fv__catalog-app">
@@ -95,7 +113,7 @@ const App = () => {
                 {examples.map((it) => {
                   return (
                     <Route path={"/examples/" + it.baseName} key={it.name}>
-                      {(isDoneScene && isSuccess) && (
+                      {isDoneScene && isSuccess && (
                         <Tooltip
                           positionX={scene[curent].positionX}
                           positionY={scene[curent].positionY}
@@ -110,7 +128,10 @@ const App = () => {
                         />
                       )}
                       <iframe
-                        onLoad={() => setIsSuccess(true)}
+                        onLoad={() => {
+                          setIsSuccess(true);
+                          // console.log(iframeRef.current.contentWindow.pdfui);
+                        }}
                         ref={iframeRef}
                         className="fv__catalog-app-previewer"
                         src={it.path}
