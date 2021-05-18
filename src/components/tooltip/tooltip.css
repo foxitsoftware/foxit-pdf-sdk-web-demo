@@ -15,7 +15,7 @@
     left: -38px;
     top: 35%;
 }
-.triangle {
+.triangle, .top-custom {
     height: 20px;
     width: 20px;
     background-color: #272D38;

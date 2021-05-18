@@ -11,7 +11,7 @@ const editPdf = [
   {
     positionX: "75px",
     positionY: "75px",
-    elementName: "fv__ui-change-color-dropdown fv__ui-dropdown",
+    elementName: "change-color-dropdown",
     sideTriangle: "top",
     header: "Create & edit",
     description:
@@ -21,6 +21,7 @@ const editPdf = [
   {
     positionX: "250px",
     positionY: "120px",
+    elementName: "sidebar-bookmark",
     sideTriangle: "rigth",
     header: "Navigate the PDF",
     description:
@@ -31,6 +32,7 @@ const editPdf = [
   {
     positionX: "125px",
     positionY: "75px",
+    elementName:"open-file-button-list",
     sideTriangle: "top",
     header: "Test with your own PDF",
     description: "Upload a file and test our capabilities.",
@@ -43,6 +45,7 @@ const advanced_forms = [
     positionX: "75px",
     positionY: "75px",
     sideTriangle: "top",
+    elementName:"edit-all-objects",
     header: "Directly edit PDF content",
     description:
       "Select the Edit tool to move or modify text, images, and shapes within the PDF.",
@@ -72,6 +75,7 @@ const annotation = [
   {
     positionX: "65px",
     positionY: "75px",
+    elementName: "create-text",
     sideTriangle: "top",
     header: "Add a note",
     description:
@@ -89,6 +93,7 @@ const annotation = [
   {
     positionX: "436px",
     positionY: "75px",
+    elementName:'freetext-callout',
     sideTriangle: "top",
     header: "Create a callout",
     description:
@@ -103,6 +108,7 @@ const annotation = [
   {
     positionX: "747px",
     positionY: "75px",
+    elementName:"stamp-drop-down-ui",
     sideTriangle: "top",
     header: "Stamp",
     description: "Let's create your own stamp to easily mark your pages.",
@@ -111,7 +117,8 @@ const annotation = [
   {
     positionX: "800px",
     positionY: "510px",
-    sideTriangle: "top",
+    elementName:'add-custom-stamp',
+    sideTriangle: "top-custom",
     header: "Create a stamp",
     description:
       "You can create your own custom stamps using the Custom Stamps option. Click on any of the stamps to add on the page",
@@ -133,6 +140,7 @@ const annotation = [
   {
     positionX: "935px",
     positionY: "75px",
+    elementName:"create-image",
     sideTriangle: "top",
     header: "Attach a link, image, video, or an entire file",
     description: "Keep related content together.",
@@ -144,6 +152,7 @@ const redaction = [
   {
     positionX: "351px",
     positionY: "75px",
+    elementName:"create-redaction-controllers",
     sideTriangle: "top",
     header: "Select what to redact",
     description:
@@ -153,6 +162,7 @@ const redaction = [
   {
     positionX: "475px",
     positionY: "75px",
+    elementName:"redaction-apply",
     sideTriangle: "top",
     header: "Apply the redaction",
     description: "Ready to redact what you selected? Click “Apply”.",
@@ -161,6 +171,7 @@ const redaction = [
   {
     positionX: "565px",
     positionY: "75px",
+    elementName:"redaction-search",
     sideTriangle: "top",
     header: "Search & Redact",
     description:
@@ -186,6 +197,7 @@ const form = [
   {
     positionX: "385px",
     positionY: "75px",
+    elementName:"fv--form-designer-create-text-btn",
     sideTriangle: "top",
     header: "Form builder",
     description:
@@ -195,6 +207,7 @@ const form = [
   {
     positionX: "430px",
     positionY: "75px",
+    elementName:"fv--form-designer-create-sign-btn",
     sideTriangle: "top",
     header: "Create a signature field",
     description:
@@ -206,6 +219,7 @@ const form = [
     positionX: "335px",
     positionY: "75px",
     sideTriangle: "top",
+    elementName:"fv--form-designer-create-list-box-btn",
     header: "Add more form fields",
     description:
       "Test out more types of fields! Checkboxes, radio input, dropdowns, and more await you in the toolbar.",
