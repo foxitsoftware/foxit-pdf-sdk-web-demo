@@ -30,11 +30,6 @@ pdfui.addViewerEventListener(PDFViewCtrl.ViewerEvents.openFileSuccess, () => {
 });
 //Toolbar element show/hide control
 pdfui.getRootComponent().then((root) => {
-  hideAll(
-    pdfui,
-    "@viewer,form-tab,home-tab,fv--form-tab-paddle,fv--form-tab-paddle *,fv--home-tab-paddle,fv--home-tab-paddle *"
-  );
-  //Get 'form' tab
   const formTab = root.getComponentByName("form-tab");
   formTab.active();
   const formTabGroup = root.getComponentByName("form-tab-group-text");

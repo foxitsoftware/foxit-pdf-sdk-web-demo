@@ -44,7 +44,7 @@ const advanced_forms = [
   {
     positionX: "75px",
     positionY: "75px",
-    sideTriangle: "top",
+    sideTriangle: "top-custom",
     elementName:"edit-all-objects",
     header: "Directly edit PDF content",
     description:
@@ -153,7 +153,7 @@ const redaction = [
     positionX: "351px",
     positionY: "75px",
     elementName:"create-redaction-controllers",
-    sideTriangle: "top",
+    sideTriangle: "top-custom",
     header: "Select what to redact",
     description:
       "Select Mark for Redaction to begin selecting text, an area, or a whole page to redact.",

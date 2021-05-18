@@ -32,17 +32,7 @@ pdfui.addViewerEventListener(PDFViewCtrl.ViewerEvents.openFileSuccess, () => {
 //DeviceInfo.isMobile = true;
 
 //Toolbar element show/hide control
-pdfui.getRootComponent().then((root) => {
-  hideAll(
-    pdfui,
-    "@viewer,protect-tab,home-tab,fv--protect-tab-paddle,fv--protect-tab-paddle *,fv--home-tab-paddle,fv--home-tab-paddle *"
-  );
-  //Get 'form' tab
-  const protectTab = root.getComponentByName("protect-tab");
-  protectTab.active();
-  const protectTabGroup = root.getComponentByName("protect-tab-group-text");
-  protectTabGroup.setRetainCount(4);
-});
+
 pdfui.addViewerEventListener(Events.openFileSuccess, () => {
   console.info("open file success");
   pdfui.getRootComponent().then((root) => {

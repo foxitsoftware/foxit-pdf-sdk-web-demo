@@ -30,9 +30,9 @@ pdfui.addViewerEventListener(PDFViewCtrl.ViewerEvents.openFileSuccess, () => {
 });
 //Toolbar element show/hide control
 pdfui.getRootComponent().then((root) => {
-  hideAll(pdfui, "@viewer,home-tab,fv--home-tab-paddle,fv--home-tab-paddle *");
   const downloadLink = root.getComponentByName("download-file-button");
   downloadLink.hide();
+  
 });
 
 window.addEventListener(
