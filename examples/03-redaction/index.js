@@ -33,6 +33,7 @@ pdfui.addViewerEventListener(PDFViewCtrl.ViewerEvents.openFileSuccess, () => {
 
 //Toolbar element show/hide control
 
+window.isDesktopDevise = DeviceInfo.isDesktop
 pdfui.addViewerEventListener(Events.openFileSuccess, () => {
   console.info("open file success");
   pdfui.getRootComponent().then((root) => {
@@ -44,6 +45,7 @@ window.addEventListener(
   DeviceInfo.isDesktop ? "resize" : "orientationchange",
   () => {
     pdfui.redraw();
+
   }
 );
 

@@ -7,6 +7,7 @@ import { examples } from "./foundation/examples";
 import { Tooltip } from "./components/tooltip/Tooltip";
 import { advanced_forms, form, annotation, redaction, editPdf } from "./scenes";
 
+
 const { Content } = Layout;
 
 const App = () => {
@@ -19,7 +20,7 @@ const App = () => {
   const [scene, setCurentScene] = useState<any>(editPdf);
   const [locationTooltipX, setLocationTooltipX] = useState<string>("")
   const [locationTooltipY, setLocationTooltipY] = useState<string>("")
-
+  const [isDesctopDevice, setIsDevice] = useState<boolean>(false)
 
   const getElement = (curent:number) => {
     console.log(curent)
@@ -38,20 +39,25 @@ const App = () => {
   const handleNext = () => {
     setCurent((prevCurent) => {
       const newCurent = prevCurent + 1;
-      getElement(newCurent)
       scene[newCurent].func(iframeRef);
+      getElement(newCurent)
       return newCurent;
     });
+    
   };
 
   const handlePrev = () => {
-    setCurent((prevCurent) => {
+      setCurent((prevCurent) => {
       const newCurent = prevCurent - 1;
       scene[newCurent].func(iframeRef);
-      getElement(newCurent)
-      return newCurent;
+      
+   return newCurent;
     });
   };
+
+  useEffect(() => {
+    getElement(curent)
+  }, [curent])
   const getOffset = (el: any) => {
     if (el.length) {
       const rect = el[0].getBoundingClientRect();
@@ -85,7 +91,7 @@ const App = () => {
         setCurentScene(redaction);
         break;
       }
-      case "#/examples/04-advanced_forms": {
+      case "#/examples/04-edit_pdfs": {
         setCurentScene(advanced_forms);
         break;
       }
@@ -101,14 +107,15 @@ const App = () => {
   useEffect(() => {
     changeDone(true);
     setIsLoad(false);
+    setIsSuccess(false);
     setCurent(0);
   }, [locationDom.hash]);
 
   useEffect(() => {
-    if (iframeRef.current) {
-      if (iframeRef.current.contentWindow.pdfui) {
-        iframeRef.current.contentWindow.pdfui.addViewerEventListener("open-file-success",() => { getElement(curent) })
-      }
+    if (iframeRef.current && iframeRef.current.contentWindow.pdfui) {
+      setIsDevice(iframeRef.current.contentWindow.isDesktopDevise)
+      iframeRef.current.contentWindow.pdfui.addViewerEventListener("open-file-success",() => { getElement(curent) })
+
     }
   }, [isLoad]);
 
@@ -122,7 +129,7 @@ const App = () => {
                 {examples.map((it) => {
                   return (
                     <Route path={"/examples/" + it.baseName} key={it.name}>
-                      {isDoneScene && isSuccess && (
+                      {isDoneScene && isSuccess && isDesctopDevice && (
                         <Tooltip
                           positionX={scene[curent].sideTriangle === "top"?locationTooltipX:scene[curent].positionX}
                           positionY={scene[curent].sideTriangle === "top"?locationTooltipY:scene[curent].positionY}
