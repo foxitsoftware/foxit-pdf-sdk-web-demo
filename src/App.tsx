@@ -85,7 +85,7 @@ const App = () => {
         setCurentScene(redaction);
         break;
       }
-      case "#/examples/04-advanced_forms": {
+      case "#/examples/04-edit_pdfs": {
         setCurentScene(advanced_forms);
         break;
       }
@@ -101,14 +101,13 @@ const App = () => {
   useEffect(() => {
     changeDone(true);
     setIsLoad(false);
+    setIsSuccess(false);
     setCurent(0);
   }, [locationDom.hash]);
 
   useEffect(() => {
-    if (iframeRef.current) {
-      if (iframeRef.current.contentWindow.pdfui) {
-        iframeRef.current.contentWindow.pdfui.addViewerEventListener("open-file-success",() => { getElement(curent) })
-      }
+    if (iframeRef.current && iframeRef.current.contentWindow.pdfui) {
+      iframeRef.current.contentWindow.pdfui.addViewerEventListener("open-file-success",() => { getElement(curent) })
     }
   }, [isLoad]);
 

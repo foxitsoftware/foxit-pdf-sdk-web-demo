@@ -24,7 +24,7 @@
     z-index: 1;
 }
 .rigth {
-    transform:translateX(50%) rotate(45deg);
+    transform:translateX(10px) rotate(45deg);
 }
 .modalWindow {
     background-color: #272D38;
@@ -37,6 +37,7 @@
     color: #FFFFFF;
     font-size: 20px;
     z-index: 10;
+    line-height: 28px;
     font-family: 'Open Sans', sans-serif;
     font-weight: bold;
 }
