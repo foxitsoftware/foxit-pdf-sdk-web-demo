@@ -181,9 +181,10 @@ const redaction = [
     },
   },
   {
-    positionX: "300px",
-    positionY: "100px",
-    sideTriangle: "rigth",
+    positionX: "325px",
+    positionY: "83px",
+    elementName:"fv-search-sidebar-panel",
+    sideTriangle: "left",
     header: "Search for terms",
     description:
       "Additionally, you can search a word or phrase in the document and select which instances of it you want to redact.",

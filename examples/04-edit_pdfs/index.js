@@ -25,6 +25,7 @@ const pdfui = new PDFUI({
     : "/lib/uix-addons/allInOne.js",
 });
 window.pdfui = pdfui;
+window.isDesktopDevise = DeviceInfo.isDesktop
 pdfui.addViewerEventListener(PDFViewCtrl.ViewerEvents.openFileSuccess, () => {
   window.pdfui = pdfui;
 });

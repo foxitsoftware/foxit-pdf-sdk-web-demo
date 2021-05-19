@@ -31,6 +31,7 @@ window.addEventListener(
     pdfui.redraw();
   }
 );
+window.isDesktopDevise = DeviceInfo.isDesktop
 // console.log(PDFViewCtrl.ViewerEvents.openFileSuccess);
 pdfui.addViewerEventListener(PDFViewCtrl.ViewerEvents.openFileSuccess, () => {
   window.pdfui = pdfui;

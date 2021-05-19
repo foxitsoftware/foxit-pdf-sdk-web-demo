@@ -26,6 +26,7 @@ const pdfui = new PDFUI({
     : "/lib/uix-addons/allInOne.js",
 });
 window.pdfui = pdfui;
+window.isDesktopDevise = DeviceInfo.isDesktop;
 //Toolbar element show/hide control
 
 window.addEventListener(
