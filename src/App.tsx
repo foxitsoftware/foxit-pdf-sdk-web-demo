@@ -21,7 +21,6 @@ const App = () => {
   const [locationTooltipX, setLocationTooltipX] = useState<string>("")
   const [locationTooltipY, setLocationTooltipY] = useState<string>("")
   const [isDesctopDevice, setIsDevice] = useState<boolean>(false)
-
   const getElement = (curent:number) => {
     console.log(curent)
     console.log("file load");
@@ -34,8 +33,6 @@ const App = () => {
       )
     );
   }
-
-
   const handleNext = () => {
     setCurent((prevCurent) => {
       const newCurent = prevCurent + 1;
@@ -43,7 +40,6 @@ const App = () => {
       getElement(newCurent)
       return newCurent;
     });
-    
   };
 
   const handlePrev = () => {
@@ -55,14 +51,27 @@ const App = () => {
     });
   };
 
+  const handleThisFunc = (el:string) => {
+    if(el === "move"){
+      scene[curent].func(iframeRef);
+    } else {
+      scene[curent].func(iframeRef, 0);
+    }
+  }
+
   useEffect(() => {
     getElement(curent)
   }, [curent])
   const getOffset = (el: any) => {
     if (el.length) {
       const rect = el[0].getBoundingClientRect();
-      setLocationTooltipX(`${rect.left + window.scrollX - 100}px`)
-      setLocationTooltipY(`${rect.top + window.scrollY+40}px`)
+      if(scene[curent].sideTriangle === "right"){
+        setLocationTooltipX(`${rect.left + window.scrollX -316}px`)
+        setLocationTooltipY(`${rect.top + window.scrollY -120}px`)
+      } else {
+        setLocationTooltipX(`${rect.left + window.scrollX - 100}px`)
+        setLocationTooltipY(`${rect.top + window.scrollY+40}px`)
+      }
       return {
         left: rect.left + window.scrollX,
         top: rect.top + window.scrollY,
@@ -115,7 +124,6 @@ const App = () => {
     if (iframeRef.current && iframeRef.current.contentWindow.pdfui) {
       setIsDevice(iframeRef.current.contentWindow.isDesktopDevise)
       iframeRef.current.contentWindow.pdfui.addViewerEventListener("open-file-success",() => { getElement(curent) })
-
     }
   }, [isLoad]);
 
@@ -131,16 +139,19 @@ const App = () => {
                     <Route path={"/examples/" + it.baseName} key={it.name}>
                       {isDoneScene && isSuccess && isDesctopDevice && (
                         <Tooltip
-                          positionX={scene[curent].sideTriangle === "top"?locationTooltipX:scene[curent].positionX}
-                          positionY={scene[curent].sideTriangle === "top"?locationTooltipY:scene[curent].positionY}
+                          positionX={scene[curent].sideTriangle === "top" || scene[curent].sideTriangle === "right"?locationTooltipX:scene[curent].positionX}
+                          positionY={scene[curent].sideTriangle === "top"|| scene[curent].sideTriangle === "right"?locationTooltipY:scene[curent].positionY}
                           sideTriangle={scene[curent].sideTriangle}
                           header={scene[curent].header}
+                          isRotate={scene[curent].header === "Rotate pages"}
+                          isMove = {scene[curent].header === "Reorder pages"}
                           description={scene[curent].description}
                           isFirst={Boolean(curent)}
                           isLast={scene.length - 1 === curent}
                           handleNext={handleNext}
                           handlePrev={handlePrev}
                           handleDone={handleDone}
+                          handleThisFunc = {handleThisFunc}
                         />
                       )}
                       <iframe

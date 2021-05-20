@@ -12,14 +12,14 @@ export function closeSidebar(pdfui: any) {
     sidebar.collapse();
   });
 }
-export function rotatePage(pdfui: any) {
+export function rotatePage(pdfui: any, rotate = 1) {
   return pdfui
     .getCurrentPDFDoc()
     .then((doc: any) => {
       return doc.getPageByIndex(0);
     })
     .then((page: any) => {
-      return page.setRotation(1);
+      return page.setRotation(rotate);
     });
 }
 
@@ -78,44 +78,48 @@ export function createCalloutAnnotation(pdfui: any) {
 }
 
 export function createCustomStamp(pdfui: any, url: any) {
-  const sepIndex = url.lastIndexOf("/");
-  const q = url.lastIndexOf("?");
+  const sepIndex = url.lastIndexOf('/');
+  const q = url.lastIndexOf('?');
   if (q > -1) {
-    url = url.substring(0, q);
+      url = url.substring(0, q);
   }
   const filename = url.substring(sepIndex);
-  const dotIndex = filename.lastIndexOf(".");
+  const dotIndex = filename.lastIndexOf('.');
   let ext: any;
   let name = filename;
   if (dotIndex > -1) {
-    ext = filename.substring(dotIndex + 1);
-    name = filename.substring(0, dotIndex);
+      ext = filename.substring(dotIndex + 1);
+      name = filename.substring(0, dotIndex);
   }
+  /*
   if (!ext) {
-    pdfui.alert(`Unknown file type: ${url}`);
-    return;
-  }
+      pdfui.alert(`Unknown file type: ${url}`);
+      return;
+  }*/
+  // To automatically close the custom stamp dropdown modal, call the restore method below
+  // you can add this method after user clicks on 'Next'
+  // restore();
   return pdfui
-    .getRootComponent()
-    .then((root: any) => {
-      const commentTab = root.getComponentByName("comment-tab");
-      commentTab.active();
-      return root;
-    })
-    .then((root: any) => {
-      const stampDropdown = root.getComponentByName("stamp-drop-down-ui");
-      stampDropdown.active();
-      return loadImage(url).then((size: any) => {
-        return pdfui.addAnnotationIcon({
-          url,
-          name: name,
-          category: "customStampDemo",
-          fileType: ext,
-          width: size.width,
-          height: size.height,
-        });
+      .getRootComponent()
+      .then((root: any) => {
+          const commentTab = root.getComponentByName('comment-tab');
+          commentTab.active();
+          return root;
+      })
+      .then((root: any) => {
+          const stampDropdown = root.getComponentByName('stamp-drop-down-ui');
+          stampDropdown.active();
+          return loadImage(url).then((size: any) => {
+              return pdfui.addAnnotationIcon({
+                  url,
+                  name: name,
+                  category: 'customStampDemo',
+                  fileType: ext,
+                  width: size.width,
+                  height: size.height,
+              });
+          });
       });
-    });
 }
 
 export function markAndRedactAStringOfText(pdfui: any) {
