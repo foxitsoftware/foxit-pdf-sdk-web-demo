@@ -5,6 +5,8 @@ import "./index.css";
 const { PDFUI, PDFViewCtrl } = UIExtension;
 const { DeviceInfo } = PDFViewCtrl;
 
+console.log(DeviceInfo)
+
 const libPath = "/lib/";
 
 const pdfui = new PDFUI({
@@ -32,6 +34,7 @@ window.addEventListener(
   }
 );
 window.isDesktopDevise = DeviceInfo.isDesktop
+window.innerWidth > 1000 ? DeviceInfo.isDesktop === true : DeviceInfo.isMobile === true
 // console.log(PDFViewCtrl.ViewerEvents.openFileSuccess);
 pdfui.addViewerEventListener(PDFViewCtrl.ViewerEvents.openFileSuccess, () => {
   window.pdfui = pdfui;

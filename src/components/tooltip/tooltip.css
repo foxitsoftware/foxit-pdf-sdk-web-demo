@@ -10,12 +10,17 @@
     left: 39.5%;
     top: -47px;
 }
-.dot-rigth {
+.dot-left {
     position: absolute;
     left: -38px;
     top: 35%;
 }
-.dot-left {
+.dot-right {
+    position: absolute;
+    left: 281px;
+    top: 168px;
+}
+.dot-left-custom {
     position: absolute;
     left: -60px;
     top: 11%;
@@ -27,14 +32,26 @@
     margin: auto;
     z-index: 1;
 }
-
+.buttonFunc {
+    border: none;
+    background: none;
+    color: #FFFFFF;
+    font-size: 14px;
+    font-family: 'Open Sans', sans-serif;
+    text-decoration: underline;
+    cursor: pointer;
+    padding: 0;
+}
 .top, .top-custom {
     transform:translateY(50%) rotate(45deg);
 }
-.rigth {
+.left {
     transform:translateX(10px) rotate(45deg);
 }
-.left {
+.right {
+    transform: translate(128px, 185px) rotate(45deg);
+}
+.left-custom {
     transform: translate(-128px, 40px) rotate(45deg);
 }
 .modalWindow {

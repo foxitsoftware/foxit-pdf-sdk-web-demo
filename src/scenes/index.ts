@@ -1,6 +1,6 @@
 import {
   closeSidebar,
-  createCalloutAnnotation,
+  markAndRedactAStringOfText,
   createCustomStamp,
   movePage,
   openSidebar,
@@ -22,7 +22,7 @@ const editPdf = [
     positionX: "250px",
     positionY: "120px",
     elementName: "sidebar-bookmark",
-    sideTriangle: "rigth",
+    sideTriangle: "left",
     header: "Navigate the PDF",
     description:
       "Use the sidebar to see pages, annotations, form information, and to search the PDF.",
@@ -54,16 +54,16 @@ const advanced_forms = [
   {
     positionX: "250px",
     positionY: "280px",
-    sideTriangle: "rigth",
+    sideTriangle: "left",
     header: "Rotate pages",
     description: "Right-click the page thumbnail to fix the page.",
-    func: (ref: any) =>
-    openSidebar(ref.current.contentWindow.pdfui, 'sidebar-thumbnail-panel').then(() => rotatePage(ref.current.contentWindow.pdfui)),
+    func: (ref: any, rotate: number) =>
+    openSidebar(ref.current.contentWindow.pdfui, 'sidebar-thumbnail-panel').then(() => rotatePage(ref.current.contentWindow.pdfui, rotate)),
   },
   {
     positionX: "250px",
     positionY: "300px",
-    sideTriangle: "rigth",
+    sideTriangle: "left",
     header: "Reorder pages",
     description:
       "Click & drag pages to put pages in the right order in the Thumbnail sidebar.",
@@ -85,7 +85,7 @@ const annotation = [
   {
     positionX: "60%",
     positionY: "280px",
-    sideTriangle: "rigth",
+    sideTriangle: "left",
     header: "Leave your note",
     description: "Click directly in the PDF to leave a note in context.",
     func: (ref: any) => closeSidebar(ref.current.contentWindow.pdfui),
@@ -118,21 +118,16 @@ const annotation = [
     positionX: "800px",
     positionY: "510px",
     elementName:'add-custom-stamp',
-    sideTriangle: "top-custom",
+    sideTriangle: "right",
     header: "Create a stamp",
     description:
       "You can create your own custom stamps using the Custom Stamps option. Click on any of the stamps to add on the page",
-    func: (ref: any) =>
-      ref.current.contentWindow.pdfui
-        .prompt("/assets/stamp.jpg", "Custom stamp image url")
-        .then((url: string) => {
-          createCustomStamp(ref.current.contentWindow.pdfui, url);
-        }),
+    func: (ref: any) => {createCustomStamp(ref.current.contentWindow.pdfui, location.origin + '/assets/stamp.jpg')}
   },
   {
     positionX: "75%",
     positionY: "300px",
-    sideTriangle: "rigth",
+    sideTriangle: "left",
     header: "Stamp",
     description: "Click to stamp anywhere on the page.",
     func: () => {},
@@ -177,14 +172,14 @@ const redaction = [
     description:
       "Search for terms in the whole PDF, and choose which to redact.",
     func: (ref: any) => {
-      createCalloutAnnotation(ref.current.contentWindow.pdfui);
+      markAndRedactAStringOfText(ref.current.contentWindow.pdfui);
     },
   },
   {
     positionX: "325px",
     positionY: "83px",
     elementName:"fv-search-sidebar-panel",
-    sideTriangle: "left",
+    sideTriangle: "left-custom",
     header: "Search for terms",
     description:
       "Additionally, you can search a word or phrase in the document and select which instances of it you want to redact.",

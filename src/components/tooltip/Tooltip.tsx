@@ -10,9 +10,12 @@ interface Props {
   description: string;
   isFirst: boolean;
   isLast: boolean;
+  isRotate: boolean;
+  isMove: boolean;
   handleNext: () => void;
   handlePrev: () => void;
   handleDone: () => void;
+  handleThisFunc: (el:string) => void;
 }
 
 // sideTriangle, header, description, clickNext, clickPrev
@@ -22,16 +25,19 @@ export const Tooltip: React.FC<Props> = React.memo(
     positionY,
     sideTriangle,
     header,
+    isRotate,
+    isMove,
     isFirst,
     isLast,
     description,
     handleDone,
     handleNext,
     handlePrev,
+    handleThisFunc,
   }) => {
     return (
       <div
-        className={sideTriangle === "rigth" ? "wrapBlock-flex" : "wrapBlock"}
+        className={sideTriangle === "left" ? "wrapBlock-flex" : "wrapBlock"}
         style={{ top: positionY, left: positionX }}
       >
         <div className = {`dot-${sideTriangle}`}><Dot /></div>
@@ -39,6 +45,10 @@ export const Tooltip: React.FC<Props> = React.memo(
         <div className="modalWindow">
           <h1 className="header">{header}</h1>
           <span className="description">{description}</span>
+          <div>
+            {isRotate && <button className="buttonFunc" onClick={() => handleThisFunc("Rotate")}>Rotate</button>}
+            {isMove && <button className="buttonFunc" onClick={() => handleThisFunc("Move")}>Move Page</button>}
+          </div>
           <div className="navigation">
             <div>
               {isFirst && (
