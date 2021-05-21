@@ -204,6 +204,10 @@ pdfui.getRootComponent().then((root) => {
   //Get 'comment' tab
   const commentTab = root.getComponentByName("comment-tab");
   commentTab.active();
+  pdfui.getComponentByName('redaction').then((group) => {
+    group.setRetainCount(100)
+  })
+  //This function does not open dropdown with hidden items
   const commentTabGroup = root.getComponentByName("comment-tab-group-text");
   commentTabGroup.setRetainCount(4);
 });

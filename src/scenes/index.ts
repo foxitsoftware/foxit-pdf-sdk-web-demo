@@ -5,7 +5,6 @@ import {
   movePage,
   openSidebar,
   rotatePage,
-  openHiddenTools,
   createCalloutAnnotation
 } from "../snippets";
 
@@ -132,7 +131,7 @@ const annotation = [
     sideTriangle: "left",
     header: "Stamp",
     description: "Click to stamp anywhere on the page.",
-    func: (ref: any) => {openHiddenTools(ref.current.contentWindow.pdfui)},
+    func: () => {},
   },
   {
     positionX: "935px",

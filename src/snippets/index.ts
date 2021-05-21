@@ -171,13 +171,7 @@ export function disableAll(pdfui: any, excludeQuerySelector: any) {
   };
 }
 
-export function openHiddenTools(pdfui: any) {
-  pdfui.getComponentByName('redaction').then((group:any) => {
-    group.setRetainCount(100)
-    })
-  }
-  
-//This function does not open dropdown with hidden items
+
 
 export function hideAll(pdfui: any, excludeQuerySelector: any) {
   const promise = pdfui.getRootComponent().then((root: any) => {
