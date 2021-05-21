@@ -5,7 +5,7 @@ import React, { useCallback, useEffect, useRef, useState } from "react";
 import { Switch, Route, HashRouter, useLocation } from "react-router-dom";
 import { examples } from "./foundation/examples";
 import { Tooltip } from "./components/tooltip/Tooltip";
-import { advanced_forms, form, annotation, redaction, editPdf } from "./scenes";
+import { advanced_forms, form, annotation, redaction, editPdf, digital_signature, search } from "./scenes";
 
 
 const { Content } = Layout;
@@ -102,6 +102,14 @@ const App = () => {
       }
       case "#/examples/04-edit_pdfs": {
         setCurentScene(advanced_forms);
+        break;
+      }
+      case "#/examples/05-digital_signature": {
+        setCurentScene(digital_signature);
+        break;
+      }
+      case "#/examples/06-search": {
+        setCurentScene(search);
         break;
       }
     }

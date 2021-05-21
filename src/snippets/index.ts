@@ -36,42 +36,42 @@ export function openTab(pdfui: any, tab: string) {
   });
 }
 
-export function createCalloutAnnotation(pdfui: any) {
-  return pdfui.getRootComponent().then((root: any) => {
-    const restore = disableAll(pdfui, "freetext-callout,@alert @xbutton");
-    return pdfui.alert("Click OK to create callout").then(() => {
-      restore();
-      return pdfui
-        .getCurrentPDFDoc()
-        .then((doc: any) => {
-          return doc.getPageByIndex(0);
-        })
-        .then((page: any) => {
-          return page.addAnnot({
-            type: "freetext",
-            intent: "FreeTextCallout",
-            subject: "FreeTextCallout",
-            "interior-color": 16777215,
+export function createCalloutAnnotation(pdfui:any) {
+  return pdfui.getRootComponent().then((root:any) => {
+    const commentTab = root.getComponentByName('comment-tab');
+    commentTab.active();
+    const restore = disableAll(pdfui, 'freetext-callout,@alert @xbutton');
+    restore();
+    return pdfui
+    .getCurrentPDFDoc()
+    .then((doc:any) => {
+        return doc.getPageByIndex(0);
+    })
+    .then((page:any) => {
+        return page.addAnnot({
+            type: 'freetext',
+            intent: 'FreeTextCallout',
+            subject: 'FreeTextCallout',
+            'interior-color': 16777215,
             rotate: 0,
             flags: 4,
             calloutLinePoints: [
-              { x: 77.35922330097088, y: 453.32038834951464 },
-              { x: 238.41456310679615, y: 497.0262135922331 },
-              { x: 253.41456310679615, y: 497.0262135922331 },
+                { x: 77.35922330097088, y: 453.32038834951464 },
+                { x: 238.41456310679615, y: 497.0262135922331 },
+                { x: 253.41456310679615, y: 497.0262135922331 },
             ],
             rect: {
-              left: 76.35922330097088,
-              top: 508.1262135922331,
-              right: 354.5145631067962,
-              bottom: 452.32038834951464,
+                left: 76.35922330097088,
+                top: 508.1262135922331,
+                right: 354.5145631067962,
+                bottom: 452.32038834951464,
             },
             innerRect: {
-              left: 253.51456310679615,
-              top: 507.1262135922331,
-              right: 353.5145631067962,
-              bottom: 487.1262135922331,
+                left: 253.51456310679615,
+                top: 507.1262135922331,
+                right: 353.5145631067962,
+                bottom: 487.1262135922331,
             },
-          });
         });
     });
   });
@@ -170,6 +170,8 @@ export function disableAll(pdfui: any, excludeQuerySelector: any) {
     });
   };
 }
+
+
 
 export function hideAll(pdfui: any, excludeQuerySelector: any) {
   const promise = pdfui.getRootComponent().then((root: any) => {

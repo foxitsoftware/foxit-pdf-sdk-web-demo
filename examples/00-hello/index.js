@@ -34,7 +34,7 @@ window.addEventListener(
   }
 );
 window.isDesktopDevise = DeviceInfo.isDesktop
-window.innerWidth > 1000 ? DeviceInfo.isDesktop === true : DeviceInfo.isMobile === true
+// window.innerWidth > 1000 ? DeviceInfo.isDesktop === true : DeviceInfo.isMobile === true
 // console.log(PDFViewCtrl.ViewerEvents.openFileSuccess);
 pdfui.addViewerEventListener(PDFViewCtrl.ViewerEvents.openFileSuccess, () => {
   window.pdfui = pdfui;

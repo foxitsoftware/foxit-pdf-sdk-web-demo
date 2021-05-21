@@ -1,7 +1,7 @@
 import * as UIExtension from "UIExtension";
 import "@foxitsoftware/foxit-pdf-sdk-for-web-library/lib/UIExtension.vw.css";
 import "./index.css";
-import { hideAll } from "../../src/snippets";
+
 
 const { PDFUI, PDFViewCtrl } = UIExtension;
 const { DeviceInfo, Events } = PDFViewCtrl;
@@ -56,8 +56,8 @@ pdfui.openPDFByHttpRangeRequest(
   {
     range: {
       //Default PDF file path
-      url: "/assets/FoxitPDFSDKforWeb_DemoGuide.pdf",
+      url: "/assets/Feature-example_redaction.pdf",
     },
   },
-  { fileName: "FoxitPDFSDKforWeb_DemoGuide.pdf" }
+  { fileName: "Feature-example_redaction.pdf" }
 );

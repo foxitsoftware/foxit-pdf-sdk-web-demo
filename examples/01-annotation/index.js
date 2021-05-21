@@ -26,9 +26,11 @@ const pdfui = new PDFUI({
     : "/lib/uix-addons/allInOne.js",
 });
 window.pdfui = pdfui;
-window.isDesktopDevise = DeviceInfo.isDesktop;
 //Toolbar element show/hide control
-
+pdfui.getComponentByName('redaction').then((group) => {
+  group.setRetainCount(100)
+})
+//This function does not open dropdown with hidden items
 window.addEventListener(
   DeviceInfo.isDesktop ? "resize" : "orientationchange",
   () => {
@@ -90,10 +92,10 @@ pdfui
     {
       range: {
         //Default PDF file path
-        url: "/assets/FoxitPDFSDKforWeb_DemoGuide.pdf",
+        url: "/assets/Feature-example_annotations.pdf",
       },
     },
-    { fileName: "FoxitPDFSDKforWeb_DemoGuide.pdf" }
+    { fileName: "Feature-example_annotations.pdf" }
   )
   .then((doc) => {
     Promise.all([
