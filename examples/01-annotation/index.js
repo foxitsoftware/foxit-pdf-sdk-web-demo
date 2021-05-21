@@ -90,10 +90,10 @@ pdfui
     {
       range: {
         //Default PDF file path
-        url: "/assets/FoxitPDFSDKforWeb_DemoGuide.pdf",
+        url: "/assets/Feature-example_annotations.pdf",
       },
     },
-    { fileName: "FoxitPDFSDKforWeb_DemoGuide.pdf" }
+    { fileName: "Feature-example_annotations.pdf" }
   )
   .then((doc) => {
     Promise.all([

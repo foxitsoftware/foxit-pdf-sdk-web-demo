@@ -5,6 +5,8 @@ import {
   movePage,
   openSidebar,
   rotatePage,
+  openHiddenTools,
+  createCalloutAnnotation
 } from "../snippets";
 
 const editPdf = [
@@ -102,7 +104,7 @@ const annotation = [
       openSidebar(
         ref.current.contentWindow.pdfui,
         "comment-list-sidebar-panel"
-      );
+      ).then(() => {createCalloutAnnotation(ref.current.contentWindow.pdfui)});
     },
   },
   {
@@ -130,7 +132,7 @@ const annotation = [
     sideTriangle: "left",
     header: "Stamp",
     description: "Click to stamp anywhere on the page.",
-    func: () => {},
+    func: (ref: any) => {openHiddenTools(ref.current.contentWindow.pdfui)},
   },
   {
     positionX: "935px",
@@ -223,4 +225,53 @@ const form = [
   },
 ];
 
-export { editPdf, redaction, form, advanced_forms, annotation };
+const digital_signature = [
+  {
+    positionX: "105px",
+    positionY: "75px",
+    elementName:"protect-tab-group-sign",
+    sideTriangle: "top-custom",
+    header: "Create a signature",
+    description:
+      "Select the PDF Sign tool to create your custom signature. Signatures can be saved for easy reuse from this menu.",
+    func: (ref: any) => closeSidebar(ref.current.contentWindow.pdfui),
+  },
+  {
+    positionX: "430px",
+    positionY: "75px",
+    elementName:"fv--form-designer-create-sign-btn",
+    sideTriangle: "top",
+    header: "Create a signature field",
+    description:
+      "Create a desginated space for a signature. Select the tool, then click & drag.",
+    func: (ref: any) =>
+      openSidebar(ref.current.contentWindow.pdfui, "sidebar-field"),
+  },
+  {
+    positionX: "335px",
+    positionY: "75px",
+    sideTriangle: "top",
+    elementName:"fv--form-designer-create-list-box-btn",
+    header: "Add more form fields",
+    description:
+      "Test out more types of fields! Checkboxes, radio input, dropdowns, and more await you in the toolbar.",
+    func: () => {},
+  }
+]
+const search = [
+  {
+    positionX: "325px",
+    positionY: "83px",
+    elementName:"fv-search-sidebar-panel",
+    sideTriangle: "left-custom",
+    header: "Search PDF text",
+    description:
+      "Enter a word or phrase to find all instances within the PDF.",
+    func: (ref: any) => {
+      openSidebar(ref.current.contentWindow.pdfui, "sidebar-search");
+    },
+  }
+]
+
+
+export { editPdf, redaction, form, advanced_forms, annotation , digital_signature, search };

@@ -55,8 +55,8 @@ pdfui.openPDFByHttpRangeRequest(
   {
     range: {
       //Default PDF file path
-      url: "/assets/FoxitPDFSDKforWeb_DemoGuide.pdf",
+      url: "/assets/Feature-example_edit-pdf.pdf",
     },
   },
-  { fileName: "FoxitPDFSDKforWeb_DemoGuide.pdf" }
+  { fileName: "Feature-example_edit-pdf.pdf" }
 );
