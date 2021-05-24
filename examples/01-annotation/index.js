@@ -26,10 +26,15 @@ const pdfui = new PDFUI({
     : "/lib/uix-addons/allInOne.js",
 });
 window.pdfui = pdfui;
+pdfui.addViewerEventListener(PDFViewCtrl.ViewerEvents.openFileSuccess, () => {
+  window.pdfui = pdfui;
+});
+
+window.isDesktopDevise = DeviceInfo.isDesktop
 //Toolbar element show/hide control
-pdfui.getComponentByName('redaction').then((group) => {
-  group.setRetainCount(100)
-})
+// pdfui.getComponentByName('create-strikeout').then((group) => {
+//   group.setRetainCount(100)
+// })
 //This function does not open dropdown with hidden items
 window.addEventListener(
   DeviceInfo.isDesktop ? "resize" : "orientationchange",
@@ -202,8 +207,6 @@ function createTypeWriter(pdfDoc, pageIndex) {
   );
 }
 pdfui.getRootComponent().then((root) => {
-  // hideAll(pdfui, 'freetext-callout,@viewer,comment-tab,home-tab,fv--home-tab-paddle,fv--home-tab-paddle *');
-  //Get 'comment' tab
   const commentTab = root.getComponentByName("comment-tab");
   commentTab.active();
   const commentTabGroup = root.getComponentByName("comment-tab-group-text");

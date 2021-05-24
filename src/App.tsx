@@ -25,6 +25,7 @@ const App = () => {
     console.log(curent)
     console.log("file load");
     setIsSuccess(true);
+    if(locationDom.hash === "#/examples/05-digital_signature")(iframeRef.current.contentDocument.getElementsByClassName('fv__ui-portfolio-container')[0]&&(iframeRef.current.contentDocument.getElementsByClassName('fv__ui-portfolio-container')[0].style.cssText = 'padding: 0px 224px; background: gainsboro;'))
     console.log(
       getOffset(
         iframeRef.current.contentDocument.getElementsByName(

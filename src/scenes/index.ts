@@ -236,24 +236,32 @@ const digital_signature = [
     func: (ref: any) => closeSidebar(ref.current.contentWindow.pdfui),
   },
   {
-    positionX: "430px",
-    positionY: "75px",
-    elementName:"fv--form-designer-create-sign-btn",
-    sideTriangle: "top",
-    header: "Create a signature field",
+    positionX: "1280px",
+    positionY: "405px",
+    sideTriangle: "left",
+    header: "Insert your signature",
     description:
-      "Create a desginated space for a signature. Select the tool, then click & drag.",
+      "Place your signature in the field (or anywhere else in the PDF)!",
     func: (ref: any) =>
       openSidebar(ref.current.contentWindow.pdfui, "sidebar-field"),
+  },
+  {
+    positionX: "1280px",
+    positionY: "405px",
+    sideTriangle: "left",
+    header: "Custom signature security",
+    description:
+      "Select the signature field to set permissions, appearance, and more.",
+    func: () => {},
   },
   {
     positionX: "335px",
     positionY: "75px",
     sideTriangle: "top",
-    elementName:"fv--form-designer-create-list-box-btn",
-    header: "Add more form fields",
+    elementName:"password-protect-btn",
+    header: "Protect your PDF",
     description:
-      "Test out more types of fields! Checkboxes, radio input, dropdowns, and more await you in the toolbar.",
+      "Set a password on your document",
     func: () => {},
   }
 ]
