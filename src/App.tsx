@@ -144,6 +144,7 @@ const App = () => {
       }
       iframeRef.current.contentWindow.pdfui.addViewerEventListener("open-file-success",() => { getElement(curent) })
     }
+    return () => { iframeRef.current.contentWindow.onresize = null}
   }, [isLoad]);
 
   return (
