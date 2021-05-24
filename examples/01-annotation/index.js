@@ -29,13 +29,8 @@ window.pdfui = pdfui;
 pdfui.addViewerEventListener(PDFViewCtrl.ViewerEvents.openFileSuccess, () => {
   window.pdfui = pdfui;
 });
-
 window.isDesktopDevise = DeviceInfo.isDesktop
-//Toolbar element show/hide control
-// pdfui.getComponentByName('create-strikeout').then((group) => {
-//   group.setRetainCount(100)
-// })
-//This function does not open dropdown with hidden items
+
 window.addEventListener(
   DeviceInfo.isDesktop ? "resize" : "orientationchange",
   () => {

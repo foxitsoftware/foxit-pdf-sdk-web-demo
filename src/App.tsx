@@ -20,12 +20,15 @@ const App = () => {
   const [scene, setCurentScene] = useState<any>(editPdf);
   const [locationTooltipX, setLocationTooltipX] = useState<string>("")
   const [locationTooltipY, setLocationTooltipY] = useState<string>("")
-  const [isDesctopDevice, setIsDevice] = useState<boolean>(false)
+  const [isDesktopDevice, setIsDevice] = useState<boolean>(false)
   const getElement = (curent:number) => {
     console.log(curent)
     console.log("file load");
     setIsSuccess(true);
-    if(locationDom.hash === "#/examples/05-digital_signature")(iframeRef.current.contentDocument.getElementsByClassName('fv__ui-portfolio-container')[0]&&(iframeRef.current.contentDocument.getElementsByClassName('fv__ui-portfolio-container')[0].style.cssText = 'padding: 0px 224px; background: gainsboro;'))
+    if(locationDom.hash === "#/examples/05-digital_signature"){
+      const curentItem = iframeRef.current.contentDocument.getElementsByClassName('fv__ui-portfolio-container')[0]
+      curentItem && (curentItem.style.cssText = 'padding: 0px 224px; background: gainsboro;')
+    }
     console.log(
       getOffset(
         iframeRef.current.contentDocument.getElementsByName(
@@ -132,6 +135,13 @@ const App = () => {
   useEffect(() => {
     if (iframeRef.current && iframeRef.current.contentWindow.pdfui) {
       setIsDevice(iframeRef.current.contentWindow.isDesktopDevise)
+      iframeRef.current.contentWindow.onresize = () => {
+        if(iframeRef.current.contentWindow.innerWidth<1000){
+          setIsDevice(false)
+        } else {
+          setIsDevice(true)
+        }
+      }
       iframeRef.current.contentWindow.pdfui.addViewerEventListener("open-file-success",() => { getElement(curent) })
     }
   }, [isLoad]);
@@ -146,7 +156,7 @@ const App = () => {
                 {examples.map((it) => {
                   return (
                     <Route path={"/examples/" + it.baseName} key={it.name}>
-                      {isDoneScene && isSuccess && isDesctopDevice && (
+                      {isDoneScene && isSuccess && isDesktopDevice && (
                         <Tooltip
                           positionX={scene[curent].sideTriangle === "top" || scene[curent].sideTriangle === "right"?locationTooltipX:scene[curent].positionX}
                           positionY={scene[curent].sideTriangle === "top"|| scene[curent].sideTriangle === "right"?locationTooltipY:scene[curent].positionY}
