@@ -58,8 +58,8 @@ const advanced_forms = [
     sideTriangle: "left",
     header: "Rotate pages",
     description: "Right-click the page thumbnail to fix the page.",
-    func: (ref: any, rotate: number) =>
-    openSidebar(ref.current.contentWindow.pdfui, 'sidebar-thumbnail-panel').then(() => rotatePage(ref.current.contentWindow.pdfui, rotate)),
+    func: (ref: any) =>
+    openSidebar(ref.current.contentWindow.pdfui, 'sidebar-thumbnail-panel').then(() => rotatePage(ref.current.contentWindow.pdfui)),
   },
   {
     positionX: "250px",

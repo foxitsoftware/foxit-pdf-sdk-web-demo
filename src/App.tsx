@@ -59,7 +59,7 @@ const App = () => {
     if(el === "move"){
       scene[curent].func(iframeRef);
     } else {
-      scene[curent].func(iframeRef, 0);
+      scene[curent].func(iframeRef);
     }
   }
 

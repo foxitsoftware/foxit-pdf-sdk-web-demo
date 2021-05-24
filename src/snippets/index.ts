@@ -1,3 +1,5 @@
+let rotate = 0;
+
 export function openSidebar(pdfui: any, sidebarTabName: any) {
   return pdfui.getRootComponent().then((root: any) => {
     const sidebarPanel = root.getComponentByName(sidebarTabName);
@@ -12,13 +14,15 @@ export function closeSidebar(pdfui: any) {
     sidebar.collapse();
   });
 }
-export function rotatePage(pdfui: any, rotate = 1) {
+
+export function rotatePage(pdfui: any) {
   return pdfui
     .getCurrentPDFDoc()
     .then((doc: any) => {
       return doc.getPageByIndex(0);
     })
     .then((page: any) => {
+      rotate? rotate-- : rotate++;
       return page.setRotation(rotate);
     });
 }
