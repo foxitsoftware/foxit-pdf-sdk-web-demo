@@ -12,12 +12,19 @@ const libPath = "/lib/";
 
 const pdfui = new PDFUI({
   viewerOptions: {
+    customs: {
+      getDocPermissions: function () {
+          return 0;// 0 means ReadOnly 
+      }
+    },
     libPath: libPath,
-
     jr: {
       workerPath: libPath,
       enginePath: libPath + "jr-engine/gsdk/",
       fontPath: "https://webpdf.foxitsoftware.com/webfonts/",
+      brotli:{
+        core:false,
+      },
       licenseSN: licenseSN,
       licenseKey: licenseKey,
     },

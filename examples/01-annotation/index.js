@@ -8,6 +8,7 @@ const File_Type = PDFViewCtrl.PDF.constant.File_Type;
 const Annot_Flags = PDFViewCtrl.PDF.annots.constant.Annot_Flags;
 
 const libPath = "/lib/";
+
 const pdfui = new PDFUI({
   viewerOptions: {
     libPath: libPath,
@@ -15,6 +16,9 @@ const pdfui = new PDFUI({
       workerPath: libPath,
       enginePath: libPath + "jr-engine/gsdk/",
       fontPath: "https://webpdf.foxitsoftware.com/webfonts/",
+      brotli:{
+        core:false,
+      },
       licenseSN: licenseSN,
       licenseKey: licenseKey,
     },
