@@ -9,9 +9,11 @@ console.log(DeviceInfo)
 
 const libPath = "/lib/";
 
+
 const pdfui = new PDFUI({
   viewerOptions: {
     libPath: libPath,
+
     jr: {
       workerPath: libPath,
       enginePath: libPath + "jr-engine/gsdk/",
@@ -26,7 +28,10 @@ const pdfui = new PDFUI({
     ? libPath + "uix-addons/allInOne.mobile.js"
     : libPath + "uix-addons/allInOne.js",
 });
+
+
 window.pdfui = pdfui;
+
 window.addEventListener(
   DeviceInfo.isDesktop ? "resize" : "orientationchange",
   function (e) {
