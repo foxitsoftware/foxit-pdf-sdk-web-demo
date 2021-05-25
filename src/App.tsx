@@ -136,7 +136,7 @@ const App = () => {
     if (iframeRef.current && iframeRef.current.contentWindow.pdfui) {
       setIsDevice(iframeRef.current.contentWindow.isDesktopDevise)
       iframeRef.current.contentWindow.onresize = () => {
-        if(iframeRef.current.contentWindow.innerWidth<1000){
+        if(iframeRef.current.contentWindow.innerWidth<900){
           setIsDevice(false)
         } else {
           setIsDevice(true)
