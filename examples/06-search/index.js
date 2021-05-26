@@ -6,8 +6,6 @@ import "./index.css";
 const { PDFUI, PDFViewCtrl } = UIExtension;
 const { DeviceInfo } = PDFViewCtrl;
 
-console.log(DeviceInfo)
-
 const libPath = "/lib/";
 
 const pdfui = new PDFUI({
@@ -17,8 +15,8 @@ const pdfui = new PDFUI({
       workerPath: libPath,
       enginePath: libPath + "jr-engine/gsdk/",
       fontPath: "https://webpdf.foxitsoftware.com/webfonts/",
-      brotli:{
-        core:false,
+      brotli: {
+        core: false,
       },
       licenseSN: licenseSN,
       licenseKey: licenseKey,
@@ -30,19 +28,21 @@ const pdfui = new PDFUI({
     ? libPath + "uix-addons/allInOne.mobile.js"
     : libPath + "uix-addons/allInOne.js",
 });
+
 window.pdfui = pdfui;
+
 window.addEventListener(
   DeviceInfo.isDesktop ? "resize" : "orientationchange",
   function (e) {
     pdfui.redraw();
   }
 );
-window.isDesktopDevise = DeviceInfo.isDesktop
-// window.innerWidth > 1000 ? DeviceInfo.isDesktop === true : DeviceInfo.isMobile === true
-// console.log(PDFViewCtrl.ViewerEvents.openFileSuccess);
+
+window.isDesktopDevise = DeviceInfo.isDesktop;
+
 pdfui.addViewerEventListener(PDFViewCtrl.ViewerEvents.openFileSuccess, () => {
   window.pdfui = pdfui;
-  openSidebar(pdfui, "sidebar-search")
+  openSidebar(pdfui, "sidebar-search");
 });
 
 pdfui.openPDFByHttpRangeRequest(

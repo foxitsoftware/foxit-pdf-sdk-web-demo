@@ -2,6 +2,7 @@
     filter: blur(1px) grayscale(1);
     pointer-events: none;
 }
+
 .demo-hidden-ui {
     display: none!important;
 }

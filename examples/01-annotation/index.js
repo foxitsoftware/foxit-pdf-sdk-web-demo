@@ -16,8 +16,8 @@ const pdfui = new PDFUI({
       workerPath: libPath,
       enginePath: libPath + "jr-engine/gsdk/",
       fontPath: "https://webpdf.foxitsoftware.com/webfonts/",
-      brotli:{
-        core:false,
+      brotli: {
+        core: false,
       },
       licenseSN: licenseSN,
       licenseKey: licenseKey,
@@ -29,11 +29,14 @@ const pdfui = new PDFUI({
     ? "/lib/uix-addons/allInOne.mobile.js"
     : "/lib/uix-addons/allInOne.js",
 });
+
 window.pdfui = pdfui;
+
 pdfui.addViewerEventListener(PDFViewCtrl.ViewerEvents.openFileSuccess, () => {
   window.pdfui = pdfui;
 });
-window.isDesktopDevise = DeviceInfo.isDesktop
+
+window.isDesktopDevise = DeviceInfo.isDesktop;
 
 window.addEventListener(
   DeviceInfo.isDesktop ? "resize" : "orientationchange",

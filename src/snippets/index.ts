@@ -8,6 +8,7 @@ export function openSidebar(pdfui: any, sidebarTabName: any) {
     }
   });
 }
+
 export function closeSidebar(pdfui: any) {
   return pdfui.getRootComponent().then((root: any) => {
     const sidebar = root.getComponentByName("sidebar");
@@ -22,12 +23,12 @@ export function rotatePage(pdfui: any) {
       return doc.getPageByIndex(0);
     })
     .then((page: any) => {
-      rotate? rotate-- : rotate++;
+      rotate ? rotate-- : rotate++;
       return page.setRotation(rotate);
     });
 }
 
-export function movePage(pdfui: any, fromIndex: any, toIndex: any) {
+export function movePage(pdfui: any, fromIndex: number, toIndex: number) {
   return pdfui.getCurrentPDFDoc().then((doc: any) => {
     return doc.movePageTo(fromIndex, toIndex);
   });
@@ -40,90 +41,82 @@ export function openTab(pdfui: any, tab: string) {
   });
 }
 
-export function createCalloutAnnotation(pdfui:any) {
-  return pdfui.getRootComponent().then((root:any) => {
-    const commentTab = root.getComponentByName('comment-tab');
+export function createCalloutAnnotation(pdfui: any) {
+  return pdfui.getRootComponent().then((root: any) => {
+    const commentTab = root.getComponentByName("comment-tab");
     commentTab.active();
-    const restore = disableAll(pdfui, 'freetext-callout,@alert @xbutton');
+    const restore = disableAll(pdfui, "freetext-callout,@alert @xbutton");
     restore();
     return pdfui
-    .getCurrentPDFDoc()
-    .then((doc:any) => {
+      .getCurrentPDFDoc()
+      .then((doc: any) => {
         return doc.getPageByIndex(0);
-    })
-    .then((page:any) => {
+      })
+      .then((page: any) => {
         return page.addAnnot({
-            type: 'freetext',
-            intent: 'FreeTextCallout',
-            subject: 'FreeTextCallout',
-            'interior-color': 16777215,
-            rotate: 0,
-            flags: 4,
-            calloutLinePoints: [
-                { x: 77.35922330097088, y: 453.32038834951464 },
-                { x: 238.41456310679615, y: 497.0262135922331 },
-                { x: 253.41456310679615, y: 497.0262135922331 },
-            ],
-            rect: {
-                left: 76.35922330097088,
-                top: 508.1262135922331,
-                right: 354.5145631067962,
-                bottom: 452.32038834951464,
-            },
-            innerRect: {
-                left: 253.51456310679615,
-                top: 507.1262135922331,
-                right: 353.5145631067962,
-                bottom: 487.1262135922331,
-            },
+          type: "freetext",
+          intent: "FreeTextCallout",
+          subject: "FreeTextCallout",
+          "interior-color": 16777215,
+          rotate: 0,
+          flags: 4,
+          calloutLinePoints: [
+            { x: 77.35922330097088, y: 453.32038834951464 },
+            { x: 238.41456310679615, y: 497.0262135922331 },
+            { x: 253.41456310679615, y: 497.0262135922331 },
+          ],
+          rect: {
+            left: 76.35922330097088,
+            top: 508.1262135922331,
+            right: 354.5145631067962,
+            bottom: 452.32038834951464,
+          },
+          innerRect: {
+            left: 253.51456310679615,
+            top: 507.1262135922331,
+            right: 353.5145631067962,
+            bottom: 487.1262135922331,
+          },
         });
-    });
+      });
   });
 }
 
-export function createCustomStamp(pdfui: any, url: any) {
-  const sepIndex = url.lastIndexOf('/');
-  const q = url.lastIndexOf('?');
+export function createCustomStamp(pdfui: any, url: string) {
+  const sepIndex = url.lastIndexOf("/");
+  const q = url.lastIndexOf("?");
   if (q > -1) {
-      url = url.substring(0, q);
+    url = url.substring(0, q);
   }
   const filename = url.substring(sepIndex);
-  const dotIndex = filename.lastIndexOf('.');
+  const dotIndex = filename.lastIndexOf(".");
   let ext: any;
   let name = filename;
   if (dotIndex > -1) {
-      ext = filename.substring(dotIndex + 1);
-      name = filename.substring(0, dotIndex);
+    ext = filename.substring(dotIndex + 1);
+    name = filename.substring(0, dotIndex);
   }
-  /*
-  if (!ext) {
-      pdfui.alert(`Unknown file type: ${url}`);
-      return;
-  }*/
-  // To automatically close the custom stamp dropdown modal, call the restore method below
-  // you can add this method after user clicks on 'Next'
-  // restore();
   return pdfui
-      .getRootComponent()
-      .then((root: any) => {
-          const commentTab = root.getComponentByName('comment-tab');
-          commentTab.active();
-          return root;
-      })
-      .then((root: any) => {
-          const stampDropdown = root.getComponentByName('stamp-drop-down-ui');
-          stampDropdown.active();
-          return loadImage(url).then((size: any) => {
-              return pdfui.addAnnotationIcon({
-                  url,
-                  name: name,
-                  category: 'customStampDemo',
-                  fileType: ext,
-                  width: size.width,
-                  height: size.height,
-              });
-          });
+    .getRootComponent()
+    .then((root: any) => {
+      const commentTab = root.getComponentByName("comment-tab");
+      commentTab.active();
+      return root;
+    })
+    .then((root: any) => {
+      const stampDropdown = root.getComponentByName("stamp-drop-down-ui");
+      stampDropdown.active();
+      return loadImage(url).then((size: any) => {
+        return pdfui.addAnnotationIcon({
+          url,
+          name: name,
+          category: "customStampDemo",
+          fileType: ext,
+          width: size.width,
+          height: size.height,
+        });
       });
+    });
 }
 
 export function markAndRedactAStringOfText(pdfui: any) {
@@ -175,9 +168,7 @@ export function disableAll(pdfui: any, excludeQuerySelector: any) {
   };
 }
 
-
-
-export function hideAll(pdfui: any, excludeQuerySelector: any) {
+export function hideAll(pdfui: any, excludeQuerySelector: string) {
   const promise = pdfui.getRootComponent().then((root: any) => {
     const all = root.querySelectorAll(
       "sidebar,@gtab,@xbutton,@dropdown,@dropdown-button,@file-selector,@input,@viewer,@group"
@@ -208,7 +199,7 @@ export function hideAll(pdfui: any, excludeQuerySelector: any) {
   };
 }
 
-function loadImage(url: any) {
+function loadImage(url: string) {
   const image = new Image();
   return new Promise((resolve, reject) => {
     image.onerror = () => {
