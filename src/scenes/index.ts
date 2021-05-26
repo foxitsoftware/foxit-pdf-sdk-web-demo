@@ -39,6 +39,15 @@ const editPdf = [
     description: "Upload a file and test our capabilities.",
     func: (ref: any) => closeSidebar(ref.current.contentWindow.pdfui),
   },
+  {
+    positionX: "125px",
+    positionY: "75px",
+    elementName:"print-button",
+    sideTriangle: "top",
+    header: "Print your PDF",
+    description: "Easily export and print to your specification.",
+    func: (ref: any) => closeSidebar(ref.current.contentWindow.pdfui),
+  },
 ];
 
 const advanced_forms = [
