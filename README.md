@@ -10,7 +10,8 @@ The snippet is used for control and interaction with the PDF Viewer. They are in
 
 ## Scenes 
 
-Scenes are needed to show the order in which tooltips appear. There are objects with a configuration of tips.They are in the folder `src/scenes`.
+Scenes are needed to show the order in which tooltips appear. There are objects with a configuration of tips.
+They are in the folder `src/scenes`.
 
 ## Routes
 
