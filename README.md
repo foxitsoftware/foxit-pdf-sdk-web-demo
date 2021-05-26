@@ -6,11 +6,29 @@ The app only generate and display pdf examples in the iframe. Here use snippets,
 
 The application was built with Node 14.16.0.
 
-Run this command if you're using nvm
+## Available Scripts
+
+In the project directory, you can run:
 
 ```
-nvm use
+npm start
 ```
+
+Runs the app in the development mode.\
+Open [http://0.0.0.0:8082](http://0.0.0.0:8082/#/examples/00-hello) to view it in the browser.
+
+The page will reload if you make edits.\
+You will also see any lint errors in the console.
+
+```
+npm run build
+```
+
+Builds the app for production to the `build` folder.\
+It correctly bundles React in production mode and optimizes the build for the best performance.
+
+The build is minified and the filenames include the hashes.\
+Your app is ready to be deployed!
 
 ## Snippets 
 
@@ -46,26 +64,3 @@ Example 6
 Example 7
 * [http://0.0.0.0:8082/#/examples/06-search](http://0.0.0.0:8082/#/examples/06-search)
 
-## Available Scripts
-
-In the project directory, you can run:
-
-```
-npm start
-```
-
-Runs the app in the development mode.\
-Open [http://0.0.0.0:8082](http://0.0.0.0:8082/#/examples/00-hello) to view it in the browser.
-
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
-
-```
-npm run build
-```
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
