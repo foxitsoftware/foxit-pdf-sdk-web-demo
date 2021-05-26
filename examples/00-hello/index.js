@@ -9,14 +9,16 @@ console.log(DeviceInfo)
 
 const libPath = "/lib/";
 
+// var readyWorker = preloadJrWorker({
+//   workerPath: './lib/',
+//   enginePath: './lib/jr-engine/gsdk',
+//   fontPath: "https://webpdf.foxitsoftware.com/webfonts/",
+//   licenseSN: licenseSN,
+//   licenseKey: licenseKey
+// })
 
 const pdfui = new PDFUI({
   viewerOptions: {
-    customs: {
-      getDocPermissions: function () {
-          return 0;// 0 means ReadOnly 
-      }
-    },
     libPath: libPath,
     jr: {
       workerPath: libPath,
