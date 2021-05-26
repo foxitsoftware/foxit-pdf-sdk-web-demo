@@ -97,6 +97,14 @@ const App = () => {
     changeDone(false);
   }, []);
 
+  const resizeWindow = () => {
+    if (iframeRef.current.contentWindow.innerWidth < 900) {
+      setIsDevice(false);
+    } else {
+      setIsDevice(true);
+    }
+  };
+
   useEffect(() => {
     switch (locationDom.hash) {
       case "#/examples/00-hello": {
@@ -144,13 +152,9 @@ const App = () => {
   useEffect(() => {
     if (iframeRef.current && iframeRef.current.contentWindow.pdfui) {
       setIsDevice(iframeRef.current.contentWindow.isDesktopDevise);
-      iframeRef.current.contentWindow.onresize = () => {
-        if (iframeRef.current.contentWindow.innerWidth < 900) {
-          setIsDevice(false);
-        } else {
-          setIsDevice(true);
-        }
-      };
+
+      iframeRef.current.contentWindow.onresize = resizeWindow;
+
       iframeRef.current.contentWindow.pdfui.addViewerEventListener(
         "open-file-success",
         () => {
