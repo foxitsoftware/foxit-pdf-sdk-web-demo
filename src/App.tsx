@@ -48,31 +48,31 @@ const App = () => {
     );
   };
 
-  const handleNext = useCallback(() => {
+  const handleNext = () => {
     setCurrent((prevCurrent) => {
       const newCurrent = prevCurrent + 1;
       scene[newCurrent].func(iframeRef);
       getElement(newCurrent);
       return newCurrent;
     });
-  }, []);
+  };
 
-  const handlePrev = useCallback(() => {
+  const handlePrev = () => {
     setCurrent((prevCurrent) => {
       const newCurrent = prevCurrent - 1;
       scene[newCurrent].func(iframeRef);
 
       return newCurrent;
     });
-  }, []);
+  };
 
-  const handleThisFunc = useCallback((el: string) => {
+  const handleThisFunc = (el: string) => {
     if (el === "move") {
       scene[current].func(iframeRef);
     } else {
       scene[current].func(iframeRef);
     }
-  }, []);
+  };
 
   const getOffset = (el: any) => {
     if (el.length) {
