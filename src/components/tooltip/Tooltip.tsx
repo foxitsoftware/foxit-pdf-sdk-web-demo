@@ -47,7 +47,7 @@ export const Tooltip: React.FC<Props> = React.memo(
           <span className="description">{description}</span>
           <div>
             {isRotate && <button className="buttonFunc" onClick={() => handleThisFunc("Rotate")}>Rotate</button>}
-            {isMove && <button className="buttonFunc" onClick={() => handleThisFunc("Move")}>Move Page</button>}
+            {isMove && <button className="buttonFunc" onClick={() => handleThisFunc("Move")}>Reorder Page</button>}
           </div>
           <div className="navigation">
             <div>

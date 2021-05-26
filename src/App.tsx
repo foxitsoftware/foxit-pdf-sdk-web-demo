@@ -73,6 +73,7 @@ const App = () => {
         setLocationTooltipX(`${rect.left + window.scrollX -316}px`)
         setLocationTooltipY(`${rect.top + window.scrollY -120}px`)
       } else {
+        (rect.left + window.scrollX === 0)? setLocationTooltipX(`${rect.left + window.scrollX}px`):
         setLocationTooltipX(`${rect.left + window.scrollX - 100}px`)
         setLocationTooltipY(`${rect.top + window.scrollY+40}px`)
       }
