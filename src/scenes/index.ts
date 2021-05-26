@@ -5,7 +5,7 @@ import {
   movePage,
   openSidebar,
   rotatePage,
-  createCalloutAnnotation
+  createCalloutAnnotation,
 } from "../snippets";
 
 const editPdf = [
@@ -33,7 +33,7 @@ const editPdf = [
   {
     positionX: "125px",
     positionY: "75px",
-    elementName:"open-file-button-list",
+    elementName: "open-file-button-list",
     sideTriangle: "top",
     header: "Test with your own PDF",
     description: "Upload a file and test our capabilities.",
@@ -46,7 +46,7 @@ const advanced_forms = [
     positionX: "75px",
     positionY: "75px",
     sideTriangle: "top-custom",
-    elementName:"edit-all-objects",
+    elementName: "edit-all-objects",
     header: "Directly edit PDF content",
     description:
       "Select the Edit tool to move or modify text, images, and shapes within the PDF.",
@@ -59,7 +59,10 @@ const advanced_forms = [
     header: "Rotate pages",
     description: "Right-click the page thumbnail to fix the page.",
     func: (ref: any) =>
-    openSidebar(ref.current.contentWindow.pdfui, 'sidebar-thumbnail-panel').then(() => rotatePage(ref.current.contentWindow.pdfui)),
+      openSidebar(
+        ref.current.contentWindow.pdfui,
+        "sidebar-thumbnail-panel"
+      ).then(() => rotatePage(ref.current.contentWindow.pdfui)),
   },
   {
     positionX: "250px",
@@ -94,7 +97,7 @@ const annotation = [
   {
     positionX: "436px",
     positionY: "75px",
-    elementName:'freetext-callout',
+    elementName: "freetext-callout",
     sideTriangle: "top",
     header: "Create a callout",
     description:
@@ -103,13 +106,15 @@ const annotation = [
       openSidebar(
         ref.current.contentWindow.pdfui,
         "comment-list-sidebar-panel"
-      ).then(() => {createCalloutAnnotation(ref.current.contentWindow.pdfui)});
+      ).then(() => {
+        createCalloutAnnotation(ref.current.contentWindow.pdfui);
+      });
     },
   },
   {
     positionX: "747px",
     positionY: "75px",
-    elementName:"stamp-drop-down-ui",
+    elementName: "stamp-drop-down-ui",
     sideTriangle: "top",
     header: "Stamp",
     description: "Let's create your own stamp to easily mark your pages.",
@@ -118,12 +123,17 @@ const annotation = [
   {
     positionX: "800px",
     positionY: "510px",
-    elementName:'add-custom-stamp',
+    elementName: "add-custom-stamp",
     sideTriangle: "right",
     header: "Create a stamp",
     description:
       "You can create your own custom stamps using the Custom Stamps option. Click on any of the stamps to add on the page",
-    func: (ref: any) => {createCustomStamp(ref.current.contentWindow.pdfui, location.origin + '/assets/stamp.jpg')}
+    func: (ref: any) => {
+      createCustomStamp(
+        ref.current.contentWindow.pdfui,
+        location.origin + "/assets/stamp.jpg"
+      );
+    },
   },
   {
     positionX: "75%",
@@ -136,7 +146,7 @@ const annotation = [
   {
     positionX: "935px",
     positionY: "75px",
-    elementName:"create-image",
+    elementName: "create-image",
     sideTriangle: "top",
     header: "Attach a link, image, video, or an entire file",
     description: "Keep related content together.",
@@ -148,7 +158,7 @@ const redaction = [
   {
     positionX: "351px",
     positionY: "75px",
-    elementName:"create-redaction-controllers",
+    elementName: "create-redaction-controllers",
     sideTriangle: "top-custom",
     header: "Select what to redact",
     description:
@@ -158,7 +168,7 @@ const redaction = [
   {
     positionX: "475px",
     positionY: "75px",
-    elementName:"redaction-apply",
+    elementName: "redaction-apply",
     sideTriangle: "top",
     header: "Apply the redaction",
     description: "Ready to redact what you selected? Click “Apply”.",
@@ -167,7 +177,7 @@ const redaction = [
   {
     positionX: "565px",
     positionY: "75px",
-    elementName:"redaction-search",
+    elementName: "redaction-search",
     sideTriangle: "top",
     header: "Search & Redact",
     description:
@@ -179,7 +189,7 @@ const redaction = [
   {
     positionX: "325px",
     positionY: "83px",
-    elementName:"fv-search-sidebar-panel",
+    elementName: "fv-search-sidebar-panel",
     sideTriangle: "left-custom",
     header: "Search for terms",
     description:
@@ -194,7 +204,7 @@ const form = [
   {
     positionX: "385px",
     positionY: "75px",
-    elementName:"fv--form-designer-create-text-btn",
+    elementName: "fv--form-designer-create-text-btn",
     sideTriangle: "top",
     header: "Form builder",
     description:
@@ -204,7 +214,7 @@ const form = [
   {
     positionX: "430px",
     positionY: "75px",
-    elementName:"fv--form-designer-create-sign-btn",
+    elementName: "fv--form-designer-create-sign-btn",
     sideTriangle: "top",
     header: "Create a signature field",
     description:
@@ -216,7 +226,7 @@ const form = [
     positionX: "335px",
     positionY: "75px",
     sideTriangle: "top",
-    elementName:"fv--form-designer-create-list-box-btn",
+    elementName: "fv--form-designer-create-list-box-btn",
     header: "Add more form fields",
     description:
       "Test out more types of fields! Checkboxes, radio input, dropdowns, and more await you in the toolbar.",
@@ -228,7 +238,7 @@ const digital_signature = [
   {
     positionX: "105px",
     positionY: "75px",
-    elementName:"protect-tab-group-sign",
+    elementName: "protect-tab-group-sign",
     sideTriangle: "top-custom",
     header: "Create a signature",
     description:
@@ -258,27 +268,33 @@ const digital_signature = [
     positionX: "335px",
     positionY: "75px",
     sideTriangle: "top",
-    elementName:"password-protect-btn",
+    elementName: "password-protect-btn",
     header: "Protect your PDF",
-    description:
-      "Set a password on your document",
+    description: "Set a password on your document",
     func: () => {},
-  }
-]
+  },
+];
+
 const search = [
   {
     positionX: "325px",
     positionY: "83px",
-    elementName:"fv-search-sidebar-panel",
+    elementName: "fv-search-sidebar-panel",
     sideTriangle: "left-custom",
     header: "Search PDF text",
-    description:
-      "Enter a word or phrase to find all instances within the PDF.",
+    description: "Enter a word or phrase to find all instances within the PDF.",
     func: (ref: any) => {
       openSidebar(ref.current.contentWindow.pdfui, "sidebar-search");
     },
-  }
-]
+  },
+];
 
-
-export { editPdf, redaction, form, advanced_forms, annotation , digital_signature, search };
+export {
+  editPdf,
+  redaction,
+  form,
+  advanced_forms,
+  annotation,
+  digital_signature,
+  search,
+};

@@ -6,6 +6,7 @@ const { PDFUI, PDFViewCtrl } = UIExtension;
 const { DeviceInfo, Events } = PDFViewCtrl;
 const File_Type = PDFViewCtrl.PDF.constant.File_Type;
 const libPath = "/lib/";
+
 const pdfui = new PDFUI({
   viewerOptions: {
     libPath: libPath,
@@ -13,8 +14,8 @@ const pdfui = new PDFUI({
       workerPath: libPath,
       enginePath: libPath + "jr-engine/gsdk/",
       fontPath: "https://webpdf.foxitsoftware.com/webfonts/",
-      brotli:{
-        core:false,
+      brotli: {
+        core: false,
       },
       licenseSN: licenseSN,
       licenseKey: licenseKey,
@@ -26,11 +27,14 @@ const pdfui = new PDFUI({
     ? "/lib/uix-addons/allInOne.mobile.js"
     : "/lib/uix-addons/allInOne.js",
 });
+
 window.pdfui = pdfui;
-window.isDesktopDevise = DeviceInfo.isDesktop
+window.isDesktopDevise = DeviceInfo.isDesktop;
+
 pdfui.addViewerEventListener(PDFViewCtrl.ViewerEvents.openFileSuccess, () => {
   window.pdfui = pdfui;
 });
+
 //Toolbar element show/hide control
 pdfui.getRootComponent().then((root) => {
   const formTab = root.getComponentByName("form-tab");

@@ -2,29 +2,35 @@
     position: absolute;
     margin: 12px 0px;
 }
+
 .wrapBlock-flex {
     display: flex;
 }
+
 .dot-top, .dot-top-custom{
     position: absolute;
     left: 39.5%;
     top: -47px;
 }
+
 .dot-left {
     position: absolute;
     left: -38px;
     top: 35%;
 }
+
 .dot-right {
     position: absolute;
     left: 281px;
     top: 168px;
 }
+
 .dot-left-custom {
     position: absolute;
     left: -60px;
     top: 11%;
 }
+
 .triangle {
     height: 20px;
     width: 20px;
@@ -32,6 +38,7 @@
     margin: auto;
     z-index: 1;
 }
+
 .buttonFunc {
     border: none;
     background: none;
@@ -42,18 +49,23 @@
     cursor: pointer;
     padding: 0;
 }
+
 .top, .top-custom {
     transform:translateY(50%) rotate(45deg);
 }
+
 .left {
     transform:translateX(10px) rotate(45deg);
 }
+
 .right {
     transform: translate(128px, 185px) rotate(45deg);
 }
+
 .left-custom {
     transform: translate(-128px, 40px) rotate(45deg);
 }
+
 .modalWindow {
     background-color: #272D38;
     border-radius: 8px;
@@ -61,6 +73,7 @@
     z-index: 10;
     max-width: 260px;
 }
+
 .header {
     color: #FFFFFF;
     font-size: 20px;
@@ -69,16 +82,19 @@
     font-family: 'Open Sans', sans-serif;
     font-weight: bold;
 }
+
 .description {
     color: #FFFFFF;
     font-size: 14px;
     font-family: 'Open Sans', sans-serif;
 }
+
 .navigation {
     display: flex;
     justify-content: space-between;
     margin-top: 20px;
 }
+
 .btnPrev, .btnNext {
     cursor: pointer;
     border: none;

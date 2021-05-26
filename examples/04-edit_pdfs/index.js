@@ -14,8 +14,8 @@ const pdfui = new PDFUI({
       workerPath: libPath,
       enginePath: libPath + "jr-engine/gsdk/",
       fontPath: "https://webpdf.foxitsoftware.com/webfonts/",
-      brotli:{
-        core:false,
+      brotli: {
+        core: false,
       },
       licenseSN: licenseSN,
       licenseKey: licenseKey,
@@ -28,15 +28,16 @@ const pdfui = new PDFUI({
     : "/lib/uix-addons/allInOne.js",
 });
 window.pdfui = pdfui;
-window.isDesktopDevise = DeviceInfo.isDesktop
+window.isDesktopDevise = DeviceInfo.isDesktop;
+
 pdfui.addViewerEventListener(PDFViewCtrl.ViewerEvents.openFileSuccess, () => {
   window.pdfui = pdfui;
 });
+
 //Toolbar element show/hide control
 pdfui.getRootComponent().then((root) => {
   const downloadLink = root.getComponentByName("download-file-button");
   downloadLink.hide();
-  
 });
 
 window.addEventListener(

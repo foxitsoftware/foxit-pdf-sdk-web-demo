@@ -1,5 +1,5 @@
 import React from "react";
-import {Dot} from "./../dot/Dot"
+import { Dot } from "./../dot/Dot";
 import "./tooltip.css";
 
 interface Props {
@@ -15,7 +15,7 @@ interface Props {
   handleNext: () => void;
   handlePrev: () => void;
   handleDone: () => void;
-  handleThisFunc: (el:string) => void;
+  handleThisFunc: (el: string) => void;
 }
 
 // sideTriangle, header, description, clickNext, clickPrev
@@ -40,14 +40,30 @@ export const Tooltip: React.FC<Props> = React.memo(
         className={sideTriangle === "left" ? "wrapBlock-flex" : "wrapBlock"}
         style={{ top: positionY, left: positionX }}
       >
-        <div className = {`dot-${sideTriangle}`}><Dot /></div>
-        <div className={`triangle ${sideTriangle}`}></div>
+        <div className={`dot-${sideTriangle}`}>
+          <Dot />
+        </div>
+        <div className={`triangle ${sideTriangle}`} />
         <div className="modalWindow">
           <h1 className="header">{header}</h1>
           <span className="description">{description}</span>
           <div>
-            {isRotate && <button className="buttonFunc" onClick={() => handleThisFunc("Rotate")}>Rotate</button>}
-            {isMove && <button className="buttonFunc" onClick={() => handleThisFunc("Move")}>Reorder Page</button>}
+            {isRotate && (
+              <button
+                className="buttonFunc"
+                onClick={() => handleThisFunc("Rotate")}
+              >
+                Rotate
+              </button>
+            )}
+            {isMove && (
+              <button
+                className="buttonFunc"
+                onClick={() => handleThisFunc("Move")}
+              >
+                Reorder Page
+              </button>
+            )}
           </div>
           <div className="navigation">
             <div>

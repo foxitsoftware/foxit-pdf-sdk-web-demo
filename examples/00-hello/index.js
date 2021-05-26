@@ -5,25 +5,24 @@ import "./index.css";
 const { PDFUI, PDFViewCtrl } = UIExtension;
 const { DeviceInfo } = PDFViewCtrl;
 
-console.log(DeviceInfo)
+console.log(DeviceInfo);
 
 const libPath = "/lib/";
-
 
 const pdfui = new PDFUI({
   viewerOptions: {
     customs: {
       getDocPermissions: function () {
-          return 0;// 0 means ReadOnly 
-      }
+        return 0; // 0 means ReadOnly
+      },
     },
     libPath: libPath,
     jr: {
       workerPath: libPath,
       enginePath: libPath + "jr-engine/gsdk/",
       fontPath: "https://webpdf.foxitsoftware.com/webfonts/",
-      brotli:{
-        core:false,
+      brotli: {
+        core: false,
       },
       licenseSN: licenseSN,
       licenseKey: licenseKey,
@@ -36,7 +35,6 @@ const pdfui = new PDFUI({
     : libPath + "uix-addons/allInOne.js",
 });
 
-
 window.pdfui = pdfui;
 
 window.addEventListener(
@@ -45,9 +43,8 @@ window.addEventListener(
     pdfui.redraw();
   }
 );
-window.isDesktopDevise = DeviceInfo.isDesktop
-// window.innerWidth > 1000 ? DeviceInfo.isDesktop === true : DeviceInfo.isMobile === true
-// console.log(PDFViewCtrl.ViewerEvents.openFileSuccess);
+window.isDesktopDevise = DeviceInfo.isDesktop;
+
 pdfui.addViewerEventListener(PDFViewCtrl.ViewerEvents.openFileSuccess, () => {
   window.pdfui = pdfui;
 });
