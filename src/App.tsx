@@ -20,6 +20,7 @@ const { Content } = Layout;
 const App = () => {
   const iframeRef = useRef<any>(null);
   const locationDom = useLocation();
+  const [isShow, setIsShow] = useState(false);
   const [current, setCurrent] = useState<number>(0);
   const [isDoneScene, changeDone] = useState<boolean>(true);
   const [isLoad, setIsLoad] = useState<boolean>(false);
@@ -167,6 +168,19 @@ const App = () => {
     };
   }, [isLoad]);
 
+  const getMessage = (event: any) => {
+    console.log("Received message:", event.data);
+    setIsShow(event.data);
+  };
+
+  useEffect(() => {
+    window.addEventListener("message", getMessage, false);
+
+    return () => {
+      window.addEventListener("message", getMessage, false);
+    };
+  }, [iframeRef]);
+
   return (
     <HashRouter>
       <Layout className="fv__catalog-app">
@@ -177,33 +191,36 @@ const App = () => {
                 {examples.map((it) => {
                   return (
                     <Route path={"/examples/" + it.baseName} key={it.name}>
-                      {isDoneScene && isSuccess && isDesktopDevice && (
-                        <Tooltip
-                          positionX={
-                            scene[current].sideTriangle === "top" ||
-                            scene[current].sideTriangle === "right"
-                              ? locationTooltipX
-                              : scene[current].positionX
-                          }
-                          positionY={
-                            scene[current].sideTriangle === "top" ||
-                            scene[current].sideTriangle === "right"
-                              ? locationTooltipY
-                              : scene[current].positionY
-                          }
-                          sideTriangle={scene[current].sideTriangle}
-                          header={scene[current].header}
-                          isRotate={scene[current].header === "Rotate pages"}
-                          isMove={scene[current].header === "Reorder pages"}
-                          description={scene[current].description}
-                          isFirst={Boolean(current)}
-                          isLast={scene.length - 1 === current}
-                          handleNext={handleNext}
-                          handlePrev={handlePrev}
-                          handleDone={handleDone}
-                          handleThisFunc={handleThisFunc}
-                        />
-                      )}
+                      {isShow &&
+                        isDoneScene &&
+                        isSuccess &&
+                        isDesktopDevice && (
+                          <Tooltip
+                            positionX={
+                              scene[current].sideTriangle === "top" ||
+                              scene[current].sideTriangle === "right"
+                                ? locationTooltipX
+                                : scene[current].positionX
+                            }
+                            positionY={
+                              scene[current].sideTriangle === "top" ||
+                              scene[current].sideTriangle === "right"
+                                ? locationTooltipY
+                                : scene[current].positionY
+                            }
+                            sideTriangle={scene[current].sideTriangle}
+                            header={scene[current].header}
+                            isRotate={scene[current].header === "Rotate pages"}
+                            isMove={scene[current].header === "Reorder pages"}
+                            description={scene[current].description}
+                            isFirst={Boolean(current)}
+                            isLast={scene.length - 1 === current}
+                            handleNext={handleNext}
+                            handlePrev={handlePrev}
+                            handleDone={handleDone}
+                            handleThisFunc={handleThisFunc}
+                          />
+                        )}
                       <iframe
                         onLoad={() => {
                           setIsLoad(true);
