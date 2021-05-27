@@ -255,8 +255,8 @@ const digital_signature = [
     func: (ref: any) => closeSidebar(ref.current.contentWindow.pdfui),
   },
   {
-    positionX: "1280px",
-    positionY: "405px",
+    positionX: "80%",
+    positionY: "385px",
     sideTriangle: "left",
     header: "Insert your signature",
     description:
@@ -265,8 +265,8 @@ const digital_signature = [
       openSidebar(ref.current.contentWindow.pdfui, "sidebar-field"),
   },
   {
-    positionX: "1280px",
-    positionY: "405px",
+    positionX: "80%",
+    positionY: "385px",
     sideTriangle: "left",
     header: "Custom signature security",
     description:
