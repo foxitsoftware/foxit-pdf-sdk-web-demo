@@ -31,6 +31,7 @@ const App = () => {
 
   const getElement = (newCurrent: number) => {
     setIsSuccess(true);
+
     if (locationDom.hash === "#/examples/05-digital_signature") {
       const currentItem =
         iframeRef.current.contentDocument.getElementsByClassName(
@@ -38,9 +39,8 @@ const App = () => {
         )[0];
       currentItem &&
         (currentItem.style.cssText =
-          "padding: 0px 224px; background: gainsboro;");
+          "padding: 0px 200px; background: gainsboro;");
     }
-
     getOffset(
       iframeRef.current.contentDocument.getElementsByName(
         scene[newCurrent].elementName
