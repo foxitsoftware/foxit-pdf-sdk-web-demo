@@ -41,6 +41,12 @@ const App = () => {
         (currentItem.style.cssText =
           "padding: 0px 200px; background: gainsboro;");
     }
+    if(window.location.hash === "true"){
+      console.log('true')
+    }
+    if(window.location.hash === "false"){
+      console.log('false')
+    }
     getOffset(
       iframeRef.current.contentDocument.getElementsByName(
         scene[newCurrent].elementName
