@@ -18,6 +18,11 @@
     left: -38px;
     top: 35%;
 }
+.dot-left-fixed {
+    position: absolute;
+    left: -60px;
+    top: 35%;
+}
 
 .dot-right {
     position: absolute;
@@ -56,6 +61,10 @@
 
 .left {
     transform:translateX(10px) rotate(45deg);
+}
+
+.left-fixed {
+    transform:translate(-130px, 80px) rotate(45deg);
 }
 
 .right {

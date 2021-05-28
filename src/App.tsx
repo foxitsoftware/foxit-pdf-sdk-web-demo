@@ -31,7 +31,6 @@ const App = () => {
   const [isDesktopDevice, setIsDevice] = useState<boolean>(false);
 
   const getMessage = (event: any) => {
-    console.log("Received message:", event.data);
     setIsShow(event.data);
   };
 
@@ -55,17 +54,26 @@ const App = () => {
         (currentItem.style.cssText =
           "padding: 0px 200px; background: gainsboro;");
     }
-    getOffset(
-      iframeRef.current.contentDocument.getElementsByName(
-        scene[newCurrent].elementName
-      )
-    );
+    if(locationDom.hash === "#/examples/annotation" && newCurrent === 1) {
+      getOffset(
+        iframeRef.current.contentDocument.querySelector(
+         `.${scene[newCurrent].elementName}`
+        )
+      );
+    }else {
+      getOffset(
+        iframeRef.current.contentDocument.getElementsByName(
+          scene[newCurrent].elementName
+        )
+      );
+    }
   };
 
   const handleNext = () => {
     setCurrent((prevCurrent) => {
       const newCurrent = prevCurrent + 1;
-      scene[newCurrent].func(iframeRef);
+      scene[newCurrent].func(iframeRef)
+      console.log("2")
       getElement(newCurrent);
       return newCurrent;
     });
@@ -75,7 +83,7 @@ const App = () => {
     setCurrent((prevCurrent) => {
       const newCurrent = prevCurrent - 1;
       scene[newCurrent].func(iframeRef);
-
+      getElement(newCurrent);
       return newCurrent;
     });
   };
@@ -89,11 +97,16 @@ const App = () => {
   };
 
   const getOffset = (el: any) => {
+    console.log(el)
     if (el.length) {
       const rect = el[0].getBoundingClientRect();
+      console.log(el[0].getBoundingClientRect())
       if (scene[current].sideTriangle === "right") {
         setLocationTooltipX(`${rect.left + window.scrollX - 316}px`);
         setLocationTooltipY(`${rect.top + window.scrollY - 120}px`);
+      } else if(scene[current].sideTriangle === "left-fixed"){
+        setLocationTooltipX(`${rect.left + window.scrollX + 70}px`);
+        setLocationTooltipY(`${rect.top + window.scrollY - 85}px`);
       } else {
         rect.left + window.scrollX === 0
           ? setLocationTooltipX(`${rect.left + window.scrollX}px`)
@@ -199,13 +212,15 @@ const App = () => {
                           <Tooltip
                             positionX={
                               scene[current].sideTriangle === "top" ||
-                              scene[current].sideTriangle === "right"
+                              scene[current].sideTriangle === "right"||
+                              scene[current].sideTriangle === 'left-fixed'
                                 ? locationTooltipX
                                 : scene[current].positionX
                             }
                             positionY={
                               scene[current].sideTriangle === "top" ||
-                              scene[current].sideTriangle === "right"
+                              scene[current].sideTriangle === "right"||
+                              scene[current].sideTriangle === 'left-fixed'
                                 ? locationTooltipY
                                 : scene[current].positionY
                             }

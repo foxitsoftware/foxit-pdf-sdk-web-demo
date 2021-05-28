@@ -199,14 +199,14 @@ export function hideAll(pdfui: any, excludeQuerySelector: string) {
   };
 }
 export function createTextNoteAnnotation(pdfui:any) {
+  
   return pdfui.getRootComponent().then((root:any) => {
+    console.log("sdfds")
       const commentTab = root.getComponentByName('comment-tab');
       commentTab.active();
-      const restore = disableAll(pdfui, 'create-text,@alert @xbutton,@viewer,sidebar');
-      // Prompt dialog window disabled
-      // return pdfui.alert('Click OK to create text note')
       return Promise.resolve()
       .then(() => {
+        
           // To automatically close the custom stamp dropdown modal, call the restore method below
           // you can add this method after user clicks on 'Next'
           // restore();
@@ -237,7 +237,7 @@ export function createTextNoteAnnotation(pdfui:any) {
                   const commentSidebar = root.querySelector('comment-list-sidebar-panel');
                   commentSidebar.enable();
                   commentSidebar.active();
-                  return restore;
+                  
               });
       });
   });
