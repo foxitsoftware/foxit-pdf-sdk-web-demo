@@ -43,11 +43,6 @@ window.isDesktopDevise = DeviceInfo.isDesktop;
 pdfui.addViewerEventListener(PDFViewCtrl.ViewerEvents.openFileSuccess, () => {
   window.pdfui = pdfui;
   openSidebar(pdfui, "sidebar-search");
-  const getMessage = (event) => {
-    console.log("Received message:", event.data);
-    setIsShow(event.data);
-  };
-  window.addEventListener("message", getMessage, false);
 });
 
 pdfui.openPDFByHttpRangeRequest(

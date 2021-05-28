@@ -198,7 +198,50 @@ export function hideAll(pdfui: any, excludeQuerySelector: string) {
     });
   };
 }
-
+export function createTextNoteAnnotation(pdfui:any) {
+  return pdfui.getRootComponent().then((root:any) => {
+      const commentTab = root.getComponentByName('comment-tab');
+      commentTab.active();
+      const restore = disableAll(pdfui, 'create-text,@alert @xbutton,@viewer,sidebar');
+      // Prompt dialog window disabled
+      // return pdfui.alert('Click OK to create text note')
+      return Promise.resolve()
+      .then(() => {
+          // To automatically close the custom stamp dropdown modal, call the restore method below
+          // you can add this method after user clicks on 'Next'
+          // restore();
+          return pdfui
+              .getCurrentPDFDoc()
+              .then((pdfDoc:any) => {
+                  return pdfDoc.getPageByIndex(0);
+              }).then((page:any) => {
+                  const left = 500;
+                  const top = 500;
+                  return page.addAnnot({
+                      flags: 4,
+                      type: 'text',
+                      contents: 'Welcome to FoxitPDFSDK for Web',
+                      rect: {
+                          left,
+                          right: left + 40,
+                          top,
+                          bottom: top - 40 
+                      },
+                      date: new Date()
+                  });
+              }).then(() => {
+                  var sidebarPanels = root.querySelectorAll('sidebar>*');
+                  sidebarPanels.forEach((it:any) => {
+                      it.disable();
+                  });
+                  const commentSidebar = root.querySelector('comment-list-sidebar-panel');
+                  commentSidebar.enable();
+                  commentSidebar.active();
+                  return restore;
+              });
+      });
+  });
+}
 function loadImage(url: string) {
   const image = new Image();
   return new Promise((resolve, reject) => {
