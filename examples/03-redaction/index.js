@@ -46,6 +46,11 @@ pdfui.addViewerEventListener(Events.openFileSuccess, () => {
   pdfui.getRootComponent().then((root) => {
     const commentTab = root.getComponentByName("protect-tab");
     commentTab.active();
+    const getMessage = (event) => {
+      console.log("Received message:", event.data);
+      setIsShow(event.data);
+    };
+    window.addEventListener("message", getMessage, false);
   });
 });
 window.addEventListener(

@@ -51,6 +51,11 @@ pdfui.addViewerEventListener(Events.openFileSuccess, () => {
     const commentTab = root.getComponentByName("comment-tab");
     commentTab.active();
   });
+  const getMessage = (event) => {
+    console.log("Received message:", event.data);
+    setIsShow(event.data);
+  };
+  window.addEventListener("message", getMessage, false);
 });
 
 pdfui.addViewerEventListener(Events.annotationUpdated, (annots, page, type) => {
