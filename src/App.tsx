@@ -46,7 +46,7 @@ const App = () => {
   const getElement = (newCurrent: number) => {
     setIsSuccess(true);
 
-    if (locationDom.hash === "#/examples/05-digital_signature") {
+    if (locationDom.hash === "#/examples/digital_signature") {
       const currentItem =
         iframeRef.current.contentDocument.getElementsByClassName(
           "fv__ui-portfolio-container"
@@ -121,31 +121,31 @@ const App = () => {
 
   useEffect(() => {
     switch (locationDom.hash) {
-      case "#/examples/00-hello": {
+      case "#/examples/hello": {
         setScene(editPdf);
         break;
       }
-      case "#/examples/01-annotation": {
+      case "#/examples/annotation": {
         setScene(annotation);
         break;
       }
-      case "#/examples/02-forms": {
+      case "#/examples/forms": {
         setScene(form);
         break;
       }
-      case "#/examples/03-redaction": {
+      case "#/examples/redaction": {
         setScene(redaction);
         break;
       }
-      case "#/examples/04-edit_pdfs": {
+      case "#/examples/edit_pdfs": {
         setScene(advanced_forms);
         break;
       }
-      case "#/examples/05-digital_signature": {
+      case "#/examples/digital_signature": {
         setScene(digital_signature);
         break;
       }
-      case "#/examples/06-search": {
+      case "#/examples/search": {
         setScene(search);
         break;
       }
