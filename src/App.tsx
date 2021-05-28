@@ -36,7 +36,6 @@ const App = () => {
   };
 
   useEffect(() => {
-    console.log("sdf")
     window.addEventListener("message", getMessage, false);
     return () => {
       window.addEventListener("message", getMessage, false);
