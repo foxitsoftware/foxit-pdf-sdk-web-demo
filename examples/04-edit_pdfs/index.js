@@ -53,6 +53,11 @@ pdfui.addViewerEventListener(Events.openFileSuccess, () => {
     const commentTab = root.getComponentByName("edit-tab");
     commentTab.active();
   });
+  const getMessage = (event) => {
+    console.log("Received message:", event.data);
+    setIsShow(event.data);
+  };
+  window.addEventListener("message", getMessage, false);
 });
 
 pdfui.openPDFByHttpRangeRequest(

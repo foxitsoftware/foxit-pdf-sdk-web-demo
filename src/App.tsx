@@ -36,10 +36,12 @@ const App = () => {
   };
 
   useEffect(() => {
+    console.log("sdf")
+    window.addEventListener("message", getMessage, false);
     return () => {
       window.addEventListener("message", getMessage, false);
     };
-  }, [iframeRef]);
+  }, [iframeRef, location.hash]);
 
 
   const getElement = (newCurrent: number) => {
@@ -119,7 +121,6 @@ const App = () => {
   };
 
   useEffect(() => {
-    window.addEventListener("message", getMessage, false);
     switch (locationDom.hash) {
       case "#/examples/00-hello": {
         setScene(editPdf);
