@@ -6,6 +6,7 @@ import {
   openSidebar,
   rotatePage,
   createCalloutAnnotation,
+  createTextNoteAnnotation,
 } from "../snippets";
 
 const editPdf = [
@@ -96,12 +97,12 @@ const annotation = [
     func: () => {},
   },
   {
-    positionX: "60%",
-    positionY: "280px",
+    positionX: "65%",
+    positionY: "265px",
     sideTriangle: "left",
     header: "Leave your note",
     description: "Click directly in the PDF to leave a note in context.",
-    func: (ref: any) => closeSidebar(ref.current.contentWindow.pdfui),
+    func: (ref: any) => closeSidebar(ref.current.contentWindow.pdfui).then(()=> createTextNoteAnnotation(ref.current.contentWindow.pdfui)),
   },
   {
     positionX: "436px",
