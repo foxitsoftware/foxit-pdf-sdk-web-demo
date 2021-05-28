@@ -179,7 +179,7 @@ const App = () => {
     return () => {
       window.addEventListener("message", getMessage, false);
     };
-  }, [iframeRef]);
+  }, [iframeRef, location.hash]);
 
   return (
     <HashRouter>
