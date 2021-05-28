@@ -30,6 +30,18 @@ const App = () => {
   const [locationTooltipY, setLocationTooltipY] = useState<string>("");
   const [isDesktopDevice, setIsDevice] = useState<boolean>(false);
 
+  const getMessage = (event: any) => {
+    console.log("Received message:", event.data);
+    setIsShow(event.data);
+  };
+
+  useEffect(() => {
+    return () => {
+      window.addEventListener("message", getMessage, false);
+    };
+  }, [iframeRef]);
+
+
   const getElement = (newCurrent: number) => {
     setIsSuccess(true);
 
@@ -107,6 +119,7 @@ const App = () => {
   };
 
   useEffect(() => {
+    window.addEventListener("message", getMessage, false);
     switch (locationDom.hash) {
       case "#/examples/00-hello": {
         setScene(editPdf);
@@ -168,19 +181,7 @@ const App = () => {
     };
   }, [isLoad]);
 
-  const getMessage = (event: any) => {
-    console.log("Received message:", event.data);
-    setIsShow(event.data);
-  };
-
-  useEffect(() => {
-    window.addEventListener("message", getMessage, false);
-
-    return () => {
-      window.addEventListener("message", getMessage, false);
-    };
-  }, [iframeRef, location.hash]);
-
+  
   return (
     <HashRouter>
       <Layout className="fv__catalog-app">
