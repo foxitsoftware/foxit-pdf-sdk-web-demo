@@ -35,9 +35,9 @@ window.pdfui = pdfui;
 pdfui.addViewerEventListener(PDFViewCtrl.ViewerEvents.openFileSuccess, () => {
   window.pdfui = pdfui;
 });
-pdfui.getComponentByName("comment-tab-group-media").then((group) => {
-  group.setRetainCount(100);
-});
+// pdfui.getComponentByName("comment-tab-group-media").then((group) => {
+//   group.setRetainCount(100);
+// });
 window.isDesktopDevise = DeviceInfo.isDesktop;
 
 window.addEventListener(
