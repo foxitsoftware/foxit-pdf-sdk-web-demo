@@ -199,48 +199,60 @@ export function hideAll(pdfui: any, excludeQuerySelector: string) {
   };
 }
 export function createTextNoteAnnotation(pdfui:any) {
-  
   return pdfui.getRootComponent().then((root:any) => {
-    console.log("sdfds")
-      const commentTab = root.getComponentByName('comment-tab');
-      commentTab.active();
-      return Promise.resolve()
-      .then(() => {
-        
-          // To automatically close the custom stamp dropdown modal, call the restore method below
-          // you can add this method after user clicks on 'Next'
-          // restore();
-          return pdfui
-              .getCurrentPDFDoc()
-              .then((pdfDoc:any) => {
-                  return pdfDoc.getPageByIndex(0);
-              }).then((page:any) => {
-                  const left = 500;
-                  const top = 500;
-                  return page.addAnnot({
-                      flags: 4,
-                      type: 'text',
-                      contents: 'Welcome to FoxitPDFSDK for Web',
-                      rect: {
-                          left,
-                          right: left + 40,
-                          top,
-                          bottom: top - 40 
-                      },
-                      date: new Date()
-                  });
-              }).then(() => {
-                  var sidebarPanels = root.querySelectorAll('sidebar>*');
-                  sidebarPanels.forEach((it:any) => {
-                      it.disable();
-                  });
-                  const commentSidebar = root.querySelector('comment-list-sidebar-panel');
-                  commentSidebar.enable();
-                  commentSidebar.active();
-                  
+  const commentTab = root.getComponentByName('comment-tab');
+  commentTab.active();
+  return Promise.resolve()
+  .then(() => {
+      return pdfui
+          .getCurrentPDFDoc()
+          .then((pdfDoc:any) => {
+              return pdfDoc.getPageByIndex(0);
+          }).then((page:any) => {
+              const left = 500;
+              const top = 500;
+              return page.addAnnot({
+                  flags: 4,
+                  type: 'text',
+                  contents: 'Welcome to FoxitPDFSDK for Web',
+                  rect: {
+                      left,
+                      right: left + 40,
+                      top,
+                      bottom: top - 40 
+                  },
+                  date: new Date()
               });
+          });
       });
   });
+}
+
+export function openSignDialog(pdfui:any) {
+  pdfui.getComponentByName('create-signature').then((inkDialog:any)=>
+  { 
+      inkDialog.show();
+
+  });
+
+  pdfui.addViewerEventListener('inkSign-added', function () {
+      alert('inkSign-added');
+  });
+
+  return pdfui;
+}
+
+export async function exportData(pdfui:any) {
+  const doc = await pdfui.getCurrentPDFDoc();
+  const xfdf = await doc.exportFormToFile(2);
+  const url = URL.createObjectURL(xfdf);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'form.xfdf';
+  a.rel = 'noopener';
+  a.target = "_blank";
+  document.body.appendChild(a);
+  a.click();
 }
 function loadImage(url: string) {
   const image = new Image();
