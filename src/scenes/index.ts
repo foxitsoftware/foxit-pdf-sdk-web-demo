@@ -7,6 +7,7 @@ import {
   rotatePage,
   createCalloutAnnotation,
   createTextNoteAnnotation,
+  exportData
 } from "../snippets";
 
 const editPdf = [
@@ -94,7 +95,7 @@ const annotation = [
     header: "Add a note",
     description:
       "The ‘Note’ tool adds a note annotation to the top-left of the PDF page. You can drag-and-drop it to your desired location.",
-    func: () => {},
+    func: (ref: any) => {exportData(ref.current.contentWindow.pdfui)},
   },
   {
     positionX:'820px',
