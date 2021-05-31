@@ -232,7 +232,6 @@ export function openSignDialog(pdfui:any) {
   pdfui.getComponentByName('create-signature').then((inkDialog:any)=>
   { 
       inkDialog.show();
-
   });
 
   pdfui.addViewerEventListener('inkSign-added', function () {

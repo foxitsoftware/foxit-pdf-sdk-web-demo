@@ -7,6 +7,7 @@ import {
   rotatePage,
   createCalloutAnnotation,
   createTextNoteAnnotation,
+  openSignDialog,
 } from "../snippets";
 
 const editPdf = [
@@ -263,7 +264,7 @@ const digital_signature = [
     description:
       "Place your signature in the field (or anywhere else in the PDF)!",
     func: (ref: any) =>
-      openSidebar(ref.current.contentWindow.pdfui, "sidebar-field"),
+      openSidebar(ref.current.contentWindow.pdfui, "sidebar-field").then(() => openSignDialog(ref.current.contentWindow.pdfui)),
   },
   {
     positionX: "80%",
