@@ -97,8 +97,8 @@ const annotation = [
     func: () => {},
   },
   {
-    positionX:'1010px',
-    positionY: "255px",
+    positionX:'820px',
+    positionY: "185px",
     sideTriangle: "left-fixed",
     header: "Leave your note",
     description: "Click directly in the PDF to leave a note in context.",
