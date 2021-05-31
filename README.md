@@ -44,23 +44,23 @@ They are in the folder `src/scenes`.
 Paths through url are implemented in the application, below is the route list.
 
 Example 1 
-* [http://0.0.0.0:8082/#/examples/00-hello](http://0.0.0.0:8082/#/hello)
+* [http://0.0.0.0:8082/#/hello](http://0.0.0.0:8082/#/hello)
 
 Example 2
-* [http://0.0.0.0:8082/#/examples/01-annotation](http://0.0.0.0:8082/#/annotation)
+* [http://0.0.0.0:8082/#/annotation](http://0.0.0.0:8082/#/annotation)
 
 Example 3
-* [http://0.0.0.0:8082/#/examples/02-forms](http://0.0.0.0:8082/#/forms)
+* [http://0.0.0.0:8082/#/forms](http://0.0.0.0:8082/#/forms)
 
 Example 4
-* [http://0.0.0.0:8082/#/examples/03-redaction](http://0.0.0.0:8082/#/redaction)
+* [http://0.0.0.0:8082/#/redaction](http://0.0.0.0:8082/#/redaction)
 
 Example 5
-* [http://0.0.0.0:8082/#/examples/04-edit_pdfs](http://0.0.0.0:8082/#/edit_pdfs)
+* [http://0.0.0.0:8082/#/edit_pdfs](http://0.0.0.0:8082/#/edit_pdfs)
 
 Example 6
-* [http://0.0.0.0:8082/#/examples/05-digital_signature](http://0.0.0.0:8082/#/digital_signature)
+* [http://0.0.0.0:8082/#/digital_signature](http://0.0.0.0:8082/#/digital_signature)
 
 Example 7
-* [http://0.0.0.0:8082/#/examples/06-search](http://0.0.0.0:8082/#/search)
+* [http://0.0.0.0:8082/#/search](http://0.0.0.0:8082/#/search)
 
