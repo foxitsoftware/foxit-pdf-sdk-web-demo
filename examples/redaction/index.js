@@ -39,16 +39,8 @@ pdfui.addViewerEventListener(PDFViewCtrl.ViewerEvents.openFileSuccess, () => {
 
 //Toolbar element show/hide control
 
-pdfui.getRootComponent().then((root) => {
-  hideAll(
-    pdfui,
-    "@viewer,protect-tab,home-tab,fv--protect-tab-paddle,fv--protect-tab-paddle *,fv--home-tab-paddle,fv--home-tab-paddle *"
-  );
-  //Get 'protect' tab
-  const protectTab = root.getComponentByName("protect-tab");
-  protectTab.active();
-  const protectTabGroup = root.getComponentByName("protect-tab-group-text");
-  protectTabGroup.setRetainCount(100);
+pdfui.getComponentByName("redaction").then((group) => {
+  group.setRetainCount(100);
 });
 
 window.isDesktopDevise = DeviceInfo.isDesktop;
