@@ -97,10 +97,9 @@ const annotation = [
     func: () => {},
   },
   {
-    positionX: "800px",
-    positionY: "190px",
+    positionX:'1010px',
+    positionY: "255px",
     sideTriangle: "left-fixed",
-    elementName: 'fv__annot-flags-nozoom',
     header: "Leave your note",
     description: "Click directly in the PDF to leave a note in context.",
     func: (ref: any) => createTextNoteAnnotation(ref.current.contentWindow.pdfui),

@@ -45,7 +45,7 @@ const App = () => {
   const getElement = (newCurrent: number) => {
     setIsSuccess(true);
 
-    if (locationDom.hash === "#/examples/digital_signature") {
+    if (locationDom.hash === "#/digital_signature") {
       const currentItem =
         iframeRef.current.contentDocument.getElementsByClassName(
           "fv__ui-portfolio-container"
@@ -54,13 +54,7 @@ const App = () => {
         (currentItem.style.cssText =
           "padding: 0px 200px; background: gainsboro;");
     }
-    if(locationDom.hash === "#/examples/annotation" && newCurrent === 1) {
-      getOffset(
-        iframeRef.current.contentDocument.querySelector(
-         `.${scene[newCurrent].elementName}`
-        )
-      );
-    }else {
+    else {
       getOffset(
         iframeRef.current.contentDocument.getElementsByName(
           scene[newCurrent].elementName
@@ -73,7 +67,6 @@ const App = () => {
     setCurrent((prevCurrent) => {
       const newCurrent = prevCurrent + 1;
       scene[newCurrent].func(iframeRef)
-      console.log("2")
       getElement(newCurrent);
       return newCurrent;
     });
@@ -134,31 +127,31 @@ const App = () => {
 
   useEffect(() => {
     switch (locationDom.hash) {
-      case "#/examples/hello": {
+      case "#/hello": {
         setScene(editPdf);
         break;
       }
-      case "#/examples/annotation": {
+      case "#/annotation": {
         setScene(annotation);
         break;
       }
-      case "#/examples/forms": {
+      case "#/forms": {
         setScene(form);
         break;
       }
-      case "#/examples/redaction": {
+      case "#/redaction": {
         setScene(redaction);
         break;
       }
-      case "#/examples/edit_pdfs": {
+      case "#/edit_pdfs": {
         setScene(advanced_forms);
         break;
       }
-      case "#/examples/digital_signature": {
+      case "#/digital_signature": {
         setScene(digital_signature);
         break;
       }
-      case "#/examples/search": {
+      case "#/search": {
         setScene(search);
         break;
       }
@@ -204,7 +197,7 @@ const App = () => {
               <Switch>
                 {examples.map((it) => {
                   return (
-                    <Route path={"/examples/" + it.baseName} key={it.name}>
+                    <Route path={"/" + it.baseName} key={it.name}>
                       {isShow &&
                         isDoneScene &&
                         isSuccess &&
@@ -212,15 +205,13 @@ const App = () => {
                           <Tooltip
                             positionX={
                               scene[current].sideTriangle === "top" ||
-                              scene[current].sideTriangle === "right"||
-                              scene[current].sideTriangle === 'left-fixed'
+                              scene[current].sideTriangle === "right"
                                 ? locationTooltipX
                                 : scene[current].positionX
                             }
                             positionY={
                               scene[current].sideTriangle === "top" ||
-                              scene[current].sideTriangle === "right"||
-                              scene[current].sideTriangle === 'left-fixed'
+                              scene[current].sideTriangle === "right"
                                 ? locationTooltipY
                                 : scene[current].positionY
                             }
