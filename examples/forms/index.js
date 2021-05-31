@@ -33,9 +33,9 @@ pdfui.addViewerEventListener(PDFViewCtrl.ViewerEvents.openFileSuccess, () => {
   window.pdfui = pdfui;
   console.dir(pdfui)
 });
-// pdfui.getAllComponentsByName("form-tab-group-fields").then((group) => {
-//   group[2].setRetainCount(1000)
-// });
+pdfui.getAllComponentsByName("form-tab-group-fields").then((group) => {
+  group[2].setRetainCount(1000)
+});
 //Toolbar element show/hide control
 pdfui.getRootComponent().then((root) => {
   const formTab = root.getComponentByName("form-tab");

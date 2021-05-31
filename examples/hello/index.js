@@ -31,7 +31,9 @@ const pdfui = new PDFUI({
 });
 
 window.pdfui = pdfui;
-
+pdfui.getComponentByName("home-tab-group-io").then((group) => {
+  group.setRetainCount(100);
+});
 window.addEventListener(
   DeviceInfo.isDesktop ? "resize" : "orientationchange",
   function (e) {
