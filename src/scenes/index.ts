@@ -258,7 +258,7 @@ const digital_signature = [
   },
   {
     positionX: "80%",
-    positionY: "385px",
+    positionY: "80%",
     sideTriangle: "left",
     header: "Insert your signature",
     description:
@@ -268,7 +268,7 @@ const digital_signature = [
   },
   {
     positionX: "80%",
-    positionY: "385px",
+    positionY: "80%",
     sideTriangle: "left",
     header: "Custom signature security",
     description:
