@@ -31,7 +31,6 @@ const App = () => {
   const [isDesktopDevice, setIsDevice] = useState<boolean>(false);
 
   const getMessage = (event: any) => {
-    console.log("Received message:", event.data);
     setIsShow(event.data);
   };
 
@@ -46,7 +45,7 @@ const App = () => {
   const getElement = (newCurrent: number) => {
     setIsSuccess(true);
 
-    if (locationDom.hash === "#/examples/digital_signature") {
+    if (locationDom.hash === "#/digital_signature") {
       const currentItem =
         iframeRef.current.contentDocument.getElementsByClassName(
           "fv__ui-portfolio-container"
@@ -55,17 +54,19 @@ const App = () => {
         (currentItem.style.cssText =
           "padding: 0px 200px; background: gainsboro;");
     }
-    getOffset(
-      iframeRef.current.contentDocument.getElementsByName(
-        scene[newCurrent].elementName
-      )
-    );
+    else {
+      getOffset(
+        iframeRef.current.contentDocument.getElementsByName(
+          scene[newCurrent].elementName
+        )
+      );
+    }
   };
 
   const handleNext = () => {
     setCurrent((prevCurrent) => {
       const newCurrent = prevCurrent + 1;
-      scene[newCurrent].func(iframeRef);
+      scene[newCurrent].func(iframeRef)
       getElement(newCurrent);
       return newCurrent;
     });
@@ -75,7 +76,7 @@ const App = () => {
     setCurrent((prevCurrent) => {
       const newCurrent = prevCurrent - 1;
       scene[newCurrent].func(iframeRef);
-
+      getElement(newCurrent);
       return newCurrent;
     });
   };
@@ -89,11 +90,16 @@ const App = () => {
   };
 
   const getOffset = (el: any) => {
+    console.log(el)
     if (el.length) {
       const rect = el[0].getBoundingClientRect();
+      console.log(el[0].getBoundingClientRect())
       if (scene[current].sideTriangle === "right") {
         setLocationTooltipX(`${rect.left + window.scrollX - 316}px`);
         setLocationTooltipY(`${rect.top + window.scrollY - 120}px`);
+      } else if(scene[current].sideTriangle === "left-fixed"){
+        setLocationTooltipX(`${rect.left + window.scrollX + 70}px`);
+        setLocationTooltipY(`${rect.top + window.scrollY - 85}px`);
       } else {
         rect.left + window.scrollX === 0
           ? setLocationTooltipX(`${rect.left + window.scrollX}px`)
@@ -121,31 +127,31 @@ const App = () => {
 
   useEffect(() => {
     switch (locationDom.hash) {
-      case "#/examples/hello": {
+      case "#/hello": {
         setScene(editPdf);
         break;
       }
-      case "#/examples/annotation": {
+      case "#/annotation": {
         setScene(annotation);
         break;
       }
-      case "#/examples/forms": {
+      case "#/forms": {
         setScene(form);
         break;
       }
-      case "#/examples/redaction": {
+      case "#/redaction": {
         setScene(redaction);
         break;
       }
-      case "#/examples/edit_pdfs": {
+      case "#/edit_pdfs": {
         setScene(advanced_forms);
         break;
       }
-      case "#/examples/digital_signature": {
+      case "#/digital_signature": {
         setScene(digital_signature);
         break;
       }
-      case "#/examples/search": {
+      case "#/search": {
         setScene(search);
         break;
       }
@@ -191,7 +197,7 @@ const App = () => {
               <Switch>
                 {examples.map((it) => {
                   return (
-                    <Route path={"/examples/" + it.baseName} key={it.name}>
+                    <Route path={"/" + it.baseName} key={it.name}>
                       {isShow &&
                         isDoneScene &&
                         isSuccess &&
