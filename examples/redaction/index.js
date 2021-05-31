@@ -39,9 +39,9 @@ pdfui.addViewerEventListener(PDFViewCtrl.ViewerEvents.openFileSuccess, () => {
 
 //Toolbar element show/hide control
 
-pdfui.getComponentByName("redaction").then((group) => {
-  group.setRetainCount(100);
-});
+// pdfui.getComponentByName("redaction").then((group) => {
+//   group.setRetainCount(100);
+// });
 
 window.isDesktopDevise = DeviceInfo.isDesktop;
 
