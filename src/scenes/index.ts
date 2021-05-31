@@ -98,7 +98,7 @@ const annotation = [
     func: () => {},
   },
   {
-    positionX:'820px',
+    positionX:'65%',
     positionY: "185px",
     sideTriangle: "left-fixed",
     header: "Leave your note",
