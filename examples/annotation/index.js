@@ -38,6 +38,10 @@ pdfui.addViewerEventListener(PDFViewCtrl.ViewerEvents.openFileSuccess, () => {
 pdfui.getComponentByName("comment-tab-group-media").then((group) => {
   group.setRetainCount(100);
 });
+
+pdfui.getComponentByName("comment-tab-group-mark").then((group) => {
+  group.setRetainCount(1);
+});
 window.isDesktopDevise = DeviceInfo.isDesktop;
 
 window.addEventListener(
