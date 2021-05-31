@@ -54,13 +54,11 @@ const App = () => {
         (currentItem.style.cssText =
           "padding: 0px 200px; background: gainsboro;");
     }
-    else {
       getOffset(
         iframeRef.current.contentDocument.getElementsByName(
           scene[newCurrent].elementName
         )
       );
-    }
   };
 
   const handleNext = () => {
