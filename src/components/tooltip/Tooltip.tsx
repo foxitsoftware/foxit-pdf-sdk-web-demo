@@ -15,7 +15,7 @@ interface Props {
   handleNext: () => void;
   handlePrev: () => void;
   handleDone: () => void;
-  handleThisFunc: (el: string) => void;
+  handleThisFunc: () => void;
 }
 
 // sideTriangle, header, description, clickNext, clickPrev
@@ -51,7 +51,7 @@ export const Tooltip: React.FC<Props> = React.memo(
             {isRotate && (
               <button
                 className="buttonFunc"
-                onClick={() => handleThisFunc("Rotate")}
+                onClick={() => handleThisFunc()}
               >
                 Rotate
               </button>
@@ -59,7 +59,7 @@ export const Tooltip: React.FC<Props> = React.memo(
             {isMove && (
               <button
                 className="buttonFunc"
-                onClick={() => handleThisFunc("Move")}
+                onClick={() => handleThisFunc()}
               >
                 Reorder Page
               </button>

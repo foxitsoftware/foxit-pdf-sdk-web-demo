@@ -5,8 +5,10 @@ import React, { useCallback, useEffect, useRef, useState } from "react";
 import { Switch, Route, HashRouter, useLocation } from "react-router-dom";
 import { examples } from "./foundation/examples";
 import { Tooltip } from "./components/tooltip/Tooltip";
+import { AdvancedTooltip } from "./components/advancedTooltip/AdvancedTooltip";
+import {exportData} from "../src/snippets"
 import {
-  advanced_forms,
+  hello,
   form,
   annotation,
   redaction,
@@ -25,7 +27,7 @@ const App = () => {
   const [isDoneScene, changeDone] = useState<boolean>(true);
   const [isLoad, setIsLoad] = useState<boolean>(false);
   const [isSuccess, setIsSuccess] = useState<boolean>(false);
-  const [scene, setScene] = useState<any>(editPdf);
+  const [scene, setScene] = useState<any>(hello);
   const [locationTooltipX, setLocationTooltipX] = useState<string>("");
   const [locationTooltipY, setLocationTooltipY] = useState<string>("");
   const [isDesktopDevice, setIsDevice] = useState<boolean>(false);
@@ -79,13 +81,13 @@ const App = () => {
     });
   };
 
-  const handleThisFunc = (el: string) => {
-    if (el === "move") {
+  const handleThisFunc = () => {
       scene[current].func(iframeRef);
-    } else {
-      scene[current].func(iframeRef);
-    }
   };
+
+  const exportInf = () => {
+    return exportData(iframeRef.current.contentWindow.pdfui)
+  }
 
   const getOffset = (el: any) => {
     console.log(el)
@@ -126,7 +128,7 @@ const App = () => {
   useEffect(() => {
     switch (locationDom.hash) {
       case "#/hello": {
-        setScene(editPdf);
+        setScene(hello);
         break;
       }
       case "#/annotation": {
@@ -142,7 +144,7 @@ const App = () => {
         break;
       }
       case "#/edit_pdfs": {
-        setScene(advanced_forms);
+        setScene(editPdf);
         break;
       }
       case "#/digital_signature": {
@@ -199,6 +201,7 @@ const App = () => {
                       {isShow &&
                         isDoneScene &&
                         isSuccess &&
+                        locationDom.hash !== "#/advanced_form" &&
                         isDesktopDevice && (
                           <Tooltip
                             positionX={
@@ -226,6 +229,16 @@ const App = () => {
                             handleThisFunc={handleThisFunc}
                           />
                         )}
+                        {locationDom.hash === "#/advanced_form" &&
+                          <AdvancedTooltip
+                            header='Save your form data'
+                            description = 'Download your partially-filled form data as HTML to save your place, and pick it up again later.'
+                            positionY = '70%'
+                            positionX = '70%'
+                            exportInf = {exportInf}
+                          />
+                        }
+                        
                       <iframe
                         onLoad={() => {
                           setIsLoad(true);

@@ -10,7 +10,7 @@ import {
   openSignDialog,
 } from "../snippets";
 
-const editPdf = [
+const hello = [
   {
     positionX: "75px",
     positionY: "75px",
@@ -52,7 +52,7 @@ const editPdf = [
   },
 ];
 
-const advanced_forms = [
+const editPdf = [
   {
     positionX: "75px",
     positionY: "75px",
@@ -301,10 +301,10 @@ const search = [
 ];
 
 export {
+  hello,
   editPdf,
   redaction,
   form,
-  advanced_forms,
   annotation,
   digital_signature,
   search,
