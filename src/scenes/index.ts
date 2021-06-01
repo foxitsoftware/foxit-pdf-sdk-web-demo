@@ -250,15 +250,6 @@ const digital_signature = [
       openSidebar(ref.current.contentWindow.pdfui, "sidebar-field").then(() => openSignDialog(ref.current.contentWindow.pdfui)),
   },
   {
-    positionX: "80%",
-    positionY: "80%",
-    sideTriangle: "left",
-    header: "Custom signature security",
-    description:
-      "Select the signature field to set permissions, appearance, and more.",
-    func: () => {},
-  },
-  {
     positionX: "335px",
     positionY: "75px",
     sideTriangle: "top",
