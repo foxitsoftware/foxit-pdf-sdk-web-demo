@@ -1,0 +1,40 @@
+.wrapBlock{
+    position: absolute;
+    margin: 12px 0px;
+}
+
+.modalWindow {
+    background-color: #272D38;
+    border-radius: 8px;
+    padding: 16px;
+    z-index: 10;
+    max-width: 260px;
+}
+
+.header {
+    color: #FFFFFF;
+    font-size: 20px;
+    z-index: 10;
+    line-height: 28px;
+    font-family: 'Open Sans', sans-serif;
+    font-weight: bold;
+}
+
+.description {
+    color: #FFFFFF;
+    font-size: 14px;
+    font-family: 'Open Sans', sans-serif;
+    margin-bottom: 12px;
+}
+
+.downloadBtn{
+    Width:100%;
+    Height:52px;
+    background-color: #FFFFFF;
+    border: none;
+    margin-top: 12px;
+    border-radius: 10px;
+    font-size: 12px;
+    font-weight: 800;
+    color: #3F444E;
+}
