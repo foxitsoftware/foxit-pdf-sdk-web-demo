@@ -230,6 +230,9 @@ const App = () => {
                           />
                         )}
                         {locationDom.hash === "#/advanced_form" &&
+                        isShow&&
+                        isDesktopDevice &&
+                        isSuccess &&
                           <AdvancedTooltip
                             header='Save your form data'
                             description = 'Download your partially-filled form data as HTML to save your place, and pick it up again later.'
