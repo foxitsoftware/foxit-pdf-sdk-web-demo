@@ -146,23 +146,6 @@ const annotation = [
       );
     },
   },
-  {
-    positionX: "75%",
-    positionY: "300px",
-    sideTriangle: "left",
-    header: "Stamp",
-    description: "Click to stamp anywhere on the page.",
-    func: () => {},
-  },
-  {
-    positionX: "935px",
-    positionY: "75px",
-    elementName: "create-image",
-    sideTriangle: "top",
-    header: "Attach a link, image, video, or an entire file",
-    description: "Keep related content together.",
-    func: () => {},
-  },
 ];
 
 const redaction = [
