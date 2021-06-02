@@ -46,8 +46,8 @@ pdfui.addViewerEventListener(PDFViewCtrl.ViewerEvents.openFileSuccess, () => {
 pdfui.openPDFByHttpRangeRequest(
   {
     range: {
-      url: "/assets/Advanced_form.pdf",
+      url: "/assets/FoxitPDFSDKforWeb_DemoGuide.pdf",
     },
   },
-  { fileName: "Advanced_form.pdf" }
+  { fileName: "FoxitPDFSDKforWeb_DemoGuide.pdf" }
 );
