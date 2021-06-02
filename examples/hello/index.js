@@ -49,8 +49,8 @@ pdfui.addViewerEventListener(PDFViewCtrl.ViewerEvents.openFileSuccess, () => {
 pdfui.openPDFByHttpRangeRequest(
   {
     range: {
-      url: "/assets/FoxitPDFSDKforWeb_DemoGuide.pdf",
+      url: "/assets/Feature-example_default-setup.pdf",
     },
   },
-  { fileName: "FoxitPDFSDKforWeb_DemoGuide.pdf" }
+  { fileName: "Feature-example_default-setup.pdf" }
 );
