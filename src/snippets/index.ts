@@ -233,6 +233,9 @@ export function openSignDialog(pdfui:any) {
   { 
       inkDialog.show();
   });
+  pdfui.addViewerEventListener('inkSign-added', function () {
+      alert('inkSign-added');
+  });
   return pdfui;
 }
 
