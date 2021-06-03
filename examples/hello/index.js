@@ -4,7 +4,6 @@ import "./index.css";
 
 const { PDFUI, PDFViewCtrl } = UIExtension;
 const { DeviceInfo } = PDFViewCtrl;
-let screen = 900;
 
 const libPath = "/lib/";
 
@@ -33,10 +32,10 @@ window.isDesktopDevise = DeviceInfo.isDesktop;
 pdfui.openPDFByHttpRangeRequest(
   {
     range: {
-      url: "/assets/Feature-example_default-setup.pdf",
+      url: "/assets/1-feature-example_default-setup.pdf",
     },
   },
-  { fileName: "Feature-example_default-setup.pdf" }
+  { fileName: "1-feature-example_default-setup.pdf" }
 );  
 
 
@@ -49,13 +48,6 @@ window.addEventListener(
     pdfui.redraw();
   }
 );
-
-window.addEventListener(`resize`, event => {
-  if((DeviceInfo.isMobile === false && window.innerWidth < 900)||
-  (DeviceInfo.isMobile === true && window.innerWidth >= 900)){
-  document.location.reload();
-  }
-}, false);
 
 if(window.innerWidth < 900){
   DeviceInfo.isMobile = true

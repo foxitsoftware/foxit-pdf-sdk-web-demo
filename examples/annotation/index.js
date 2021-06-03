@@ -116,10 +116,10 @@ pdfui
     {
       range: {
         //Default PDF file path
-        url: "/assets/Feature-example_annotations.pdf",
+        url: "/assets/3-feature-example_annotations.pdf",
       },
     },
-    { fileName: "Feature-example_annotations.pdf" }
+    { fileName: "3-feature-example_annotations.pdf" }
   )
   .then((doc) => {
     Promise.all([
