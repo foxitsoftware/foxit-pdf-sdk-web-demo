@@ -4,8 +4,7 @@ import "./index.css";
 
 const { PDFUI, PDFViewCtrl } = UIExtension;
 const { DeviceInfo } = PDFViewCtrl;
-
-console.log(DeviceInfo);
+let screen = 900;
 
 const libPath = "/lib/";
 
@@ -29,8 +28,18 @@ const pdfui = new PDFUI({
     ? libPath + "uix-addons/allInOne.mobile.js"
     : libPath + "uix-addons/allInOne.js",
 });
-
 window.pdfui = pdfui;
+window.isDesktopDevise = DeviceInfo.isDesktop;
+pdfui.openPDFByHttpRangeRequest(
+  {
+    range: {
+      url: "/assets/Feature-example_default-setup.pdf",
+    },
+  },
+  { fileName: "Feature-example_default-setup.pdf" }
+);  
+
+
 pdfui.getComponentByName("home-tab-group-io").then((group) => {
   group.setRetainCount(100);
 });
@@ -40,17 +49,22 @@ window.addEventListener(
     pdfui.redraw();
   }
 );
-window.isDesktopDevise = DeviceInfo.isDesktop;
+
+window.addEventListener(`resize`, event => {
+  if((DeviceInfo.isMobile === false && window.innerWidth < 900)||
+  (DeviceInfo.isMobile === true && window.innerWidth >= 900)){
+  document.location.reload();
+  }
+}, false);
+
+if(window.innerWidth < 900){
+  DeviceInfo.isMobile = true
+}else{
+  DeviceInfo.isMobile = false
+}
 
 pdfui.addViewerEventListener(PDFViewCtrl.ViewerEvents.openFileSuccess, () => {
   window.pdfui = pdfui;
+  console.log( window.pdfui)
 });
 
-pdfui.openPDFByHttpRangeRequest(
-  {
-    range: {
-      url: "/assets/Feature-example_default-setup.pdf",
-    },
-  },
-  { fileName: "Feature-example_default-setup.pdf" }
-);
