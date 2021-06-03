@@ -34,6 +34,7 @@ const App = () => {
   const [locationTooltipX, setLocationTooltipX] = useState<string>("");
   const [locationTooltipY, setLocationTooltipY] = useState<string>("");
   const [isDesktopDevice, setIsDevice] = useState<boolean>(false);
+  const [curentSize, setCurentSize]= useState<number>(0)
 
   const getMessage = (event: any) => {
     setIsShow(event.data);
@@ -121,9 +122,13 @@ const App = () => {
   }, []);
 
   const resizeWindow = () => {
-    if (iframeRef.current.contentWindow.innerWidth < 900) {
+    console.log("res")
+    if (curentSize >= 900 && iframeRef.current.contentWindow.innerWidth < 900) {
+      document.location.reload();
       setIsDevice(false);
-    } else {
+    }
+    if (curentSize < 900 && iframeRef.current.contentWindow.innerWidth >= 900) {
+      document.location.reload();
       setIsDevice(true);
     }
   };
@@ -174,9 +179,14 @@ const App = () => {
 
   useEffect(() => {
     if (iframeRef.current && iframeRef.current.contentWindow.pdfui) {
-      setIsDevice(iframeRef.current.contentWindow.isDesktopDevise);
-
+      console.log("load")
+      setCurentSize(iframeRef.current.contentWindow.innerWidth)
       iframeRef.current.contentWindow.onresize = resizeWindow;
+      if (iframeRef.current.contentWindow.innerWidth < 900) {
+        setIsDevice(false);
+      } else {
+        setIsDevice(true);
+      }
 
       iframeRef.current.contentWindow.pdfui.addViewerEventListener(
         "open-file-success",

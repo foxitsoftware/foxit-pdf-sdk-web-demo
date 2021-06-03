@@ -70,8 +70,8 @@ pdfui.openPDFByHttpRangeRequest(
   {
     range: {
       //Default PDF file path
-      url: "/assets/Feature-example_edit-pdf.pdf",
+      url: "/assets/2-feature-example_edit-pdf.pdf",
     },
   },
-  { fileName: "Feature-example_edit-pdf.pdf" }
+  { fileName: "2-feature-example_edit-pdf.pdf" }
 );

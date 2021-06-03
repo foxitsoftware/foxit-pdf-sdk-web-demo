@@ -74,8 +74,8 @@ pdfui.openPDFByHttpRangeRequest(
   {
     range: {
       //Default PDF file path
-      url: "/assets/Feature-example_redaction.pdf",
+      url: "/assets/5-feature-example_forms.pdf",
     },
   },
-  { fileName: "Feature-example_redaction.pdf" }
+  { fileName: "5-feature-example_forms.pdf" }
 );
