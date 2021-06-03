@@ -49,12 +49,6 @@ window.addEventListener(
     pdfui.redraw();
   }
 );
-window.addEventListener(`resize`, event => {
-  if((DeviceInfo.isMobile === false && window.innerWidth < 900)||
-  (DeviceInfo.isMobile === true && window.innerWidth >= 900)){
-  document.location.reload();
-  }
-}, false);
 
 if(window.innerWidth < 900){
   DeviceInfo.isMobile = true

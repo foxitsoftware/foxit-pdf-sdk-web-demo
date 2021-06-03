@@ -125,11 +125,9 @@ const App = () => {
     console.log("res")
     if (curentSize >= 900 && iframeRef.current.contentWindow.innerWidth < 900) {
       document.location.reload();
-      setIsDevice(false);
     }
     if (curentSize < 900 && iframeRef.current.contentWindow.innerWidth >= 900) {
       document.location.reload();
-      setIsDevice(true);
     }
   };
 
