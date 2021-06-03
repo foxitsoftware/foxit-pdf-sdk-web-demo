@@ -43,7 +43,18 @@ pdfui.getComponentByName("comment-tab-group-mark").then((group) => {
   group.setRetainCount(1);
 });
 window.isDesktopDevise = DeviceInfo.isDesktop;
+window.addEventListener(`resize`, event => {
+  if((DeviceInfo.isMobile === false && window.innerWidth < 900)||
+  (DeviceInfo.isMobile === true && window.innerWidth >= 900)){
+  document.location.reload();
+  }
+}, false);
 
+if(window.innerWidth < 900){
+  DeviceInfo.isMobile = true
+}else{
+  DeviceInfo.isMobile = false
+}
 window.addEventListener(
   DeviceInfo.isDesktop ? "resize" : "orientationchange",
   () => {

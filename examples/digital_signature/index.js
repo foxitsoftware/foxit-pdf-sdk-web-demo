@@ -49,7 +49,18 @@ window.addEventListener(
     pdfui.redraw();
   }
 );
+window.addEventListener(`resize`, event => {
+  if((DeviceInfo.isMobile === false && window.innerWidth < 900)||
+  (DeviceInfo.isMobile === true && window.innerWidth >= 900)){
+  document.location.reload();
+  }
+}, false);
 
+if(window.innerWidth < 900){
+  DeviceInfo.isMobile = true
+}else{
+  DeviceInfo.isMobile = false
+}
 pdfui.addViewerEventListener(Events.openFileSuccess, () => {
   console.info("open file success");
   pdfui.getRootComponent().then((root) => {

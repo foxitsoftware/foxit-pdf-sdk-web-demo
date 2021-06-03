@@ -7,6 +7,8 @@ import { examples } from "./foundation/examples";
 import { Tooltip } from "./components/tooltip/Tooltip";
 import { AdvancedTooltip } from "./components/advancedTooltip/AdvancedTooltip";
 import {exportData} from "../src/snippets"
+import "@foxitsoftware/foxit-pdf-sdk-for-web-library/lib/UIExtension.vw.css";
+
 import {
   hello,
   form,
@@ -18,6 +20,7 @@ import {
 } from "./scenes";
 
 const { Content } = Layout;
+
 
 const App = () => {
   const iframeRef = useRef<any>(null);

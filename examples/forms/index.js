@@ -43,7 +43,18 @@ pdfui.getRootComponent().then((root) => {
   const formTabGroup = root.getComponentByName("form-tab-group-text");
   formTabGroup.setRetainCount(4);
 });
+window.addEventListener(`resize`, event => {
+  if((DeviceInfo.isMobile === false && window.innerWidth < 900)||
+  (DeviceInfo.isMobile === true && window.innerWidth >= 900)){
+  document.location.reload();
+  }
+}, false);
 
+if(window.innerWidth < 900){
+  DeviceInfo.isMobile = true
+}else{
+  DeviceInfo.isMobile = false
+}
 window.addEventListener(
   DeviceInfo.isDesktop ? "resize" : "orientationchange",
   () => {

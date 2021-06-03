@@ -201,7 +201,7 @@ export function hideAll(pdfui: any, excludeQuerySelector: string) {
     });
   };
 }
-export function createTextNoteAnnotation(pdfui:any) {
+export function createTextNoteAnnotation(pdfui:any, top:number, left:number) {
   return pdfui.getRootComponent().then((root:any) => {
   const commentTab = root.getComponentByName('comment-tab');
   commentTab.active();
@@ -212,8 +212,6 @@ export function createTextNoteAnnotation(pdfui:any) {
           .then((pdfDoc:any) => {
               return pdfDoc.getPageByIndex(0);
           }).then((page:any) => {
-              const left = 500;
-              const top = 500;
               return page.addAnnot({
                   flags: 4,
                   type: 'text',
