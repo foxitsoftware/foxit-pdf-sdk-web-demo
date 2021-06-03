@@ -236,8 +236,8 @@ const App = () => {
                           <AdvancedTooltip
                             header='Save your form data'
                             description = 'Download your partially-filled form data as HTML to save your place, and pick it up again later.'
-                            positionY = '70%'
-                            positionX = '70%'
+                            positionY = '100px'
+                            positionX = '100px'
                             exportInf = {exportInf}
                           />
                         }

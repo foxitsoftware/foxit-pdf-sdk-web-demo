@@ -1,4 +1,7 @@
 let rotate = 0;
+const setStyle = (el:any, display: string) => {
+  el.style.display = display
+}
 
 export function openSidebar(pdfui: any, sidebarTabName: any) {
   return pdfui.getRootComponent().then((root: any) => {
@@ -229,9 +232,14 @@ export function createTextNoteAnnotation(pdfui:any) {
 }
 
 export function openSignDialog(pdfui:any) {
+  const el = document.querySelector('.wrapBlock-flex')
   pdfui.getComponentByName('create-signature').then((inkDialog:any)=>
   { 
-      inkDialog.show();
+    setStyle(el, 'none')
+    inkDialog.show();
+  });
+  pdfui.addViewerEventListener('inkSign-added', function () {
+    setStyle(el, 'flex')
   });
   return pdfui;
 }
