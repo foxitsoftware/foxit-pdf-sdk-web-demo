@@ -6,7 +6,7 @@ import { Switch, Route, HashRouter, useLocation } from "react-router-dom";
 import { examples } from "./foundation/examples";
 import { Tooltip } from "./components/tooltip/Tooltip";
 import { AdvancedTooltip } from "./components/advancedTooltip/AdvancedTooltip";
-import {exportData} from "../src/snippets"
+import { exportData } from "../src/snippets";
 import "@foxitsoftware/foxit-pdf-sdk-for-web-library/lib/UIExtension.vw.css";
 
 import {
@@ -21,7 +21,6 @@ import {
 
 const { Content } = Layout;
 
-
 const App = () => {
   const iframeRef = useRef<any>(null);
   const locationDom = useLocation();
@@ -33,18 +32,18 @@ const App = () => {
   const [scene, setScene] = useState<any>(hello);
   const [locationTooltipX, setLocationTooltipX] = useState<string>("");
   const [locationTooltipY, setLocationTooltipY] = useState<string>("");
-  const [isDesktopDevice, setIsDevice] = useState<boolean>(false);
-
-  let json = '{"isTurn":false,"screenSize":"desktop"}'
-  
+  const [screenSize, setScreenSize] = useState<string>("desktop");
 
   const getMessage = (event: any) => {
-    let Data = JSON.parse(event.data)
-    console.log(Data)
-    if(Data.isTurn){setIsShow(Data.isTurn);}
-    if(Data.screenSize){iframeRef.current.contentWindow.location.reload()}
-    
-
+    let Data = JSON.parse(event.data);
+    console.log(Data);
+    if (Data.hasOwnProperty("isTurn")) {
+      setIsShow(Data.isTurn);
+    }
+    if (Data.screenSize) {
+      setScreenSize(Data.screenSize);
+      iframeRef.current.contentWindow.location.reload();
+    }
   };
 
   useEffect(() => {
@@ -53,7 +52,6 @@ const App = () => {
       window.addEventListener("message", getMessage, false);
     };
   }, [iframeRef, location.hash]);
-
 
   const getElement = (newCurrent: number) => {
     setIsSuccess(true);
@@ -67,21 +65,17 @@ const App = () => {
     //     (currentItem.style.cssText =
     //       "padding: 0px 200px; background: gainsboro;");
     // }
-      getOffset(
-        iframeRef.current.contentDocument.getElementsByName(
-          scene[newCurrent].elementName
-        )
-      );
+    getOffset(
+      iframeRef.current.contentDocument.getElementsByName(
+        scene[newCurrent].elementName
+      )
+    );
   };
-
-      
-
-
 
   const handleNext = () => {
     setCurrent((prevCurrent) => {
       const newCurrent = prevCurrent + 1;
-      scene[newCurrent].func(iframeRef)
+      scene[newCurrent].func(iframeRef);
       getElement(newCurrent);
       return newCurrent;
     });
@@ -95,24 +89,24 @@ const App = () => {
       return newCurrent;
     });
   };
-
+  console.log(isShow, isDoneScene, isSuccess);
   const handleThisFunc = () => {
-      scene[current].func(iframeRef);
+    scene[current].func(iframeRef);
   };
 
   const exportInf = () => {
-    return exportData(iframeRef.current.contentWindow.pdfui)
-  }
+    return exportData(iframeRef.current.contentWindow.pdfui);
+  };
 
   const getOffset = (el: any) => {
-    console.log(el)
+    console.log(el);
     if (el.length) {
       const rect = el[0].getBoundingClientRect();
-      console.log(el[0].getBoundingClientRect())
+      console.log(el[0].getBoundingClientRect());
       if (scene[current].sideTriangle === "right") {
         setLocationTooltipX(`${rect.left + window.scrollX - 316}px`);
         setLocationTooltipY(`${rect.top + window.scrollY - 120}px`);
-      } else if(scene[current].sideTriangle === "left-fixed"){
+      } else if (scene[current].sideTriangle === "left-fixed") {
         setLocationTooltipX(`${rect.left + window.scrollX + 70}px`);
         setLocationTooltipY(`${rect.top + window.scrollY - 85}px`);
       } else {
@@ -131,14 +125,6 @@ const App = () => {
   const handleDone = useCallback(() => {
     changeDone(false);
   }, []);
-
-  const resizeWindow = () => {
-    if (iframeRef.current.contentWindow.innerWidth < 900) {
-      setIsDevice(false);
-    } else {
-      setIsDevice(true);
-    }
-  };
 
   useEffect(() => {
     switch (locationDom.hash) {
@@ -186,10 +172,6 @@ const App = () => {
 
   useEffect(() => {
     if (iframeRef.current && iframeRef.current.contentWindow.pdfui) {
-      setIsDevice(iframeRef.current.contentWindow.isDesktopDevise);
-
-      iframeRef.current.contentWindow.onresize = resizeWindow;
-
       iframeRef.current.contentWindow.pdfui.addViewerEventListener(
         "open-file-success",
         () => {
@@ -197,12 +179,8 @@ const App = () => {
         }
       );
     }
-    return () => {
-      iframeRef.current.contentWindow.onresize = null;
-    };
   }, [isLoad]);
 
-  
   return (
     <HashRouter>
       <Layout className="fv__catalog-app">
@@ -217,7 +195,7 @@ const App = () => {
                         isDoneScene &&
                         isSuccess &&
                         locationDom.hash !== "#/advanced_form" &&
-                        isDesktopDevice && (
+                        screenSize === "desktop" && (
                           <Tooltip
                             positionX={
                               scene[current].sideTriangle === "top" ||
@@ -244,19 +222,19 @@ const App = () => {
                             handleThisFunc={handleThisFunc}
                           />
                         )}
-                        {locationDom.hash === "#/advanced_form" &&
-                        isShow&&
-                        isDesktopDevice &&
+                      {locationDom.hash === "#/advanced_form" &&
+                        isShow &&
                         isSuccess &&
+                        screenSize === "desktop" && (
                           <AdvancedTooltip
-                            header='Save your form data'
-                            description = 'Download your partially-filled form data as HTML to save your place, and pick it up again later.'
-                            positionY = '100px'
-                            positionX = '100px'
-                            exportInf = {exportInf}
+                            header="Save your form data"
+                            description="Download your partially-filled form data as HTML to save your place, and pick it up again later."
+                            positionY="100px"
+                            positionX="100px"
+                            exportInf={exportInf}
                           />
-                        }
-                        
+                        )}
+
                       <iframe
                         onLoad={() => {
                           setIsLoad(true);
