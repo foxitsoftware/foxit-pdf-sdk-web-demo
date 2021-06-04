@@ -43,6 +43,8 @@ const App = () => {
     setIsShow(Data.isTurn);
     if(Data.screenSize !== 'desktop'){
       iframeRef.current.contentWindow.location.reload()
+    } else if(Data.screenSize === 'desktop') {
+      iframeRef.current.contentWindow.location.reload()
     }
   };
 
