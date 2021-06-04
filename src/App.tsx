@@ -34,7 +34,6 @@ const App = () => {
   const [locationTooltipX, setLocationTooltipX] = useState<string>("");
   const [locationTooltipY, setLocationTooltipY] = useState<string>("");
   const [isDesktopDevice, setIsDevice] = useState<boolean>(false);
-  const [curentSize, setCurentSize]= useState<number>(0)
 
   const getMessage = (event: any) => {
     setIsShow(event.data);
@@ -120,14 +119,8 @@ const App = () => {
   const handleDone = useCallback(() => {
     changeDone(false);
   }, []);
-
   const resizeWindow = () => {
-    console.log("res")
-    if (iframeRef.current.contentWindow.innerWidth < 900) {
-      setIsDevice(false);
-    } else {
-      setIsDevice(true);
-    }
+    document.location.reload();
   };
 
   useEffect(() => {
@@ -177,7 +170,6 @@ const App = () => {
   useEffect(() => {
     if (iframeRef.current && iframeRef.current.contentWindow.pdfui) {
       console.log("load")
-      setCurentSize(iframeRef.current.contentWindow.innerWidth)
       iframeRef.current.contentWindow.onresize = resizeWindow;
       if (iframeRef.current.contentWindow.innerWidth < 900) {
         setIsDevice(false);
@@ -189,6 +181,7 @@ const App = () => {
         "open-file-success",
         () => {
           getElement(current);
+          window.addEventListener("message", getMessage, false);
         }
       );
     }
@@ -247,7 +240,7 @@ const App = () => {
                             header='Save your form data'
                             description = 'Download your partially-filled form data as HTML to save your place, and pick it up again later.'
                             positionY = '100px'
-                            positionX = '100px'
+                            positionX = '515px'
                             exportInf = {exportInf}
                           />
                         }
