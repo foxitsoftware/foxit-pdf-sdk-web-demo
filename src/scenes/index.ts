@@ -103,7 +103,7 @@ const annotation = [
     sideTriangle: "left-fixed",
     header: "Leave your note",
     description: "Click directly in the PDF to leave a note in context.",
-    func: (ref: any) => createTextNoteAnnotation(ref.current.contentWindow.pdfui, 200, 200),
+    func: (ref: any) => createTextNoteAnnotation(ref.current.contentWindow.pdfui, 500, 300),
   },
   {
     positionX: "436px",
