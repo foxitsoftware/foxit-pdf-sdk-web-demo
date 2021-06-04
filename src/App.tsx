@@ -40,12 +40,11 @@ const App = () => {
 
   const getMessage = (event: any) => {
     let Data = JSON.parse(event.data)
-    setIsShow(Data.isTurn);
-    if(Data.screenSize !== 'desktop'){
-      iframeRef.current.contentWindow.location.reload()
-    } else if(Data.screenSize === 'desktop') {
-      iframeRef.current.contentWindow.location.reload()
-    }
+    console.log(Data)
+    if(Data.isTurn){setIsShow(Data.isTurn);}
+    if(Data.screenSize){iframeRef.current.contentWindow.location.reload()}
+    
+
   };
 
   useEffect(() => {
