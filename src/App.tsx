@@ -119,8 +119,13 @@ const App = () => {
   const handleDone = useCallback(() => {
     changeDone(false);
   }, []);
+
   const resizeWindow = () => {
-    document.location.reload();
+    if (iframeRef.current.contentWindow.innerWidth < 900) {
+      setIsDevice(false);
+    } else {
+      setIsDevice(true);
+    }
   };
 
   useEffect(() => {
@@ -169,19 +174,14 @@ const App = () => {
 
   useEffect(() => {
     if (iframeRef.current && iframeRef.current.contentWindow.pdfui) {
-      console.log("load")
+      setIsDevice(iframeRef.current.contentWindow.isDesktopDevise);
+
       iframeRef.current.contentWindow.onresize = resizeWindow;
-      if (iframeRef.current.contentWindow.innerWidth < 900) {
-        setIsDevice(false);
-      } else {
-        setIsDevice(true);
-      }
 
       iframeRef.current.contentWindow.pdfui.addViewerEventListener(
         "open-file-success",
         () => {
           getElement(current);
-          window.addEventListener("message", getMessage, false);
         }
       );
     }
@@ -240,7 +240,7 @@ const App = () => {
                             header='Save your form data'
                             description = 'Download your partially-filled form data as HTML to save your place, and pick it up again later.'
                             positionY = '100px'
-                            positionX = '515px'
+                            positionX = '100px'
                             exportInf = {exportInf}
                           />
                         }
