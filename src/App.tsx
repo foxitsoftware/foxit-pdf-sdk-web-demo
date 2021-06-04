@@ -26,6 +26,7 @@ const App = () => {
   const iframeRef = useRef<any>(null);
   const locationDom = useLocation();
   const [isShow, setIsShow] = useState(false);
+  const [screenSize, setScreenSize] = useState<string>("desktop")
   const [current, setCurrent] = useState<number>(0);
   const [isDoneScene, changeDone] = useState<boolean>(true);
   const [isLoad, setIsLoad] = useState<boolean>(false);
@@ -35,9 +36,13 @@ const App = () => {
   const [locationTooltipY, setLocationTooltipY] = useState<string>("");
   const [isDesktopDevice, setIsDevice] = useState<boolean>(false);
 
+  let json = '{"isTurn":false,"screenSize":"desktop"}'
+  
+
   const getMessage = (event: any) => {
-    console.log(event.data)
-    setIsShow(event.data);
+    let Data = JSON.parse(event.data)
+    setIsShow(Data.isTurn);
+    setScreenSize(Data.screenSize)
   };
 
   useEffect(() => {
@@ -67,6 +72,11 @@ const App = () => {
       );
   };
 
+  useEffect(() => {
+      document.location.reload()
+  }, [screenSize])
+
+  
   const handleNext = () => {
     setCurrent((prevCurrent) => {
       const newCurrent = prevCurrent + 1;
