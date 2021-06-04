@@ -36,6 +36,7 @@ const App = () => {
   const [isDesktopDevice, setIsDevice] = useState<boolean>(false);
 
   const getMessage = (event: any) => {
+    console.log(event.data)
     setIsShow(event.data);
   };
 
