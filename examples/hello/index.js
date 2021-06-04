@@ -32,11 +32,12 @@ window.isDesktopDevise = DeviceInfo.isDesktop;
 pdfui.openPDFByHttpRangeRequest(
   {
     range: {
-      url: "/assets/1-feature-example_default-setup.pdf",
+      url: "/assets/Advanced_form.pdf",
     },
   },
-  { fileName: "1-feature-example_default-setup.pdf" }
-);  
+  { fileName: "Advanced_form.pdf" }
+);
+
 
 
 pdfui.getComponentByName("home-tab-group-io").then((group) => {
