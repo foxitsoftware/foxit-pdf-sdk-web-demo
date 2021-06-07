@@ -47,13 +47,16 @@
 }
 
 .buttonFunc {
-    border: none;
-    background: none;
+    background: #F2962E;
     color: #FFFFFF;
-    font-size: 17px;
-    padding-top: 5px;
+    margin-top: 20px;
     font-family: 'Open Sans', sans-serif;
-    text-decoration: underline;
+    font-weight: 800;
+    padding: 3px 13px;
+    font-size: 20px;
+    border: none;
+    border-radius: 10px;
+    outline: none;
     cursor: pointer;
 }
 
