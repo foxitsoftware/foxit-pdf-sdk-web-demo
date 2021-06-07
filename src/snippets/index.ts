@@ -122,32 +122,24 @@ export function createCustomStamp(pdfui: any, url: string) {
     });
 }
 
-export function markAndRedactAStringOfText(pdfui: any) {
+export function markAndRedactArea(pdfui: any, options = {
+  bottom: 586.2299349240782,
+  left: 67.04121475054231,
+  right: 170.590021691974,
+  top: 597.5140997830804
+}) {
   return pdfui
-    .getCurrentPDFDoc()
-    .then((doc: any) => {
-      return doc.getPageByIndex(0);
-    })
-    .then((page: any) => {
-      return page.markRedactAnnot([
-        {
-          left: 100,
-          top: 200,
-          right: 351.5455322265625,
-          bottom: 278.3037109375,
-          rotation: 0,
-          start: 0,
-          end: 3,
-          text: "123-45-6789",
-        },
-      ]);
-    })
-    .then((annots: any) => {
-      return annots[0];
-    })
-    .then((redact: any) => {
-      return redact.apply();
-    });
+      .getCurrentPDFDoc()
+      .then((doc: any) => {
+          return doc.getPageByIndex(0);
+      })
+      .then((page: any) => {
+          return page.markRedactAnnot([options]);
+      }).then((annots: any) => {
+          return annots[0];
+      }).then((redact: any) => {
+          return redact.apply();
+      });
 }
 
 export function disableAll(pdfui: any, excludeQuerySelector: any) {
