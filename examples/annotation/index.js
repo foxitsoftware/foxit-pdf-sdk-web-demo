@@ -64,22 +64,14 @@ pdfui.addViewerEventListener(Events.openFileSuccess, () => {
   });
 });
 
-pdfui.addViewerEventListener(Events.annotationUpdated, (annots, page, type) => {
-  console.log("annotations updated", annots, page, type);
-});
 pdfui.addViewerEventListener(Events.annotationAdded, (annots) => {
   pdfui
     .getCurrentPDFDoc()
     .then((doc) => {
       return doc.exportAnnotsToFDF(File_Type.fdf, annots.slice(0, 1));
     })
-    .then((fdf) => {
-      console.log("annotations added", annots, fdf);
-    });
 });
-pdfui.addViewerEventListener(Events.annotationRemoved, (removedAnnots) => {
-  console.log("annotations removed", removedAnnots);
-});
+
 pdfui.addViewerEventListener(PDFViewCtrl.ViewerEvents.openFileSuccess, () => {
   window.pdfui = pdfui;
 });
