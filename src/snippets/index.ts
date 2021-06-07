@@ -131,14 +131,14 @@ export function markAndRedactAStringOfText(pdfui: any) {
     .then((page: any) => {
       return page.markRedactAnnot([
         {
-          left: 89.30400085449219,
-          top: 346.5767822265625,
+          left: 100,
+          top: 200,
           right: 351.5455322265625,
           bottom: 278.3037109375,
           rotation: 0,
           start: 0,
           end: 3,
-          text: "Demo",
+          text: "123-45-6789",
         },
       ]);
     })

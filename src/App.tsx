@@ -42,16 +42,6 @@ const App = () => {
     }
     if (Data.screenSize) {
       setScreenSize(Data.screenSize);
-      if(Data.screenSize !== "desktop") {
-        setIsSuccess(false);
-      } else {
-        iframeRef.current.contentWindow.pdfui.addViewerEventListener(
-          "open-file-success",
-          () => {
-            setIsSuccess(true);
-          }
-        );
-      }
       iframeRef.current.contentWindow.location.reload();
     }
   };
