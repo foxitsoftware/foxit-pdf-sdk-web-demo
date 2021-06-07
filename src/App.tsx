@@ -48,7 +48,7 @@ const App = () => {
         iframeRef.current.contentWindow.pdfui.addViewerEventListener(
           "open-file-success",
           () => {
-            getElement(current);
+            setIsSuccess(true);
           }
         );
       }
