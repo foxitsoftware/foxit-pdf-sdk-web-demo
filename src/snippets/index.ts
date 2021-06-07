@@ -122,19 +122,19 @@ export function createCustomStamp(pdfui: any, url: string) {
     });
 }
 
-export function markAndRedactArea(pdfui: any, options = {
-  bottom: 586.2299349240782,
-  left: 67.04121475054231,
-  right: 170.590021691974,
-  top: 597.5140997830804
-}) {
+export function markAndRedactArea(pdfui: any ) {
   return pdfui
       .getCurrentPDFDoc()
       .then((doc: any) => {
           return doc.getPageByIndex(0);
       })
       .then((page: any) => {
-          return page.markRedactAnnot([options]);
+        return page.markRedactAnnot([{
+          bottom: 586.2299349240782,
+          left: 67.04121475054231,
+          right: 170.590021691974,
+          top: 597.5140997830804
+        }]);
       }).then((annots: any) => {
           return annots[0];
       }).then((redact: any) => {
