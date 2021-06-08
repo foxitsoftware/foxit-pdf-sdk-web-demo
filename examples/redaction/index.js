@@ -30,9 +30,6 @@ const pdfui = new PDFUI({
 
 window.pdfui = pdfui;
 
-pdfui.addViewerEventListener(PDFViewCtrl.ViewerEvents.openFileSuccess, () => {
-  window.pdfui = pdfui;
-});
 
 //This method forces the viewer into mobile layout view. Use it instead of the responsive mobile design
 //DeviceInfo.isMobile = true;
@@ -49,10 +46,8 @@ if(window.innerWidth < 900){
   DeviceInfo.isMobile = false
 }
 
-window.isDesktopDevise = DeviceInfo.isDesktop;
 
 pdfui.addViewerEventListener(Events.openFileSuccess, () => {
-  console.info("open file success");
   pdfui.getRootComponent().then((root) => {
     const commentTab = root.getComponentByName("protect-tab");
     commentTab.active();
@@ -64,10 +59,6 @@ window.addEventListener(
     pdfui.redraw();
   }
 );
-
-pdfui.addViewerEventListener(Events.openFileSuccess, () => {
-  console.info("open file success");
-});
 
 pdfui.openPDFByHttpRangeRequest(
   {

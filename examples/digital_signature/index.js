@@ -29,11 +29,6 @@ const pdfui = new PDFUI({
 });
 
 window.pdfui = pdfui;
-window.isDesktopDevise = DeviceInfo.isDesktop;
-
-pdfui.addViewerEventListener(PDFViewCtrl.ViewerEvents.openFileSuccess, () => {
-  window.pdfui = pdfui;
-});
 
 //Toolbar element show/hide control
 pdfui.getRootComponent().then((root) => {
@@ -56,7 +51,6 @@ if(window.innerWidth < 900){
   DeviceInfo.isMobile = false
 }
 pdfui.addViewerEventListener(Events.openFileSuccess, () => {
-  console.info("open file success");
   pdfui.getRootComponent().then((root) => {
     const commentTab = root.getComponentByName("protect-tab");
     commentTab.active();

@@ -28,11 +28,6 @@ const pdfui = new PDFUI({
     : "/lib/uix-addons/allInOne.js",
 });
 window.pdfui = pdfui;
-window.isDesktopDevise = DeviceInfo.isDesktop;
-
-pdfui.addViewerEventListener(PDFViewCtrl.ViewerEvents.openFileSuccess, () => {
-  window.pdfui = pdfui;
-});
 
 //Toolbar element show/hide control
 pdfui.getRootComponent().then((root) => {
@@ -48,7 +43,6 @@ window.addEventListener(
 );
 
 pdfui.addViewerEventListener(Events.openFileSuccess, () => {
-  console.info("open file success");
   pdfui.getRootComponent().then((root) => {
     const commentTab = root.getComponentByName("edit-tab");
     commentTab.active();

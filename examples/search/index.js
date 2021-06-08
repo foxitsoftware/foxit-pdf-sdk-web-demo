@@ -38,10 +38,7 @@ window.addEventListener(
   }
 );
 
-window.isDesktopDevise = DeviceInfo.isDesktop;
-
 pdfui.addViewerEventListener(PDFViewCtrl.ViewerEvents.openFileSuccess, () => {
-  window.pdfui = pdfui;
   openSidebar(pdfui, "sidebar-search");
 });
 

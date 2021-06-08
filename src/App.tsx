@@ -59,15 +59,6 @@ const App = () => {
   const getElement = (newCurrent: number) => {
     setIsSuccess(true);
 
-    // if (locationDom.hash === "#/digital_signature") {
-    //   const currentItem =
-    //     iframeRef.current.contentDocument.getElementsByClassName(
-    //       "fv__ui-portfolio-container"
-    //     )[0];
-    //   currentItem &&
-    //     (currentItem.style.cssText =
-    //       "padding: 0px 200px; background: gainsboro;");
-    // }
     getOffset(
       iframeRef.current.contentDocument.getElementsByName(
         scene[newCurrent].elementName

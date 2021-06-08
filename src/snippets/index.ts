@@ -250,7 +250,6 @@ function loadImage(url: string) {
   const image = new Image();
   return new Promise((resolve, reject) => {
     image.onerror = () => {
-      // pdfui.alert(`Cannot load image url: ${url}`);
       reject();
     };
     image.onload = () => {

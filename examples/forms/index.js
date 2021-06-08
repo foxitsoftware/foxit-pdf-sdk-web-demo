@@ -27,12 +27,8 @@ const pdfui = new PDFUI({
     : "/lib/uix-addons/allInOne.js",
 });
 window.pdfui = pdfui;
-window.isDesktopDevise = DeviceInfo.isDesktop;
 
-pdfui.addViewerEventListener(PDFViewCtrl.ViewerEvents.openFileSuccess, () => {
-  window.pdfui = pdfui;
-  console.dir(pdfui)
-});
+
 pdfui.getAllComponentsByName("form-tab-group-fields").then((group) => {
   group[2].setRetainCount(1000)
 });
@@ -57,7 +53,6 @@ window.addEventListener(
 );
 
 pdfui.addViewerEventListener(Events.openFileSuccess, () => {
-  console.info("open file success");
   pdfui.getRootComponent().then((root) => {
     const commentTab = root.getComponentByName("form-tab");
     commentTab.active();

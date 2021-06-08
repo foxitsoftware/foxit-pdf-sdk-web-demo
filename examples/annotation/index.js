@@ -32,9 +32,7 @@ const pdfui = new PDFUI({
 
 window.pdfui = pdfui;
 
-pdfui.addViewerEventListener(PDFViewCtrl.ViewerEvents.openFileSuccess, () => {
-  window.pdfui = pdfui;
-});
+
 pdfui.getComponentByName("comment-tab-group-media").then((group) => {
   group.setRetainCount(100);
 });
@@ -55,9 +53,7 @@ window.addEventListener(
     pdfui.redraw();
   }
 );
-window.isDesktopDevise = DeviceInfo.isDesktop;
 pdfui.addViewerEventListener(Events.openFileSuccess, () => {
-  console.info("open file success");
   pdfui.getRootComponent().then((root) => {
     const commentTab = root.getComponentByName("comment-tab");
     commentTab.active();
@@ -72,9 +68,7 @@ pdfui.addViewerEventListener(Events.annotationAdded, (annots) => {
     })
 });
 
-pdfui.addViewerEventListener(PDFViewCtrl.ViewerEvents.openFileSuccess, () => {
-  window.pdfui = pdfui;
-});
+
 
 const AnnotType = PDFViewCtrl.PDF.annots.constant.Annot_Type;
 

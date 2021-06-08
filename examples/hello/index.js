@@ -28,7 +28,6 @@ const pdfui = new PDFUI({
     : libPath + "uix-addons/allInOne.js",
 });
 window.pdfui = pdfui;
-window.isDesktopDevise = DeviceInfo.isDesktop;
 pdfui.openPDFByHttpRangeRequest(
   {
     range: {
@@ -55,7 +54,4 @@ if(window.innerWidth < 900){
   DeviceInfo.isMobile = false
 }
 
-pdfui.addViewerEventListener(PDFViewCtrl.ViewerEvents.openFileSuccess, () => {
-  window.pdfui = pdfui;
-});
 
