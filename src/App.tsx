@@ -24,7 +24,7 @@ const { Content } = Layout;
 const App = () => {
   const iframeRef = useRef<any>(null);
   const locationDom = useLocation();
-  const [isShow, setIsShow] = useState(false);
+  const [isShow, setIsShow] = useState(true);
   const [current, setCurrent] = useState<number>(0);
   const [isDoneScene, changeDone] = useState<boolean>(true);
   const [isLoad, setIsLoad] = useState<boolean>(false);
@@ -33,7 +33,6 @@ const App = () => {
   const [locationTooltipX, setLocationTooltipX] = useState<string>("");
   const [locationTooltipY, setLocationTooltipY] = useState<string>("");
   const [screenSize, setScreenSize] = useState<string>("desktop");
-
   const getMessage = (event: any) => {
     let Data = JSON.parse(event.data);
     if (Data.hasOwnProperty("isTurn")) {
@@ -41,6 +40,11 @@ const App = () => {
     }
     if (Data.screenSize) {
       setScreenSize(Data.screenSize);
+      if(Data.screenSize !== "desktop"){
+        setIsSuccess(false)
+      }else{
+        window.location.reload()
+      }
       iframeRef.current.contentWindow.location.reload();
     }
   };
@@ -171,11 +175,12 @@ const App = () => {
       iframeRef.current.contentWindow.pdfui.addViewerEventListener(
         "open-file-success",
         () => {
+          
           getElement(current);
         }
       );
     }
-  }, [isLoad]);
+  }, [isLoad, screenSize]);
 
   return (
     <HashRouter>
