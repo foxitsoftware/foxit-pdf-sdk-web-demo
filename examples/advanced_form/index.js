@@ -5,7 +5,6 @@ import "./index.css";
 const { PDFUI, PDFViewCtrl } = UIExtension;
 const { DeviceInfo } = PDFViewCtrl;
 
-console.log(DeviceInfo);
 
 const libPath = "/lib/";
 

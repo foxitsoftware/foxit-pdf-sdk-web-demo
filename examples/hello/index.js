@@ -57,6 +57,5 @@ if(window.innerWidth < 900){
 
 pdfui.addViewerEventListener(PDFViewCtrl.ViewerEvents.openFileSuccess, () => {
   window.pdfui = pdfui;
-  console.log( window.pdfui)
 });
 

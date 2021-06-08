@@ -21,7 +21,7 @@ export const AdvancedTooltip: React.FC<Props> = React.memo(
     return (
       <div
         className={"wrapBlock"}
-        style={{ top: positionY, left: positionX }}
+        style={{ bottom: positionY, left: positionX }}
       >
         <div className="modalWindow">
           <h1 className="header">{header}</h1>

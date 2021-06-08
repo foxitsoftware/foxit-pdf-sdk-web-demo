@@ -36,7 +36,6 @@ const App = () => {
 
   const getMessage = (event: any) => {
     let Data = JSON.parse(event.data);
-    console.log(Data);
     if (Data.hasOwnProperty("isTurn")) {
       setIsShow(Data.isTurn);
     }
@@ -89,7 +88,6 @@ const App = () => {
       return newCurrent;
     });
   };
-  console.log(isShow, isDoneScene, isSuccess);
   const handleThisFunc = () => {
     scene[current].func(iframeRef);
   };
@@ -99,10 +97,8 @@ const App = () => {
   };
 
   const getOffset = (el: any) => {
-    console.log(el);
     if (el.length) {
       const rect = el[0].getBoundingClientRect();
-      console.log(el[0].getBoundingClientRect());
       if (scene[current].sideTriangle === "right") {
         setLocationTooltipX(`${rect.left + window.scrollX - 316}px`);
         setLocationTooltipY(`${rect.top + window.scrollY - 120}px`);
@@ -229,8 +225,8 @@ const App = () => {
                           <AdvancedTooltip
                             header="Save your form data"
                             description="Download your partially-filled form data as HTML to save your place, and pick it up again later."
-                            positionY="100px"
-                            positionX="100px"
+                            positionY="0px"
+                            positionX="70px"
                             exportInf={exportInf}
                           />
                         )}
