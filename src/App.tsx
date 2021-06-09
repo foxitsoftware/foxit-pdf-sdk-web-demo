@@ -175,9 +175,7 @@ const App = () => {
 
   return (
     <HashRouter>
-      <Layout className="fv__catalog-app">
         <Layout className="fv__catalog-app-body">
-          <Layout>
             <Content>
               <Switch>
                 {examples.map((it) => {
@@ -241,8 +239,6 @@ const App = () => {
               </Switch>
             </Content>
           </Layout>
-        </Layout>
-      </Layout>
     </HashRouter>
   );
 };
