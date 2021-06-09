@@ -142,7 +142,7 @@ const annotation = [
     func: (ref: any) => {
       createCustomStamp(
         ref.current.contentWindow.pdfui,
-        location.origin + "/assets/stamp.jpg"
+        location.origin + "/assets/stamp.png"
       );
     },
   },
