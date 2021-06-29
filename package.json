@@ -9,7 +9,7 @@
         "move-sdk-assets": "cp-cli ./node_modules/@foxitsoftware/foxit-pdf-sdk-for-web-library/lib ./dist/lib",
         "start": "concurrently --kill-others \"npm run start:webpack\" \"npm run start:snapshot-server\"",
         "start:webpack": "webpack serve --config ./build/webpack.config.js --mode development",
-        "start:snapshot-server": "node ./node_modules/@foxitsoftware/foxit-pdf-sdk-for-web-library/server/snapshot/src/index -p 3002",
+        "start:snapshot-server": "node ./node_modules/@foxitsoftware/foxit-pdf-sdk-for-web-library/server/snapshot/src/index -p 3003",
         "build": "npm run move-sdk-assets && webpack --config ./build/webpack.config.js --mode production"
     },
     "license": "ISC",
@@ -55,16 +55,16 @@
         "webpack-dev-server": "^3.11.0"
     },
     "serve": {
-        "port": 8082,
+        "port": 8083,
         "proxy": {
             "/snapshot": {
-                "target": "http://127.0.0.1:3002",
+                "target": "http://127.0.0.1:3003",
                 "changeOrigin": true
             }
         }
     },
     "dependencies": {
-        "@foxitsoftware/foxit-pdf-sdk-for-web-library": "^7.6.0",
+        "@foxitsoftware/foxit-pdf-sdk-for-web-library": "^8.0.0",
         "@types/react-router-dom": "^5.1.7",
         "antd": "^4.14.0",
         "core-js": "^3.9.1",
