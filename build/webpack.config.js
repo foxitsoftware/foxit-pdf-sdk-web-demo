@@ -6,7 +6,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 const examplesDir = path.resolve(__dirname, '../examples')
-
+const DEFAULT_TEMPLATE_FILE_PATH = path.resolve(__dirname, '../common/default-examples.html');
 const entries = [];
 
 const libraryModulePath = path.resolve('node_modules/@foxitsoftware/foxit-pdf-sdk-for-web-library');
@@ -33,12 +33,16 @@ fs.readdirSync(examplesDir).forEach(exampleName => {
     }
     info.path = "/examples/" + exampleName + '/index.html';
     info.baseName = exampleName;
+    let templatePath = path.resolve(examplesDir, exampleName, 'index.html');
+    if(!fs.existsSync(templatePath)) {
+        templatePath = DEFAULT_TEMPLATE_FILE_PATH;
+    }
     entries.push({
         dir: 'examples/' + exampleName,
         entryName,
         js: path.resolve(examplesDir, exampleName, 'index.js'),
         htmlchunks: chunks,
-        template: path.resolve(examplesDir, exampleName, 'index.html'),
+        template: templatePath,
         info
     });
 });
