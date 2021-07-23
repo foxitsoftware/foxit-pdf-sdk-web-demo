@@ -7,7 +7,10 @@ module.exports = {
         '0.0.0.0'
     ],
     port: pkg.serve.port,
-    hot: true,
+    // https://github.com/webpack/webpack-dev-server/issues/2484 
+    hot: false,
+    injectClient: false,
+    //
     inline: true,
     disableHostCheck: true,
     clientLogLevel: 'error',
