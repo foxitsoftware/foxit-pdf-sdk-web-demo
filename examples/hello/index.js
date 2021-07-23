@@ -5,7 +5,17 @@ import "./index.css";
 const { PDFUI, PDFViewCtrl } = UIExtension;
 const { DeviceInfo } = PDFViewCtrl;
 
+if(window.innerWidth < 900){
+  DeviceInfo.isMobile = true
+}else{
+  DeviceInfo.isMobile = false
+}
+
+
 const libPath = "/lib/";
+const wrapperElement = document.createElement("div");
+wrapperElement.classList.add("fv__catalog-pdfui-wrapper");
+document.body.appendChild(wrapperElement);
 
 const pdfui = new PDFUI({
   viewerOptions: {
@@ -21,7 +31,7 @@ const pdfui = new PDFUI({
       licenseKey: licenseKey,
     },
   },
-  renderTo: "#pdf-ui",
+  renderTo: wrapperElement,
   appearance: UIExtension.appearances.adaptive,
   addons: DeviceInfo.isMobile
     ? libPath + "uix-addons/allInOne.mobile.js"
@@ -47,11 +57,3 @@ window.addEventListener(
     pdfui.redraw();
   }
 );
-
-if(window.innerWidth < 900){
-  DeviceInfo.isMobile = true
-}else{
-  DeviceInfo.isMobile = false
-}
-
-

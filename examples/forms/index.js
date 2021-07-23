@@ -1,33 +1,12 @@
 import * as UIExtension from "UIExtension";
 import "@foxitsoftware/foxit-pdf-sdk-for-web-library/lib/UIExtension.vw.css";
 import "./index.css";
+import { createPDFUI } from '../../common/pdfui';
 
-const { PDFUI, PDFViewCtrl } = UIExtension;
-const { DeviceInfo, Events } = PDFViewCtrl;
-const File_Type = PDFViewCtrl.PDF.constant.File_Type;
-const libPath = "/lib/";
-const pdfui = new PDFUI({
-  viewerOptions: {
-    libPath: libPath,
-    jr: {
-      workerPath: libPath,
-      enginePath: libPath + "jr-engine/gsdk/",
-      fontPath: "https://webpdf.foxitsoftware.com/webfonts/",
-      brotli: {
-        core: false,
-      },
-      licenseSN: licenseSN,
-      licenseKey: licenseKey,
-    },
-  },
-  renderTo: "#pdf-ui",
-  appearance: UIExtension.appearances.adaptive,
-  addons: DeviceInfo.isMobile
-    ? "/lib/uix-addons/allInOne.mobile.js"
-    : "/lib/uix-addons/allInOne.js",
-});
-window.pdfui = pdfui;
+const { PDFViewCtrl } = UIExtension;
+const { Events } = PDFViewCtrl;
 
+const pdfui = createPDFUI({});
 
 pdfui.getAllComponentsByName("form-tab-group-fields").then((group) => {
   group[2].setRetainCount(1000)
@@ -36,21 +15,7 @@ pdfui.getAllComponentsByName("form-tab-group-fields").then((group) => {
 pdfui.getRootComponent().then((root) => {
   const formTab = root.getComponentByName("form-tab");
   formTab.active();
-  const formTabGroup = root.getComponentByName("form-tab-group-text");
-  formTabGroup.setRetainCount(4);
 });
-
-if(window.innerWidth < 900){
-  DeviceInfo.isMobile = true
-}else{
-  DeviceInfo.isMobile = false
-}
-window.addEventListener(
-  DeviceInfo.isDesktop ? "resize" : "orientationchange",
-  () => {
-    pdfui.redraw();
-  }
-);
 
 pdfui.addViewerEventListener(Events.openFileSuccess, () => {
   pdfui.getRootComponent().then((root) => {

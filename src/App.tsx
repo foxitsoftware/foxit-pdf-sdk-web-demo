@@ -34,7 +34,12 @@ const App = () => {
   const [locationTooltipY, setLocationTooltipY] = useState<string>("");
   const [screenSize, setScreenSize] = useState<string>("desktop");
   const getMessage = (event: any) => {
-    let Data = JSON.parse(event.data);
+    let Data;
+    try {
+      Data = JSON.parse(event.data);
+    } catch (error) {
+      return;
+    }
     if (Data.hasOwnProperty("isTurn")) {
       setIsShow(Data.isTurn);
     }
