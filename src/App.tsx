@@ -93,7 +93,8 @@ const App = () => {
   };
 
   const exportInf = () => {
-    return exportData(iframeRef.current.contentWindow.pdfui);
+    const example = iframeRef.current.contentWindow.__example__;
+    return example.exportData()
   };
 
   const getOffset = (el: any) => {

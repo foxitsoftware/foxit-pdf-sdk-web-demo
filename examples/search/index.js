@@ -8,7 +8,9 @@ const {
   }
 } = UIExtension;
 
-function openSidebar(pdfui, sidebarTabName) {
+const pdfui = createPDFUI({})
+
+function openSidebar(sidebarTabName) {
   pdfui.getRootComponent().then((root) => {
     const sidebarPanel = root.getComponentByName(sidebarTabName);
     if (sidebarPanel) {
@@ -17,10 +19,9 @@ function openSidebar(pdfui, sidebarTabName) {
   });
 }
 
-const pdfui = createPDFUI({})
 
 pdfui.addViewerEventListener(ViewerEvents.openFileSuccess, () => {
-  openSidebar(pdfui, 'sidebar-search');
+  openSidebar('sidebar-search');
 });
 
 pdfui.openPDFByHttpRangeRequest(

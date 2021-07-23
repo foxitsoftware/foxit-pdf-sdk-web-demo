@@ -1,13 +1,6 @@
 import {
   closeSidebar,
-  markAndRedactAStringOfText,
-  createCustomStamp,
-  movePage,
   openSidebar,
-  rotatePage,
-  createCalloutAnnotation,
-  createTextNoteAnnotation,
-  openSignDialog,
 } from "../snippets";
 
 const hello = [
@@ -73,7 +66,9 @@ const editPdf = [
       openSidebar(
         ref.current.contentWindow.pdfui,
         "sidebar-thumbnail-panel"
-      ).then(() => rotatePage(ref.current.contentWindow.pdfui)),
+      ).then(() => {
+        ref.current.contentWindow.__example__.rotatePage();
+      }),
   },
   {
     positionX: "250px",
@@ -82,7 +77,7 @@ const editPdf = [
     header: "Reorder pages",
     description:
       "Click & drag pages to put pages in the right order in the Thumbnail sidebar.",
-    func: (ref: any) => movePage(ref.current.contentWindow.pdfui, 1, 0),
+    func: (ref: any) => ref.current.contentWindow.__example__.movePage( 1, 0),
   },
 ];
 
@@ -103,7 +98,7 @@ const annotation = [
     sideTriangle: "left-fixed",
     header: "Leave your note",
     description: "Click directly in the PDF to leave a note in context.",
-    func: (ref: any) => createTextNoteAnnotation(ref.current.contentWindow.pdfui, 500, 300),
+    func: (ref: any) => ref.current.contentWindow.__example__.createTextNoteAnnotationAt(500, 300),
   },
   {
     positionX: "436px",
@@ -118,7 +113,7 @@ const annotation = [
         ref.current.contentWindow.pdfui,
         "comment-list-sidebar-panel"
       ).then(() => {
-        createCalloutAnnotation(ref.current.contentWindow.pdfui);
+        ref.current.contentWindow.__example__.createCalloutAnnotation();
       });
     },
   },
@@ -140,8 +135,7 @@ const annotation = [
     description:
       "You can create your own custom stamps using the Custom Stamps option. Click on any of the stamps to add on the page",
     func: (ref: any) => {
-      createCustomStamp(
-        ref.current.contentWindow.pdfui,
+      ref.current.contentWindow.__example__.createCustomStamp(
         location.origin + "/assets/stamp.png"
       );
     },
@@ -177,7 +171,7 @@ const redaction = [
     description:
       "Search for terms in the whole PDF, and choose which to redact.",
     func: (ref: any) => {
-      markAndRedactAStringOfText(ref.current.contentWindow.pdfui);
+      ref.current.contentWindow.__example__.markAndRedactAStringOfText();
     },
   },
   {
@@ -247,7 +241,17 @@ const digital_signature = [
     description:
       "Place your signature in the field (or anywhere else in the PDF)!",
     func: (ref: any) =>
-      openSidebar(ref.current.contentWindow.pdfui, "sidebar-field").then(() => openSignDialog(ref.current.contentWindow.pdfui)),
+      openSidebar(ref.current.contentWindow.pdfui, "sidebar-field")
+      .then(() => {
+        const el = document.querySelector('.wrapBlock-flex') as HTMLElement;
+        el.style.display = 'none'
+        const contentWindow = ref.current.contentWindow;
+        const off = contentWindow.pdfui.addViewerEventListener('inkSign-added', function () {
+            el.style.display = 'flex';
+            off();
+        });
+        contentWindow.__example__.openSignDialog()
+      }),
   },
   {
     positionX: "335px",

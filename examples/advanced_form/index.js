@@ -3,6 +3,21 @@ import { createPDFUI } from '../../common/pdfui';
 
 const pdfui = createPDFUI({});
 
+export function exportData() {
+  return pdfui.getCurrentPDFDoc().then(doc => {
+      return doc.exportFormToFile(2).then(xfdf => {
+          const url = URL.createObjectURL(xfdf);
+          const a = document.createElement('a');
+          a.href = url;
+          a.download = 'form.xfdf';
+          a.rel = 'noopener';
+          a.target = "_blank";
+          document.body.appendChild(a);
+          a.click();
+      })
+  })
+}
+
 pdfui.openPDFByHttpRangeRequest(
   {
     range: {

@@ -7,6 +7,25 @@ const { Events } = PDFViewCtrl;
 
 const pdfui = createPDFUI({});
 
+let rotate = 0;
+export function rotatePage() {
+  return pdfui
+    .getCurrentPDFDoc()
+    .then((doc) => {
+      return doc.getPageByIndex(0);
+    })
+    .then((page) => {
+      rotate ? rotate-- : rotate++;
+      return page.setRotation(rotate);
+    });
+}
+
+export function movePage(fromIndex, toIndex) {
+  return pdfui.getCurrentPDFDoc().then((doc) => {
+    return doc.movePageTo(fromIndex, toIndex);
+  });
+}
+
 //Toolbar element show/hide control
 pdfui.getRootComponent().then((root) => {
   const downloadLink = root.getComponentByName("download-file-button");
