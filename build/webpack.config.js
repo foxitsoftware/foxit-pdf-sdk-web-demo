@@ -74,7 +74,7 @@ module.exports = function (env, argv) {
                     filename: path.resolve(distPath, entry.dir, 'index.html'),
                     chunks: entry.htmlchunks.concat(['lib/UIExtension.full', entry.entryName]),
                     info: entry.info,
-                    licensePath: isDev? '/common/license-key.js' : 'https://cdn-sdk.foxitsoftware.com/pdf-sdk/download/foxit-pdf-sdk-for-web/pcmobile/8.x/8.0/license-key.js'
+                    licensePath: isDev? 'https://cdn-sdk.foxitsoftware.com/pdf-sdk/download/foxit-pdf-sdk-for-web/pcmobile/8.x/8.0/license-key.js' : 'https://cdn-sdk.foxitsoftware.com/pdf-sdk/download/foxit-pdf-sdk-for-web/license-key.js'
                 });
             }),
             {
@@ -111,12 +111,6 @@ module.exports = function (env, argv) {
                             from: path.resolve(__dirname, '../assets'),
                             to: path.resolve(distPath, 'assets'),
                             force: true,
-                        },
-                        {
-                            from: path.resolve(__dirname, '../common/license-key.js'),
-                            to: path.resolve(distPath, 'common/license-key.js'),
-                            force: true,
-                            toType: 'file'
                         }
                     ].concat(
                         isDev
