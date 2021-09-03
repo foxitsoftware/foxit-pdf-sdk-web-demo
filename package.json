@@ -13,6 +13,9 @@
         "start:snapshot-server": "node ./node_modules/@foxitsoftware/foxit-pdf-sdk-for-web-library/server/snapshot/src/index -p 3003",
         "build": "npm run move-sdk-assets && webpack --config ./build/webpack.config.js --mode production"
     },
+    "config": {
+        "unsafe-perm": true
+    },
     "license": "ISC",
     "devDependencies": {
         "@babel/core": "^7.12.9",
