@@ -1,6 +1,7 @@
 import * as UIExtension from "UIExtension";
 import "@foxitsoftware/foxit-pdf-sdk-for-web-library/lib/UIExtension.vw.css";
 import '../../common/pdfui.less';
+import { initSignatureHandlers } from '../../common/signature';
 
 const { PDFUI, PDFViewCtrl } = UIExtension;
 const { DeviceInfo } = PDFViewCtrl;
@@ -57,3 +58,5 @@ window.addEventListener(
     pdfui.redraw();
   }
 );
+
+initSignatureHandlers(pdfui);

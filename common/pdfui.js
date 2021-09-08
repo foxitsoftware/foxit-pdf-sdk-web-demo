@@ -1,6 +1,7 @@
 import * as U from "UIExtension";
 import "@foxitsoftware/foxit-pdf-sdk-for-web-library/lib/UIExtension.vw.css";
 import "./pdfui.less";
+import { initSignatureHandlers } from './signature';
 
 export const UIExtension = U;
 
@@ -93,5 +94,6 @@ export function createPDFUI(options) {
       pdfui.redraw();
     }
   );
+  initSignatureHandlers(pdfui);
   return pdfui;
 }
