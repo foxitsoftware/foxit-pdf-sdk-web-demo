@@ -6,6 +6,11 @@
     <title>Foxit PDF SDK For Web - examples</title>
 </head>
 <body>
-    <script src="<%=htmlWebpackPlugin.options.licensePath%>"></script>
+    <script>
+        (function(){
+            var LICENSE_KEY_PATH = '<%=htmlWebpackPlugin.options.licensePath%>' + '?' + Date.now().toString(16);
+            document.write('<script src="'+LICENSE_KEY_PATH+'"><\/script>');
+        })()
+    </script>
 </body>
 </html>
