@@ -25,9 +25,6 @@ const pdfui = new PDFUI({
       workerPath: libPath,
       enginePath: libPath + "jr-engine/gsdk/",
       fontPath: "https://webpdf.foxitsoftware.com/webfonts/",
-      brotli: {
-        core: false,
-      },
       licenseSN: licenseSN,
       licenseKey: licenseKey,
     },
