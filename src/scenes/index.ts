@@ -118,19 +118,21 @@ const annotation = [
     },
   },
   {
-    positionX: "637px",
-    positionY: "95px",
+    positionX: "747px",
+    positionY: "75px",
+    offsetX:0,
+    offsetY:50,
     elementName: "stamp-drop-down-ui",
-    sideTriangle: "top-custom",
+    sideTriangle: "top",
     header: "Stamp",
     description: "Let's create your own stamp to easily mark your pages.",
     func: () => {},
   },
   {
-    positionX: "470px",
-    positionY: "525px",
+    positionX: "800px",
+    positionY: "510px",
     elementName: "add-custom-stamp",
-    sideTriangle: "right-custom",
+    sideTriangle: "right",
     header: "Create a stamp",
     description:
       "You can create your own custom stamps using the Custom Stamps option. Click on any of the stamps to add on the page",
@@ -187,23 +189,27 @@ const redaction = [
     },
   },
 ];
-
+const minBtnOffset = 10;
 const form = [
   {
     positionX: "265px",
-    positionY: "100px",
+    positionY: "75px",
+    offsetX:minBtnOffset,
+    offsetY:minBtnOffset,
     elementName: "fv--form-designer-create-text-btn",
-    sideTriangle: "top-custom",
+    sideTriangle: "top",
     header: "Form builder",
     description:
       "Let’s create this form! Select the Create Text Field tool and place one in the document.",
     func: (ref: any) => closeSidebar(ref.current.contentWindow.pdfui),
   },
   {
-    positionX: "300px",
-    positionY: "70px",
+    positionX: "375px",
+    positionY: "75px",
+    offsetX:minBtnOffset,
+    offsetY:minBtnOffset,
     elementName: "fv--form-designer-create-sign-btn",
-    sideTriangle: "top-custom",
+    sideTriangle: "top",
     header: "Create a signature field",
     description:
       "Create a desginated space for a signature. Select the tool, then click & drag.",
@@ -211,9 +217,11 @@ const form = [
       openSidebar(ref.current.contentWindow.pdfui, "sidebar-field"),
   },
   {
-    positionX: "265px",
-    positionY: "70px",
-    sideTriangle: "top-custom",
+    positionX: "335px",
+    positionY: "75px",
+    offsetX:minBtnOffset,
+    offsetY:minBtnOffset,
+    sideTriangle: "top",
     elementName: "fv--form-designer-create-list-box-btn",
     header: "Add more form fields",
     description:
@@ -268,8 +276,8 @@ const digital_signature = [
 
 const search = [
   {
-    positionX: "515px",
-    positionY: "166px",
+    positionX: "300px",
+    positionY: "170px",
     elementName: "advanced-search",
     sideTriangle: "right-custom",
     header: "Search PDF text",

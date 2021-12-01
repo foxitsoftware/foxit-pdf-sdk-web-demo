@@ -43,6 +43,11 @@ export function createCustomStamp(url) {
     });
 }
 
+export function openStampDropdown(){
+    const stampDropdown = pdfui.getComponentByName("stamp-drop-down-ui");
+    stampDropdown.active();
+}
+
 
 export function createCalloutAnnotation() {
   return pdfui.getRootComponent().then((root) => {
