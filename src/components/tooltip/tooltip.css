@@ -32,6 +32,12 @@
     top: 168px;
 }
 
+.dot-right-custom{
+    position: absolute;
+    right: 0px;
+    top: 25px;
+}
+
 .dot-left-custom {
     position: absolute;
     left: -60px;
@@ -78,6 +84,9 @@
 
 .left-custom {
     transform: translate(-128px, 40px) rotate(45deg);
+}
+.right-custom {
+    transform: translate(128px, 40px) rotate(45deg);
 }
 
 .modalWindow {

@@ -31,6 +31,10 @@ export function markAndRedactAStringOfText(
         });
 }
 
+export function openRedactionSearchBar(){
+    pdfui.addonInstanceMap.SearchAddon.openPanel()
+}
+
 pdfui.getComponentByName('redaction').then((group) => {
     group.setRetainCount(100);
 });

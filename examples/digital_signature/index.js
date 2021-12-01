@@ -12,7 +12,12 @@ export function openSignDialog() {
         inkDialog.show();
     });
 }
-  
+
+export function activePasswordProtectDropdown(){
+    pdfui.getComponentByName('password-protect-group').then((group) => {
+        group.childAt(0).getDropdown().active()
+    });
+}
 
 //Toolbar element show/hide control
 pdfui.getRootComponent().then((root) => {

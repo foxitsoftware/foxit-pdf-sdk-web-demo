@@ -10,18 +10,12 @@ const {
 
 const pdfui = createPDFUI({})
 
-function openSidebar(sidebarTabName) {
-  pdfui.getRootComponent().then((root) => {
-    const sidebarPanel = root.getComponentByName(sidebarTabName);
-    if (sidebarPanel) {
-      sidebarPanel.active();
-    }
-  });
+function openSearchSideBar(){
+  pdfui.addonInstanceMap.SearchAddon.openPanel('normal')
 }
 
-
 pdfui.addViewerEventListener(ViewerEvents.openFileSuccess, () => {
-  openSidebar('sidebar-search');
+  openSearchSideBar();
 });
 
 pdfui.openPDFByHttpRangeRequest(

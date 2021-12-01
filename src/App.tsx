@@ -6,7 +6,6 @@ import { Switch, Route, HashRouter, useLocation } from "react-router-dom";
 import { examples } from "./foundation/examples";
 import { Tooltip } from "./components/tooltip/Tooltip";
 import { AdvancedTooltip } from "./components/advancedTooltip/AdvancedTooltip";
-import { exportData } from "../src/snippets";
 import "@foxitsoftware/foxit-pdf-sdk-for-web-library/lib/UIExtension.vw.css";
 
 import {
@@ -110,7 +109,7 @@ const App = () => {
         rect.left + window.scrollX === 0
           ? setLocationTooltipX(`${rect.left + window.scrollX}px`)
           : setLocationTooltipX(`${rect.left + window.scrollX - 100}px`);
-        setLocationTooltipY(`${rect.top + window.scrollY + 40}px`);
+        setLocationTooltipY(`${rect.top + window.scrollY + 60}px`);
       }
       return {
         left: rect.left + window.scrollX,
