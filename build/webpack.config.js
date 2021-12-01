@@ -13,7 +13,7 @@ const libraryModulePath = path.resolve('node_modules/@foxitsoftware/foxit-pdf-sd
 
 fs.readdirSync(examplesDir).forEach((exampleName) => {
     const entryName = 'examples/' + exampleName + '/index';
-    const chunks = ['lib/UIExtension.full', entryName];
+    const chunks = [entryName];
     const infoPath = path.resolve(examplesDir, exampleName, 'info.json');
     let info = {};
     if (fs.existsSync(infoPath)) {
@@ -64,17 +64,16 @@ module.exports = function (env, argv) {
                     entry.js
                 ] : entry.js;
                 return entries;
-            }, {
-                'lib/UIExtension.full': path.resolve(libraryModulePath, 'lib', 'UIExtension.full.js'),
-                'lib/PDFViewCtrl.full': path.resolve(libraryModulePath, 'lib', 'PDFViewCtrl.full.js'),
-            }),
+            }, {}),
             entries.map((entry) => {
                 return new HtmlWebpackPlugin({
                     template: entry.template,
                     filename: path.resolve(distPath, entry.dir, 'index.html'),
-                    chunks: entry.htmlchunks.concat(['lib/UIExtension.full', entry.entryName]),
+                    chunks: entry.htmlchunks,
                     info: entry.info,
-                    licensePath: isDev? 'https://cdn-sdk.foxitsoftware.com/pdf-sdk/download/foxit-pdf-sdk-for-web/pcmobile/8.x/8.0/license-key.js' : 'https://cdn-sdk.foxitsoftware.com/pdf-sdk/download/foxit-pdf-sdk-for-web/license-key.js'
+                    licensePath: isDev? 'https://cdn-sdk.foxitsoftware.com/pdf-sdk/download/foxit-pdf-sdk-for-web/pcmobile/8.x/8.0/license-key.js' : 'https://cdn-sdk.foxitsoftware.com/pdf-sdk/download/foxit-pdf-sdk-for-web/license-key.js',
+                    UIExtensionLib: '/lib/UIExtension.full.js',
+                    PDFViewCtrlLib: '/lib/PDFViewCtrl.full.js'
                 });
             }),
             {
