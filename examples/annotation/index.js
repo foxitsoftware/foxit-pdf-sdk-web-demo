@@ -8,6 +8,7 @@ const File_Type = PDFViewCtrl.PDF.constant.File_Type;
 const Annot_Flags = PDFViewCtrl.PDF.annots.constant.Annot_Flags;
 
 const pdfui = createPDFUI({});
+pdfui.initDefaultStamps();
 
 export function createCustomStamp(url) {
   const sepIndex = url.lastIndexOf("/");
@@ -23,29 +24,22 @@ export function createCustomStamp(url) {
     ext = filename.substring(dotIndex + 1);
     name = filename.substring(0, dotIndex);
   }
-  return pdfui
-    .getRootComponent()
-    .then((root) => {
-      const commentTab = root.getComponentByName("comment-tab");
-      commentTab.active();
-      const stampDropdown = root.getComponentByName("stamp-drop-down-ui");
-      stampDropdown.active();
-      return loadImage(url).then((size) => {
-        return pdfui.addAnnotationIcon({
-          url,
-          name: name,
-          category: "customStampDemo",
-          fileType: ext,
-          width: size.width,
-          height: size.height,
-        });
-      });
+  return loadImage(url).then((size) => {
+    return pdfui.addAnnotationIcon({
+      url,
+      name: name,
+      category: "customStampDemo",
+      fileType: ext,
+      width: size.width,
+      height: size.height,
     });
+  });
 }
 
 export function openStampDropdown(){
-    const stampDropdown = pdfui.getComponentByName("stamp-drop-down-ui");
-    stampDropdown.active();
+    return pdfui.getComponentByName("stamp-drop-down-ui").then(stampDropdown=>{
+      return stampDropdown.active();
+    });
 }
 
 
@@ -301,6 +295,7 @@ pdfui
       createAreaHighlight(doc, 3), // 4th page
       createSquare(doc, 0), // 1st page
       createPencil(doc, 4), // 5th page
+      createCustomStamp(location.origin + "/assets/stamp.png")
     ]);
   });
 

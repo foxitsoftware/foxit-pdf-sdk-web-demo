@@ -137,9 +137,7 @@ const annotation = [
     description:
       "You can create your own custom stamps using the Custom Stamps option. Click on any of the stamps to add on the page",
     func: (ref: any) => {
-      ref.current.contentWindow.__example__.createCustomStamp(
-        location.origin + "/assets/stamp.png"
-      );
+      ref.current.contentWindow.__example__.openStampDropdown();
     },
   },
 ];
