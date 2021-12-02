@@ -1,7 +1,8 @@
 import * as UIExtension from "UIExtension";
 import "@foxitsoftware/foxit-pdf-sdk-for-web-library/lib/UIExtension.vw.css";
 import { createPDFUI } from '../../common/pdfui';
-import {customToolTip} from './customToolTip/customToolTip';
+import { customToolTip } from './customToolTip/customToolTip';
+import { customFragments, initializationCompleted } from './customPopup/customPopup';
 
 const { PDFViewCtrl } = UIExtension;
 const { Events } = PDFViewCtrl;
@@ -15,10 +16,11 @@ const pdfui = createPDFUI({
     customs:{
       activeTooltip: customToolTip
     }
-  }
+  },
+  fragments:customFragments
 });
 pdfui.initDefaultStamps();
-
+initializationCompleted(pdfui);
 
 export function openStampDropdown(){
   return pdfui.getComponentByName("stamp-drop-down-ui").then(stampDropdown=>{

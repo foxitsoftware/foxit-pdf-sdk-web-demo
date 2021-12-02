@@ -5,6 +5,7 @@ import './customToolTip.less';
  * The Settings are valid before Initialize pdfui in the following example
  * @example
     var pdfui = new PDFUI({
+        ...
         viewerOptions: {
             ...
             showAnnotTooltip: true,//Specifies whether a Tooltip is used or not used.
@@ -13,7 +14,6 @@ import './customToolTip.less';
                 activeTooltip: customToolTip //Bind custom tooltip
             }
         }
-        ...
     })
  */
 export function customToolTip(pdfViewer, annot){
