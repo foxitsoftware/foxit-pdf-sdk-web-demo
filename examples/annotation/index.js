@@ -1,8 +1,8 @@
 import * as UIExtension from "UIExtension";
 import "@foxitsoftware/foxit-pdf-sdk-for-web-library/lib/UIExtension.vw.css";
 import { createPDFUI } from '../../common/pdfui';
-import { customToolTip } from './customToolTip/customToolTip';
-import { customFragments, initializationCompleted } from './customPopup/customPopup';
+import { customToolTip } from './custom_tooltip/customToolTip';
+import { customFragments, initializationCompleted } from './custom_popup/customPopup';
 
 const { PDFViewCtrl } = UIExtension;
 const { Events } = PDFViewCtrl;
