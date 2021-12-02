@@ -1,0 +1,26 @@
+.fv__ui-layer.annotation-popup-layer {
+    display: flex;
+    flex-direction: column;
+    width: 400px;
+    height: 200px;
+    opacity: 0.6;
+    transition: ease 0.3s opacity;
+    user-select: none;
+    &:hover {
+        opacity: 1;
+    }
+}
+.annotation-popup-layer .fv__ui-layer-inner {
+    flex: 1;
+}
+.annotation-popup-layer textarea {
+    width: 100%;
+    height: 100%;
+    resize: none;
+}
+.tipUnactive{
+    display:none;
+}
+.tipActive{
+    display:block;
+}

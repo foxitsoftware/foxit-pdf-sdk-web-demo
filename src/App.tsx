@@ -109,7 +109,6 @@ const App = () => {
           setLocationTooltipY(`${top + scrollY - 180}px`);
           break;
         case 'right-custom':
-          
           setLocationTooltipX(`${innerWidth - rectLeft - 280}px`);
           setLocationTooltipY(`${rectTop}px`);
           break;

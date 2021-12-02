@@ -1,15 +1,61 @@
 import * as UIExtension from "UIExtension";
 import "@foxitsoftware/foxit-pdf-sdk-for-web-library/lib/UIExtension.vw.css";
 import { createPDFUI } from '../../common/pdfui';
+import {customToolTip} from './customToolTip/customToolTip';
 
 const { PDFViewCtrl } = UIExtension;
 const { Events } = PDFViewCtrl;
 const File_Type = PDFViewCtrl.PDF.constant.File_Type;
 const Annot_Flags = PDFViewCtrl.PDF.annots.constant.Annot_Flags;
 
-const pdfui = createPDFUI({});
+const pdfui = createPDFUI({
+  viewerOptions:{
+    showAnnotTooltip:true,
+    showFormFieldTooltip: true,
+    customs:{
+      activeTooltip: customToolTip
+    }
+  }
+});
 pdfui.initDefaultStamps();
 
+
+export function openStampDropdown(){
+  return pdfui.getComponentByName("stamp-drop-down-ui").then(stampDropdown=>{
+    return stampDropdown.active();
+  });
+}
+
+// Add a note into the first page at the specified location
+export function createTextNoteAnnotationAt(top, left) {
+  return pdfui.getRootComponent().then((root) => {
+  const commentTab = root.getComponentByName('comment-tab');
+  commentTab.active();
+  return Promise.resolve()
+  .then(() => {
+      return pdfui
+          .getCurrentPDFDoc()
+          .then((pdfDoc) => {
+              return pdfDoc.getPageByIndex(0);
+          }).then((page) => {
+              return page.addAnnot({
+                  flags: 4,
+                  type: 'text',
+                  contents: 'Welcome to FoxitPDFSDK for Web',
+                  rect: {
+                      left,
+                      right: left + 40,
+                      top,
+                      bottom: top - 40 
+                  },
+                  date: new Date()
+              });
+          });
+      });
+  });
+}
+
+// Add a custom stamp icon which doesn't exist in your stamp list
 export function createCustomStamp(url) {
   const sepIndex = url.lastIndexOf("/");
   const q = url.lastIndexOf("?");
@@ -36,13 +82,7 @@ export function createCustomStamp(url) {
   });
 }
 
-export function openStampDropdown(){
-    return pdfui.getComponentByName("stamp-drop-down-ui").then(stampDropdown=>{
-      return stampDropdown.active();
-    });
-}
-
-
+// Add a callout into the first page
 export function createCalloutAnnotation() {
   return pdfui.getRootComponent().then((root) => {
     const commentTab = root.getComponentByName("comment-tab");
@@ -84,40 +124,13 @@ export function createCalloutAnnotation() {
   });
 }
 
-export function createTextNoteAnnotationAt(top, left) {
-  return pdfui.getRootComponent().then((root) => {
-  const commentTab = root.getComponentByName('comment-tab');
-  commentTab.active();
-  return Promise.resolve()
-  .then(() => {
-      return pdfui
-          .getCurrentPDFDoc()
-          .then((pdfDoc) => {
-              return pdfDoc.getPageByIndex(0);
-          }).then((page) => {
-              return page.addAnnot({
-                  flags: 4,
-                  type: 'text',
-                  contents: 'Welcome to FoxitPDFSDK for Web',
-                  rect: {
-                      left,
-                      right: left + 40,
-                      top,
-                      bottom: top - 40 
-                  },
-                  date: new Date()
-              });
-          });
-      });
-  });
-}
-
+// Add a pencil into the specified page
 export function createPencil(pdfDoc, pageIndex) {
   const points = [
-    { x: 357, y: 531, type: 1 },
-    { x: 528, y: 531, type: 2 },
-    { x: 338, y: 492, type: 1 },
-    { x: 567, y: 492, type: 2 },
+    { x: 457, y: 331, type: 1 },
+    { x: 628, y: 331, type: 2 },
+    { x: 438, y: 292, type: 1 },
+    { x: 667, y: 292, type: 2 },
   ];
   const rect = {
     left: 0,
@@ -143,6 +156,7 @@ export function createPencil(pdfDoc, pageIndex) {
   );
 }
 
+// Add a square into the specified page
 export function createSquare(pdfDoc, pageIndex) {
   return pdfDoc.getPageByIndex(pageIndex).then((page) => {
     const [left, top] = page.reverseDevicePoint([0, 0], 1, 0);
@@ -160,6 +174,8 @@ export function createSquare(pdfDoc, pageIndex) {
     });
   });
 }
+
+// Add a highlight area into the specified page
 export function createAreaHighlight(pdfDoc, pageIndex) {
   const rect = {
     top: 67.17839813232422,
@@ -187,6 +203,8 @@ export function createAreaHighlight(pdfDoc, pageIndex) {
     pageIndex
   );
 }
+
+// Add a typeWriter into the specified page
 export function createTypeWriter(pdfDoc, pageIndex) {
   return createAnnotation(
     pdfDoc,
@@ -197,8 +215,8 @@ export function createTypeWriter(pdfDoc, pageIndex) {
       subject: "FreeTextTypewriter",
       contents: "This is an example of creating Typerwriter",
       rect: {
-        left: 120,
-        right: 231,
+        left: 0,
+        right: 111,
         top: 500,
         bottom: 488,
       },
@@ -208,6 +226,7 @@ export function createTypeWriter(pdfDoc, pageIndex) {
   );
 }
 
+// Add a note into the specified page
 export function createTextNote(pdfDoc, pageIndex) {
   const left = 500;
   const top = 500;
@@ -229,12 +248,36 @@ export function createTextNote(pdfDoc, pageIndex) {
   );
 }
 
+// Add an annot into the specified page
 export function createAnnotation(pdfDoc, annotJson, pageIndex) {
   return pdfDoc.getPageByIndex(pageIndex).then((pdfPage) => {
     return pdfPage.addAnnot(annotJson);
   });
 }
 
+const AnnotType = PDFViewCtrl.PDF.annots.constant.Annot_Type;
+
+// Set the default configured callback function for the annotation
+export function setDefaultAnnotConfig(type, intent){
+  pdfui.setDefaultAnnotConfig((type, intent) => {
+    switch (type) {
+      case AnnotType.highlight:
+        return {
+          borderInfo: {
+            width: 5,
+          },
+          color: 0x00ff00,
+        };
+      case AnnotType.ink:
+        return {
+          color: 0x0000ff,
+          borderInfo: {
+            width: 5,
+          },
+        };
+    }
+  });
+}
 
 pdfui.getRootComponent().then((root) => {
   const commentTab = root.getComponentByName("comment-tab");
@@ -257,26 +300,6 @@ pdfui.addViewerEventListener(Events.annotationAdded, (annots) => {
     })
 });
 
-const AnnotType = PDFViewCtrl.PDF.annots.constant.Annot_Type;
-
-pdfui.setDefaultAnnotConfig((type, intent) => {
-  switch (type) {
-    case AnnotType.highlight:
-      return {
-        borderInfo: {
-          width: 5,
-        },
-        color: 0x00ff00,
-      };
-    case AnnotType.ink:
-      return {
-        color: 0x0000ff,
-        borderInfo: {
-          width: 5,
-        },
-      };
-  }
-});
 
 pdfui
   .openPDFByHttpRangeRequest(
@@ -290,12 +313,12 @@ pdfui
   )
   .then((doc) => {
     Promise.all([
-      createTextNote(doc, 1), // 2nd page
-      createTypeWriter(doc, 2), // 3rd page
-      createAreaHighlight(doc, 3), // 4th page
+      createTextNote(doc, 0), // 1st page
+      createTypeWriter(doc, 0), // 1st page
+      createAreaHighlight(doc, 0), // 1st page
       createSquare(doc, 0), // 1st page
-      createPencil(doc, 4), // 5th page
-      createCustomStamp(location.origin + "/assets/stamp.png")
+      createPencil(doc, 0), // 1st page
+      createCustomStamp(location.origin + "/assets/stamp.png"),
     ]);
   });
 
@@ -329,6 +352,7 @@ function disableAll(excludeQuerySelector) {
   };
 }
 
+// Load image
 function loadImage(url) {
   const image = new Image();
   return new Promise((resolve, reject) => {
