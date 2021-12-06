@@ -262,22 +262,23 @@ const AnnotType = PDFViewCtrl.PDF.annots.constant.Annot_Type;
 // Set the default configured callback function for the annotation
 export function setDefaultAnnotConfig(type, intent){
   pdfui.setDefaultAnnotConfig((type, intent) => {
+    let config={};
     switch (type) {
-      case AnnotType.highlight:
-        return {
-          borderInfo: {
-            width: 5,
-          },
-          color: 0x00ff00,
-        };
-      case AnnotType.ink:
-        return {
-          color: 0x0000ff,
-          borderInfo: {
-            width: 5,
-          },
-        };
+        case "highlight":
+            config.color=0x123456;
+            break;
+        case "ink":
+            config.color=0x234567;
+            break;
+        case "freetext":
+            if(intent=="FreeTextCallout"){
+                config.calloutLineEndingStyle=2;
+            }
+            break;
+        default:
+            break;
     }
+    return config;
   });
 }
 
@@ -292,6 +293,7 @@ pdfui.addViewerEventListener(Events.openFileSuccess, () => {
     const commentTab = root.getComponentByName("comment-tab");
     commentTab.active();
   });
+  setDefaultAnnotConfig();
 });
 
 pdfui.addViewerEventListener(Events.annotationAdded, (annots) => {
