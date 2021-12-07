@@ -4,7 +4,8 @@ import { createPDFUI } from '../../common/pdfui';
 
 const {
   PDFViewCtrl: {
-    ViewerEvents
+    ViewerEvents,
+    DeviceInfo
   }
 } = UIExtension;
 
@@ -15,6 +16,7 @@ function openSearchSideBar(){
 }
 
 pdfui.addViewerEventListener(ViewerEvents.openFileSuccess, () => {
+  if(DeviceInfo.isMobile){return}
   openSearchSideBar();
 });
 

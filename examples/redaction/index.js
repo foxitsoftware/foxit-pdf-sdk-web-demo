@@ -3,7 +3,7 @@ import '@foxitsoftware/foxit-pdf-sdk-for-web-library/lib/UIExtension.vw.css';
 import { createPDFUI } from '../../common/pdfui';
 
 const { PDFViewCtrl } = UIExtension;
-const { Events } = PDFViewCtrl;
+const { DeviceInfo, Events } = PDFViewCtrl;
 
 const pdfui = createPDFUI({});
 
@@ -35,14 +35,14 @@ export function openRedactionSearchBar(){
     pdfui.addonInstanceMap.SearchAddon.openPanel()
 }
 
-pdfui.getComponentByName('redaction').then((group) => {
-    group.setRetainCount(100);
-});
-
 pdfui.addViewerEventListener(Events.openFileSuccess, () => {
     pdfui.getRootComponent().then((root) => {
         const commentTab = root.getComponentByName('protect-tab');
         commentTab.active();
+    });
+    if(DeviceInfo.isMobile){return}
+    pdfui.getComponentByName('redaction').then((group) => {
+        group.setRetainCount(100);
     });
 });
 

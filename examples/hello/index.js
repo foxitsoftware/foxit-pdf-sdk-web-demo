@@ -46,9 +46,11 @@ pdfui.openPDFByHttpRangeRequest(
 );  
 
 
-pdfui.getComponentByName("home-tab-group-io").then((group) => {
-  group.setRetainCount(100);
-});
+if(!DeviceInfo.isMobile){
+  pdfui.getComponentByName("home-tab-group-io").then((group) => {
+    group.setRetainCount(100);
+  });
+}
 window.addEventListener(
   DeviceInfo.isDesktop ? "resize" : "orientationchange",
   function (e) {
