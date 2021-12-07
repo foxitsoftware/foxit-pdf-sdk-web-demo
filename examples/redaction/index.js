@@ -35,7 +35,6 @@ export function openRedactionSearchBar(){
     pdfui.addonInstanceMap.SearchAddon.openPanel()
 }
 
-
 pdfui.addViewerEventListener(Events.openFileSuccess, () => {
     pdfui.getRootComponent().then((root) => {
         const commentTab = root.getComponentByName('protect-tab');

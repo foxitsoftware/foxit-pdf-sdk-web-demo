@@ -329,6 +329,11 @@ if(!DeviceInfo.isMobile){
     group.setRetainCount(100);
   });
 
+
+if(!DeviceInfo.isMobile){
+  pdfui.getComponentByName("comment-tab-group-media").then((group) => {
+    group.setRetainCount(100);
+  });
   pdfui.getComponentByName("comment-tab-group-mark").then((group) => {
     group.setRetainCount(1);
   });

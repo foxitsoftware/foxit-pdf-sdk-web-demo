@@ -17,6 +17,7 @@ function openSearchSideBar(){
 }
 
 pdfui.addViewerEventListener(ViewerEvents.openFileSuccess, () => {
+  if(DeviceInfo.isMobile){return}
   openSearchSideBar();
 });
 
