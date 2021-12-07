@@ -5,7 +5,7 @@ import { customToolTip } from './custom_tooltip/customToolTip';
 import { customFragments, initializationCompleted } from './custom_popup/customPopup';
 
 const { PDFViewCtrl } = UIExtension;
-const { Events } = PDFViewCtrl;
+const { DeviceInfo, Events } = PDFViewCtrl;
 const File_Type = PDFViewCtrl.PDF.constant.File_Type;
 const Annot_Flags = PDFViewCtrl.PDF.annots.constant.Annot_Flags;
 
@@ -257,8 +257,6 @@ export function createAnnotation(pdfDoc, annotJson, pageIndex) {
   });
 }
 
-const AnnotType = PDFViewCtrl.PDF.annots.constant.Annot_Type;
-
 // Set the default configured callback function for the annotation
 export function setDefaultAnnotConfig(type, intent){
   pdfui.setDefaultAnnotConfig((type, intent) => {
@@ -283,10 +281,10 @@ export function setDefaultAnnotConfig(type, intent){
 }
 
 pdfui.getRootComponent().then((root) => {
-  const commentTab = root.getComponentByName("comment-tab");
-  commentTab.active();
-  const commentTabGroup = root.getComponentByName("comment-tab-group-text");
-  commentTabGroup.setRetainCount(4);
+  if(!DeviceInfo.isMobile){
+    const commentTabGroup = root.getComponentByName("comment-tab-group-text");
+    commentTabGroup.setRetainCount(4);
+  }
 });
 pdfui.addViewerEventListener(Events.openFileSuccess, () => {
   pdfui.getRootComponent().then((root) => {
@@ -326,14 +324,15 @@ pdfui
     ]);
   });
 
+if(!DeviceInfo.isMobile){
+  pdfui.getComponentByName("comment-tab-group-media").then((group) => {
+    group.setRetainCount(100);
+  });
 
-pdfui.getComponentByName("comment-tab-group-media").then((group) => {
-  group.setRetainCount(100);
-});
-
-pdfui.getComponentByName("comment-tab-group-mark").then((group) => {
-  group.setRetainCount(1);
-});
+  pdfui.getComponentByName("comment-tab-group-mark").then((group) => {
+    group.setRetainCount(1);
+  });
+}
 
 function disableAll(excludeQuerySelector) {
   const promise = pdfui.getRootComponent().then((root) => {

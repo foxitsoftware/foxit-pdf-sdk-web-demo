@@ -4,13 +4,15 @@ import { createPDFUI } from '../../common/pdfui';
 
 const {
   PDFViewCtrl: {
-    ViewerEvents
+    ViewerEvents,
+    DeviceInfo
   }
 } = UIExtension;
 
 const pdfui = createPDFUI({})
 
 function openSearchSideBar(){
+  if(DeviceInfo.isMobile){return}
   pdfui.addonInstanceMap.SearchAddon.openPanel('normal')
 }
 

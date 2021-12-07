@@ -45,10 +45,12 @@ pdfui.openPDFByHttpRangeRequest(
   { fileName: "1-feature-example_default-setup.pdf" }
 );  
 
+if(!DeviceInfo.isMobile){
+  pdfui.getComponentByName("home-tab-group-io").then((group) => {
+    group.setRetainCount(100);
+  });
+}
 
-pdfui.getComponentByName("home-tab-group-io").then((group) => {
-  group.setRetainCount(100);
-});
 window.addEventListener(
   DeviceInfo.isDesktop ? "resize" : "orientationchange",
   function (e) {
