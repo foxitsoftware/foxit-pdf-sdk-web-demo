@@ -52,12 +52,38 @@ export function setCustomFont(){
     viewer.setJRFontMap(fontMaps).then(function (_) {
         pdfui.openPDFByHttpRangeRequest({
             range: {
-                url: '/assets/regeItalic.pdf',
+                url: '/assets/2-feature-example_edit-pdf.pdf',
             }
-        }, { fileName: 'regeItalic.pdf' })
+        }, { fileName: '2-feature-example_edit-pdf.pdf' })
         // Adds mapped Font to the drop-down font box in the Edit module
         viewer.addFontMaps(fontMapsInfo)
         // Now you can select the custom font for text editing
+    })
+  })
+}
+
+// Add text graphic object with custom font into first page
+export function addCustomTextGraphic(){
+  return pdfui.getCurrentPDFDoc().then(doc=>{
+    return doc.getPageByIndex(0).then(page=>{
+      let pageInfo = page.getInfo();
+      let info = {
+        type: PDFViewCtrl.PDF.constant.Graphics_ObjectType.Text,
+        originPosition : {x:0, y:0},
+        charspace: 0,
+        wordspace: 20,
+        textmatrix: [1,0,0,1],
+        font: {
+          "name": "Rage",
+          "styles": 0,
+          "charset": 0
+        },
+        fontSize:30,
+        matrix: [1,0,0,1,0,pageInfo.height - 30],
+        text: "Hello World",
+        fillColor: 0xFF000000,
+      };
+      return page.addGraphicsObject(info);
     })
   })
 }
@@ -76,14 +102,7 @@ pdfui.addViewerEventListener(Events.openFileSuccess, () => {
       commentTab.active();
     });
   }
+  addCustomTextGraphic();
 });
 
-pdfui.openPDFByHttpRangeRequest(
-  {
-    range: {
-      //Default PDF file path
-      url: "/assets/2-feature-example_edit-pdf.pdf",
-    },
-  },
-  { fileName: "2-feature-example_edit-pdf.pdf" }
-);
+setCustomFont();
