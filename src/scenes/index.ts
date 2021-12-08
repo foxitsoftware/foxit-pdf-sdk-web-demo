@@ -90,7 +90,7 @@ const annotation = [
     header: "Add a note",
     description:
       "The ‘Note’ tool adds a note annotation to the top-left of the PDF page. You can drag-and-drop it to your desired location.",
-    func: () => {},
+    func: (ref: any) => ref.current.contentWindow.__example__.closeSidebarRightTab(),
   },
   {
     positionX:'42%',
@@ -98,7 +98,10 @@ const annotation = [
     sideTriangle: "left-fixed",
     header: "Leave your note",
     description: "Click directly in the PDF to leave a note in context.",
-    func: (ref: any) => ref.current.contentWindow.__example__.createTextNoteAnnotationAt(500, 300),
+    func: (ref: any) => {
+      ref.current.contentWindow.__example__.openSidebarRightTab();
+      ref.current.contentWindow.__example__.createTextNoteAnnotationAt(500, 300);
+    },
   },
   {
     positionX: "436px",
@@ -113,6 +116,7 @@ const annotation = [
         ref.current.contentWindow.pdfui,
         "comment-list-sidebar-panel"
       ).then(() => {
+        ref.current.contentWindow.__example__.closeSidebarRightTab();
         ref.current.contentWindow.__example__.createCalloutAnnotation();
       });
     },
@@ -171,7 +175,8 @@ const redaction = [
     description:
       "Search for terms in the whole PDF, and choose which to redact.",
     func: (ref: any) => {
-      ref.current.contentWindow.__example__.markAndRedactAStringOfText();
+      // ref.current.contentWindow.__example__.markAndRedactAStringOfText();
+      ref.current.contentWindow.__example__.searchTextsAndMarkRedact();
     },
   },
   {

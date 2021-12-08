@@ -42,6 +42,28 @@ export function openStampDropdown(){
     });
 }
 
+export function openSidebarRightTab(){
+  return pdfui.getComponentByName('sidebar-right')
+  .then(rightPanel => {
+    this.rightPanel = rightPanel;
+    rightPanel.show();
+    return pdfui.getComponentByName('sidebar-right-tabs');
+  }).then(tabs => {
+      tabs.openTab('edit-properties-panel');
+      tabs.setActivetab('edit-properties-panel');
+      return pdfui.getComponentByName('edit-properties');
+  }).then(component => {
+      return component.setHost({}, 9);
+  })
+}
+
+export function closeSidebarRightTab(){
+  return pdfui.getComponentByName('sidebar-right')
+  .then(rightPanel => {
+    this.rightPanel = rightPanel;
+    rightPanel.hide();
+  })
+}
 
 export function createCalloutAnnotation() {
   return pdfui.getRootComponent().then((root) => {
