@@ -107,7 +107,26 @@ export function createCustomStamp(url) {
   });
 }
 
-// Add a callout into the first page
+// Add a square in the upper left corner of the home page
+export function createSquare(pdfDoc, pageIndex) {
+  return pdfDoc.getPageByIndex(pageIndex).then((page) => {
+    const [left, top] = page.reverseDevicePoint([0, 0], 1, 0);
+    return page.addAnnot({
+      type: "square",
+      opacity: 1,
+      flags: Annot_Flags.print,
+      date: new Date(),
+      rect: {
+        left,
+        top,
+        right: left + 100,
+        bottom: top - 100,
+      },
+    });
+  });
+}
+
+// Add a callout in the lower left corner of the home page
 export function createCalloutAnnotation() {
   return pdfui.getRootComponent().then((root) => {
     const commentTab = root.getComponentByName("comment-tab");
@@ -128,34 +147,41 @@ export function createCalloutAnnotation() {
           rotate: 0,
           flags: 4,
           calloutLinePoints: [
-            { x: 77.35922330097088, y: 253.32038834951464 },
-            { x: 238.41456310679615, y: 297.0262135922331 },
-            { x: 253.41456310679615, y: 297.0262135922331 },
+            {
+              "x": 12.170681953430176,
+              "y": 14.441819190979004
+            }, {
+              "x": 39.98834991455078,
+              "y": 79.03860473632812
+            }, {
+              "x": 54.98834991455078,
+              "y": 79.03860473632812
+            }
           ],
           rect: {
-            left: 76.35922330097088,
-            top: 308.1262135922331,
-            right: 354.5145631067962,
-            bottom: 252.32038834951464,
+            "top": 90.13860321044922,
+            "right": 156.08834838867188,
+            "bottom": 13.441819190979004,
+            "left": 10.47049331665039
           },
           innerRect: {
-            left: 253.51456310679615,
-            top: 307.1262135922331,
-            right: 353.5145631067962,
-            bottom: 287.1262135922331,
+            "top": 89.13860321044922,
+            "right": 155.08834838867188,
+            "bottom": 69.13860321044922,
+            "left": 55.088348388671875
           },
         });
       });
   });
 }
 
-// Add a pencil into the specified page
+// Add a pencil in the upper right corner of the home page
 export function createPencil(pdfDoc, pageIndex) {
   const points = [
-    { x: 457, y: 331, type: 1 },
-    { x: 628, y: 331, type: 2 },
-    { x: 438, y: 292, type: 1 },
-    { x: 667, y: 292, type: 2 },
+    { x: 767, y: 689, type: 1 },
+    { x: 927, y: 689, type: 2 },
+    { x: 747, y: 649, type: 1 },
+    { x: 947, y: 649, type: 2 },
   ];
   const rect = {
     left: 0,
@@ -181,26 +207,7 @@ export function createPencil(pdfDoc, pageIndex) {
   );
 }
 
-// Add a square into the specified page
-export function createSquare(pdfDoc, pageIndex) {
-  return pdfDoc.getPageByIndex(pageIndex).then((page) => {
-    const [left, top] = page.reverseDevicePoint([0, 0], 1, 0);
-    return page.addAnnot({
-      type: "square",
-      opacity: 1,
-      flags: Annot_Flags.print,
-      date: new Date(),
-      rect: {
-        left,
-        top,
-        right: left + 100,
-        bottom: top - 100,
-      },
-    });
-  });
-}
-
-// Add a highlight area into the specified page
+// Add a highlight in the lower center area of the home page
 export function createAreaHighlight(pdfDoc, pageIndex) {
   const rect = {
     top: 67.17839813232422,
@@ -229,7 +236,7 @@ export function createAreaHighlight(pdfDoc, pageIndex) {
   );
 }
 
-// Add a typeWriter into the specified page
+// Add a typeWriter in the lower right corner of the home page
 export function createTypeWriter(pdfDoc, pageIndex) {
   return createAnnotation(
     pdfDoc,
@@ -240,10 +247,10 @@ export function createTypeWriter(pdfDoc, pageIndex) {
       subject: "FreeTextTypewriter",
       contents: "This is an example of creating Typerwriter",
       rect: {
-        left: 0,
-        right: 111,
-        top: 500,
-        bottom: 488,
+        left: 700,
+        right: 936,
+        top: 25,
+        bottom: 10,
       },
       date: new Date(),
     },
