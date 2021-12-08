@@ -146,6 +146,32 @@ const annotation = [
   },
 ];
 
+const measurement = [
+  {
+    positionX: "65px",
+    positionY: "75px",
+    elementName: "create-measurement-button-list",
+    sideTriangle: "top",
+    header: "Measurement",
+    description:
+      "Use the measuring tools to measure distances and areas of objects in PDF documents",
+    func: (ref:any) => {ref.current.contentWindow.__example__.hideMeasurementDropdown();}
+  },
+  {
+    positionX: "65px",
+    positionY: "75px",
+    elementName: "create-perimeter-btn",
+    sideTriangle: "right",
+    header: "Measurement",
+    description:
+      "When you use a measuring tool, the measurement info panel shows information about the measurement, and the right side panel for settings.",
+    func: (ref:any) => {
+      ref.current.contentWindow.__example__.showMeasurementDropdown();
+      ref.current.contentWindow.__example__.createMeasurement()
+    }
+  },
+]
+
 const redaction = [
   {
     positionX: "85px",
@@ -297,4 +323,5 @@ export {
   annotation,
   digital_signature,
   search,
+  measurement,
 };

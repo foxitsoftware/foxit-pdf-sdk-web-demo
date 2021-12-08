@@ -16,6 +16,7 @@ import {
   editPdf,
   digital_signature,
   search,
+  measurement
 } from "./scenes";
 
 const { Content } = Layout;
@@ -142,6 +143,10 @@ const App = () => {
       }
       case "#/annotation": {
         setScene(annotation);
+        break;
+      }
+      case "#/measurement": {
+        setScene(measurement);
         break;
       }
       case "#/forms": {
