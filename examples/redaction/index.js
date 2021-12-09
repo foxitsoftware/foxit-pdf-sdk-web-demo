@@ -7,11 +7,11 @@ const { DeviceInfo, Events } = PDFViewCtrl;
 
 const pdfui = createPDFUI({});
 
-// Search for matching 'county' text and redaction on the first page.
+// Search and redact on the first page.
 export function searchTextsAndMarkRedact(){
     return pdfui.getCurrentPDFDoc()
         .then(doc=>{
-            // search the specified word
+            // search the specified text
             return Promise.all([doc.searchText([0],['123-45-6789'],{
                 wholeWordsOnly: true,
                 caseSensitive: false
@@ -21,15 +21,16 @@ export function searchTextsAndMarkRedact(){
             Object.values(searchResult).forEach(matchPageArr=>{
                 matchPageArr.forEach(matchItem=>rects.push(...matchItem.rects))
             })
-            // Mark as redaction annotation by the Rects
+            // Set rect for redaction
             return page.markRedactAnnot(rects)
         })
         .then(() => {
-            //Apply redaction in marked areas
+            //Apply redaction
             doc.applyRedaction()
         })
     })
 }
+//Show the search panel 
 export function openRedactionSearchBar(){
     pdfui.addonInstanceMap.SearchAddon.openPanel()
 }

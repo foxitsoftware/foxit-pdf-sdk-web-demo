@@ -27,7 +27,7 @@ export function movePage(fromIndex, toIndex) {
   });
 }
 
-// Set custom font
+// Map font and add it to the UI drop-down font list 
 export function setCustomFont(){
   var fontMaps = [{
         nameMatches: [/Rage/, /Rage Italic/, /RageItalic/],
@@ -62,7 +62,7 @@ export function setCustomFont(){
   })
 }
 
-// Add text graphic object with custom font into first page
+// Add text graphic object with the custom font on the first page
 export function addCustomTextGraphic(){
   return pdfui.getCurrentPDFDoc().then(doc=>{
     return doc.getPageByIndex(0).then(page=>{

@@ -69,6 +69,7 @@ export function hideMeasurementDropdown(){
     })
 }
 
+//The following section shows how to create different type of measurements 
 export function createMeasurement(){
     return Promise.all([
         createDistance(),
@@ -78,7 +79,7 @@ export function createMeasurement(){
     ])
 }
 
-// Create a distance measurement tool in the upper left corner of the home page
+// Create distance 
 export function createDistance(){
     return pdfui
       .getCurrentPDFDoc()
@@ -114,7 +115,7 @@ export function createDistance(){
     });
 }
 
-// Create a perimeter measurement tool in the upper right corner of the home page
+// Create perimeter
 export function createPerimeter(){
     return pdfui
       .getCurrentPDFDoc()
@@ -161,7 +162,7 @@ export function createPerimeter(){
     });
 }
 
-// Create a rectangle area measurement tool in the lower left corner of the home page
+// Create rectangle area
 export function createPolygon(){
     return pdfui
       .getCurrentPDFDoc()
@@ -203,7 +204,7 @@ export function createPolygon(){
     });
 }
 
-// Create a circle area measurement tool in the lower right corner of the home page
+// Create circle area 
 export function createCircle(){
     return pdfui
     .getCurrentPDFDoc()

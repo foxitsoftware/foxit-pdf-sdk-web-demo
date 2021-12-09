@@ -21,7 +21,7 @@ pdfui.addViewerEventListener(ViewerEvents.openFileSuccess, () => {
   openSearchSideBar();
 });
 
-// Search for matching 'want' or 'over' text on the first three pages.
+// Search text on the first three pages.
 export function searchTexts(){
   return pdfui.getCurrentPDFDoc().then(doc=>{
     return doc.searchText([0,1,2],['want', 'over'],{

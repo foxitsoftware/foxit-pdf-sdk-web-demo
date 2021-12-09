@@ -22,6 +22,7 @@ const pdfui = createPDFUI({
 pdfui.initDefaultStamps();
 initializationCompleted(pdfui);
 
+//Toolbar element show/hide control
 export function openStampDropdown(){
   return pdfui.getComponentByName("stamp-drop-down-ui").then(stampDropdown=>{
     stampDropdown.active();
@@ -56,7 +57,14 @@ export function closeSidebarRightTab(){
   })
 }
 
-// Add a note into the first page at the specified location
+// The following section demonstrates creating different types of annotation on the first page.
+// This is a common method for creating annotation.
+export function createAnnotation(pdfDoc, annotJson, pageIndex) {
+  return pdfDoc.getPageByIndex(pageIndex).then((pdfPage) => {
+    return pdfPage.addAnnot(annotJson);
+  });
+}
+// Crete a note
 export function createTextNoteAnnotationAt(top, left) {
   return pdfui.getRootComponent().then((root) => {
   const commentTab = root.getComponentByName('comment-tab');
@@ -85,7 +93,7 @@ export function createTextNoteAnnotationAt(top, left) {
   });
 }
 
-// Add a custom stamp icon which doesn't exist in your stamp list
+// Add a new stamp icon in the stamp list at UI.
 export function createCustomStamp(url) {
   const sepIndex = url.lastIndexOf("/");
   const q = url.lastIndexOf("?");
@@ -112,7 +120,7 @@ export function createCustomStamp(url) {
   });
 }
 
-// Add a square in the upper left corner of the home page
+// Create Square
 export function createSquare(pdfDoc, pageIndex) {
   return pdfDoc.getPageByIndex(pageIndex).then((page) => {
     const [left, top] = page.reverseDevicePoint([0, 0], 1, 0);
@@ -131,7 +139,7 @@ export function createSquare(pdfDoc, pageIndex) {
   });
 }
 
-// Add a callout in the lower left corner of the home page
+// Create callout  
 export function createCalloutAnnotation() {
   return pdfui.getRootComponent().then((root) => {
     const commentTab = root.getComponentByName("comment-tab");
@@ -180,7 +188,7 @@ export function createCalloutAnnotation() {
   });
 }
 
-// Add a pencil in the upper right corner of the home page
+// Create pencil 
 export function createPencil(pdfDoc, pageIndex) {
   const points = [
     { x: 767, y: 689, type: 1 },
@@ -212,7 +220,7 @@ export function createPencil(pdfDoc, pageIndex) {
   );
 }
 
-// Add a highlight in the lower center area of the home page
+// Create highlight
 export function createAreaHighlight(pdfDoc, pageIndex) {
   const rect = {
     top: 67.17839813232422,
@@ -241,7 +249,7 @@ export function createAreaHighlight(pdfDoc, pageIndex) {
   );
 }
 
-// Add a typeWriter in the lower right corner of the home page
+// Create typewriter
 export function createTypeWriter(pdfDoc, pageIndex) {
   return createAnnotation(
     pdfDoc,
@@ -263,7 +271,8 @@ export function createTypeWriter(pdfDoc, pageIndex) {
   );
 }
 
-// Add a note into the specified page
+//Create a triangle Note on the page. 
+//Double click on this Note will bring up a pop-up window. 
 export function createTextNote(pdfDoc, pageIndex) {
   const left = 500;
   const top = 500;
@@ -285,14 +294,7 @@ export function createTextNote(pdfDoc, pageIndex) {
   );
 }
 
-// Add an annot into the specified page
-export function createAnnotation(pdfDoc, annotJson, pageIndex) {
-  return pdfDoc.getPageByIndex(pageIndex).then((pdfPage) => {
-    return pdfPage.addAnnot(annotJson);
-  });
-}
-
-// Set the default configured callback function for the annotation
+// Set the preset callback function for the annotation
 export function setDefaultAnnotConfig(type, intent){
   pdfui.setDefaultAnnotConfig((type, intent) => {
     let config={};
@@ -315,6 +317,7 @@ export function setDefaultAnnotConfig(type, intent){
   });
 }
 
+//Get component element
 pdfui.getRootComponent().then((root) => {
   if(!DeviceInfo.isMobile){
     const commentTabGroup = root.getComponentByName("comment-tab-group-text");
@@ -329,6 +332,7 @@ pdfui.addViewerEventListener(Events.openFileSuccess, () => {
   setDefaultAnnotConfig();
 });
 
+//Listening in
 pdfui.addViewerEventListener(Events.annotationAdded, (annots) => {
   pdfui
     .getCurrentPDFDoc()
@@ -337,7 +341,7 @@ pdfui.addViewerEventListener(Events.annotationAdded, (annots) => {
     })
 });
 
-
+//Open file
 pdfui
   .openPDFByHttpRangeRequest(
     {
@@ -350,11 +354,11 @@ pdfui
   )
   .then((doc) => {
     Promise.all([
-      createTextNote(doc, 0), // 1st page
-      createTypeWriter(doc, 0), // 1st page
-      createAreaHighlight(doc, 0), // 1st page
-      createSquare(doc, 0), // 1st page
-      createPencil(doc, 0), // 1st page
+      createTextNote(doc, 0),
+      createTypeWriter(doc, 0), 
+      createAreaHighlight(doc, 0), 
+      createSquare(doc, 0), 
+      createPencil(doc, 0), 
       createCustomStamp(location.origin + "/assets/stamp.png"),
     ]);
   });
