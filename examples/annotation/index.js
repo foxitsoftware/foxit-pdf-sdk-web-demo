@@ -24,7 +24,12 @@ initializationCompleted(pdfui);
 
 export function openStampDropdown(){
   return pdfui.getComponentByName("stamp-drop-down-ui").then(stampDropdown=>{
-    return stampDropdown.active();
+    stampDropdown.active();
+    setTimeout(()=>{
+      if(!stampDropdown.isActive){
+        stampDropdown.active();
+      }
+    })
   });
 }
 
