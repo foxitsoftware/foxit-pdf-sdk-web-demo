@@ -155,7 +155,10 @@ const measurement = [
     header: "Measurement",
     description:
       "Use the measuring tools to measure distances and areas of objects in PDF documents",
-    func: (ref:any) => {ref.current.contentWindow.__example__.hideMeasurementDropdown();}
+    func: (ref:any) => {
+      ref.current.contentWindow.__example__.closeSidebarRightTab();
+      ref.current.contentWindow.__example__.hideMeasurementDropdown();
+    }
   },
   {
     positionX: "65px",
@@ -166,8 +169,9 @@ const measurement = [
     description:
       "When you use a measuring tool, the measurement info panel shows information about the measurement, and the right side panel for settings.",
     func: (ref:any) => {
+      ref.current.contentWindow.__example__.openSidebarRightTab();
       ref.current.contentWindow.__example__.showMeasurementDropdown();
-      ref.current.contentWindow.__example__.createMeasurement()
+      ref.current.contentWindow.__example__.createMeasurement();
     }
   },
 ]
