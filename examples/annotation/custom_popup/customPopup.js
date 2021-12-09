@@ -69,14 +69,14 @@ export const customFragments = [{
                 this.addDestroyHook(function() {
                     textarea.removeEventListener('blur', blurEventHandler);
                 }, layerComponent.on(UIConsts.COMPONENT_EVENTS.SHOWN, function() {
-                    layerComponent.currentAnnot && (textarea.value = layerComponent.currentAnnot.getContent());
+                    layerComponent.currentAnnot && (textarea.value = 'This is a pop-up window');
                 }), this.pdfUI.addViewerEventListener(PDFViewCtrl.ViewerEvents.annotationUpdated, function(annots){
                     if(layerComponent.currentAnnot === annots[0]) {
                         layerComponent.currentAnnot && (textarea.value = layerComponent.currentAnnot.getContent());
                     }
                 }), this.pdfUI.addViewerEventListener(PDFViewCtrl.ViewerEvents.activeAnnotation, function(annotRender) {
                     self.setActiveAnnot(annotRender.component);
-                    layerComponent.currentAnnot && (textarea.value = layerComponent.currentAnnot.getContent());
+                    layerComponent.currentAnnot && (textarea.value = 'This is a pop-up window');
                 }));
             }
         },controllers.Controller)
@@ -91,13 +91,12 @@ export function initializationCompleted(pdfui){
                 return ParentClass;
             }
             return PDFViewCtrl.shared.createClass({
-                showReplyDialog(action) {
-                    if(action === 'reply') {
-                        // This is unnecessary if the popup dialog supports reply feature.
-                        return ParentClass.prototype.showReplyDialog.apply(this, arguments);
-                    }
+                showReplyDialog() {
                     var annotComponent = this;
-                    if (!popupAvailable(annotComponent)) return;
+                    if (!popupAvailable(annotComponent)){
+                        ParentClass.prototype.showReplyDialog.apply(this, arguments);
+                        return 
+                    }
                     pdfui.getComponentByName('custom-annotation-popup-layer').then(function(layerComponent) {
                         if(!layerComponent){return}
                         var textareaComponent = layerComponent.getComponentByName('annotation-popup-content');
@@ -116,10 +115,12 @@ export function initializationCompleted(pdfui){
 
 function popupAvailable(annotComponent) {
     var model = annotComponent.getModel();
-    if (!model || !model.getPopup) return false;
+    if (!model || !model.getPopup ) return false;
     var popup = model.getPopup();
     if (!popup) return false;
-    return true;
+    var {annot} = annotComponent;
+    var targetAnnot = annot.getPDFPage().annots[0];
+    return annot.getId() == targetAnnot.getId() ? true:false;
 }
 
 function formatDatetime(time) {

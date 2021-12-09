@@ -28,8 +28,8 @@ if(!DeviceInfo.isMobile){
 
     pdfui.addViewerEventListener(Events.openFileSuccess, () => {
         pdfui.getRootComponent().then((root) => {
-            const commentTab = root.getComponentByName('protect-tab');
-            commentTab.active();
+            const protectTab = root.getComponentByName('protect-tab');
+            protectTab.active();
         });
     });
 }

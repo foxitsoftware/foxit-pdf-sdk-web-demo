@@ -37,8 +37,8 @@ export function openRedactionSearchBar(){
 
 pdfui.addViewerEventListener(Events.openFileSuccess, () => {
     pdfui.getRootComponent().then((root) => {
-        const commentTab = root.getComponentByName('protect-tab');
-        commentTab.active();
+        const protectTab = root.getComponentByName('protect-tab');
+        protectTab.active();
     });
     if(DeviceInfo.isMobile){return}
     pdfui.getComponentByName('redaction').then((group) => {

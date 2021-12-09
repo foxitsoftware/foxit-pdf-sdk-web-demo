@@ -13,8 +13,8 @@ if(!DeviceInfo.isMobile){
   });
   pdfui.addViewerEventListener(Events.openFileSuccess, () => {
     pdfui.getRootComponent().then((root) => {
-      const commentTab = root.getComponentByName("form-tab");
-      commentTab.active();
+      const formTab = root.getComponentByName("form-tab");
+      formTab.active();
     });
   });
 }

@@ -258,7 +258,7 @@ export function createTypeWriter(pdfDoc, pageIndex) {
       type: "freetext",
       intent: "FreeTextTypewriter",
       subject: "FreeTextTypewriter",
-      contents: "This is an example of creating Typerwriter",
+      contents: "This is a typewriter example",
       rect: {
         left: 700,
         right: 936,
@@ -266,6 +266,7 @@ export function createTypeWriter(pdfDoc, pageIndex) {
         bottom: 10,
       },
       date: new Date(),
+      color: 0xFF0000,
     },
     pageIndex
   );
@@ -323,6 +324,8 @@ pdfui.getRootComponent().then((root) => {
     const commentTabGroup = root.getComponentByName("comment-tab-group-text");
     commentTabGroup.setRetainCount(4);
   }
+  const commentTab = root.getComponentByName("comment-tab");
+  commentTab.active();
 });
 pdfui.addViewerEventListener(Events.openFileSuccess, () => {
   pdfui.getRootComponent().then((root) => {

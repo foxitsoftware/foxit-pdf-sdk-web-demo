@@ -80,8 +80,8 @@ export function addCustomTextGraphic(){
         },
         fontSize:30,
         matrix: [1,0,0,1,0,pageInfo.height - 30],
-        text: "Hello World",
-        fillColor: 0xFF000000,
+        text: "This is a custom font text",
+        fillColor: 0xFF0000,
       };
       return page.addGraphicsObject(info);
     })
@@ -98,8 +98,8 @@ pdfui.getRootComponent().then((root) => {
 pdfui.addViewerEventListener(Events.openFileSuccess, () => {
   if(!DeviceInfo.isMobile){
     pdfui.getRootComponent().then((root) => {
-      const commentTab = root.getComponentByName("edit-tab");
-      commentTab.active();
+      const editTab = root.getComponentByName("edit-tab");
+      editTab.active();
     });
   }
   addCustomTextGraphic();
