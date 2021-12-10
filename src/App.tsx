@@ -251,6 +251,7 @@ const App = () => {
                         ref={iframeRef}
                         className="fv__catalog-app-previewer"
                         src={it.path}
+                        allowFullScreen
                       ></iframe>
                     </Route>
                   );
