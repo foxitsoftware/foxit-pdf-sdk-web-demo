@@ -1,6 +1,11 @@
 import {
   closeSidebar,
   openSidebar,
+  openSidebarRightTab,
+  closeSidebarRightTab,
+  openDropdown,
+  closeDropdown,
+  openStampDropdown
 } from "../snippets";
 
 const hello = [
@@ -90,7 +95,7 @@ const annotation = [
     header: "Add a note",
     description:
       "The ‘Note’ tool adds a note annotation to the top-left of the PDF page. You can drag-and-drop it to your desired location.",
-    func: (ref: any) => ref.current.contentWindow.__example__.closeSidebarRightTab(),
+    func: (ref: any) => closeSidebarRightTab(ref.current.contentWindow.pdfui),
   },
   {
     positionX:'42%',
@@ -99,7 +104,7 @@ const annotation = [
     header: "Leave your note",
     description: "Click directly in the PDF to leave a note in context.",
     func: (ref: any) => {
-      ref.current.contentWindow.__example__.openSidebarRightTab();
+      openSidebarRightTab(ref.current.contentWindow.pdfui, 'edit-properties-panel',9);
       ref.current.contentWindow.__example__.createTextNoteAnnotationAt(500, 300);
     },
   },
@@ -116,7 +121,7 @@ const annotation = [
         ref.current.contentWindow.pdfui,
         "comment-list-sidebar-panel"
       ).then(() => {
-        ref.current.contentWindow.__example__.closeSidebarRightTab();
+        closeSidebarRightTab(ref.current.contentWindow.pdfui);
         ref.current.contentWindow.__example__.createCalloutAnnotation();
       });
     },
@@ -140,9 +145,7 @@ const annotation = [
     header: "Create a stamp",
     description:
       "You can create your own custom stamps using the Custom Stamps option. Click on any of the stamps to add on the page",
-    func: (ref: any) => {
-      ref.current.contentWindow.__example__.openStampDropdown();
-    },
+    func: (ref: any) => openStampDropdown(ref.current.contentWindow.pdfui),
   },
 ];
 
@@ -156,8 +159,8 @@ const measurement = [
     description:
       "Use the measuring tools to measure distances and areas of objects in PDF documents",
     func: (ref:any) => {
-      ref.current.contentWindow.__example__.closeSidebarRightTab();
-      ref.current.contentWindow.__example__.hideMeasurementDropdown();
+      closeSidebarRightTab(ref.current.contentWindow.pdfui);
+      closeDropdown(ref.current.contentWindow.pdfui,"create-measurement-button-list");
     }
   },
   {
@@ -169,8 +172,8 @@ const measurement = [
     description:
       "When you use a measuring tool, the measurement info panel shows information about the measurement, and the right side panel for settings.",
     func: (ref:any) => {
-      ref.current.contentWindow.__example__.openSidebarRightTab();
-      ref.current.contentWindow.__example__.showMeasurementDropdown();
+      openSidebarRightTab(ref.current.contentWindow.pdfui,'edit-properties-panel',7);
+      openDropdown(ref.current.contentWindow.pdfui,"create-measurement-button-list");
       ref.current.contentWindow.__example__.createMeasurement();
     }
   },
@@ -205,7 +208,6 @@ const redaction = [
     description:
       "Search for terms in the whole PDF, and choose which to redact.",
     func: (ref: any) => {
-      // ref.current.contentWindow.__example__.markAndRedactAStringOfText();
       ref.current.contentWindow.__example__.searchTextsAndMarkRedact();
     },
   },
@@ -316,7 +318,7 @@ const search = [
     header: "Search PDF text",
     description: "Enter a word or phrase to find all instances within the PDF.",
     func: () => {},
-  },
+  }
 ];
 
 export {

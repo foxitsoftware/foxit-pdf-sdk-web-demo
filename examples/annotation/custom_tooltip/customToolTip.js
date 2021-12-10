@@ -43,7 +43,7 @@ export function customToolTip(pdfViewer, annot){
     // 2: Gets the x,y coordinates based on the event object.
     var getTooltipXY = function(e){
         var viewerHeight = document.documentElement.clientHeight;
-        var toolWidth = 150;
+        var toolWidth = 190;
         var toolHeight = 80;
         var x = e.clientX;
         var y = e.clientY - e.layerY + element.clientHeight;
@@ -84,7 +84,7 @@ export function customToolTip(pdfViewer, annot){
             contentText = annot.getField().getAlternateName();
         }else{
             titleText = annot.getTitle();
-            contentText = annot.getContent();
+            contentText = annot.getContent() || `This is a ${annot.getType()} example`;
         }
         contentNode.innerHTML = contentText.trim();
         titleNode.innerHTML = titleText.trim();

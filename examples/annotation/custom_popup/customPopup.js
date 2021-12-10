@@ -93,20 +93,20 @@ export function initializationCompleted(pdfui){
             return PDFViewCtrl.shared.createClass({
                 showReplyDialog() {
                     var annotComponent = this;
-                    if (!popupAvailable(annotComponent)){
-                        ParentClass.prototype.showReplyDialog.apply(this, arguments);
-                        return 
+                    ParentClass.prototype.showReplyDialog.apply(this, arguments);
+                    if (popupAvailable(annotComponent)){
+                        pdfui.getComponentByName('custom-annotation-popup-layer').then(function(layerComponent) {
+                            if(!layerComponent){return}
+                            var textareaComponent = layerComponent.getComponentByName('annotation-popup-content');
+                            textareaComponent.controller.setActiveAnnot(annotComponent);
+                            // ensure that the UIConsts.COMPONENT_EVENTS.HIDDEN event should be triggered correctly
+                            if(layerComponent.isVisible) {
+                                layerComponent.hide();
+                            }
+                            layerComponent.show();
+                            textareaComponent.element.focus();
+                        });
                     }
-                    pdfui.getComponentByName('custom-annotation-popup-layer').then(function(layerComponent) {
-                        if(!layerComponent){return}
-                        var textareaComponent = layerComponent.getComponentByName('annotation-popup-content');
-                        textareaComponent.controller.setActiveAnnot(annotComponent);
-                        // ensure that the UIConsts.COMPONENT_EVENTS.HIDDEN event should be triggered correctly
-                        if(layerComponent.isVisible) {
-                            layerComponent.hide();
-                        }
-                        layerComponent.show();
-                    });
                 }
             }, ParentClass);
         });

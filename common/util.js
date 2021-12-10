@@ -14,3 +14,20 @@ export function deepCloneAssign(origin = {}, ...args){
     }
     return origin;
 }
+
+// Load image
+export function loadImage(url) {
+    const image = new Image();
+    return new Promise((resolve, reject) => {
+      image.onerror = () => {
+        reject();
+      };
+      image.onload = () => {
+        resolve({
+          width: image.width,
+          height: image.height,
+        });
+      };
+      image.src = url;
+    });
+}

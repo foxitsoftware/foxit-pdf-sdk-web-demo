@@ -1,24 +1,18 @@
-import * as UIExtension from "UIExtension";
 import "@foxitsoftware/foxit-pdf-sdk-for-web-library/lib/UIExtension.vw.css";
-import { createPDFUI } from '../../common/pdfui';
-
-const { PDFViewCtrl } = UIExtension;
-const { DeviceInfo, Events } = PDFViewCtrl;
+import { createPDFUI, initTab } from '../../common/pdfui';
 
 const pdfui = createPDFUI({});
-
-if(!DeviceInfo.isMobile){
-  pdfui.getAllComponentsByName("form-tab-group-fields").then((group) => {
-    group[2].setRetainCount(1000)
-  });
-  pdfui.addViewerEventListener(Events.openFileSuccess, () => {
-    pdfui.getRootComponent().then((root) => {
-      const formTab = root.getComponentByName("form-tab");
-      formTab.active();
-    });
-  });
-}
-
+initTab(pdfui,{
+  menuTabName: "form-tab",
+  groupTabName:[
+    {
+      groupTabName: "form-tab-group-fields",
+      groupTabIndex:2,
+      retainCount: 100
+    }
+  ]
+  
+});
 
 pdfui.openPDFByHttpRangeRequest(
   {

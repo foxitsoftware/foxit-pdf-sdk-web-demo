@@ -1,10 +1,11 @@
 import * as UIExtension from "UIExtension";
 import "@foxitsoftware/foxit-pdf-sdk-for-web-library/lib/UIExtension.vw.css";
-import { createPDFUI } from '../../common/pdfui';
+import { createPDFUI, hideComponent } from '../../common/pdfui';
 
 const { PDFViewCtrl } = UIExtension;
 const { DeviceInfo, Events } = PDFViewCtrl;
 const pdfui = createPDFUI({});
+hideComponent(pdfui,"download-file-button");
 
 // Set page rotation
 let rotate = 0;
@@ -87,13 +88,6 @@ export function addCustomTextGraphic(){
     })
   })
 }
-
-//Toolbar element show/hide control
-pdfui.getRootComponent().then((root) => {
-  const downloadLink = root.getComponentByName("download-file-button");
-  downloadLink.hide();
-});
-
 
 pdfui.addViewerEventListener(Events.openFileSuccess, () => {
   if(!DeviceInfo.isMobile){

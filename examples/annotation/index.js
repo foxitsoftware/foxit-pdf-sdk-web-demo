@@ -1,13 +1,26 @@
 import * as UIExtension from "UIExtension";
 import "@foxitsoftware/foxit-pdf-sdk-for-web-library/lib/UIExtension.vw.css";
-import { createPDFUI } from '../../common/pdfui';
+import { createPDFUI, initTab } from '../../common/pdfui';
+import { loadImage } from '../../common/util';
 import { customToolTip } from './custom_tooltip/customToolTip';
 import { customFragments, initializationCompleted } from './custom_popup/customPopup';
 
-const { PDFViewCtrl } = UIExtension;
-const { DeviceInfo, Events } = PDFViewCtrl;
-const File_Type = PDFViewCtrl.PDF.constant.File_Type;
-const Annot_Flags = PDFViewCtrl.PDF.annots.constant.Annot_Flags;
+const {
+  PDFViewCtrl: {
+    Events,
+    PDF: {
+      constant: {
+        File_Type,
+        Note_Icon
+      },
+      annots:{
+        constant:{
+          Annot_Flags
+        }
+      }
+    }
+  }
+} = UIExtension;
 
 const pdfui = createPDFUI({
   viewerOptions:{
@@ -19,43 +32,25 @@ const pdfui = createPDFUI({
   },
   fragments:customFragments
 });
+initTab(pdfui,{
+  menuTabName: "comment-tab",
+  group:[
+    {
+      groupTabName: "comment-tab-group-text",
+      retainCount: 4
+    },
+    {
+      groupTabName: "comment-tab-group-media",
+      retainCount: 100
+    },
+    {
+      groupTabName: "comment-tab-group-mark",
+      retainCount: 1
+    }
+  ]
+});
 pdfui.initDefaultStamps();
 initializationCompleted(pdfui);
-
-//Toolbar element show/hide control
-export function openStampDropdown(){
-  return pdfui.getComponentByName("stamp-drop-down-ui").then(stampDropdown=>{
-    stampDropdown.active();
-    setTimeout(()=>{
-      if(!stampDropdown.isActive){
-        stampDropdown.active();
-      }
-    })
-  });
-}
-
-export function openSidebarRightTab(){
-  return pdfui.getComponentByName('sidebar-right')
-  .then(rightPanel => {
-    this.rightPanel = rightPanel;
-    rightPanel.show();
-    return pdfui.getComponentByName('sidebar-right-tabs');
-  }).then(tabs => {
-      tabs.openTab('edit-properties-panel');
-      tabs.setActivetab('edit-properties-panel');
-      return pdfui.getComponentByName('edit-properties');
-  }).then(component => {
-      return component.setHost({}, 9);
-  })
-}
-
-export function closeSidebarRightTab(){
-  return pdfui.getComponentByName('sidebar-right')
-  .then(rightPanel => {
-    this.rightPanel = rightPanel;
-    rightPanel.hide();
-  })
-}
 
 // The following section demonstrates creating different types of annotation on the first page.
 // This is a common method for creating annotation.
@@ -79,7 +74,7 @@ export function createTextNoteAnnotationAt(top, left) {
               return page.addAnnot({
                   flags: 4,
                   type: 'text',
-                  contents: 'Welcome to FoxitPDFSDK for Web',
+                  contents: 'This is a note example',
                   rect: {
                       left,
                       right: left + 40,
@@ -159,29 +154,32 @@ export function createCalloutAnnotation() {
           "interior-color": 16777215,
           rotate: 0,
           flags: 4,
+          contents:"This is a callout example",
           calloutLinePoints: [
             {
-              "x": 12.170681953430176,
-              "y": 14.441819190979004
-            }, {
-              "x": 39.98834991455078,
-              "y": 79.03860473632812
-            }, {
-              "x": 54.98834991455078,
-              "y": 79.03860473632812
+                "x": 63.45833206176758,
+                "y": 349.8636474609375
+            },
+            {
+                "x": 130.4054718017578,
+                "y": 432.4517822265625
+            },
+            {
+                "x": 145.4054718017578,
+                "y": 432.4517822265625
             }
           ],
           rect: {
-            "top": 90.13860321044922,
-            "right": 156.08834838867188,
-            "bottom": 13.441819190979004,
-            "left": 10.47049331665039
-          },
+            "top": 443.5517578125,
+            "right": 246.50547790527344,
+            "bottom": 348.8636474609375,
+            "left": 62.45833206176758
+         },
           innerRect: {
-            "top": 89.13860321044922,
-            "right": 155.08834838867188,
-            "bottom": 69.13860321044922,
-            "left": 55.088348388671875
+            "top": 442.5517578125,
+            "right": 245.50547790527344,
+            "bottom": 422.5517578125,
+            "left": 145.50547790527344
           },
         });
       });
@@ -215,6 +213,7 @@ export function createPencil(pdfDoc, pageIndex) {
       flags: Annot_Flags.print,
       rect: rect,
       inkList: points,
+      color: 0xeeff00
     },
     pageIndex
   );
@@ -223,10 +222,10 @@ export function createPencil(pdfDoc, pageIndex) {
 // Create highlight
 export function createAreaHighlight(pdfDoc, pageIndex) {
   const rect = {
-    top: 67.17839813232422,
-    right: 765.9221801757812,
-    bottom: 51.63336181640625,
-    left: 497.05999755859375,
+    "top": 387.9033203125,
+    "right": 538.36865234375,
+    "bottom": 370.5513000488281,
+    "left": 414.12548828125
   };
   return createAnnotation(
     pdfDoc,
@@ -244,6 +243,7 @@ export function createAreaHighlight(pdfDoc, pageIndex) {
       ],
       opacity: 1,
       date: new Date(),
+      color: 0xeeff00
     },
     pageIndex
   );
@@ -260,13 +260,16 @@ export function createTypeWriter(pdfDoc, pageIndex) {
       subject: "FreeTextTypewriter",
       contents: "This is a typewriter example",
       rect: {
-        left: 700,
-        right: 936,
-        top: 25,
-        bottom: 10,
+        top: 422.6910705566406,
+        right: 893.6205444335938,
+        bottom: 410.06707763671875,
+        left: 600.2205810546875
       },
       date: new Date(),
-      color: 0xFF0000,
+      defaultAppearance:{
+        textSize: 20,
+        textColor: 0xeeff00
+      }
     },
     pageIndex
   );
@@ -280,9 +283,9 @@ export function createTextNote(pdfDoc, pageIndex) {
   return createAnnotation(
     pdfDoc,
     {
-      flags: Annot_Flags.noZoom | Annot_Flags.readOnly,
+      flags: 4,
       type: "text",
-      contents: "Welocome to FoxitPDFSDK for Web",
+      contents: "This is a note example for pop-up window",
       rect: {
         left,
         right: left + 40,
@@ -290,13 +293,14 @@ export function createTextNote(pdfDoc, pageIndex) {
         bottom: top - 40,
       },
       date: new Date(),
+      icon: Note_Icon.Insert
     },
     pageIndex
   );
 }
 
 // Set the preset callback function for the annotation
-export function setDefaultAnnotConfig(type, intent){
+export function setDefaultAnnotConfig(){
   pdfui.setDefaultAnnotConfig((type, intent) => {
     let config={};
     switch (type) {
@@ -317,23 +321,6 @@ export function setDefaultAnnotConfig(type, intent){
     return config;
   });
 }
-
-//Get component element
-pdfui.getRootComponent().then((root) => {
-  if(!DeviceInfo.isMobile){
-    const commentTabGroup = root.getComponentByName("comment-tab-group-text");
-    commentTabGroup.setRetainCount(4);
-  }
-  const commentTab = root.getComponentByName("comment-tab");
-  commentTab.active();
-});
-pdfui.addViewerEventListener(Events.openFileSuccess, () => {
-  pdfui.getRootComponent().then((root) => {
-    const commentTab = root.getComponentByName("comment-tab");
-    commentTab.active();
-  });
-  setDefaultAnnotConfig();
-});
 
 //Listening in
 pdfui.addViewerEventListener(Events.annotationAdded, (annots) => {
@@ -357,29 +344,16 @@ pdfui
   )
   .then((doc) => {
     Promise.all([
+      setDefaultAnnotConfig(),
       createTextNote(doc, 0),
       createTypeWriter(doc, 0), 
       createAreaHighlight(doc, 0), 
       createSquare(doc, 0), 
       createPencil(doc, 0), 
+      createCalloutAnnotation(),
       createCustomStamp(location.origin + "/assets/stamp.png"),
     ]);
   });
-
-if(!DeviceInfo.isMobile){
-  pdfui.getComponentByName("comment-tab-group-media").then((group) => {
-    group.setRetainCount(100);
-  });
-}
-
-if(!DeviceInfo.isMobile){
-  pdfui.getComponentByName("comment-tab-group-media").then((group) => {
-    group.setRetainCount(100);
-  });
-  pdfui.getComponentByName("comment-tab-group-mark").then((group) => {
-    group.setRetainCount(1);
-  });
-}
 
 function disableAll(excludeQuerySelector) {
   const promise = pdfui.getRootComponent().then((root) => {
@@ -400,21 +374,4 @@ function disableAll(excludeQuerySelector) {
       });
     });
   };
-}
-
-// Load image
-function loadImage(url) {
-  const image = new Image();
-  return new Promise((resolve, reject) => {
-    image.onerror = () => {
-      reject();
-    };
-    image.onload = () => {
-      resolve({
-        width: image.width,
-        height: image.height,
-      });
-    };
-    image.src = url;
-  });
 }

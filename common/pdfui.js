@@ -99,3 +99,42 @@ export function createPDFUI(options) {
   initSignatureHandlers(pdfui);
   return pdfui;
 }
+
+// Init tab according to the example
+export function initTab(pdfui,options){
+  const { menuTabName, group=[]} = options
+  if(!DeviceInfo.isMobile){
+    if(menuTabName){
+      pdfui.getRootComponent().then((root) => {
+          const tabComponent = root.getComponentByName(menuTabName);
+          tabComponent.active();
+      });
+    }
+    pdfui.addViewerEventListener(Events.openFileSuccess, () => {
+      if(menuTabName){
+        pdfui.getRootComponent().then((root) => {
+          const tabComponent = root.getComponentByName(menuTabName);
+          tabComponent.active();
+          group.forEach(groupItem=>{
+            const {groupTabName, groupTabIndex=0, retainCount=100} = groupItem;
+            if(groupTabName){
+              const tabComponentGroup = root.getComponentByName(groupTabName);
+              if(Array.isArray(tabComponentGroup)){
+                tabComponentGroup = tabComponentGroup[groupTabIndex]
+              }
+              tabComponentGroup.setRetainCount(retainCount);
+            }
+          })
+        });
+      }
+    });
+  }
+}
+
+//Component show/hide control
+export function hideComponent(pdfui,componentName){
+  pdfui.getRootComponent().then((root) => {
+    const component = root.getComponentByName(componentName);
+    component.hide();
+  });
+}

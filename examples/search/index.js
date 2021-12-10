@@ -1,6 +1,7 @@
 import * as UIExtension from 'UIExtension';
 import "@foxitsoftware/foxit-pdf-sdk-for-web-library/lib/UIExtension.vw.css";
 import { createPDFUI } from '../../common/pdfui';
+import { openSidebarRightTab } from "../../src/snippets"
 
 const {
   PDFViewCtrl: {
@@ -11,14 +12,9 @@ const {
 
 const pdfui = createPDFUI({})
 
-function openSearchSideBar(){
-  if(DeviceInfo.isMobile){return}
-  pdfui.addonInstanceMap.SearchAddon.openPanel('normal')
-}
-
 pdfui.addViewerEventListener(ViewerEvents.openFileSuccess, () => {
   if(DeviceInfo.isMobile){return}
-  openSearchSideBar();
+  openSidebarRightTab(pdfui,'right-search-panel');
 });
 
 // Search text on the first three pages.

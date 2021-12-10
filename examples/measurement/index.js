@@ -1,73 +1,16 @@
-import * as UIExtension from 'UIExtension';
 import "@foxitsoftware/foxit-pdf-sdk-for-web-library/lib/UIExtension.vw.css";
-import { createPDFUI } from '../../common/pdfui';
-
-const {
-  PDFViewCtrl: {
-    DeviceInfo,
-    Events
-  }
-} = UIExtension;
+import { createPDFUI, initTab } from '../../common/pdfui';
 
 const pdfui = createPDFUI({});
-
-if(!DeviceInfo.isMobile){
-    pdfui.getRootComponent().then((root) => {
-        const commentTab = root.getComponentByName("comment-tab");
-        commentTab.active();
-    });
-}
-
-pdfui.addViewerEventListener(Events.openFileSuccess, () => {
-    pdfui.getRootComponent().then((root) => {
-      const commentTab = root.getComponentByName("comment-tab");
-      commentTab.active();
-    });
+initTab(pdfui,{
+    menuTabName: "comment-tab",
+    group:[
+        {
+            groupTabName: "comment-tab-group-text",
+            retainCount: 4
+        }
+    ]
 });
-
-pdfui.getRootComponent().then((root) => {
-    if(!DeviceInfo.isMobile){
-      const commentTabGroup = root.getComponentByName("comment-tab-group-text");
-      commentTabGroup.setRetainCount(4);
-    }
-});
-
-export function openSidebarRightTab(){
-    return pdfui.getComponentByName('sidebar-right')
-    .then(rightPanel => {
-      this.rightPanel = rightPanel;
-      rightPanel.show();
-      return pdfui.getComponentByName('sidebar-right-tabs');
-    }).then(tabs => {
-        tabs.openTab('edit-properties-panel');
-        tabs.setActivetab('edit-properties-panel');
-        return pdfui.getComponentByName('edit-properties');
-    }).then(component => {
-        return component.setHost({}, 7);
-    })
-}
-
-export function closeSidebarRightTab(){
-    return pdfui.getComponentByName('sidebar-right')
-    .then(rightPanel => {
-        this.rightPanel = rightPanel;
-        rightPanel.hide();
-    })
-}
-
-export function showMeasurementDropdown(){
-    return pdfui.getComponentByName("create-measurement-button-list")
-    .then(measurementList=>{
-        measurementList.getDropdown().active()
-    })
-}
-
-export function hideMeasurementDropdown(){
-    return pdfui.getComponentByName("create-measurement-button-list")
-    .then(measurementList=>{
-        measurementList.getDropdown().deactive()
-    })
-}
 
 //The following section shows how to create different type of measurements 
 export function createMeasurement(){
@@ -87,30 +30,36 @@ export function createDistance(){
         return doc.getPageByIndex(0);
       })
       .then((page) => {
-        const {height} = page.getInfo();
         return page.addAnnot({
             "startPoint": {
-                "x": 15,
-                "y": height - 30
+                "x": 38.352500915527344,
+                "y": 648.3236083984375
             },
             "endPoint": {
-                "x": 115,
-                "y": height - 30
+                "x": 205.35252380371094,
+                "y": 648.3236083984375
             },
             "leaderLineExtend": 5,
             "leaderLineLength": 15,
             "subject": "Distance Measurement",
             "intent": "LineDimension",
             "type": "line",
-            "startStyle": 4,
+            "startStyle": 1,
             "endStyle": 4,
-            "contents": "0.93 inch",
             "rect": {
-                "left": 0,
-                "top": height - 30,
-                "right": 130,
-                "bottom": height - 30
-            }
+                "top": 680.1986083984375,
+                "right": 212.85252380371094,
+                "bottom": 640.8236083984375,
+                "left": 21.47749900817871
+            },
+            "borderInfo":{
+                "cloudIntensity": 0,
+                "dashPhase": 0,
+                "dashes": [3,3,3,3],
+                "style": 1,
+                "width": 7
+            },
+            "color": 0xeeff00
         });
     });
 }
@@ -128,36 +77,45 @@ export function createPerimeter(){
             "subject": "Perimeter Measurement",
             "type": "polyline",
             "intent": "PolyLineDimension",
-            "startStyle": 4,
-            "endStyle": 4,
+            "startStyle": 1,
+            "endStyle": 1,
             "vertexes":[
                 {
-                    "x": 945.5121971579159,
-                    "y": 690.3969647575827
+                    "x": 767.9400024414062,
+                    "y": 612.689453125
                 },
                 {
-                    "x": 856.5640126845416,
-                    "y": 687.5954471363741
+                    "x": 778.868408203125,
+                    "y": 660.9397583007812
                 },
                 {
-                    "x": 937.10764429429,
-                    "y": 670.0859620038201
+                    "x": 805.5060424804688,
+                    "y": 613.1439819335938
                 },
                 {
-                    "x": 859.3655303057502,
-                    "y": 653.9772356818704
+                    "x": 823.1097412109375,
+                    "y": 663.1714477539062
                 },
                 {
-                    "x": 944.8118177526137,
-                    "y": 657.4791327083813
+                    "x": 843.0503540039062,
+                    "y": 616.8145141601562
+                },
+                {
+                    "x": 825.6480102539062,
+                    "y": 606.4150390625
                 }
             ],
             "rect": {
-                "left": 854.5640126845416,
-                "top": 692.3969647575827,
-                "right": 947.5121971579159,
-                "bottom": 651.9772356818704
-            }
+                "top": 670.6714477539062,
+                "right": 858.8613891601562,
+                "bottom": 573.20166015625,
+                "left": 738.0113525390625
+            },
+            "borderInfo":{
+                "width": 7
+            },
+            "color": 0xeeff00,
+            "fillColor": 0xffff
         });
     });
 }
@@ -172,33 +130,62 @@ export function createPolygon(){
       .then((page) => {
         return page.addAnnot({
             "flags": 4,
-            "contents": "2.08 sq inch",
             "subject": "Area Measurement",
             "type": "polygon",
             "intent": "PolygonDimension",
+            "borderInfo":{
+                "width":7
+            },
+            "opacity": 0.5,
+            "color": 0xffffff,
+            "fillColor": 0xeeff00,
             "vertexes":[
                 {
-                    "x": 13.478999875626474,
-                    "y": 15.7598062767172
+                    "x": 85.14445495605469,
+                    "y": 427.69171142578125
                 },
                 {
-                    "x": 14.377599867334906,
-                    "y": 108.31560542268573
+                    "x": 95.85563659667969,
+                    "y": 462.2686767578125
                 },
                 {
-                    "x": 150.96479860701652,
-                    "y": 98.43100551389296
+                    "x": 107.91929626464844,
+                    "y": 427.7822265625
                 },
                 {
-                    "x": 126.70259883088886,
-                    "y": 19.354206243550948
+                    "x": 138.53587341308594,
+                    "y": 426.8723449707031
+                },
+                {
+                    "x": 114.48985290527344,
+                    "y": 407.88616943359375
+                },
+                {
+                    "x": 124.11834716796875,
+                    "y": 373.4048767089844
+                },
+                {
+                    "x": 97.11754608154297,
+                    "y": 391.419677734375
+                },
+                {
+                    "x": 71.46603393554688,
+                    "y": 373.6766357421875
+                },
+                {
+                    "x": 78.39796447753906,
+                    "y": 407.166748046875
+                },
+                {
+                    "x": 53.45133972167969,
+                    "y": 425.6146240234375
                 }
             ],
             "rect": {
-                "left": 11.478999875626474,
-                "top": 110.31560542268573,
-                "right": 152.9647986070165,
-                "bottom": 13.759806276717313
+                "top": 467.5186767578125,
+                "right": 143.78587341308594,
+                "bottom": 368.1548767089844,
+                "left": 48.20133972167969
             }
         });
     });
@@ -214,15 +201,19 @@ export function createCircle(){
     .then((page) => {
       return page.addAnnot({
           "flags": 4,
-          "contents": "1.71 sq inch",
           "subject": "Oval",
           "type": "circle",
           "intent": "CircleDimension",
+          "borderInfo":{
+              "width":7
+          },
+          "color": 0xffffff,
+          "fillColor": 0xeeff00,
           "rect": {
-            "left": 827.6105923634656,
-            "top": 107.41700543097727,
-            "right": 940.8341913187279,
-            "bottom": 7.672406351341351
+            "top": 445.5013122558594,
+            "right": 928.7749633789062,
+            "bottom": 402.8200988769531,
+            "left": 814.6636352539062
         }
       });
   }); 

@@ -1,11 +1,16 @@
-import * as UIExtension from 'UIExtension';
 import '@foxitsoftware/foxit-pdf-sdk-for-web-library/lib/UIExtension.vw.css';
-import { createPDFUI } from '../../common/pdfui';
-
-const { PDFViewCtrl } = UIExtension;
-const { DeviceInfo, Events } = PDFViewCtrl;
+import { createPDFUI, initTab } from '../../common/pdfui';
 
 const pdfui = createPDFUI({});
+initTab(pdfui,{
+    menuTabName: "protect-tab",
+    group:[
+        {
+            groupTabName: "redaction",
+            retainCount: 100
+        }
+    ]
+});
 
 // Search and redact on the first page.
 export function searchTextsAndMarkRedact(){
@@ -30,21 +35,11 @@ export function searchTextsAndMarkRedact(){
         })
     })
 }
+
 //Show the search panel 
 export function openRedactionSearchBar(){
-    pdfui.addonInstanceMap.SearchAddon.openPanel()
+    pdfui.addonInstanceMap.SearchAddon.openPanel('redaction',"exact")
 }
-
-pdfui.addViewerEventListener(Events.openFileSuccess, () => {
-    pdfui.getRootComponent().then((root) => {
-        const protectTab = root.getComponentByName('protect-tab');
-        protectTab.active();
-    });
-    if(DeviceInfo.isMobile){return}
-    pdfui.getComponentByName('redaction').then((group) => {
-        group.setRetainCount(100);
-    });
-});
 
 pdfui.openPDFByHttpRangeRequest(
     {

@@ -23,6 +23,53 @@ export function openTab(pdfui: any, tab: string) {
   });
 }
 
+export function openSidebarRightTab(pdfui: any, tabName: string, type?: number){
+  return pdfui.getComponentByName('sidebar-right')
+  .then((rightPanel: any) => {
+    rightPanel.show();
+    return pdfui.getComponentByName('sidebar-right-tabs');
+  }).then((tabs: any) => {
+    tabs.openTab(tabName);
+    tabs.setActivetab(tabName);
+    if (tabName === 'edit-properties-panel') {
+      return pdfui.getComponentByName('edit-properties').then((component: any) => {
+          return component.setHost({}, type);
+      })
+    }
+  })
+}
+
+export function closeSidebarRightTab(pdfui: any){
+  return pdfui.getComponentByName('sidebar-right')
+  .then((rightPanel: any) => {
+      rightPanel.hide();
+  })
+}
+
+export function openDropdown(pdfui: any, dropdownName: string){
+  return pdfui.getComponentByName(dropdownName)
+    .then((measurementList: any)=>{
+        measurementList.getDropdown().active()
+    })
+}
+
+export function closeDropdown(pdfui: any, dropdownName: string){
+  return pdfui.getComponentByName(dropdownName)
+    .then((measurementList: any)=>{
+        measurementList.getDropdown().deactive()
+    })
+}
+
+export function openStampDropdown(pdfui: any){
+  return pdfui.getComponentByName("stamp-drop-down-ui").then((stampDropdown: any)=>{
+    stampDropdown.active();
+    setTimeout(()=>{
+      if(!stampDropdown.isActive){
+        stampDropdown.active();
+      }
+    })
+  });
+}
 
 export function hideAll(pdfui: any, excludeQuerySelector: string) {
   const promise = pdfui.getRootComponent().then((root: any) => {
