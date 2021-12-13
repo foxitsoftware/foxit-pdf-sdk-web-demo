@@ -14,7 +14,7 @@ const pdfui = createPDFUI({})
 
 pdfui.addViewerEventListener(ViewerEvents.openFileSuccess, () => {
   if(DeviceInfo.isMobile){return}
-  openSidebarRightTab(pdfui,'right-search-panel');
+  openSidebarRightTab(pdfui,'right-search-panel','',0);
 });
 
 // Search text on the first three pages.

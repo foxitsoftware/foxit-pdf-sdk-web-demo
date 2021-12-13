@@ -35,6 +35,10 @@ export function openSidebarRightTab(pdfui: any, tabName: string, type?: number){
       return pdfui.getComponentByName('edit-properties').then((component: any) => {
           return component.setHost({}, type);
       })
+    }else if(tabName === 'right-search-panel'){
+      return pdfui.getComponentByName('advanced-search').then((searchComp: any)=>{
+        searchComp.setSearchType('normal');
+      });
     }
   })
 }
