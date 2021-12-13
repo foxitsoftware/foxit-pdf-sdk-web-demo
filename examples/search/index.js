@@ -12,11 +12,16 @@ const {
 const pdfui = createPDFUI({})
 
 function openSearchSideBar(){
+  if(DeviceInfo.isMobile){
+    pdfui.getComponentByName('sidebar-search').then(searchSidebarPanel=>{
+      searchSidebarPanel&&searchSidebarPanel.active();
+    });
+    return
+  }
   pdfui.addonInstanceMap.SearchAddon.openPanel('normal')
 }
 
 pdfui.addViewerEventListener(ViewerEvents.openFileSuccess, () => {
-  if(DeviceInfo.isMobile){return}
   openSearchSideBar();
 });
 
