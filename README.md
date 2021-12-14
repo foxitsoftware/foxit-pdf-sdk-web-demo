@@ -11,6 +11,8 @@ The application was built with Node 14.16.0.
 In the project directory, you can run:
 
 ```
+npm run install
+npm run preinstall
 npm start
 ```
 
@@ -64,3 +66,5 @@ Example 6
 Example 7
 * [http://0.0.0.0:8083/#/search](http://0.0.0.0:8083/#/search)
 
+Example 8
+* [http://0.0.0.0:8083/#/measurement](http://0.0.0.0:8083/#/measurement)
