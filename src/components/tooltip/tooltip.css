@@ -29,7 +29,7 @@
 .dot-right {
     position: absolute;
     left: 281px;
-    top: 168px;
+    top: 28px;
 }
 
 .dot-right-custom{
@@ -79,7 +79,7 @@
 }
 
 .right {
-    transform: translate(128px, 185px) rotate(45deg);
+    transform: translate(128px, 45px) rotate(45deg);
 }
 
 .left-custom {

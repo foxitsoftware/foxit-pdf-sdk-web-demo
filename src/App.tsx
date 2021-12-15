@@ -106,7 +106,7 @@ const App = () => {
       switch (sideTriangle) {
         case 'right':
           setLocationTooltipX(`${left + scrollX - 316}px`);
-          setLocationTooltipY(`${top + scrollY - 180}px`);
+          setLocationTooltipY(`${top + scrollY - 30}px`);
           break;
         case 'right-custom':
           setLocationTooltipX(`${innerWidth - rectLeft - 280}px`);

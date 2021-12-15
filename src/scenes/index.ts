@@ -135,11 +135,11 @@ const annotation = [
   {
     positionX: "800px",
     positionY: "510px",
-    elementName: "add-custom-stamp",
+    elementName: "create-stamp-button-list",
     sideTriangle: "right",
     header: "Create a stamp",
     description:
-      "You can create your own custom stamps using the Custom Stamps option. Click on any of the stamps to add on the page",
+      "You can create you own custom stamps using the Create button. Click on any of the stamps to add on the page.",
     func: (ref: any) => {
       ref.current.contentWindow.__example__.openStampDropdown();
     },
@@ -180,10 +180,10 @@ const redaction = [
     },
   },
   {
-    positionX: "325px",
-    positionY: "83px",
+    positionX: "300px",
+    positionY: "170px",
     elementName: "advanced-search",
-    sideTriangle: "right",
+    sideTriangle: "right-custom",
     header: "Search for terms",
     description:
       "Additionally, you can search a word or phrase in the document and select which instances of it you want to redact.",
