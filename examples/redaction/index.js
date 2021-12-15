@@ -54,4 +54,8 @@ pdfui.openPDFByHttpRangeRequest(
         },
     },
     { fileName: '5-feature-example_forms.pdf' }
-);
+).then(() => {
+    if(DeviceInfo.isMobile){
+        searchTextsAndMarkRedact()
+    }
+  });
