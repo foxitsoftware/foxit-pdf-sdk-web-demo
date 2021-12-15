@@ -321,13 +321,19 @@ pdfui
   )
   .then((doc) => {
     Promise.all([
-      createTextNote(doc, 1), // 2nd page
-      createTypeWriter(doc, 2), // 3rd page
-      createAreaHighlight(doc, 3), // 4th page
-      createSquare(doc, 0), // 1st page
-      createPencil(doc, 4), // 5th page
+      createTextNote(doc, 0), 
+      createTypeWriter(doc, 0), 
+      createAreaHighlight(doc, 0), 
+      createSquare(doc, 0), 
+      createPencil(doc, 0), 
       createCustomStamp(location.origin + "/assets/stamp.png")
     ]);
+    if(DeviceInfo.isMobile){
+      Promise.all([
+        createTextNoteAnnotationAt(500, 300),
+        createCalloutAnnotation()
+      ]);
+    }
   });
 
 
