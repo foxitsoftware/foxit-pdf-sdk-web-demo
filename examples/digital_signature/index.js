@@ -22,17 +22,17 @@ export function activePasswordProtectDropdown(){
 if(!DeviceInfo.isMobile){
     //Toolbar element show/hide control
     pdfui.getRootComponent().then((root) => {
-        const formTab = root.getComponentByName('form-tab');
+        const formTab = root.getComponentByName('protect-tab');
         formTab.active();
     });
 
-    pdfui.addViewerEventListener(Events.openFileSuccess, () => {
-        pdfui.getRootComponent().then((root) => {
-            const commentTab = root.getComponentByName('protect-tab');
-            commentTab.active();
-        });
-    });
 }
+pdfui.addViewerEventListener(Events.openFileSuccess, () => {
+    pdfui.getRootComponent().then((root) => {
+        const commentTab = root.getComponentByName('protect-tab');
+        commentTab.active();
+    });
+});
 
 pdfui.openPDFByHttpRangeRequest(
     {

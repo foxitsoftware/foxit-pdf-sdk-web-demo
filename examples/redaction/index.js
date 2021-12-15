@@ -34,14 +34,16 @@ export function openRedactionSearchBar(){
     pdfui.addonInstanceMap.SearchAddon.openPanel()
 }
 
-pdfui.addViewerEventListener(Events.openFileSuccess, () => {
+if(!DeviceInfo.isMobile){
     pdfui.getRootComponent().then((root) => {
         const commentTab = root.getComponentByName('protect-tab');
         commentTab.active();
     });
-    if(DeviceInfo.isMobile){return}
-    pdfui.getComponentByName('redaction').then((group) => {
-        group.setRetainCount(100);
+}
+pdfui.addViewerEventListener(Events.openFileSuccess, () => {
+    pdfui.getRootComponent().then((root) => {
+        const commentTab = root.getComponentByName('protect-tab');
+        commentTab.active();
     });
 });
 

@@ -151,7 +151,7 @@ const redaction = [
     positionX: "85px",
     positionY: "90px",
     elementName: "create-redaction-controllers",
-    sideTriangle: "top-custom",
+    sideTriangle: "top",
     header: "Select what to redact",
     description:
       "Select Mark for Redaction to begin selecting text, an area, or a whole page to redact.",
@@ -238,7 +238,7 @@ const digital_signature = [
     positionX: "18px",
     positionY: "105px",
     elementName: "protect-tab-group-sign",
-    sideTriangle: "top-custom",
+    sideTriangle: "top",
     header: "Create a signature",
     description:
       "Select the PDF Sign tool to create your custom signature. Signatures can be saved for easy reuse from this menu.",

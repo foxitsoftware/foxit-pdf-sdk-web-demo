@@ -266,7 +266,7 @@ export function createAnnotation(pdfDoc, annotJson, pageIndex) {
 pdfui.getRootComponent().then((root) => {
   if(!DeviceInfo.isMobile){
     const commentTabGroup = root.getComponentByName("comment-tab-group-text");
-    commentTabGroup.setRetainCount(4);
+    commentTabGroup&&commentTabGroup.setRetainCount(4);
     pdfui.getRootComponent().then((root) => {
       const commentTab = root.getComponentByName("comment-tab");
       commentTab.active();
@@ -334,10 +334,10 @@ pdfui
 
 if(!DeviceInfo.isMobile){
   pdfui.getComponentByName("comment-tab-group-media").then((group) => {
-    group.setRetainCount(100);
+    group && group.setRetainCount(100);
   });
   pdfui.getComponentByName("comment-tab-group-mark").then((group) => {
-    group.setRetainCount(1);
+    group && group.setRetainCount(1);
   });
 }
 
