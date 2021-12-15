@@ -226,4 +226,6 @@ pdfui.openPDFByHttpRangeRequest(
     },
   },
   { fileName: "3-feature-example_annotations.pdf" }
-);
+).then(() => {
+    createMeasurement()
+  });

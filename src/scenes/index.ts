@@ -174,7 +174,6 @@ const measurement = [
     func: (ref:any) => {
       openSidebarRightTab(ref.current.contentWindow.pdfui,'edit-properties-panel',7);
       openDropdown(ref.current.contentWindow.pdfui,"create-measurement-button-list");
-      ref.current.contentWindow.__example__.createMeasurement();
     }
   },
 ]
@@ -207,9 +206,7 @@ const redaction = [
     header: "Search & Redact",
     description:
       "Search for terms in the whole PDF, and choose which to redact.",
-    func: (ref: any) => {
-      ref.current.contentWindow.__example__.searchTextsAndMarkRedact();
-    },
+    func: () => {},
   },
   {
     positionX: "325px",
