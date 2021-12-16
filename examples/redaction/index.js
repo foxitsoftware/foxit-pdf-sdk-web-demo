@@ -111,9 +111,12 @@ pdfui.openPDFByHttpRangeRequest(
         },
     },
     { fileName: '5-feature-example_forms.pdf' }
-).then(() => {
+).then((doc) => {
     markAreaRedaction();
     if(DeviceInfo.isMobile){
         searchTextsAndMarkRedact()
+        setTimeout(()=>{
+            doc.applyRedaction()
+        })
     }
   });
