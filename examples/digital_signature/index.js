@@ -1,6 +1,6 @@
 import * as UIExtension from 'UIExtension';
 import '@foxitsoftware/foxit-pdf-sdk-for-web-library/lib/UIExtension.vw.css';
-import { createPDFUI } from '../../common/pdfui';
+import { createPDFUI, initMobileTab } from '../../common/pdfui';
 
 const { PDFViewCtrl } = UIExtension;
 const { DeviceInfo, Events } = PDFViewCtrl;
@@ -25,7 +25,8 @@ if(!DeviceInfo.isMobile){
         const formTab = root.getComponentByName('protect-tab');
         formTab.active();
     });
-
+}else{
+    initMobileTab(pdfui,"protect-tab-li")
 }
 pdfui.addViewerEventListener(Events.openFileSuccess, () => {
     pdfui.getRootComponent().then((root) => {

@@ -164,7 +164,7 @@ const redaction = [
     sideTriangle: "top",
     header: "Apply the redaction",
     description: "Ready to redact what you selected? Click “Apply”.",
-    func: (ref: any) => closeSidebar(ref.current.contentWindow.pdfui),
+    func: () => {},
   },
   {
     positionX: "565px",
@@ -174,21 +174,21 @@ const redaction = [
     header: "Search & Redact",
     description:
       "Search for terms in the whole PDF, and choose which to redact.",
-    func: (ref: any) => {
-      // ref.current.contentWindow.__example__.markAndRedactAStringOfText();
-      ref.current.contentWindow.__example__.searchTextsAndMarkRedact();
+    func: (ref:any) => {
+      ref.current.contentWindow.__example__.closeSidebarRight();
+      ref.current.contentWindow.__example__.unActiveAnnot();
     },
   },
   {
     positionX: "300px",
-    positionY: "170px",
+    positionY: "550px",
     elementName: "advanced-search",
-    sideTriangle: "right-custom",
+    sideTriangle: "right-bottom",
     header: "Search for terms",
     description:
-      "Additionally, you can search a word or phrase in the document and select which instances of it you want to redact.",
+      "Ready to redact what you searched?  Hover your mouse over and Click “Mark Checked Result for Redaction.",
     func: (ref: any) => {
-      ref.current.contentWindow.__example__.openRedactionSearchBar();
+      ref.current.contentWindow.__example__.redactionSearch();
     },
   },
 ];
