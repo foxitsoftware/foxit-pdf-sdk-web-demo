@@ -266,7 +266,9 @@ export function createAnnotation(pdfDoc, annotJson, pageIndex) {
 pdfui.getRootComponent().then((root) => {
   if(!DeviceInfo.isMobile){
     const commentTabGroup = root.getComponentByName("comment-tab-group-text");
+    const commentStampTabGroup = root.getComponentByName("comment-tab-group-stamp");
     commentTabGroup&&commentTabGroup.setRetainCount(4);
+    commentStampTabGroup&&commentStampTabGroup.setRetainCount(4);
     pdfui.getRootComponent().then((root) => {
       const commentTab = root.getComponentByName("comment-tab");
       commentTab.active();

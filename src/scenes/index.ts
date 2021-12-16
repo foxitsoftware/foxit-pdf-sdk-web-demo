@@ -21,7 +21,7 @@ const hello = [
     sideTriangle: "left",
     header: "Navigate the PDF",
     description:
-      "Use the sidebar to see pages, annotations, form information, and to search the PDF.",
+      "Use the sidebar to see bookmarks, pages, annotations, form information, attachments and layers. ",
     func: (ref: any) =>
       openSidebar(ref.current.contentWindow.pdfui, "sidebar-bookmark"),
   },
