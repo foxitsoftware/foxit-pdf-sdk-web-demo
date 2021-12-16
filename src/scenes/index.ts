@@ -7,7 +7,7 @@ const hello = [
   {
     positionX: "75px",
     positionY: "75px",
-    elementName: "change-color-dropdown",
+    elementName: "snapshot-button",
     sideTriangle: "top",
     header: "Create & edit",
     description:
