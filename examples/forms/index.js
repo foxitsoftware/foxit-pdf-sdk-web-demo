@@ -8,13 +8,20 @@ const { DeviceInfo, Events } = PDFViewCtrl;
 const pdfui = createPDFUI({});
 
 if(!DeviceInfo.isMobile){
-  pdfui.getAllComponentsByName("form-tab-group-fields").then((group) => {
-    group[2].setRetainCount(1000)
+  pdfui.getRootComponent().then((root) => {
+    const commentTab = root.getComponentByName("form-tab");
+    commentTab.active();
+    setTimeout(() => {
+      const group = root.getAllComponentsByName("form-tab-group-fields")
+      group[2]&&group[2].setRetainCount(1000) 
+    });
   });
   pdfui.addViewerEventListener(Events.openFileSuccess, () => {
     pdfui.getRootComponent().then((root) => {
       const commentTab = root.getComponentByName("form-tab");
       commentTab.active();
+      const group = root.getAllComponentsByName("form-tab-group-fields")
+      group[2]&&group[2].setRetainCount(1000)
     });
   });
 }
