@@ -95,12 +95,12 @@ const App = () => {
   };
 
   const getOffset = (el: any) => {
+    const {scrollX,scrollY,innerWidth} = window;
+    const {sideTriangle,positionX,positionY,offsetX=0,offsetY=0} = scene[current];
+    const rectLeft = Number(positionX.slice(0,-2));
+    const rectTop = Number(positionY.slice(0,-2));
     if (el.length) {
       const {left,top,bottom} = el[0].getBoundingClientRect();
-      const {scrollX,scrollY,innerWidth} = window;
-      const {sideTriangle,positionX,positionY,offsetX=0,offsetY=0} = scene[current];
-      const rectLeft = Number(positionX.slice(0,-2));
-      const rectTop = Number(positionY.slice(0,-2));
       switch (sideTriangle) {
         case 'right':
           setLocationTooltipX(`${left + scrollX - 316}px`);
@@ -109,10 +109,6 @@ const App = () => {
         case 'right-bottom':
           setLocationTooltipX(`${innerWidth - rectLeft - 280}px`);
           setLocationTooltipY(`${bottom - 290}px`);
-          break;
-        case 'right-custom':
-          setLocationTooltipX(`${innerWidth - rectLeft - 280}px`);
-          setLocationTooltipY(`${rectTop}px`);
           break;
         case 'left-fixed':
           setLocationTooltipX(`${left + scrollX + 70}px`);
@@ -129,6 +125,11 @@ const App = () => {
         left: left + scrollX,
         top: top + scrollY,
       };
+    }else{
+      if(scene[current].sideTriangle === 'right-custom'){
+        setLocationTooltipX(`${innerWidth - rectLeft - 280}px`);
+        setLocationTooltipY(`${rectTop}px`);
+      }
     }
   };
 
