@@ -46,11 +46,7 @@ export function markAreaRedaction(){
             return doc.getPageByIndex(pageIndex)
         }).then(page=>{
             return page.markRedactAnnot(rects)
-        }).then(annots=>{
-            return pdfui.getAnnotRender(pageIndex,annots[0].getName())
-        }).then(annotRender=>{
-            pdfui.activeElement(annotRender.getComponent())
-        });
+        })
 }
 
 export function closeSidebarRight(){
@@ -102,6 +98,7 @@ pdfui.addViewerEventListener(Events.openFileSuccess, () => {
         const redactionGroup = root.getComponentByName('redaction');
         redactionGroup.setRetainCount(100);
     });
+    markAreaRedaction();
 });
 
 pdfui.openPDFByHttpRangeRequest(
@@ -112,7 +109,6 @@ pdfui.openPDFByHttpRangeRequest(
     },
     { fileName: '5-feature-example_forms.pdf' }
 ).then((doc) => {
-    markAreaRedaction();
     if(DeviceInfo.isMobile){
         searchTextsAndMarkRedact()
         setTimeout(()=>{

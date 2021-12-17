@@ -46,8 +46,6 @@ const App = () => {
       setScreenSize(Data.screenSize);
       if(Data.screenSize !== "desktop"){
         setIsSuccess(false)
-      }else{
-        window.location.reload()
       }
       iframeRef.current.contentWindow.location.reload();
     }
