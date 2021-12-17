@@ -6,6 +6,7 @@ module.exports = {
     allowedHosts: [
         '0.0.0.0'
     ],
+    host:'0.0.0.0',
     port: pkg.serve.port,
     // https://github.com/webpack/webpack-dev-server/issues/2484 
     hot: false,

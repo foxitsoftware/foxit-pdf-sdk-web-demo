@@ -7,7 +7,7 @@ const hello = [
   {
     positionX: "75px",
     positionY: "75px",
-    elementName: "change-color-dropdown",
+    elementName: "snapshot-button",
     sideTriangle: "top",
     header: "Create & edit",
     description:
@@ -21,7 +21,7 @@ const hello = [
     sideTriangle: "left",
     header: "Navigate the PDF",
     description:
-      "Use the sidebar to see pages, annotations, form information, and to search the PDF.",
+      "Use the sidebar to see bookmarks, pages, annotations, form information, attachments and layers. ",
     func: (ref: any) =>
       openSidebar(ref.current.contentWindow.pdfui, "sidebar-bookmark"),
   },
@@ -47,8 +47,8 @@ const hello = [
 
 const editPdf = [
   {
-    positionX: "75px",
-    positionY: "75px",
+    positionX: "115px",
+    positionY: "90px",
     sideTriangle: "top-custom",
     elementName: "edit-all-objects",
     header: "Directly edit PDF content",
@@ -90,7 +90,7 @@ const annotation = [
     header: "Add a note",
     description:
       "The ‘Note’ tool adds a note annotation to the top-left of the PDF page. You can drag-and-drop it to your desired location.",
-    func: () => {},
+    func: (ref: any) => ref.current.contentWindow.__example__.closeSidebarRightTab(),
   },
   {
     positionX:'42%',
@@ -98,7 +98,10 @@ const annotation = [
     sideTriangle: "left-fixed",
     header: "Leave your note",
     description: "Click directly in the PDF to leave a note in context.",
-    func: (ref: any) => ref.current.contentWindow.__example__.createTextNoteAnnotationAt(500, 300),
+    func: (ref: any) => {
+      ref.current.contentWindow.__example__.openSidebarRightTab();
+      ref.current.contentWindow.__example__.createTextNoteAnnotationAt(500, 300);
+    },
   },
   {
     positionX: "436px",
@@ -113,6 +116,7 @@ const annotation = [
         ref.current.contentWindow.pdfui,
         "comment-list-sidebar-panel"
       ).then(() => {
+        ref.current.contentWindow.__example__.closeSidebarRightTab();
         ref.current.contentWindow.__example__.createCalloutAnnotation();
       });
     },
@@ -120,6 +124,8 @@ const annotation = [
   {
     positionX: "747px",
     positionY: "75px",
+    offsetX:0,
+    offsetY:50,
     elementName: "stamp-drop-down-ui",
     sideTriangle: "top",
     header: "Stamp",
@@ -129,25 +135,23 @@ const annotation = [
   {
     positionX: "800px",
     positionY: "510px",
-    elementName: "add-custom-stamp",
+    elementName: "create-stamp-button-list",
     sideTriangle: "right",
     header: "Create a stamp",
     description:
-      "You can create your own custom stamps using the Custom Stamps option. Click on any of the stamps to add on the page",
+      "You can create you own custom stamps using the Create button. Click on any of the stamps to add on the page.",
     func: (ref: any) => {
-      ref.current.contentWindow.__example__.createCustomStamp(
-        location.origin + "/assets/stamp.png"
-      );
+      ref.current.contentWindow.__example__.openStampDropdown();
     },
   },
 ];
 
 const redaction = [
   {
-    positionX: "351px",
-    positionY: "75px",
+    positionX: "85px",
+    positionY: "90px",
     elementName: "create-redaction-controllers",
-    sideTriangle: "top-custom",
+    sideTriangle: "top",
     header: "Select what to redact",
     description:
       "Select Mark for Redaction to begin selecting text, an area, or a whole page to redact.",
@@ -160,7 +164,7 @@ const redaction = [
     sideTriangle: "top",
     header: "Apply the redaction",
     description: "Ready to redact what you selected? Click “Apply”.",
-    func: (ref: any) => closeSidebar(ref.current.contentWindow.pdfui),
+    func: () => {},
   },
   {
     positionX: "565px",
@@ -170,28 +174,31 @@ const redaction = [
     header: "Search & Redact",
     description:
       "Search for terms in the whole PDF, and choose which to redact.",
-    func: (ref: any) => {
-      ref.current.contentWindow.__example__.markAndRedactAStringOfText();
+    func: (ref:any) => {
+      ref.current.contentWindow.__example__.closeSidebarRight();
+      ref.current.contentWindow.__example__.unActiveAnnot();
     },
   },
   {
-    positionX: "325px",
-    positionY: "83px",
-    elementName: "fv-search-sidebar-panel",
-    sideTriangle: "left-custom",
+    positionX: "300px",
+    positionY: "550px",
+    elementName: "advanced-search",
+    sideTriangle: "right-bottom",
     header: "Search for terms",
     description:
-      "Additionally, you can search a word or phrase in the document and select which instances of it you want to redact.",
+      "Ready to redact what you searched?  Hover your mouse over and Click “Mark Checked Result for Redaction.",
     func: (ref: any) => {
-      openSidebar(ref.current.contentWindow.pdfui, "sidebar-search");
+      ref.current.contentWindow.__example__.redactionSearch();
     },
   },
 ];
-
+const minBtnOffset = 10;
 const form = [
   {
-    positionX: "385px",
+    positionX: "265px",
     positionY: "75px",
+    offsetX:minBtnOffset,
+    offsetY:minBtnOffset,
     elementName: "fv--form-designer-create-text-btn",
     sideTriangle: "top",
     header: "Form builder",
@@ -200,8 +207,10 @@ const form = [
     func: (ref: any) => closeSidebar(ref.current.contentWindow.pdfui),
   },
   {
-    positionX: "430px",
+    positionX: "375px",
     positionY: "75px",
+    offsetX:minBtnOffset,
+    offsetY:minBtnOffset,
     elementName: "fv--form-designer-create-sign-btn",
     sideTriangle: "top",
     header: "Create a signature field",
@@ -213,6 +222,8 @@ const form = [
   {
     positionX: "335px",
     positionY: "75px",
+    offsetX:minBtnOffset,
+    offsetY:minBtnOffset,
     sideTriangle: "top",
     elementName: "fv--form-designer-create-list-box-btn",
     header: "Add more form fields",
@@ -224,10 +235,10 @@ const form = [
 
 const digital_signature = [
   {
-    positionX: "105px",
-    positionY: "75px",
+    positionX: "18px",
+    positionY: "105px",
     elementName: "protect-tab-group-sign",
-    sideTriangle: "top-custom",
+    sideTriangle: "top",
     header: "Create a signature",
     description:
       "Select the PDF Sign tool to create your custom signature. Signatures can be saved for easy reuse from this menu.",
@@ -254,27 +265,27 @@ const digital_signature = [
       }),
   },
   {
-    positionX: "335px",
-    positionY: "75px",
-    sideTriangle: "top",
+    positionX: "325px",
+    positionY: "145px",
+    sideTriangle: "top-custom",
     elementName: "password-protect-btn",
     header: "Protect your PDF",
     description: "Set a password on your document",
-    func: () => {},
+    func: (ref: any) => {
+      ref.current.contentWindow.__example__.activePasswordProtectDropdown();
+    },
   },
 ];
 
 const search = [
   {
-    positionX: "325px",
-    positionY: "83px",
-    elementName: "fv-search-sidebar-panel",
-    sideTriangle: "left-custom",
+    positionX: "300px",
+    positionY: "170px",
+    elementName: "advanced-search",
+    sideTriangle: "right-custom",
     header: "Search PDF text",
     description: "Enter a word or phrase to find all instances within the PDF.",
-    func: (ref: any) => {
-      openSidebar(ref.current.contentWindow.pdfui, "sidebar-search");
-    },
+    func: () => {},
   },
 ];
 

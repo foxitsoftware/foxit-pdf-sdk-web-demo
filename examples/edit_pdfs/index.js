@@ -3,7 +3,7 @@ import "@foxitsoftware/foxit-pdf-sdk-for-web-library/lib/UIExtension.vw.css";
 import { createPDFUI } from '../../common/pdfui';
 
 const { PDFViewCtrl } = UIExtension;
-const { Events } = PDFViewCtrl;
+const { DeviceInfo, Events } = PDFViewCtrl;
 
 const pdfui = createPDFUI({});
 
@@ -34,10 +34,12 @@ pdfui.getRootComponent().then((root) => {
 
 
 pdfui.addViewerEventListener(Events.openFileSuccess, () => {
-  pdfui.getRootComponent().then((root) => {
-    const commentTab = root.getComponentByName("edit-tab");
-    commentTab.active();
-  });
+  if(!DeviceInfo.isMobile){
+    pdfui.getRootComponent().then((root) => {
+      const commentTab = root.getComponentByName("edit-tab");
+      commentTab.active();
+    });
+  }
 });
 
 pdfui.openPDFByHttpRangeRequest(

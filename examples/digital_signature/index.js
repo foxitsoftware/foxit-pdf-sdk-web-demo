@@ -1,9 +1,9 @@
 import * as UIExtension from 'UIExtension';
 import '@foxitsoftware/foxit-pdf-sdk-for-web-library/lib/UIExtension.vw.css';
-import { createPDFUI } from '../../common/pdfui';
+import { createPDFUI, initMobileTab } from '../../common/pdfui';
 
 const { PDFViewCtrl } = UIExtension;
-const { Events } = PDFViewCtrl;
+const { DeviceInfo, Events } = PDFViewCtrl;
 
 const pdfui = createPDFUI();
 
@@ -12,14 +12,22 @@ export function openSignDialog() {
         inkDialog.show();
     });
 }
-  
 
-//Toolbar element show/hide control
-pdfui.getRootComponent().then((root) => {
-    const formTab = root.getComponentByName('form-tab');
-    formTab.active();
-});
+export function activePasswordProtectDropdown(){
+    pdfui.getComponentByName('password-protect-group').then((group) => {
+        group.childAt(0).getDropdown().active()
+    });
+}
 
+if(!DeviceInfo.isMobile){
+    //Toolbar element show/hide control
+    pdfui.getRootComponent().then((root) => {
+        const formTab = root.getComponentByName('protect-tab');
+        formTab.active();
+    });
+}else{
+    initMobileTab(pdfui,"protect-tab-li")
+}
 pdfui.addViewerEventListener(Events.openFileSuccess, () => {
     pdfui.getRootComponent().then((root) => {
         const commentTab = root.getComponentByName('protect-tab');

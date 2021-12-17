@@ -3,11 +3,12 @@ import "@foxitsoftware/foxit-pdf-sdk-for-web-library/lib/UIExtension.vw.css";
 import { createPDFUI } from '../../common/pdfui';
 
 const { PDFViewCtrl } = UIExtension;
-const { Events } = PDFViewCtrl;
+const { DeviceInfo, Events } = PDFViewCtrl;
 const File_Type = PDFViewCtrl.PDF.constant.File_Type;
 const Annot_Flags = PDFViewCtrl.PDF.annots.constant.Annot_Flags;
 
 const pdfui = createPDFUI({});
+pdfui.initDefaultStamps();
 
 export function createCustomStamp(url) {
   const sepIndex = url.lastIndexOf("/");
@@ -23,26 +24,51 @@ export function createCustomStamp(url) {
     ext = filename.substring(dotIndex + 1);
     name = filename.substring(0, dotIndex);
   }
-  return pdfui
-    .getRootComponent()
-    .then((root) => {
-      const commentTab = root.getComponentByName("comment-tab");
-      commentTab.active();
-      const stampDropdown = root.getComponentByName("stamp-drop-down-ui");
+  return loadImage(url).then((size) => {
+    return pdfui.addAnnotationIcon({
+      url,
+      name: name,
+      category: "customStampDemo",
+      fileType: ext,
+      width: size.width,
+      height: size.height,
+    });
+  });
+}
+
+export function openStampDropdown(){
+    return pdfui.getComponentByName("stamp-drop-down-ui").then(stampDropdown=>{
       stampDropdown.active();
-      return loadImage(url).then((size) => {
-        return pdfui.addAnnotationIcon({
-          url,
-          name: name,
-          category: "customStampDemo",
-          fileType: ext,
-          width: size.width,
-          height: size.height,
-        });
-      });
+      setTimeout(()=>{
+        if(!stampDropdown.isActive){
+          stampDropdown.active();
+        }
+      })
     });
 }
 
+export function openSidebarRightTab(){
+  return pdfui.getComponentByName('sidebar-right')
+  .then(rightPanel => {
+    this.rightPanel = rightPanel;
+    rightPanel.show();
+    return pdfui.getComponentByName('sidebar-right-tabs');
+  }).then(tabs => {
+      tabs.openTab('edit-properties-panel');
+      tabs.setActivetab('edit-properties-panel');
+      return pdfui.getComponentByName('edit-properties');
+  }).then(component => {
+      return component.setHost({}, 9);
+  })
+}
+
+export function closeSidebarRightTab(){
+  return pdfui.getComponentByName('sidebar-right')
+  .then(rightPanel => {
+    this.rightPanel = rightPanel;
+    rightPanel.hide();
+  })
+}
 
 export function createCalloutAnnotation() {
   return pdfui.getRootComponent().then((root) => {
@@ -238,10 +264,16 @@ export function createAnnotation(pdfDoc, annotJson, pageIndex) {
 
 
 pdfui.getRootComponent().then((root) => {
-  const commentTab = root.getComponentByName("comment-tab");
-  commentTab.active();
-  const commentTabGroup = root.getComponentByName("comment-tab-group-text");
-  commentTabGroup.setRetainCount(4);
+  if(!DeviceInfo.isMobile){
+    const commentTabGroup = root.getComponentByName("comment-tab-group-text");
+    const commentStampTabGroup = root.getComponentByName("comment-tab-group-stamp");
+    commentTabGroup&&commentTabGroup.setRetainCount(4);
+    commentStampTabGroup&&commentStampTabGroup.setRetainCount(4);
+    pdfui.getRootComponent().then((root) => {
+      const commentTab = root.getComponentByName("comment-tab");
+      commentTab.active();
+    });
+  }
 });
 pdfui.addViewerEventListener(Events.openFileSuccess, () => {
   pdfui.getRootComponent().then((root) => {
@@ -291,22 +323,32 @@ pdfui
   )
   .then((doc) => {
     Promise.all([
-      createTextNote(doc, 1), // 2nd page
-      createTypeWriter(doc, 2), // 3rd page
-      createAreaHighlight(doc, 3), // 4th page
-      createSquare(doc, 0), // 1st page
-      createPencil(doc, 4), // 5th page
+      createTextNote(doc, 0), 
+      createTypeWriter(doc, 0), 
+      createAreaHighlight(doc, 0), 
+      createSquare(doc, 0), 
+      createPencil(doc, 0), 
+      createCustomStamp(location.origin + "/assets/stamp.png")
     ]);
+    if(DeviceInfo.isMobile){
+      Promise.all([
+        createTextNoteAnnotationAt(500, 300),
+        createCalloutAnnotation()
+      ]);
+    }
   });
 
 
-pdfui.getComponentByName("comment-tab-group-media").then((group) => {
-  group.setRetainCount(100);
-});
 
-pdfui.getComponentByName("comment-tab-group-mark").then((group) => {
-  group.setRetainCount(1);
-});
+if(!DeviceInfo.isMobile){
+  pdfui.getComponentByName("comment-tab-group-media").then((group) => {
+    group && group.setRetainCount(100);
+  });
+  pdfui.getComponentByName("comment-tab-group-mark").then((group) => {
+    group && group.setRetainCount(1);
+  });
+}
+
 
 function disableAll(excludeQuerySelector) {
   const promise = pdfui.getRootComponent().then((root) => {

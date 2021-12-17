@@ -97,3 +97,13 @@ export function createPDFUI(options) {
   initSignatureHandlers(pdfui);
   return pdfui;
 }
+
+export function initMobileTab(pdfui,tabName){
+  return pdfui.getComponentByName("tabs")
+    .then(tabs=>{
+      return Promise.all([tabs,pdfui.getComponentByName(tabName)])
+    })
+    .then(([tabs,tab])=>{
+      return tabs.controller.switchTab(tab)
+    })
+}

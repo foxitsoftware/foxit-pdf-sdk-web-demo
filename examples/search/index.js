@@ -4,25 +4,36 @@ import { createPDFUI } from '../../common/pdfui';
 
 const {
   PDFViewCtrl: {
-    ViewerEvents
+    ViewerEvents,
+    DeviceInfo
   }
 } = UIExtension;
 
 const pdfui = createPDFUI({})
 
-function openSidebar(sidebarTabName) {
-  pdfui.getRootComponent().then((root) => {
-    const sidebarPanel = root.getComponentByName(sidebarTabName);
-    if (sidebarPanel) {
-      sidebarPanel.active();
-    }
-  });
+function openSearchSideBar(){
+  if(DeviceInfo.isMobile){
+    pdfui.getComponentByName('sidebar-search').then(searchSidebarPanel=>{
+      searchSidebarPanel&&searchSidebarPanel.active();
+    });
+    return
+  }
+  pdfui.addonInstanceMap.SearchAddon.openPanel('normal')
 }
 
-
 pdfui.addViewerEventListener(ViewerEvents.openFileSuccess, () => {
-  openSidebar('sidebar-search');
+  openSearchSideBar();
 });
+
+// Search for matching 'want' or 'over' text on the first three pages.
+export function searchTexts(){
+  return pdfui.getCurrentPDFDoc().then(doc=>{
+    return doc.searchText([0,1,2],['want', 'over'],{
+      wholeWordsOnly: true,
+      caseSensitive: false
+    })
+  })
+}
 
 pdfui.openPDFByHttpRangeRequest(
   {

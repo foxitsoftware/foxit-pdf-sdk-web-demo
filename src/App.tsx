@@ -6,7 +6,6 @@ import { Switch, Route, HashRouter, useLocation } from "react-router-dom";
 import { examples } from "./foundation/examples";
 import { Tooltip } from "./components/tooltip/Tooltip";
 import { AdvancedTooltip } from "./components/advancedTooltip/AdvancedTooltip";
-import { exportData } from "../src/snippets";
 import "@foxitsoftware/foxit-pdf-sdk-for-web-library/lib/UIExtension.vw.css";
 
 import {
@@ -47,8 +46,6 @@ const App = () => {
       setScreenSize(Data.screenSize);
       if(Data.screenSize !== "desktop"){
         setIsSuccess(false)
-      }else{
-        window.location.reload()
       }
       iframeRef.current.contentWindow.location.reload();
     }
@@ -99,22 +96,38 @@ const App = () => {
 
   const getOffset = (el: any) => {
     if (el.length) {
-      const rect = el[0].getBoundingClientRect();
-      if (scene[current].sideTriangle === "right") {
-        setLocationTooltipX(`${rect.left + window.scrollX - 316}px`);
-        setLocationTooltipY(`${rect.top + window.scrollY - 120}px`);
-      } else if (scene[current].sideTriangle === "left-fixed") {
-        setLocationTooltipX(`${rect.left + window.scrollX + 70}px`);
-        setLocationTooltipY(`${rect.top + window.scrollY - 85}px`);
-      } else {
-        rect.left + window.scrollX === 0
-          ? setLocationTooltipX(`${rect.left + window.scrollX}px`)
-          : setLocationTooltipX(`${rect.left + window.scrollX - 100}px`);
-        setLocationTooltipY(`${rect.top + window.scrollY + 40}px`);
+      const {left,top,bottom} = el[0].getBoundingClientRect();
+      const {scrollX,scrollY,innerWidth} = window;
+      const {sideTriangle,positionX,positionY,offsetX=0,offsetY=0} = scene[current];
+      const rectLeft = Number(positionX.slice(0,-2));
+      const rectTop = Number(positionY.slice(0,-2));
+      switch (sideTriangle) {
+        case 'right':
+          setLocationTooltipX(`${left + scrollX - 316}px`);
+          setLocationTooltipY(`${top + scrollY - 30}px`);
+          break;
+        case 'right-bottom':
+          setLocationTooltipX(`${innerWidth - rectLeft - 280}px`);
+          setLocationTooltipY(`${bottom - 290}px`);
+          break;
+        case 'right-custom':
+          setLocationTooltipX(`${innerWidth - rectLeft - 280}px`);
+          setLocationTooltipY(`${rectTop}px`);
+          break;
+        case 'left-fixed':
+          setLocationTooltipX(`${left + scrollX + 70}px`);
+          setLocationTooltipY(`${top + scrollY - 85}px`);
+          break;
+        default:
+          left + scrollX === 0
+          ? setLocationTooltipX(`${left + scrollX}px`)
+          : setLocationTooltipX(`${left + scrollX - Number(offsetX) - 100}px`);
+          setLocationTooltipY(`${top + scrollY - Number(offsetY) + 40}px`);
+          break;
       }
       return {
-        left: rect.left + window.scrollX,
-        top: rect.top + window.scrollY,
+        left: left + scrollX,
+        top: top + scrollY,
       };
     }
   };
@@ -195,13 +208,17 @@ const App = () => {
                           <Tooltip
                             positionX={
                               scene[current].sideTriangle === "top" ||
-                              scene[current].sideTriangle === "right"
+                              scene[current].sideTriangle === "right" ||
+                              scene[current].sideTriangle === "right-bottom" ||
+                              scene[current].sideTriangle === "right-custom"
                                 ? locationTooltipX
                                 : scene[current].positionX
                             }
                             positionY={
                               scene[current].sideTriangle === "top" ||
-                              scene[current].sideTriangle === "right"
+                              scene[current].sideTriangle === "right" ||
+                              scene[current].sideTriangle === "right-bottom" ||
+                              scene[current].sideTriangle === "right-custom"
                                 ? locationTooltipY
                                 : scene[current].positionY
                             }
@@ -238,6 +255,7 @@ const App = () => {
                         ref={iframeRef}
                         className="fv__catalog-app-previewer"
                         src={it.path}
+                        allowFullScreen
                       ></iframe>
                     </Route>
                   );
