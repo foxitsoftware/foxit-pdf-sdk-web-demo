@@ -29,7 +29,19 @@
 .dot-right {
     position: absolute;
     left: 281px;
-    top: 168px;
+    top: 28px;
+}
+
+.dot-right-bottom{
+    position: absolute;
+    left: 281px;
+    top: 28px;
+}
+
+.dot-right-bottom{
+    position: absolute;
+    right: 0px;
+    top: 185px;
 }
 
 .dot-right-custom{
@@ -79,7 +91,7 @@
 }
 
 .right {
-    transform: translate(128px, 185px) rotate(45deg);
+    transform: translate(128px, 45px) rotate(45deg);
 }
 
 .left-custom {
@@ -87,6 +99,9 @@
 }
 .right-custom {
     transform: translate(128px, 40px) rotate(45deg);
+}
+.right-bottom {
+    transform: translate(128px, 200px) rotate(45deg);
 }
 
 .modalWindow {

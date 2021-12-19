@@ -4,6 +4,7 @@ import { createPDFUI, initTab } from '../../common/pdfui';
 const pdfui = createPDFUI();
 initTab(pdfui,{
     menuTabName: "protect-tab",
+    mobileTabName: "protect-tab-li"
 });
 
 export function openSignDialog() {

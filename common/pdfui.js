@@ -102,32 +102,38 @@ export function createPDFUI(options) {
 
 // Init tab according to the example
 export function initTab(pdfui,options){
-  const { menuTabName, group=[]} = options
+  const { menuTabName, group=[], mobileTabName} = options
   if(!DeviceInfo.isMobile){
     if(menuTabName){
-      pdfui.getRootComponent().then((root) => {
-          const tabComponent = root.getComponentByName(menuTabName);
-          tabComponent.active();
-      });
+      activeComponent()
     }
     pdfui.addViewerEventListener(Events.openFileSuccess, () => {
       if(menuTabName){
-        pdfui.getRootComponent().then((root) => {
-          const tabComponent = root.getComponentByName(menuTabName);
-          tabComponent.active();
-          group.forEach(groupItem=>{
-            const {groupTabName, groupTabIndex=0, retainCount=100} = groupItem;
-            if(groupTabName){
-              const tabComponentGroup = root.getComponentByName(groupTabName);
-              if(Array.isArray(tabComponentGroup)){
-                tabComponentGroup = tabComponentGroup[groupTabIndex]
-              }
-              tabComponentGroup.setRetainCount(retainCount);
-            }
-          })
-        });
+        activeComponent();
       }
     });
+    function activeComponent(){
+      pdfui.getRootComponent().then((root) => {
+        const tabComponent = root.getComponentByName(menuTabName);
+        tabComponent.active();
+        if(group.length > 0){
+          setTimeout(()=>{
+            group.forEach(groupItem=>{
+              const {groupTabName, groupTabIndex=0, retainCount=100} = groupItem;
+              if(groupTabName){
+                const tabComponentGroup = root.getAllComponentsByName(groupTabName);
+                tabComponentGroup[groupTabIndex].setRetainCount(retainCount);
+              }
+            })
+          })
+        }
+      });
+    }
+  }else{
+    if(!mobileTabName){return}
+    pdfui.addViewerEventListener(Events.openFileSuccess, () => {
+      initMobileTab(pdfui,mobileTabName);
+    })
   }
 }
 
@@ -137,4 +143,15 @@ export function hideComponent(pdfui,componentName){
     const component = root.getComponentByName(componentName);
     component.hide();
   });
+}
+
+export function initMobileTab(pdfui,tabName){
+  return pdfui.getComponentByName("tabs")
+    .then(tabs=>{
+      return Promise.all([tabs,pdfui.getComponentByName(tabName)])
+    })
+    .then(([tabs,tab])=>{
+      tabs.controller.switchTab(tab);
+      tabs.controller.currentTab.active();
+    })
 }

@@ -12,7 +12,7 @@ const hello = [
   {
     positionX: "75px",
     positionY: "75px",
-    elementName: "change-color-dropdown",
+    elementName: "snapshot-button",
     sideTriangle: "top",
     header: "Create & edit",
     description:
@@ -26,7 +26,7 @@ const hello = [
     sideTriangle: "left",
     header: "Navigate the PDF",
     description:
-      "Use the sidebar to see pages, annotations, form information, and to search the PDF.",
+      "Use the sidebar to see bookmarks, pages, annotations, form information, attachments and layers. ",
     func: (ref: any) =>
       openSidebar(ref.current.contentWindow.pdfui, "sidebar-bookmark"),
   },
@@ -140,7 +140,7 @@ const annotation = [
   {
     positionX: "800px",
     positionY: "510px",
-    elementName: "add-custom-stamp",
+    elementName: "create-stamp-button-list",
     sideTriangle: "right",
     header: "Create a stamp",
     description:
@@ -183,7 +183,7 @@ const redaction = [
     positionX: "85px",
     positionY: "90px",
     elementName: "create-redaction-controllers",
-    sideTriangle: "top-custom",
+    sideTriangle: "top",
     header: "Select what to redact",
     description:
       "Select Mark for Redaction to begin selecting text, an area, or a whole page to redact.",
@@ -196,7 +196,7 @@ const redaction = [
     sideTriangle: "top",
     header: "Apply the redaction",
     description: "Ready to redact what you selected? Click “Apply”.",
-    func: (ref: any) => closeSidebar(ref.current.contentWindow.pdfui),
+    func: () => {},
   },
   {
     positionX: "565px",
@@ -206,18 +206,21 @@ const redaction = [
     header: "Search & Redact",
     description:
       "Search for terms in the whole PDF, and choose which to redact.",
-    func: () => {},
+    func: (ref:any) => {
+      ref.current.contentWindow.__example__.closeSidebarRight();
+      ref.current.contentWindow.__example__.unActiveAnnot();
+    },
   },
   {
-    positionX: "325px",
-    positionY: "83px",
+    positionX: "300px",
+    positionY: "550px",
     elementName: "advanced-search",
-    sideTriangle: "right",
+    sideTriangle: "right-bottom",
     header: "Search for terms",
     description:
-      "Additionally, you can search a word or phrase in the document and select which instances of it you want to redact.",
+      "Ready to redact what you searched?  Hover your mouse over and Click “Mark Checked Result for Redaction.",
     func: (ref: any) => {
-      ref.current.contentWindow.__example__.openRedactionSearchBar();
+      ref.current.contentWindow.__example__.redactionSearch();
     },
   },
 ];
@@ -267,7 +270,7 @@ const digital_signature = [
     positionX: "18px",
     positionY: "105px",
     elementName: "protect-tab-group-sign",
-    sideTriangle: "top-custom",
+    sideTriangle: "top",
     header: "Create a signature",
     description:
       "Select the PDF Sign tool to create your custom signature. Signatures can be saved for easy reuse from this menu.",

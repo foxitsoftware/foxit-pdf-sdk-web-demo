@@ -7,6 +7,7 @@ import { customFragments, initializationCompleted } from './custom_popup/customP
 
 const {
   PDFViewCtrl: {
+    DeviceInfo,
     Events,
     PDF: {
       constant: {
@@ -40,12 +41,12 @@ initTab(pdfui,{
       retainCount: 4
     },
     {
-      groupTabName: "comment-tab-group-media",
-      retainCount: 100
-    },
-    {
       groupTabName: "comment-tab-group-mark",
       retainCount: 1
+    },
+    {
+      groupTabName: "comment-tab-group-stamp",
+      retainCount:4
     }
   ]
 });
@@ -344,15 +345,19 @@ pdfui
   )
   .then((doc) => {
     Promise.all([
-      setDefaultAnnotConfig(),
-      createTextNote(doc, 0),
+      createTextNote(doc, 0), 
       createTypeWriter(doc, 0), 
       createAreaHighlight(doc, 0), 
       createSquare(doc, 0), 
       createPencil(doc, 0), 
-      createCalloutAnnotation(),
-      createCustomStamp(location.origin + "/assets/stamp.png"),
+      createCustomStamp(location.origin + "/assets/stamp.png")
     ]);
+    if(DeviceInfo.isMobile){
+      Promise.all([
+        createTextNoteAnnotationAt(500, 300),
+        createCalloutAnnotation()
+      ]);
+    }
   });
 
 function disableAll(excludeQuerySelector) {

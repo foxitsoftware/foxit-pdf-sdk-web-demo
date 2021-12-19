@@ -4,14 +4,13 @@ import { createPDFUI, initTab } from '../../common/pdfui';
 const pdfui = createPDFUI({});
 initTab(pdfui,{
   menuTabName: "form-tab",
-  groupTabName:[
+  group:[
     {
       groupTabName: "form-tab-group-fields",
       groupTabIndex:2,
       retainCount: 100
     }
   ]
-  
 });
 
 pdfui.openPDFByHttpRangeRequest(
