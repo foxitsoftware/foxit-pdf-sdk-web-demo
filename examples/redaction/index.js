@@ -11,6 +11,7 @@ const pdfui = createPDFUI({});
 
 initTab(pdfui,{
     menuTabName: "protect-tab",
+    mobileTabName: "protect-tab-li",
     group:[
         {
             groupTabName: "redaction",
@@ -63,7 +64,7 @@ export function markAreaRedaction(){
                 return pdfui.getAnnotRender(0,annots[0].getName())
                     .then(annotRender=>{
                         pdfui.removeViewerEventListener(Events.renderPageSuccess, pageRenderHandler)
-                        return pdfui.activeElement(annotRender.getComponent())
+                        return annotRender&&pdfui.activeElement(annotRender.getComponent())
                     })
             }
             pdfui.addViewerEventListener(Events.renderPageSuccess, pageRenderHandler)
