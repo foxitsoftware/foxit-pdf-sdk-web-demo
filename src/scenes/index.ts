@@ -218,7 +218,7 @@ const redaction = [
     sideTriangle: "right-bottom",
     header: "Search for terms",
     description:
-      "Ready to redact what you searched?  Hover your mouse over and Click “Mark Checked Result for Redaction.",
+      `Rady to redact what you searched? Hover your mouse over and Click “Mark Checked Result for Redaction and "Apply Redactions"`,
     func: (ref: any) => {
       ref.current.contentWindow.__example__.redactionSearch();
     },
