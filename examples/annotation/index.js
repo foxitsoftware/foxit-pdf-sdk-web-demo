@@ -350,6 +350,7 @@ pdfui
       createAreaHighlight(doc, 0), 
       createSquare(doc, 0), 
       createPencil(doc, 0), 
+      setDefaultAnnotConfig(),
       createCustomStamp(location.origin + "/assets/stamp.png")
     ]);
     if(DeviceInfo.isMobile){
