@@ -88,6 +88,8 @@ export function redactionSearch(){
                 .then(advancedSearch=>{
                     var SearchInput = advancedSearch.element.querySelector(".fv__ui-search-with-text .fv__ui-search-text");
                     var searchBtn = advancedSearch.element.querySelector(".fv__ui-search-with-text .fv__ui-dialog-ok-button");
+                    var highlightText= advancedSearch.element.querySelector("[text='search:searchPanel.options.highlight']");
+                    highlightText.click();
                     var evt = document.createEvent('HTMLEvents');
                     evt.initEvent('input',true,true);
                     SearchInput.value = '123-45-6789';
