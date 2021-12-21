@@ -61,29 +61,30 @@ export function createAnnotation(pdfDoc, annotJson, pageIndex) {
   });
 }
 // Crete a note
-export function createTextNoteAnnotationAt(top, left) {
+export function createTextNoteAnnotationAt(topValue, leftValue) {
   return pdfui.getRootComponent().then((root) => {
-  const commentTab = root.getComponentByName('comment-tab');
-  commentTab.active();
-  return Promise.resolve()
-  .then(() => {
-      return pdfui
+    const commentTab = root.getComponentByName('comment-tab');
+    commentTab.active();
+    return Promise.resolve()
+      .then(() => {
+        return pdfui
           .getCurrentPDFDoc()
           .then((pdfDoc) => {
-              return pdfDoc.getPageByIndex(0);
+            return pdfDoc.getPageByIndex(0);
           }).then((page) => {
-              return page.addAnnot({
-                  flags: 4,
-                  type: 'text',
-                  contents: 'This is a note example',
-                  rect: {
-                      left,
-                      right: left + 40,
-                      top,
-                      bottom: top - 40 
-                  },
-                  date: new Date()
-              });
+            const [left, top] = page.reverseDevicePoint([leftValue, topValue], 1, 0);
+            return page.addAnnot({
+              flags: 4,
+              type: 'text',
+              contents: 'This is a note example',
+              rect: {
+                left,
+                right: left + 40,
+                top,
+                bottom: top - 40
+              },
+              date: new Date()
+            });
           });
       });
   });
@@ -119,7 +120,7 @@ export function createCustomStamp(url) {
 // Create Square
 export function createSquare(pdfDoc, pageIndex) {
   return pdfDoc.getPageByIndex(pageIndex).then((page) => {
-    const [left, top] = page.reverseDevicePoint([0, 0], 1, 0);
+    const [left, top] = page.reverseDevicePoint([50, 400], 1, 0);
     return page.addAnnot({
       type: "square",
       opacity: 1,
@@ -158,29 +159,29 @@ export function createCalloutAnnotation() {
           contents:"This is a callout example",
           calloutLinePoints: [
             {
-                "x": 63.45833206176758,
-                "y": 349.8636474609375
+                "x": 133.94699096679688,
+                "y": 446.92498779296875
             },
             {
-                "x": 130.4054718017578,
-                "y": 432.4517822265625
+                "x": 200.8939971923828,
+                "y": 529.5130004882812
             },
             {
-                "x": 145.4054718017578,
-                "y": 432.4517822265625
+                "x": 215.8939971923828,
+                "y": 529.5130004882812
             }
           ],
           rect: {
-            "top": 443.5517578125,
-            "right": 246.50547790527344,
-            "bottom": 348.8636474609375,
-            "left": 62.45833206176758
-         },
+            "top": 540.6129760742188,
+            "right": 316.9939880371094,
+            "bottom": 439.92498779296875,
+            "left": 126.94700622558594
+          },
           innerRect: {
-            "top": 442.5517578125,
-            "right": 245.50547790527344,
-            "bottom": 422.5517578125,
-            "left": 145.50547790527344
+            "top": 539.6129760742188,
+            "right": 315.9939880371094,
+            "bottom": 519.6129760742188,
+            "left": 215.9940185546875
           },
         });
       });

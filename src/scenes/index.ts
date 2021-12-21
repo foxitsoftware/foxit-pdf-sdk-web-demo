@@ -100,12 +100,25 @@ const annotation = [
   {
     positionX:'42%',
     positionY: "185px",
-    sideTriangle: "left-fixed",
+    sideTriangle: "left",
+    elementClassName:"fv__pdf-page-layout",
     header: "Leave your note",
-    description: "Click directly in the PDF to leave a note in context.",
+    description: "Select note tool, click directly in the PDF to leave a note in context.",
     func: (ref: any) => {
       openSidebarRightTab(ref.current.contentWindow.pdfui, 'edit-properties-panel',9);
-      ref.current.contentWindow.__example__.createTextNoteAnnotationAt(500, 300);
+      ref.current.contentWindow.__example__.createTextNoteAnnotationAt(30, 30);
+    },
+  },
+  {
+    positionX:'42%',
+    positionY: "185px",
+    sideTriangle: "right",
+    elementName:"sidebar-right-tabs",
+    header: "Format your note",
+    description: "Change appearance of the selected note(s) and arrange their positions in the page.",
+    func: (ref: any) => {
+      closeSidebar(ref.current.contentWindow.pdfui);
+      openSidebarRightTab(ref.current.contentWindow.pdfui, 'edit-properties-panel',9);
     },
   },
   {

@@ -61,12 +61,17 @@ const App = () => {
 
   const getElement = (newCurrent: number) => {
     setIsSuccess(true);
-
-    getOffset(
-      iframeRef.current.contentDocument.getElementsByName(
-        scene[newCurrent].elementName
+    let currentScene = scene[newCurrent], element = null;
+    if(currentScene.elementClassName){
+      element = iframeRef.current.contentDocument.getElementsByClassName(
+        currentScene.elementClassName
       )
-    );
+    }else{
+      element = iframeRef.current.contentDocument.getElementsByName(
+        currentScene.elementName
+      )
+    }
+    getOffset(element);
   };
 
   const handleNext = () => {
@@ -111,9 +116,9 @@ const App = () => {
           setLocationTooltipX(`${innerWidth - rectLeft - 280}px`);
           setLocationTooltipY(`${bottom - 290}px`);
           break;
-        case 'left-fixed':
-          setLocationTooltipX(`${left + scrollX + 70}px`);
-          setLocationTooltipY(`${top + scrollY - 85}px`);
+        case 'left':
+          setLocationTooltipX(`${left + scrollX + 90}px`);
+          setLocationTooltipY(`${top + scrollY - 65}px`);
           break;
         default:
           left + scrollX === 0
@@ -213,18 +218,12 @@ const App = () => {
                         screenSize === "desktop" && (
                           <Tooltip
                             positionX={
-                              scene[current].sideTriangle === "top" ||
-                              scene[current].sideTriangle === "right" ||
-                              scene[current].sideTriangle === "right-bottom" ||
-                              scene[current].sideTriangle === "right-custom"
+                              ["top","right","right-bottom","right-custom","left"].findIndex(item=>scene[current].sideTriangle==item)>-1
                                 ? locationTooltipX
                                 : scene[current].positionX
                             }
                             positionY={
-                              scene[current].sideTriangle === "top" ||
-                              scene[current].sideTriangle === "right" ||
-                              scene[current].sideTriangle === "right-bottom" ||
-                              scene[current].sideTriangle === "right-custom"
+                              ["top","right","right-bottom","right-custom","left"].findIndex(item=>scene[current].sideTriangle==item)>-1
                                 ? locationTooltipY
                                 : scene[current].positionY
                             }
