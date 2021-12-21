@@ -144,7 +144,7 @@ const annotation = [
     sideTriangle: "right",
     header: "Create a stamp",
     description:
-      "You can create your own custom stamps using the Custom Stamps option. Click on any of the stamps to add on the page",
+      "You can create you own custom stamps using the Create button. Click on any of the stamps to add on the page.",
     func: (ref: any) => openStampDropdown(ref.current.contentWindow.pdfui),
   },
 ];
