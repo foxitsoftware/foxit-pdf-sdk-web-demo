@@ -53,7 +53,13 @@ export function closeSidebarRightTab(pdfui: any){
 export function openDropdown(pdfui: any, dropdownName: string){
   return pdfui.getComponentByName(dropdownName)
     .then((dropdownContainer: any)=>{
-        dropdownContainer.getDropdown().active()
+      dropdownContainer.eRibbonText.click();
+      setTimeout(()=>{
+        const dropdown = dropdownContainer.getDropdown();
+        if(!dropdown.isActive){
+          dropdown.active();
+        }
+      })
     })
 }
 

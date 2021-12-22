@@ -95,7 +95,10 @@ const annotation = [
     header: "Add a note",
     description:
       "The ‘Note’ tool adds a note annotation to the top-left of the PDF page. You can drag-and-drop it to your desired location.",
-    func: (ref: any) => closeSidebarRightTab(ref.current.contentWindow.pdfui),
+    func: (ref: any) => {
+      closeSidebarRightTab(ref.current.contentWindow.pdfui);
+      closeSidebar(ref.current.contentWindow.pdfui);
+    },
   },
   {
     positionX:'42%',
@@ -107,6 +110,7 @@ const annotation = [
     header: "Leave your note",
     description: "Select note tool, click directly in the PDF to leave a note in context.",
     func: (ref: any) => {
+      openSidebar(ref.current.contentWindow.pdfui,"comment-list-sidebar-panel");
       openSidebarRightTab(ref.current.contentWindow.pdfui, 'edit-properties-panel',9);
       ref.current.contentWindow.__example__.createTextNoteAnnotationAt(30, 30);
     },
