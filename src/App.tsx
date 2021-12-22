@@ -107,7 +107,6 @@ const App = () => {
     const pdfui = iframeRef.current.contentWindow.pdfui;
     const resetPosition = ()=>{
       const { elementClassName, elementIndex} = scene[newCurrent]
-      console.log(iframeRef.current.contentDocument.getElementsByClassName(elementClassName)[elementIndex]);
       setIsReloadToolTip(true);
       getOffset(iframeRef.current.contentDocument.getElementsByClassName(elementClassName)[elementIndex])
       pdfui.removeUIEventListener("render-page-success",resetPosition)

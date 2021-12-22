@@ -52,15 +52,15 @@ export function closeSidebarRightTab(pdfui: any){
 
 export function openDropdown(pdfui: any, dropdownName: string){
   return pdfui.getComponentByName(dropdownName)
-    .then((measurementList: any)=>{
-        measurementList.getDropdown().active()
+    .then((dropdownContainer: any)=>{
+        dropdownContainer.getDropdown().active()
     })
 }
 
 export function closeDropdown(pdfui: any, dropdownName: string){
   return pdfui.getComponentByName(dropdownName)
-    .then((measurementList: any)=>{
-        measurementList.getDropdown().deactive()
+    .then((dropdownContainer: any)=>{
+      dropdownContainer.getDropdown().deactive()
     })
 }
 
