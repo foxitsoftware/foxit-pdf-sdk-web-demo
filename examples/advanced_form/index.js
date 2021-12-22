@@ -5,7 +5,7 @@ const pdfui = createPDFUI({});
 
 export function exportData() {
   return pdfui.getCurrentPDFDoc().then(doc => {
-      return doc.exportFormToFile(2).then(xfdf => {
+      return doc.exportFormToFile(1).then(xfdf => {
           const url = URL.createObjectURL(xfdf);
           const a = document.createElement('a');
           a.href = url;

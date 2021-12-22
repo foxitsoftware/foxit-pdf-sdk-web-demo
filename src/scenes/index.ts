@@ -100,7 +100,7 @@ const annotation = [
   {
     positionX:'42%',
     positionY: "185px",
-    sideTriangle: "left",
+    sideTriangle: "left-custom",
     elementClassName:"fv__pdf-page-layout",
     header: "Leave your note",
     description: "Select note tool, click directly in the PDF to leave a note in context.",

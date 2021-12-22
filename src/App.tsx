@@ -116,9 +116,9 @@ const App = () => {
           setLocationTooltipX(`${innerWidth - rectLeft - 280}px`);
           setLocationTooltipY(`${bottom - 290}px`);
           break;
-        case 'left':
-          setLocationTooltipX(`${left + scrollX + 90}px`);
-          setLocationTooltipY(`${top + scrollY - 65}px`);
+        case 'left-custom':
+          setLocationTooltipX(`${left + scrollX + 120}px`);
+          setLocationTooltipY(`${top + scrollY - 20}px`);
           break;
         default:
           left + scrollX === 0
@@ -218,12 +218,12 @@ const App = () => {
                         screenSize === "desktop" && (
                           <Tooltip
                             positionX={
-                              ["top","right","right-bottom","right-custom","left"].findIndex(item=>scene[current].sideTriangle==item)>-1
+                              ["top","right","right-bottom","right-custom","left-custom"].findIndex(item=>scene[current].sideTriangle==item)>-1
                                 ? locationTooltipX
                                 : scene[current].positionX
                             }
                             positionY={
-                              ["top","right","right-bottom","right-custom","left"].findIndex(item=>scene[current].sideTriangle==item)>-1
+                              ["top","right","right-bottom","right-custom","left-custom"].findIndex(item=>scene[current].sideTriangle==item)>-1
                                 ? locationTooltipY
                                 : scene[current].positionY
                             }
