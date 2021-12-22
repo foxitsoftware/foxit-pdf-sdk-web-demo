@@ -101,7 +101,9 @@ const annotation = [
     positionX:'42%',
     positionY: "185px",
     sideTriangle: "left-custom",
-    elementClassName:"fv__pdf-page-layout",
+    asyncLoadToolTip:true,
+    elementClassName:"fv__pdf-page-note-annot-container",
+    elementIndex:1,
     header: "Leave your note",
     description: "Select note tool, click directly in the PDF to leave a note in context.",
     func: (ref: any) => {

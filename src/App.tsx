@@ -33,6 +33,7 @@ const App = () => {
   const [locationTooltipX, setLocationTooltipX] = useState<string>("");
   const [locationTooltipY, setLocationTooltipY] = useState<string>("");
   const [screenSize, setScreenSize] = useState<string>("desktop");
+  const [isReloadToolTip, setIsReloadToolTip] = useState<boolean>(false);
   const getMessage = (event: any) => {
     let Data;
     try {
@@ -78,6 +79,7 @@ const App = () => {
     setCurrent((prevCurrent) => {
       const newCurrent = prevCurrent + 1;
       scene[newCurrent].func(iframeRef);
+      scene[newCurrent].asyncLoadToolTip&&reloadToolTip(newCurrent);
       getElement(newCurrent);
       return newCurrent;
     });
@@ -87,6 +89,7 @@ const App = () => {
     setCurrent((prevCurrent) => {
       const newCurrent = prevCurrent - 1;
       scene[newCurrent].func(iframeRef);
+      scene[newCurrent].asyncLoadToolTip&&reloadToolTip(newCurrent);
       getElement(newCurrent);
       return newCurrent;
     });
@@ -100,13 +103,31 @@ const App = () => {
     return example.exportData()
   };
 
+  const reloadToolTip = (newCurrent: number)=>{
+    const pdfui = iframeRef.current.contentWindow.pdfui;
+    const resetPosition = ()=>{
+      const { elementClassName, elementIndex} = scene[newCurrent]
+      console.log(iframeRef.current.contentDocument.getElementsByClassName(elementClassName)[elementIndex]);
+      setIsReloadToolTip(true);
+      getOffset(iframeRef.current.contentDocument.getElementsByClassName(elementClassName)[elementIndex])
+      pdfui.removeUIEventListener("render-page-success",resetPosition)
+      setIsReloadToolTip(false);
+    }
+    return pdfui.addUIEventListener("render-page-success",resetPosition)
+  }
+
   const getOffset = (el: any) => {
     const {scrollX,scrollY,innerWidth} = window;
-    const {sideTriangle,positionX,positionY,offsetX=0,offsetY=0} = scene[current];
+    const {sideTriangle,positionX,positionY,offsetX=0,offsetY=0,elementIndex=0} = scene[current];
     const rectLeft = Number(positionX.slice(0,-2));
     const rectTop = Number(positionY.slice(0,-2));
     if (el.length) {
-      const {left,top,bottom} = el[0].getBoundingClientRect();
+      if(!el[elementIndex]){
+        setLocationTooltipX(`200%`);
+        setLocationTooltipY(`200%`);
+        return
+      }
+      const {left,top,bottom} = el[elementIndex].getBoundingClientRect();
       switch (sideTriangle) {
         case 'right':
           setLocationTooltipX(`${left + scrollX - 316}px`);
@@ -117,8 +138,8 @@ const App = () => {
           setLocationTooltipY(`${bottom - 290}px`);
           break;
         case 'left-custom':
-          setLocationTooltipX(`${left + scrollX + 120}px`);
-          setLocationTooltipY(`${top + scrollY - 20}px`);
+          setLocationTooltipX(`${left + scrollX + 90}px`);
+          setLocationTooltipY(`${top + scrollY - 40}px`);
           break;
         default:
           left + scrollX === 0
@@ -196,12 +217,17 @@ const App = () => {
       iframeRef.current.contentWindow.pdfui.addViewerEventListener(
         "open-file-success",
         () => {
-          
           getElement(current);
         }
       );
     }
   }, [isLoad, screenSize]);
+
+  useEffect(() => {
+    if(isReloadToolTip){
+      getElement(current);
+    }
+  }, [isReloadToolTip]);
 
   return (
     <HashRouter>
