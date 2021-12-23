@@ -191,27 +191,11 @@ export function createCalloutAnnotation() {
 // Create pencil 
 export function createPencil(pdfDoc, pageIndex) {
   const points = [
-    {
-        "x": 606.9092407226562,
-        "y": 572.2404174804688,
-        "type": 1
-    },
-    {
-        "x": 766.9092407226562,
-        "y": 572.2404174804688,
-        "type": 2
-    },
-    {
-        "x": 586.9092407226562,
-        "y": 532.2404174804688,
-        "type": 1
-    },
-    {
-        "x": 786.9092407226562,
-        "y": 532.2404174804688,
-        "type": 2
-    }
-];
+    { x: 767, y: 689, type: 1 },
+    { x: 927, y: 689, type: 2 },
+    { x: 747, y: 649, type: 1 },
+    { x: 947, y: 649, type: 2 },
+  ];
   const rect = {
     left: 0,
     right: 0,
@@ -240,10 +224,10 @@ export function createPencil(pdfDoc, pageIndex) {
 // Create highlight
 export function createAreaHighlight(pdfDoc, pageIndex) {
   const rect = {
-    "top": 364.4955139160156,
-    "right": 486.288818359375,
-    "bottom": 296.29241943359375,
-    "left": 347.3681945800781
+    "top": 387.9033203125,
+    "right": 538.36865234375,
+    "bottom": 370.5513000488281,
+    "left": 414.12548828125
   };
   return createAnnotation(
     pdfDoc,
