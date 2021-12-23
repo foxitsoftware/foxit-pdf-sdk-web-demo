@@ -348,7 +348,7 @@ pdfui
     Promise.all([
       createTextNote(doc, 0), 
       createTypeWriter(doc, 0), 
-      // createAreaHighlight(doc, 0), 
+      createAreaHighlight(doc, 0), 
       createSquare(doc, 0), 
       createPencil(doc, 0), 
       setDefaultAnnotConfig(),
