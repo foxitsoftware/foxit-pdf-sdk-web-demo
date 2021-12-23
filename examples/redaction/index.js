@@ -97,7 +97,9 @@ export function redactionSearch(){
                     searchBtn.click();
                     setTimeout(()=>{
                         var checkAllBox = advancedSearch.element.querySelector(".fv__ui-search-result-panel .fv__ui-checkbox-wrapper .fv__ui-checkbox-input");
+                        var searchApplyBtn = advancedSearch.getComponentByName("search-apply-redacts");
                         checkAllBox.click();
+                        searchApplyBtn.disable();
                     },300)
                 })   
             });
