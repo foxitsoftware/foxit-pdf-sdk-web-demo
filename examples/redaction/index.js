@@ -99,13 +99,11 @@ export function redactionSearch(){
                         var applyComponent = advancedSearch.getComponentByName("search-apply-redacts");
                         var checkAllBox = advancedSearch.element.querySelector(".fv__ui-search-result-panel .fv__ui-checkbox-wrapper .fv__ui-checkbox-input");
                         checkAllBox.click();
-                        setTimeout(()=>{
-                            if(!applyComponent.disabled){
-                                applyComponent.disable();
-                            }
-                        })
+                        if(!applyComponent.disabled){
+                            applyComponent.disable();
+                        }
                     },300)
-                })   
+                })
             });
         })
 }
