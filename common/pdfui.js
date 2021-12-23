@@ -11,7 +11,7 @@ const { PDFViewCtrl } = UIExtension;
 const { DeviceInfo, Events } = PDFViewCtrl;
 
 export function createPDFUI(options) {
-  if(window.innerWidth < 900){
+  if(window.innerWidth <= 900){
     DeviceInfo.isMobile = true
   }else{
     DeviceInfo.isMobile = false

@@ -81,6 +81,19 @@ export function openStampDropdown(pdfui: any){
   });
 }
 
+export function openProtectDropdown(pdfui: any){
+  pdfui.getComponentByName('password-protect-group').then((group:any) => {
+      const dropdown = group.childAt(0).getDropdown(); 
+      dropdown.active();
+      setTimeout(()=>{
+          dropdown.childAt(0).element.focus();
+          if(!dropdown.isActive){
+              dropdown.active();
+          }
+      })
+  });
+}
+
 export function hideAll(pdfui: any, excludeQuerySelector: string) {
   const promise = pdfui.getRootComponent().then((root: any) => {
     const all = root.querySelectorAll(

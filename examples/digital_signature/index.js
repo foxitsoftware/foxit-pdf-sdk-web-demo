@@ -13,19 +13,6 @@ export function openSignDialog() {
     });
 }
 
-export function activePasswordProtectDropdown(){
-    pdfui.getComponentByName('password-protect-group').then((group) => {
-        const dropdown = group.childAt(0).getDropdown(); 
-        dropdown.active();
-        setTimeout(()=>{
-            dropdown.childAt(0).element.focus();
-            if(!dropdown.isActive){
-                dropdown.active();
-            }
-        })
-    });
-}
-
 pdfui.openPDFByHttpRangeRequest(
     {
         range: {

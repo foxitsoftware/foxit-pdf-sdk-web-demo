@@ -5,7 +5,8 @@ import {
   closeSidebarRightTab,
   openDropdown,
   closeDropdown,
-  openStampDropdown
+  openStampDropdown,
+  openProtectDropdown
 } from "../snippets";
 
 const hello = [
@@ -323,7 +324,7 @@ const digital_signature = [
     header: "Protect your PDF",
     description: "Set a password on your document",
     func: (ref: any) => {
-      ref.current.contentWindow.__example__.activePasswordProtectDropdown();
+      openProtectDropdown(ref.current.contentWindow.pdfui);
     },
   },
 ];

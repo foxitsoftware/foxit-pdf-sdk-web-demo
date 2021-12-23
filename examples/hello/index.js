@@ -6,7 +6,7 @@ import { initSignatureHandlers } from '../../common/signature';
 const { PDFUI, PDFViewCtrl } = UIExtension;
 const { DeviceInfo } = PDFViewCtrl;
 
-if(window.innerWidth < 900){
+if(window.innerWidth <= 900){
   DeviceInfo.isMobile = true
 }else{
   DeviceInfo.isMobile = false
