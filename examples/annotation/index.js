@@ -224,10 +224,10 @@ export function createPencil(pdfDoc, pageIndex) {
 // Create highlight
 export function createAreaHighlight(pdfDoc, pageIndex) {
   const rect = {
-    "top": 387.9033203125,
-    "right": 538.36865234375,
-    "bottom": 370.5513000488281,
-    "left": 414.12548828125
+    "top": 364.4955139160156,
+    "right": 486.288818359375,
+    "bottom": 296.29241943359375,
+    "left": 347.3681945800781
   };
   return createAnnotation(
     pdfDoc,
@@ -348,7 +348,7 @@ pdfui
     Promise.all([
       createTextNote(doc, 0), 
       createTypeWriter(doc, 0), 
-      createAreaHighlight(doc, 0), 
+      // createAreaHighlight(doc, 0), 
       createSquare(doc, 0), 
       createPencil(doc, 0), 
       setDefaultAnnotConfig(),
