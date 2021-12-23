@@ -191,11 +191,27 @@ export function createCalloutAnnotation() {
 // Create pencil 
 export function createPencil(pdfDoc, pageIndex) {
   const points = [
-    { x: 767, y: 689, type: 1 },
-    { x: 927, y: 689, type: 2 },
-    { x: 747, y: 649, type: 1 },
-    { x: 947, y: 649, type: 2 },
-  ];
+    {
+        "x": 606.9092407226562,
+        "y": 572.2404174804688,
+        "type": 1
+    },
+    {
+        "x": 766.9092407226562,
+        "y": 572.2404174804688,
+        "type": 2
+    },
+    {
+        "x": 586.9092407226562,
+        "y": 532.2404174804688,
+        "type": 1
+    },
+    {
+        "x": 786.9092407226562,
+        "y": 532.2404174804688,
+        "type": 2
+    }
+];
   const rect = {
     left: 0,
     right: 0,
