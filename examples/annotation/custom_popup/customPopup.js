@@ -119,8 +119,12 @@ function popupAvailable(annotComponent) {
     var popup = model.getPopup();
     if (!popup) return false;
     var {annot} = annotComponent;
-    var targetAnnot = annot.getPDFPage().annots[0];
-    return annot.getId() == targetAnnot.getId() ? true:false;
+    var annots = annot.getPDFPage().annots;
+    var targetAnnot = annots.find(annot=>{
+        return annot.getIconName&&annot.getIconName()=='Insert'
+    })
+    console.log(annot.getId() , targetAnnot.getId())
+    return targetAnnot&&annot.getId() == targetAnnot.getId()?true:false;
 }
 
 function formatDatetime(time) {
