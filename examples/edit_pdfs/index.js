@@ -79,10 +79,10 @@ export function addCustomTextGraphic(){
           "styles": 0,
           "charset": 0
         },
-        fontSize:30,
+        fontSize:18,
         matrix: [1,0,0,1,0,pageInfo.height - 30],
         text: "This is a custom font text",
-        fillColor: 0xFF0000,
+        fillColor: 4288230297,
       };
       return page.addGraphicsObject(info);
     })
