@@ -123,7 +123,6 @@ function popupAvailable(annotComponent) {
     var targetAnnot = annots.find(annot=>{
         return annot.getIconName&&annot.getIconName()=='Insert'
     })
-    console.log(annot.getId() , targetAnnot.getId())
     return targetAnnot&&annot.getId() == targetAnnot.getId()?true:false;
 }
 
