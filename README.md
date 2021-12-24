@@ -11,7 +11,7 @@ The application was built with Node 14.16.0.
 In the project directory, you can run:
 
 ```
-npm run install
+npm install
 npm run preinstall
 npm start
 ```
