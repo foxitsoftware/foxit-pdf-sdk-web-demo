@@ -17,7 +17,10 @@ pdfui.addViewerEventListener(ViewerEvents.openFileSuccess, () => {
     openSidebar(pdfui, "sidebar-search");
     return
   }
-  openSidebarRightTab(pdfui,'right-search-panel','',0);
+  pdfui.getRootComponent().then((root) => {
+    root.querySelector('@sidebar-tabs');
+    openSidebarRightTab(pdfui,'right-search-panel','',0);
+  });
 });
 
 // Search text on the first three pages.
