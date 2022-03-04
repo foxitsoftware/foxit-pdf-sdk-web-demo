@@ -122,7 +122,7 @@ export function initTab(pdfui,options){
               const {groupTabName, groupTabIndex=0, retainCount=100} = groupItem;
               if(groupTabName){
                 const tabComponentGroup = root.getAllComponentsByName(groupTabName);
-                tabComponentGroup[groupTabIndex].setRetainCount(retainCount);
+                tabComponentGroup[groupTabIndex] && tabComponentGroup[groupTabIndex].setRetainCount(retainCount);
               }
             })
           })

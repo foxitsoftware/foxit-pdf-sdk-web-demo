@@ -7,7 +7,7 @@ initTab(pdfui,{
   group:[
     {
       groupTabName: "form-tab-group-fields",
-      groupTabIndex:2,
+      groupTabIndex:0,
       retainCount: 100
     }
   ]
