@@ -235,6 +235,7 @@ export function createAreaHighlight(pdfDoc, pageIndex) {
       flags: Annot_Flags.print,
       type: "highlight",
       rect,
+      coords:[rect],
       quadPoints: [
         [
           { x: rect.left, y: rect.left },

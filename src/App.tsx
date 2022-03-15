@@ -242,7 +242,8 @@ const App = () => {
                         isDoneScene &&
                         isSuccess &&
                         locationDom.hash !== "#/advanced_form" &&
-                        screenSize === "desktop" && (
+                        screenSize === "desktop" &&
+                        locationDom.hash !== "#/collaboration" && (
                           <Tooltip
                             positionX={
                               ["top","right","right-bottom","right-custom","left-custom"].findIndex(item=>scene[current].sideTriangle==item)>-1
