@@ -68,3 +68,6 @@ Example 7
 
 Example 8
 * [http://0.0.0.0:8083/#/measurement](http://0.0.0.0:8083/#/measurement)
+
+Example 9
+* [http://0.0.0.0:8083/#/collaboration](http://0.0.0.0:8083/#/collaboration)
