@@ -10,10 +10,10 @@
         "move-sdk-assets": "cp-cli ./node_modules/@foxitsoftware/foxit-pdf-sdk-for-web-library/lib ./dist/lib",
         "start": "concurrently --kill-others \"npm run start:webpack\" \"npm run start:snapshot-server\" \"npm run start:collaboration-server\"",
         "start:webpack": "webpack serve --config ./build/webpack.config.js --mode development",
-        "start:snapshot-server": "nodemon ./node_modules/@foxitsoftware/foxit-pdf-sdk-for-web-library/server/snapshot/src/index -p 3003",
-        "start-http-server": "nodemon ./node_modules/@foxitsoftware/foxit-pdf-sdk-for-web-library/server/index",
+        "start:snapshot-server": "node ./node_modules/@foxitsoftware/foxit-pdf-sdk-for-web-library/server/snapshot/src/index -p 3003",
+        "start-http-server": "node ./node_modules/@foxitsoftware/foxit-pdf-sdk-for-web-library/server/index",
         "start:collaboration-websocket-server": "nodemon ./node_modules/@foxitsoftware/foxit-pdf-sdk-for-web-library/server/collaboration-websocket-server/src/index -p 9111",
-        "start:collaboration-server": "nodemon ./node_modules/@foxitsoftware/foxit-pdf-sdk-for-web-library/server/collaboration-sockjs-server/src/index -p 19112",
+        "start:collaboration-server": "node ./node_modules/@foxitsoftware/foxit-pdf-sdk-for-web-library/server/collaboration-sockjs-server/src/index -p 19112",
         "build": "npm run move-sdk-assets && webpack --config ./build/webpack.config.js --mode production"
     },
     "config": {
@@ -51,7 +51,7 @@
         "less-loader": "^8.0.0",
         "lru-cache": "^4.1.3",
         "mini-css-extract-plugin": "^1.3.1",
-        "nodemon": "^2.0.15",
+        "pm2": "^5.2.0",
         "process": "^0.11.10",
         "raw-body": "^2.3.3",
         "require-dir": "^1.0.0",
