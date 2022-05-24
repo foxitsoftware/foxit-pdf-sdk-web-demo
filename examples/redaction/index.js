@@ -1,9 +1,9 @@
 import '@foxitsoftware/foxit-pdf-sdk-for-web-library/lib/UIExtension.vw.css';
-import { createPDFUI, initTab,DeviceInfo } from '../../common/pdfui';
+import { createPDFUI, initTab, isMobile } from '../../common/pdfui';
 
 const {
     PDFViewCtrl: {
-      Events
+        Events
     }
   } = UIExtension;
 const pdfui = createPDFUI({});
@@ -116,7 +116,7 @@ pdfui.openPDFByHttpRangeRequest(
     { fileName: '5-feature-example_forms.pdf' }
 ).then((doc) => {
     markAreaRedaction();
-    if(DeviceInfo.isMobile){
+    if(isMobile){
         searchTextsAndMarkRedact()
         setTimeout(()=>{
             doc.applyRedaction()

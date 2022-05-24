@@ -1,6 +1,6 @@
 import * as UIExtension from "UIExtension";
 import "@foxitsoftware/foxit-pdf-sdk-for-web-library/lib/UIExtension.vw.css";
-import { createPDFUI, initTab, DeviceInfo } from '../../common/pdfui';
+import { createPDFUI, initTab, isMobile } from '../../common/pdfui';
 import { loadImage } from '../../common/util';
 import { customToolTip } from './custom_tooltip/customToolTip';
 import { customFragments, initializationCompleted } from './custom_popup/customPopup';
@@ -354,7 +354,7 @@ pdfui
       setDefaultAnnotConfig(),
       createCustomStamp(location.origin + "/assets/stamp.png")
     ]);
-    if(DeviceInfo.isMobile){
+    if(isMobile){
       Promise.all([
         createTextNoteAnnotationAt(500, 300),
         createCalloutAnnotation()

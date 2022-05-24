@@ -5,7 +5,7 @@ import SockJSCommunicator from "./SockJSCommunicator"
 import {
   initSignatureHandlers
 } from '../../common/signature';
-import { DeviceInfo } from '../../common/pdfui';
+import {isMobile} from '../../common/pdfui'
 const {
   PDFViewCtrl: {
     Events
@@ -15,7 +15,6 @@ const {
 } = UIExtension;
 
 // Init pdfui
-DeviceInfo.isMobile = false;
 const libPath = "/lib/";
 const elm = document.createElement("div");
 elm.classList.add("fv__catalog-pdfui-wrapper");
@@ -84,7 +83,7 @@ pdfui.addViewerEventListener(Events.openFileFailed, function (data) {
   });
 });
 window.addEventListener(
-  DeviceInfo.isDesktop ? "resize" : "orientationchange",
+  !isMobile ? "resize" : "orientationchange",
   () => {
     pdfui.redraw();
   }

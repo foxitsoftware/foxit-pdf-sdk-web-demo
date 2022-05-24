@@ -1,6 +1,6 @@
 import * as UIExtension from "UIExtension";
 import "@foxitsoftware/foxit-pdf-sdk-for-web-library/lib/UIExtension.vw.css";
-import { createPDFUI, hideComponent, DeviceInfo } from '../../common/pdfui';
+import { createPDFUI, hideComponent, isMobile } from '../../common/pdfui';
 
 const { PDFViewCtrl } = UIExtension;
 const { Events } = PDFViewCtrl;
@@ -90,7 +90,7 @@ export function addCustomTextGraphic(){
 }
 
 pdfui.addViewerEventListener(Events.openFileSuccess, () => {
-  if(!DeviceInfo.isMobile){
+  if(!isMobile){
     pdfui.getRootComponent().then((root) => {
       const editTab = root.getComponentByName("edit-tab");
       editTab.active();

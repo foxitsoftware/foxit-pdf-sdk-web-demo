@@ -1,6 +1,6 @@
 import * as UIExtension from 'UIExtension';
 import "@foxitsoftware/foxit-pdf-sdk-for-web-library/lib/UIExtension.vw.css";
-import { createPDFUI,DeviceInfo } from '../../common/pdfui';
+import { createPDFUI, isMobile } from '../../common/pdfui';
 import { openSidebar, openSidebarRightTab } from "../../src/snippets"
 
 const {
@@ -12,7 +12,7 @@ const {
 const pdfui = createPDFUI({})
 
 pdfui.addViewerEventListener(ViewerEvents.openFileSuccess, () => {
-  if(DeviceInfo.isMobile){
+  if(isMobile){
     openSidebar(pdfui, "sidebar-search");
     return
   }

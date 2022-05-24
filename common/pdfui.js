@@ -9,14 +9,15 @@ import {deepCloneAssign} from './util';
 export const UIExtension = U;
 
 const libPath = "/lib/";
-const { PDFViewCtrl } = UIExtension;
+const { PDFViewCtrl, appearances:{MobileAppearance, RibbonAppearance} } = UIExtension;
 const { Events } = PDFViewCtrl;
-export const DeviceInfo = {}
+export let isMobile = false;
+let appearance = RibbonAppearance;
 export function createPDFUI(options) {
+  // const appearance = window.innerWidth <= 900 ? MobileAppearance : RibbonAppearance
   if(window.innerWidth <= 900){
-    DeviceInfo.isMobile = true
-  }else{
-    DeviceInfo.isMobile = false
+    appearance = MobileAppearance
+    isMobile = true
   }
   const elm = document.createElement("div");
   elm.classList.add("fv__catalog-pdfui-wrapper");
@@ -33,8 +34,8 @@ export function createPDFUI(options) {
       },
     },
     renderTo: elm,
-    appearance: UIExtension.appearances.adaptive,
-    addons: DeviceInfo.isMobile
+    appearance,
+    addons: false
       ? mobileAddons
       : Addons,
   };
@@ -93,7 +94,7 @@ export function createPDFUI(options) {
   });
 
   window.addEventListener(
-    DeviceInfo.isDesktop ? "resize" : "orientationchange",
+    !isMobile ? "resize" : "orientationchange",
     () => {
       pdfui.redraw();
     }
@@ -105,7 +106,7 @@ export function createPDFUI(options) {
 // Init tab according to the example
 export function initTab(pdfui,options){
   const { menuTabName, group=[], mobileTabName} = options
-  if(!DeviceInfo.isMobile){
+  if(!isMobile){
     if(menuTabName){
       activeComponent()
     }
