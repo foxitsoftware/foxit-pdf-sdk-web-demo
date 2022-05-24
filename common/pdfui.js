@@ -8,8 +8,8 @@ export const UIExtension = U;
 
 const libPath = "/lib/";
 const { PDFViewCtrl } = UIExtension;
-const { DeviceInfo, Events } = PDFViewCtrl;
-
+const { Events } = PDFViewCtrl;
+export const DeviceInfo = {}
 export function createPDFUI(options) {
   if(window.innerWidth <= 900){
     DeviceInfo.isMobile = true

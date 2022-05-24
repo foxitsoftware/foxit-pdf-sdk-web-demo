@@ -5,10 +5,9 @@ import SockJSCommunicator from "./SockJSCommunicator"
 import {
   initSignatureHandlers
 } from '../../common/signature';
-
+import { DeviceInfo } from '../../common/pdfui';
 const {
   PDFViewCtrl: {
-    DeviceInfo,
     Events
   },
   modular,

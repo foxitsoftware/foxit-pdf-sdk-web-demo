@@ -1,12 +1,11 @@
 import * as UIExtension from 'UIExtension';
 import "@foxitsoftware/foxit-pdf-sdk-for-web-library/lib/UIExtension.vw.css";
-import { createPDFUI } from '../../common/pdfui';
+import { createPDFUI,DeviceInfo } from '../../common/pdfui';
 import { openSidebar, openSidebarRightTab } from "../../src/snippets"
 
 const {
   PDFViewCtrl: {
-    ViewerEvents,
-    DeviceInfo
+    ViewerEvents
   }
 } = UIExtension;
 

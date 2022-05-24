@@ -1,9 +1,9 @@
 import * as UIExtension from "UIExtension";
 import "@foxitsoftware/foxit-pdf-sdk-for-web-library/lib/UIExtension.vw.css";
-import { createPDFUI, hideComponent } from '../../common/pdfui';
+import { createPDFUI, hideComponent, DeviceInfo } from '../../common/pdfui';
 
 const { PDFViewCtrl } = UIExtension;
-const { DeviceInfo, Events } = PDFViewCtrl;
+const { Events } = PDFViewCtrl;
 const pdfui = createPDFUI({});
 hideComponent(pdfui,"download-file-button");
 
@@ -96,7 +96,9 @@ pdfui.addViewerEventListener(Events.openFileSuccess, () => {
       editTab.active();
     });
   }
-  addCustomTextGraphic();
+  setTimeout(()=>{
+    addCustomTextGraphic();
+  })
 });
 
 setCustomFont();

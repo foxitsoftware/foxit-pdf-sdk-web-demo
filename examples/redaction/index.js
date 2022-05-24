@@ -1,9 +1,8 @@
 import '@foxitsoftware/foxit-pdf-sdk-for-web-library/lib/UIExtension.vw.css';
-import { createPDFUI, initTab } from '../../common/pdfui';
+import { createPDFUI, initTab,DeviceInfo } from '../../common/pdfui';
 
 const {
     PDFViewCtrl: {
-      DeviceInfo,
       Events
     }
   } = UIExtension;

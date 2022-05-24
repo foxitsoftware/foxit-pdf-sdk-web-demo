@@ -2,9 +2,9 @@ import * as UIExtension from "UIExtension";
 import "@foxitsoftware/foxit-pdf-sdk-for-web-library/lib/UIExtension.vw.css";
 import '../../common/pdfui.less';
 import { initSignatureHandlers } from '../../common/signature';
+import {DeviceInfo} from '../../common/pdfui'
 
-const { PDFUI, PDFViewCtrl } = UIExtension;
-const { DeviceInfo } = PDFViewCtrl;
+const { PDFUI } = UIExtension;
 
 if(window.innerWidth <= 900){
   DeviceInfo.isMobile = true
