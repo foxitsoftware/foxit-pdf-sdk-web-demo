@@ -96,9 +96,11 @@ pdfui.addViewerEventListener(Events.openFileSuccess, () => {
       editTab.active();
     });
   }
-  setTimeout(()=>{
-    addCustomTextGraphic();
-  })
 });
+const callback = ()=>{
+  addCustomTextGraphic();
+  pdfui.removeViewerEventListener(Events.renderPageSuccess,callback)
+}
+pdfui.addViewerEventListener(Events.renderPageSuccess,callback)
 
 setCustomFont();
