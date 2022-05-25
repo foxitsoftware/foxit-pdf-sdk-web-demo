@@ -35,7 +35,7 @@ export function createPDFUI(options) {
     },
     renderTo: elm,
     appearance,
-    addons: false
+    addons: isMobile
       ? mobileAddons
       : Addons,
   };
