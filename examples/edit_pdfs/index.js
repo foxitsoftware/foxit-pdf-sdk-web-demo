@@ -1,9 +1,11 @@
 import * as UIExtension from "UIExtension";
 import "@foxitsoftware/foxit-pdf-sdk-for-web-library/lib/UIExtension.vw.css";
 import { createPDFUI, hideComponent, isMobile } from '../../common/pdfui';
+import { customizeCropTool } from './cropPage/cropPage'
 
 const { PDFViewCtrl } = UIExtension;
 const { Events } = PDFViewCtrl;
+const boxType = PDFViewCtrl.PDF.constant.Box_Type
 const pdfui = createPDFUI({});
 hideComponent(pdfui,"download-file-button");
 
@@ -86,6 +88,63 @@ export function addCustomTextGraphic(){
       };
       return page.addGraphicsObject(info);
     })
+  })
+}
+
+// How to define a region of the content on the page to be cropped
+export function setCropBox(){
+  return pdfui.getCurrentPDFDoc().then(pdfDoc=>{
+    let options = {
+      indexes:[2],
+      width: 650,
+      height: 840,
+      offsetX: 40,
+      offsetY: 40,
+      removeWhiteMargin: true,
+    }
+    return pdfDoc.setPagesBox(options)
+  })
+  
+}
+
+// How to get all boxes on the page
+export function getAllBoxes(pageIndex=0){
+  return pdfui.getCurrentPDFDoc().then(pdfDoc=>{
+    return pdfDoc.getAllBoxesByPageIndex(pageIndex)
+  })
+}
+
+
+// How to get a crop dimension on the page
+export function getCropDimension(pageIndex=0,type=boxType.CropBox){
+  return pdfui.getCurrentPDFDoc().then(doc=>{
+    return doc.getPageByIndex(pageIndex).then(page=>{
+      return page.getPageBox(type)
+    })
+  })
+  
+}
+
+// How to set a crop dimension on the page by removing the margin
+export function setBoxWithoutMargin(){
+  let options = {
+    indexes:[2],
+    width: 650,
+    height: 840,
+    offsetX: 40,
+    offsetY: 40,
+    removeWhiteMargin: true,
+  }
+  return pdfDoc.setPagesBox(options)
+}
+
+export function cropPage() {
+  goToPage(3);
+  customizeCropTool();
+}
+function goToPage(pageIndex){
+  return pdfui.getPDFDocRender().then(pdfDocR=>{
+    return pdfDocR.goToPage(pageIndex)
   })
 }
 

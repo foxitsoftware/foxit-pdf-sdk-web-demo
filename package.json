@@ -78,7 +78,7 @@
         }
     },
     "dependencies": {
-        "@foxitsoftware/foxit-pdf-sdk-for-web-library": "^8.3.0--",
+        "@foxitsoftware/foxit-pdf-sdk-for-web-library": "^8.4.0",
         "@types/react-router-dom": "^5.1.7",
         "antd": "^4.14.0",
         "core-js": "^3.9.1",
