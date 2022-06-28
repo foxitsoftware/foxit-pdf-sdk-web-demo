@@ -108,14 +108,14 @@
             .operate_bg {
                 cursor: pointer;
                 position: relative;
+                &.active .operate {
+                    border: 1px dashed #3782DB;
+                }
                 .operate {
                     &.disabled {
                         cursor: not-allowed;
                     }
 
-                    &.active {
-                        border: 1px dashed #3782DB;
-                    }
                     &:hover + .tip{
                         display: block;
                     }

@@ -101,13 +101,9 @@ CropPagesStateHandler.prototype.bindHammerEvent = function () {
             top: handlerT
         } = eHandler.getBoundingClientRect();
         startPoint = [getClientX(e) - handlerL, getClientY(e) - handlerT];
-        if (actionType === 'create') {
-            this.$rectangleControl.css({
-                width: 0,
-                height: 0
-            }).hide();
-            this.$rectangleControl.find(".control").hide();
-        } else if (actionType === 'resize') {
+        if(actionType === 'create'){
+            $rectangleControl.find('.active').removeClass('active');
+        }else if (actionType === 'resize') {
             const bound = $rectangleControl[0].getBoundingClientRect();
             const resizeDivIndex = targetResizeIndex = $(e.target).index();
             switch (resizeDivIndex) {
@@ -150,7 +146,11 @@ CropPagesStateHandler.prototype.bindHammerEvent = function () {
 
         let style = null;
         if (actionType === 'create') {
-            this.$rectangleControl.show();
+            if (actionType === 'create') {
+                if(this.$rectangleControl.is(":hidden")){
+                    this.$rectangleControl.css({width:0,height:0}).show();
+                }
+            }
             style = getRectangleStyle(startPoint, endPoint, handlerW, handlerH);
         } else if (actionType === 'resize') {
             style = getRectangleStyle(startPointFake, endPoint, handlerW, handlerH, targetResizeIndex);
@@ -164,6 +164,7 @@ CropPagesStateHandler.prototype.bindHammerEvent = function () {
             style.left = (style.left < 0 ? 0 : (style.left + bound.width > handlerW ? handlerW - bound.width : style.left)) / handlerW * 100 + '%';
         }
         style && $rectangleControl.css(style);
+        this.$rectangleControl.find(".control").hide();
     };
 
     const endHandler = e => {
@@ -286,7 +287,7 @@ CropPagesStateHandler.prototype.bindClickEvent = function () {
             case operateType.content:
             case operateType.pages:
                 this.operateType = actionType;
-                $(e.target).addClass('active').siblings().removeClass("active");
+                $(e.target).parent().addClass('active').siblings().removeClass("active");
                 this.$handler.find('[action-type="marked"]').removeClass('disabled')
                 break;
             case "close":
