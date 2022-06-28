@@ -29,6 +29,13 @@ CropPagesStateHandler.getStateName = function () {
 };
 _inherits(CropPagesStateHandler, IStateHandler);
 
+function resizeDom(size=8){
+    let str = '';
+    for (let index = 0; index < size; index++) {
+        str += `<div class="resize" action-type="resize"></div>`
+    }
+    return str
+}
 CropPagesStateHandler.prototype.pageHandler = function (pageRender) {
     this.pageRender = pageRender;
     this.$handler = pageRender.$handler;
@@ -36,21 +43,24 @@ CropPagesStateHandler.prototype.pageHandler = function (pageRender) {
     this.$rectangleControl = $(`
             <div class="rectangle-control">
                 <div class="rect"></div>
-                <div class="move" action-type="move">
-                    <div class="resize" action-type="resize"></div>
-                    <div class="resize" action-type="resize"></div>
-                    <div class="resize" action-type="resize"></div>
-                    <div class="resize" action-type="resize"></div>
-                    <div class="resize" action-type="resize"></div>
-                    <div class="resize" action-type="resize"></div>
-                    <div class="resize" action-type="resize"></div>
-                    <div class="resize" action-type="resize"></div>
-                </div>
+                <div class="move" action-type="move">${resizeDom()}</div>
                 <div class="control">
-                    <img class="operate" action-type="content" src="${location.origin + "/assets/cropContent.png"}"/>
-                    <img class="operate" action-type="pages" src="${location.origin + "/assets/cropPages.png"}"/>
-                    <img class="operate" action-type="close" src="${location.origin + "/assets/close.png"}"/>
-                    <img class="operate" action-type="marked" src="${location.origin + "/assets/marked.png"}"/>
+                    <div class="operate_bg">
+                        <img class="operate" action-type="content" src="${location.origin + "/assets/cropContent.png"}"/>
+                        <span class="tip">Current Page</span>
+                    </div>
+                    <div class="operate_bg">
+                        <img class="operate" action-type="pages" src="${location.origin + "/assets/cropPages.png"}"/>
+                        <span class="tip">All Page</span>
+                    </div>
+                    <div class="operate_bg">
+                        <img class="operate" action-type="close" src="${location.origin + "/assets/close.png"}"/>
+                        <span class="tip">Cancel</span>
+                    </div>
+                    <div class="operate_bg">
+                        <img class="operate" action-type="marked" src="${location.origin + "/assets/marked.png"}"/>
+                        <span class="tip">Apply</span>
+                    </div>
                 </div>
             </div>
         `);
@@ -282,6 +292,7 @@ CropPagesStateHandler.prototype.bindClickEvent = function () {
                 this.hideRectangleControl();
                 break;
             case "marked":
+                if($(e.target).hasClass('disabled')) return;
                 this.setBox().then(_ => {
                     this.hideRectangleControl();
                 });

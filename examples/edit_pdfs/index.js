@@ -168,8 +168,6 @@ export function getCropDimension(pageIndex = 0, type = boxType.CropBox) {
 export function setBoxWithoutMargin() {
   return pdfui.getCurrentPDFDoc().then(pdfDoc => {
     return pdfDoc.getPageByIndex(pageIndex).then(page => {
-      const width = page.getWidth();
-      const height = page.getHeight();
       let options = {
         indexes: [2],
         width: 650,
