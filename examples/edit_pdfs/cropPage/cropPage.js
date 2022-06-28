@@ -105,7 +105,7 @@ CropPagesStateHandler.prototype.bindHammerEvent = function () {
             this.$rectangleControl.css({
                 width: 0,
                 height: 0
-            }).show();
+            }).hide();
             this.$rectangleControl.find(".control").hide();
         } else if (actionType === 'resize') {
             const bound = $rectangleControl[0].getBoundingClientRect();
@@ -150,6 +150,7 @@ CropPagesStateHandler.prototype.bindHammerEvent = function () {
 
         let style = null;
         if (actionType === 'create') {
+            this.$rectangleControl.show();
             style = getRectangleStyle(startPoint, endPoint, handlerW, handlerH);
         } else if (actionType === 'resize') {
             style = getRectangleStyle(startPointFake, endPoint, handlerW, handlerH, targetResizeIndex);
