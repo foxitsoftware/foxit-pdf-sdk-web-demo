@@ -13,7 +13,6 @@ const {
         Hammer
     }
 } = UIExtension;
-const boxType = PDFViewCtrl.PDF.constant.Box_Type;
 const operateType = {
     content: 'content',
     pages: 'pages'
@@ -45,13 +44,13 @@ CropPagesStateHandler.prototype.pageHandler = function (pageRender) {
                 <div class="rect"></div>
                 <div class="move" action-type="move">${resizeDom()}</div>
                 <div class="control">
-                    <div class="operate_bg">
+                    <div class="operate_bg active">
                         <img class="operate" action-type="content" src="${location.origin + "/assets/cropContent.png"}"/>
                         <span class="tip">Current Page</span>
                     </div>
                     <div class="operate_bg">
                         <img class="operate" action-type="pages" src="${location.origin + "/assets/cropPages.png"}"/>
-                        <span class="tip">All Page</span>
+                        <span class="tip">All Pages</span>
                     </div>
                     <div class="operate_bg">
                         <img class="operate" action-type="close" src="${location.origin + "/assets/close.png"}"/>
@@ -65,10 +64,9 @@ CropPagesStateHandler.prototype.pageHandler = function (pageRender) {
             </div>
         `);
     this.$handler.append(this.$rectangleControl);
-    this.$handler.find('[action-type="marked"]').addClass('disabled');
     this.bindHammerEvent();
     this.bindClickEvent();
-    this.operateType = "";
+    this.operateType = operateType.content;
 }
 
 CropPagesStateHandler.prototype.destroyPageHandler = function () {
@@ -102,7 +100,8 @@ CropPagesStateHandler.prototype.bindHammerEvent = function () {
         } = eHandler.getBoundingClientRect();
         startPoint = [getClientX(e) - handlerL, getClientY(e) - handlerT];
         if(actionType === 'create'){
-            $rectangleControl.find('.active').removeClass('active');
+            this.operateType = operateType.content;
+            $rectangleControl.find('.operate_bg').eq(0).addClass('active').siblings().removeClass('active');
         }else if (actionType === 'resize') {
             const bound = $rectangleControl[0].getBoundingClientRect();
             const resizeDivIndex = targetResizeIndex = $(e.target).index();
@@ -288,13 +287,11 @@ CropPagesStateHandler.prototype.bindClickEvent = function () {
             case operateType.pages:
                 this.operateType = actionType;
                 $(e.target).parent().addClass('active').siblings().removeClass("active");
-                this.$handler.find('[action-type="marked"]').removeClass('disabled')
                 break;
             case "close":
                 this.hideRectangleControl();
                 break;
             case "marked":
-                if($(e.target).hasClass('disabled')) return;
                 this.setBox().then(_ => {
                     this.hideRectangleControl();
                 });
@@ -307,9 +304,8 @@ CropPagesStateHandler.prototype.bindClickEvent = function () {
 
 CropPagesStateHandler.prototype.hideRectangleControl = function () {
     this.$rectangleControl.hide();
-    this.operateType = '';
+    this.operateType = operateType.content;
     this.$rectangleControl.find('.operate').removeClass("active");
-    this.$rectangleControl.find('[action-type="marked"]').addClass('disabled')
 };
 
 CropPagesStateHandler.prototype.hideAllRectangle = function() {
