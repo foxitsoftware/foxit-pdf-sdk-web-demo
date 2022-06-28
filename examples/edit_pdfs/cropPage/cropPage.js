@@ -100,6 +100,7 @@ CropPagesStateHandler.prototype.bindHammerEvent = function () {
         } = eHandler.getBoundingClientRect();
         startPoint = [getClientX(e) - handlerL, getClientY(e) - handlerT];
         if(actionType === 'create'){
+            this.hideAllRectangle();
             this.operateType = operateType.content;
             $rectangleControl.find('.operate_bg').eq(0).addClass('active').siblings().removeClass('active');
         }else if (actionType === 'resize') {
