@@ -28,7 +28,7 @@ CropPagesStateHandler.getStateName = function () {
 };
 _inherits(CropPagesStateHandler, IStateHandler);
 
-function resizeDom(size=8){
+function resizeDom(size = 8) {
     let str = '';
     for (let index = 0; index < size; index++) {
         str += `<div class="resize" action-type="resize"></div>`
@@ -99,11 +99,11 @@ CropPagesStateHandler.prototype.bindHammerEvent = function () {
             top: handlerT
         } = eHandler.getBoundingClientRect();
         startPoint = [getClientX(e) - handlerL, getClientY(e) - handlerT];
-        if(actionType === 'create'){
+        if (actionType === 'create') {
             this.hideAllRectangle();
             this.operateType = operateType.content;
             $rectangleControl.find('.operate_bg').eq(0).addClass('active').siblings().removeClass('active');
-        }else if (actionType === 'resize') {
+        } else if (actionType === 'resize') {
             const bound = $rectangleControl[0].getBoundingClientRect();
             const resizeDivIndex = targetResizeIndex = $(e.target).index();
             switch (resizeDivIndex) {
@@ -147,8 +147,8 @@ CropPagesStateHandler.prototype.bindHammerEvent = function () {
         let style = null;
         if (actionType === 'create') {
             if (actionType === 'create') {
-                if(this.$rectangleControl.is(":hidden")){
-                    this.$rectangleControl.css({width:0,height:0}).show();
+                if (this.$rectangleControl.is(":hidden")) {
+                    this.$rectangleControl.css({ width: 0, height: 0 }).show();
                 }
             }
             style = getRectangleStyle(startPoint, endPoint, handlerW, handlerH);
@@ -228,14 +228,12 @@ CropPagesStateHandler.prototype.setBox = function () {
         const degree = page.getRotation();
         let width = boxes.width;
         let height = boxes.height;
-        boxes.cropBox = getDegreeBox(boxes.cropBox, width, height, degree);
-        boxes.artBox = getDegreeBox(boxes.artBox, width, height, degree);
-        boxes.trimBox = getDegreeBox(boxes.trimBox, width, height, degree);
-        boxes.bleedBox = getDegreeBox(boxes.bleedBox, width, height, degree);
-
+        Object.keys(boxes).forEach(key => {
+            boxes[key] = getDegreeBox(boxes[key], width, height, degree);
+        })
         width = boxes.cropBox.right - boxes.cropBox.left;
         height = boxes.cropBox.top - boxes.cropBox.bottom;
-        const bound = this.getRectangleBound();
+        const bound = this.getRectangleBound(degree);
         bound.left = Math.abs(width * bound.left + boxes.cropBox.left);
         bound.right = Math.abs(width * (1 - bound.right) + boxes.cropBox.left);
         bound.top = Math.abs(height * (1 - bound.top) + boxes.cropBox.bottom);
@@ -243,24 +241,13 @@ CropPagesStateHandler.prototype.setBox = function () {
         boxes.cropBox = {
             ...bound
         };
-
-        if (boxes.artBox.left === undefined) {
-            boxes.artBox = {
-                ...boxes.cropBox
-            };
-        }
-
-        if (boxes.trimBox.left === undefined) {
-            boxes.trimBox = {
-                ...boxes.cropBox
-            };
-        }
-
-        if (boxes.bleedBox.left === undefined) {
-            boxes.bleedBox = {
-                ...boxes.cropBox
-            };
-        }
+        Object.keys(boxes).forEach(key => {
+            if (boxes[key].left === undefined) {
+                boxes[key] = {
+                    ...boxes.cropBox
+                };
+            }
+        })
         return doc.setPagesBox({
             indexes,
             boxes
@@ -268,20 +255,44 @@ CropPagesStateHandler.prototype.setBox = function () {
     })
 }
 
-CropPagesStateHandler.prototype.getRectangleBound = function () {
+CropPagesStateHandler.prototype.getRectangleBound = function (degree) {
     const $rectangle = this.$rectangleControl;
     const handlerBound = this.$handler[0].getBoundingClientRect();
     const bound = $rectangle[0].getBoundingClientRect();
-    return {
+    let defaultBound = {
         top: (bound.top - handlerBound.top) / handlerBound.height,
         bottom: (handlerBound.bottom - bound.bottom) / handlerBound.height,
         left: (bound.left - handlerBound.left) / handlerBound.width,
         right: (handlerBound.right - bound.right) / handlerBound.width,
     }
+    let temp = Object.assign({}, defaultBound);
+    switch (degree) {
+        case 1:
+            defaultBound.top = temp.right;
+            defaultBound.right = temp.bottom;
+            defaultBound.bottom = temp.left;
+            defaultBound.left = temp.top;
+            break;
+        case 2:
+            defaultBound.top = temp.bottom;
+            defaultBound.right = temp.left;
+            defaultBound.bottom = temp.top;
+            defaultBound.left = temp.right;
+            break;
+        case 3:
+            defaultBound.top = temp.left;
+            defaultBound.right = temp.top;
+            defaultBound.bottom = temp.right;
+            defaultBound.left = temp.bottom;
+            break;
+        default:
+            break;
+    }
+    return defaultBound
 }
 
 CropPagesStateHandler.prototype.bindClickEvent = function () {
-    this.$handler.on("click", e => {
+    this.$rectangleControl.on("click", e => {
         const actionType = $(e.target).attr('action-type');
         switch (actionType) {
             case operateType.content:
@@ -309,7 +320,7 @@ CropPagesStateHandler.prototype.hideRectangleControl = function () {
     this.$rectangleControl.find('.operate').removeClass("active");
 };
 
-CropPagesStateHandler.prototype.hideAllRectangle = function() {
+CropPagesStateHandler.prototype.hideAllRectangle = function () {
     const style = {
         top: 0,
         left: 0,
@@ -378,10 +389,10 @@ function getDegreeBox(box, width, height, degree) {
     switch (degree) {
         case 1:
             temp = {
-                top: height - box.left,
-                right: width - (height - box.top),
-                bottom: width - box.right,
-                left: box.bottom
+                top: height - (width - box.right),
+                right: width - box.bottom,
+                bottom: box.left,
+                left: height - box.top
             };
             break;
         case 2:
@@ -394,10 +405,10 @@ function getDegreeBox(box, width, height, degree) {
             break;
         case 3:
             temp = {
-                top: height - (width - box.right),
-                right: width - box.bottom,
-                bottom: box.left,
-                left: height - box.top
+                top: height - box.left,
+                right: width - (height - box.top),
+                bottom: width - box.right,
+                left: box.bottom
             };
             break;
         default:
@@ -406,8 +417,8 @@ function getDegreeBox(box, width, height, degree) {
     return temp;
 }
 
-export function openRectControlOnPage(pdfui,pageIndex=2){
-    return pdfui.getPDFPageRender(pageIndex).then(pageRender=>{
+export function openRectControlOnPage(pdfui, pageIndex = 2) {
+    return pdfui.getPDFPageRender(pageIndex).then(pageRender => {
         pageRender.$handler.addClass("demo")
     })
 }
