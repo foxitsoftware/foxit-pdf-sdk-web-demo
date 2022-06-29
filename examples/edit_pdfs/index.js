@@ -60,7 +60,7 @@ export function setCustomFont() {
     "name": "Rage", //The font face name
     "style": 0, //The font styles
     "charset": 0 //The charset of the font
-  }, ]
+  },]
   pdfui.getPDFViewer().then(function (viewer) {
     // Map custom font. This method is only valid before loading the document.
     viewer.setJRFontMap(fontMaps).then(function (_) {
@@ -110,40 +110,35 @@ export function addCustomTextGraphic() {
 // How to define a region of the content on the page to be cropped
 export function setCropBox(pageIndex = 0) {
   return pdfui.getCurrentPDFDoc().then(pdfDoc => {
-    return pdfDoc.getPageByIndex(pageIndex).then(page => {
-      const width = page.getWidth();
-      const height = page.getHeight();
-      let options = {
-        indexes: [2],
-        width,
-        height,
-        offsetX: 40,
-        offsetY: 40,
-        boxes: {
-          artBox: {
-            left: 0,
-            bottom: 0,
-            right: width,
-            top: height
-          },
-          cropBox: {
-            left: 0,
-            bottom: 0,
-            right: width,
-            top: height
-          },
-          trimBox: {
-            left: 10,
-            bottom: 110,
-            right: 510,
-            top: 700
-          }
+    let options = {
+      indexes: [pageIndex],
+      width:650,
+      height:840,
+      offsetX: 40,
+      offsetY: 40,
+      boxes: {
+        artBox: {
+          left: 0,
+          bottom: 0,
+          right: 650,
+          top: 840
+        },
+        cropBox: {
+          left: 0,
+          bottom: 0,
+          right: 650,
+          top: 840
+        },
+        trimBox: {
+          left: 10,
+          bottom: 110,
+          right: 510,
+          top: 700
         }
       }
-      return pdfDoc.setPagesBox(options)
-    })
+    }
+    return pdfDoc.setPagesBox(options)
   })
-
 }
 
 // How to get all boxes on the page
@@ -165,15 +160,11 @@ export function getCropDimension(pageIndex = 0, type = boxType.CropBox) {
 }
 
 // How to set a crop dimension on the page by removing the margin
-export function setBoxWithoutMargin() {
+export function setBoxWithoutMargin(pageIndex=2) {
   return pdfui.getCurrentPDFDoc().then(pdfDoc => {
     return pdfDoc.getPageByIndex(pageIndex).then(page => {
       let options = {
-        indexes: [2],
-        width: 650,
-        height: 840,
-        offsetX: 40,
-        offsetY: 40,
+        indexes: [pageIndex],
         removeWhiteMargin: true,
       }
       return pdfDoc.setPagesBox(options)
@@ -195,7 +186,7 @@ function goToPage(pageIndex) {
   })
 }
 
-export function switchToHandStateHandler(){
+export function switchToHandStateHandler() {
   pdfui.getStateHandlerManager().then(shm => {
     shm.switchTo(PDFViewCtrl.constants.STATE_HANDLER_NAMES.STATE_HANDLER_HAND);
   })
