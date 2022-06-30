@@ -228,12 +228,11 @@ CropPagesStateHandler.prototype.setBox = function () {
         const degree = page.getRotation();
         let width = boxes.width;
         let height = boxes.height;
-        Object.keys(boxes).forEach(key => {
-            boxes[key] = getDegreeBox(boxes[key], width, height, degree);
-        })
-        width = boxes.cropBox.right - boxes.cropBox.left;
-        height = boxes.cropBox.top - boxes.cropBox.bottom;
+
         const bound = this.getRectangleBound(degree);
+        const cropBox = boxes.cropBox;
+        width = cropBox.right - cropBox.left;
+        height = cropBox.top - cropBox.bottom;
         bound.left = Math.abs(width * bound.left + boxes.cropBox.left);
         bound.right = Math.abs(width * (1 - bound.right) + boxes.cropBox.left);
         bound.top = Math.abs(height * (1 - bound.top) + boxes.cropBox.bottom);
@@ -241,7 +240,7 @@ CropPagesStateHandler.prototype.setBox = function () {
         boxes.cropBox = {
             ...bound
         };
-        Object.keys(boxes).forEach(key => {
+        ["artBox","trimBox","bleedBox"].forEach(key => {
             if (boxes[key].left === undefined) {
                 boxes[key] = {
                     ...boxes.cropBox
@@ -380,42 +379,6 @@ function getRectangleStyle(startPoint, endPoint, handlerW, handlerH, targetIndex
     }
     return result
 };
-
-function getDegreeBox(box, width, height, degree) {
-    let temp;
-    if (box.left === undefined) {
-        return {};
-    }
-    switch (degree) {
-        case 1:
-            temp = {
-                top: height - (width - box.right),
-                right: width - box.bottom,
-                bottom: box.left,
-                left: height - box.top
-            };
-            break;
-        case 2:
-            temp = {
-                top: height - box.bottom,
-                right: width - box.left,
-                bottom: height - box.top,
-                left: width - box.right
-            };
-            break;
-        case 3:
-            temp = {
-                top: height - box.left,
-                right: width - (height - box.top),
-                bottom: width - box.right,
-                left: box.bottom
-            };
-            break;
-        default:
-            temp = box;
-    }
-    return temp;
-}
 
 export function openRectControlOnPage(pdfui, pageIndex = 2) {
     return pdfui.getPDFPageRender(pageIndex).then(pageRender => {
