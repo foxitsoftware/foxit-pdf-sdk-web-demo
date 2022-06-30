@@ -83,7 +83,21 @@ const editPdf = [
     header: "Reorder pages",
     description:
       "Click & drag pages to put pages in the right order in the Thumbnail sidebar.",
-    func: (ref: any) => ref.current.contentWindow.__example__.movePage( 1, 0),
+    func: (ref: any) => {
+      ref.current.contentWindow.__example__.movePage( 1, 0)
+      ref.current.contentWindow.__example__.switchToHandStateHandler()
+    },
+  },
+  {
+    positionX: "250px",
+    positionY: "600px",
+    sideTriangle: "left",
+    header: "Crop pages",
+    description:
+      "Drag a rectangle on the page you want to crop.",
+    func: (ref: any) => {
+      ref.current.contentWindow.__example__.cropPage();
+    },
   },
 ];
 

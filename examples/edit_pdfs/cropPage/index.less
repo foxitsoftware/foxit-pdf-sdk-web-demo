@@ -1,0 +1,147 @@
+.fv__crop-pages-state-handler {
+    &.demo {
+        .rectangle-control {
+            display: block;
+            left: calc(50% - 200px);
+            top: calc(50% - 200px);
+            width: 400px;
+            height: 400px;
+        }
+    }
+
+    .rectangle-control {
+        display: none;
+        position: absolute;
+        width: 0px;
+        height: 0px;
+
+
+        .rect {
+            width: 100%;
+            height: 100%;
+            border: 1px dashed #3782DB;
+        }
+
+        .move {
+            position: absolute;
+            top: 0px;
+            left: 0px;
+            width: 100%;
+            height: 100%;
+            cursor: grab;
+            background: #5353534d;
+
+            &.cursorGrabbing {
+                cursor: grabbing;
+            }
+
+            .resize {
+                position: absolute;
+                width: 10px;
+                height: 10px;
+                border: 1px solid #3782DB;
+                border-radius: 100%;
+                background-color: white;
+
+                &:nth-child(1) {
+                    left: -5px;
+                    top: -5px;
+                    cursor: nwse-resize;
+                }
+
+                &:nth-child(2) {
+                    left: calc(50% - 5px);
+                    top: -5px;
+                    cursor: n-resize;
+                }
+
+                &:nth-child(3) {
+                    right: -5px;
+                    top: -5px;
+                    cursor: nesw-resize;
+                }
+
+                &:nth-child(4) {
+                    right: -5px;
+                    bottom: calc(50% - 5px);
+                    cursor: w-resize;
+                }
+
+                &:nth-child(5) {
+                    right: -5px;
+                    bottom: -5px;
+                    cursor: nwse-resize
+                }
+
+                &:nth-child(6) {
+                    left: calc(50% - 5px);
+                    bottom: -5px;
+                    cursor: n-resize;
+                }
+
+                &:nth-child(7) {
+                    left: -5px;
+                    bottom: -5px;
+                    cursor: nesw-resize;
+                }
+
+                &:nth-child(8) {
+                    left: -5px;
+                    bottom: calc(50% - 5px);
+                    cursor: w-resize;
+                }
+            }
+        }
+
+        .control {
+            position: absolute;
+            width: 169px;
+            height: 34px;
+            right: 0px;
+            display: flex;
+            justify-content: space-around;
+            background: #FFFFFF;
+            border: 1px solid #F2F2F2;
+            box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+            border-radius: 3px;
+
+            .operate_bg {
+                cursor: pointer;
+                position: relative;
+                &.active .operate {
+                    border: 1px dashed #3782DB;
+                }
+                .operate {
+                    &:hover + .tip{
+                        display: block;
+                    }
+                }
+
+                .tip {
+                    display: none;
+                    position: absolute;
+                    bottom: -30px;
+                    right: 0px;
+                    padding: 1px 8px;
+                    white-space: nowrap;
+                    background: #FFFFFF;
+                    border: 1px solid #F2F2F2;
+                    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.08);
+                    border-radius: 3px;
+
+                    &::after {
+                        content: " ";
+                        position: absolute;
+                        top: -3px;
+                        right: 15%;
+                        display: block;
+                        width: 4px;
+                        height: 4px;
+                        background: #FFFFFF;
+                        transform: rotate(45deg);
+                    }
+                }
+            }
+        }
+    }
+}

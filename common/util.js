@@ -31,3 +31,33 @@ export function loadImage(url) {
       image.src = url;
     });
 }
+
+export function getClientX (event) {
+  if (event.type.indexOf('touch') === 0) {
+      switch(event.type) {
+          case 'touchstart':
+          case 'touchmove':
+              return event.touches[0].clientX;
+          case 'touchend':
+          case 'touchcancel':
+              return event.changedTouches[0].clientX;
+      }
+  } else {
+      return event.clientX;
+  }
+};
+
+export function getClientY (event) {
+  if (event.type.indexOf('touch') === 0) {
+      switch(event.type) {
+          case 'touchstart':
+          case 'touchmove':
+              return event.touches[0].clientY;
+          case 'touchend':
+          case 'touchcancel':
+              return event.changedTouches[0].clientY;
+      }
+  } else {
+      return event.clientY;
+  }
+};
