@@ -329,7 +329,7 @@ pdfui.addViewerEventListener(Events.annotationAdded, (annots) => {
   pdfui
     .getCurrentPDFDoc()
     .then((doc) => {
-      return doc.exportAnnotsToFDF(File_Type.fdf, annots.slice(0, 1));
+      return doc.exportAnnotsToFDF(File_Type.fdf, [annots[annots[0].getType()==='popup'?1:0]]);
     })
 });
 
