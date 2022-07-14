@@ -172,6 +172,21 @@ export function setBoxWithoutMargin(pageIndex=2) {
   })
 }
 
+// Add the custom css fonts
+export function addCustomCssFont(){
+  //1.Import font style file
+  let linkTag = document.createElement("link");
+  linkTag.id = 'dynamic-style';
+  linkTag.href = 'https://fonts.googleapis.com/css2?family=Tangerine&display=swap';
+  linkTag.setAttribute('rel','stylesheet');
+  linkTag.setAttribute('media','all');
+  linkTag.setAttribute('type','text/css');
+  let head = document.getElementsByTagName("head")[0];
+  head.appendChild(linkTag);
+  //2. Add the custom font
+  pdfui.addCssFonts(['Tangerine'])
+}
+
 export function cropPage() {
   goToPage(3);
   pdfui.getStateHandlerManager().then(shm => {
