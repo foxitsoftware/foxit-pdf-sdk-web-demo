@@ -27,7 +27,7 @@ const pdfui = createPDFUI({
     showAnnotTooltip:true,
     showFormFieldTooltip: true,
     customs:{
-      activeTooltip: customToolTip
+      AnnotTooltip: customToolTip
     }
   },
   fragments:customFragments
