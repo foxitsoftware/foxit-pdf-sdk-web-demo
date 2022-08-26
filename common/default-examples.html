@@ -10,6 +10,7 @@
         (function(){
             var LICENSE_KEY_PATH = '<%=htmlWebpackPlugin.options.licensePath%>?' + Date.now().toString(16);
             document.write('<script src="'+LICENSE_KEY_PATH+'"><\/script>');
+            window.innerWidth <= 900 && Object.defineProperty(navigator, 'userAgent', {value: 'mobile'})
         })()
     </script>
     <script src="<%=htmlWebpackPlugin.options.UIExtensionLib%>"></script>
