@@ -51,7 +51,6 @@ const App = () => {
       }else{
         setIsSuccess(true)
       }
-      window.localStorage.setItem("screenSize",Data.screenSize);
       iframeRef.current.contentWindow.location.reload();
     }
   };
