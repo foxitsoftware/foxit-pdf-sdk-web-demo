@@ -7,7 +7,8 @@ import mobileAddons from "@foxitsoftware/foxit-pdf-sdk-for-web-library/lib/uix-a
 
 const { PDFUI, appearances:{MobileAppearance, RibbonAppearance}  } = UIExtension;
 let appearance = RibbonAppearance,isMobile = false;
-if(window.innerWidth <= 900){
+var screenType = window.localStorage.getItem("screenSize");
+if(screenType !== 'desktop') {
   appearance = MobileAppearance
   isMobile = true
 }

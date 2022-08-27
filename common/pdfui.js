@@ -14,8 +14,8 @@ const { Events } = PDFViewCtrl;
 export let isMobile = false;
 let appearance = RibbonAppearance;
 export function createPDFUI(options) {
-  // const appearance = window.innerWidth <= 900 ? MobileAppearance : RibbonAppearance
-  if(window.innerWidth <= 900){
+  var screenType = window.localStorage.getItem("screenSize");
+  if(screenType !== 'desktop') {
     appearance = MobileAppearance
     isMobile = true
   }
