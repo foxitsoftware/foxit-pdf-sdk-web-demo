@@ -6,12 +6,12 @@
     "main": "./lib/UIExtension.full.js",
     "types": "./lib/UIExtension.d.ts",
     "scripts": {
-        "preinstall": "npm i -S @foxitsoftware/foxit-pdf-sdk-for-web-library",
-        "move-sdk-assets": "cp-cli ./node_modules/@foxitsoftware/foxit-pdf-sdk-for-web-library/lib ./dist/lib",
+        "preinstall": "npm i -S @foxitsoftware/foxit-pdf-sdk-for-web-library-full",
+        "move-sdk-assets": "cp-cli ./node_modules/@foxitsoftware/foxit-pdf-sdk-for-web-library-full/lib ./dist/lib",
         "start": "concurrently --kill-others \"npm run start:webpack\" \"npm run start:snapshot-server\" \"npm run start:collaboration-server\"",
         "start:webpack": "webpack serve --config ./build/webpack.config.js --mode development",
-        "start:snapshot-server": "node ./node_modules/@foxitsoftware/foxit-pdf-sdk-for-web-library/server/snapshot/src/index -p 3003",
-        "start:collaboration-server": "node ./node_modules/@foxitsoftware/foxit-pdf-sdk-for-web-library/server/collaboration-sockjs-server/src/index -p 19112",
+        "start:snapshot-server": "node ./node_modules/@foxitsoftware/foxit-pdf-sdk-for-web-library-full/server/snapshot/src/index -p 3003",
+        "start:collaboration-server": "node ./node_modules/@foxitsoftware/foxit-pdf-sdk-for-web-library-full/server/collaboration-sockjs-server/src/index -p 19112",
         "build": "npm run move-sdk-assets && webpack --config ./build/webpack.config.js --mode production",
         "ciServer": "concurrently \"npm run start:snapshot-server\" \"npm run start:collaboration-server\""
     },

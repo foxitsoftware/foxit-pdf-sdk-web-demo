@@ -1,4 +1,4 @@
-import '@foxitsoftware/foxit-pdf-sdk-for-web-library/lib/UIExtension.vw.css';
+import '@foxitsoftware/foxit-pdf-sdk-for-web-library-full/lib/UIExtension.vw.css';
 import { createPDFUI, initTab, isMobile } from '../../common/pdfui';
 
 const {

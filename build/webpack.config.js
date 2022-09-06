@@ -9,7 +9,7 @@ const examplesDir = path.resolve(__dirname, '../examples');
 const DEFAULT_TEMPLATE_FILE_PATH = path.resolve(__dirname, '../common/default-examples.html');
 const entries = [];
 
-const libraryModulePath = path.resolve('node_modules/@foxitsoftware/foxit-pdf-sdk-for-web-library');
+const libraryModulePath = path.resolve('node_modules/@foxitsoftware/foxit-pdf-sdk-for-web-library-full');
 
 fs.readdirSync(examplesDir).forEach((exampleName) => {
     const entryName = 'examples/' + exampleName + '/index';
