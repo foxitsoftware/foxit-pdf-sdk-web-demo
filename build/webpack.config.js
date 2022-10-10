@@ -201,6 +201,17 @@ function createWebpackConfig(entry, morePlugins, output, env, argv, devServer) {
                         },
                     ],
                 },
+                {
+                    test: /\.(png|jpg|gif|svg)$/,
+                    use: [
+                        {
+                            loader: 'url-loader',
+                            options: {
+                                limit: 8192
+                            }
+                        }
+                    ],
+                }
             ],
         },
         plugins: [
@@ -214,6 +225,9 @@ function createWebpackConfig(entry, morePlugins, output, env, argv, devServer) {
         externals: ['UIExtension', 'PDFViewCtrl'],
         resolve: {
             extensions: ['.ts', '.tsx', '.js'],
+            alias: {
+                'assets': path.resolve(__dirname, '../assets'),
+            },
         },
         output: output,
     };
