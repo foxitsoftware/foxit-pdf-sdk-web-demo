@@ -1,0 +1,40 @@
+<toolbar name="collaboration-toolbar" class="fv__ui-toolbar-scrollable fv__ui-toolbar-collaboration">
+    <paddle exclude-devices="tablet" name="fv--collaboration-toolbar-paddle">
+        <group-list name="collaboration-toolbar-group-list" shrink-size="1200">
+            <group retain-count="2">
+                <hand-ribbon-button></hand-ribbon-button>
+                <selection-ribbon-dropdown></selection-ribbon-dropdown>
+            </group>
+            <group retain-count="1">
+                <div class="fx-ribbon-items-sm">
+                    <create-text-highlight-ribbon-button small="true"></create-text-highlight-ribbon-button>
+                    <create-strikeout-ribbon-button small="true"></create-strikeout-ribbon-button>
+                </div>
+                <div class="fx-ribbon-items-sm">
+                    <create-squiggly-ribbon-button small="true"></create-squiggly-ribbon-button>
+                    <create-replace-ribbon-button small="true"></create-replace-ribbon-button>
+                </div>
+                <div class="fx-ribbon-items-sm">
+                    <create-underline-ribbon-button small="true"></create-underline-ribbon-button>
+                    <create-caret-ribbon-button small="true"></create-caret-ribbon-button>
+                </div>
+            </group>
+            <group retain-count="7">
+                <create-note-ribbon-button></create-note-ribbon-button>
+                <create-attachment-ribbon-button></create-attachment-ribbon-button>
+                <create-typewriter-ribbon-button></create-typewriter-ribbon-button>
+                <create-textbox-ribbon-button></create-textbox-ribbon-button>
+                <create-callout-ribbon-button></create-callout-ribbon-button>
+                <create-drawings-ribbon-dropdown></create-drawings-ribbon-dropdown>
+                <create-pencil-ribbon-button></create-pencil-ribbon-button>
+                <eraser-ribbon-button></eraser-ribbon-button>
+                <create-area-highlight-ribbon-button></create-area-highlight-ribbon-button>
+                <create-measure-ribbon-dropdown></create-measure-ribbon-dropdown>
+                <stamp-ribbon-dropdown></stamp-ribbon-dropdown>
+            </group>
+        </group-list>
+    </paddle>
+    <div class="fv--collaboration-toolbar-search-wrapper">
+        <search:search-input></search:search-input>
+    </div>
+</toolbar>
