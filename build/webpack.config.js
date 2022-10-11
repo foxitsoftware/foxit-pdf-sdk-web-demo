@@ -202,6 +202,20 @@ function createWebpackConfig(entry, morePlugins, output, env, argv, devServer) {
                     ],
                 },
                 {
+                    test: /\.art$/,
+                    use: [
+                        {
+                            loader: path.join(__dirname, './helper/fix-template-loader.js'),
+                        },
+                        {
+                            loader: 'art-template-loader',
+                            options: {
+                                escape: false
+                            },
+                        }
+                    ]
+                },
+                {
                     test: /\.(png|jpg|gif|svg)$/,
                     use: [
                         {
