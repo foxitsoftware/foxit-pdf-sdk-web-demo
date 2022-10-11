@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import collaborationToolbar from './CollabToobar/CollaborationToolbar.art';
 // @ts-ignore
 import * as UIExtension from "UIExtension";
-import "@foxitsoftware/foxit-pdf-sdk-for-web-library/lib/UIExtension.vw.css";
-import mobileAddons from "@foxitsoftware/foxit-pdf-sdk-for-web-library/lib/uix-addons/allInOne.mobile"
-import Addons from "@foxitsoftware/foxit-pdf-sdk-for-web-library/lib/uix-addons/allInOne"
+import "@foxitsoftware/foxit-pdf-sdk-for-web-library-full/lib/UIExtension.vw.css";
+import mobileAddons from "@foxitsoftware/foxit-pdf-sdk-for-web-library-full/lib/uix-addons/allInOne.mobile"
+import Addons from "@foxitsoftware/foxit-pdf-sdk-for-web-library-full/lib/uix-addons/allInOne"
 import { PUBLIC_PATH,licenseSN,licenseKey } from "../../config";
 import { message } from 'antd';
 
