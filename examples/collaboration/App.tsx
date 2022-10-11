@@ -119,6 +119,16 @@ export default class App extends Component<any, IState> {
       callback && callback(action)
     })
   }
+
+  isParticipate = () => {
+    const searchParams = new URLSearchParams(window.location.search)
+    if(searchParams.get("collaborationId")){
+      return true
+    }else{
+      return false
+    }
+  }
+
   async loginAnonymously(userName: string) {
     let currentToken = await loginAnonymously(userName);
     let userInfo = await getUser().catch(() => {
@@ -159,9 +169,6 @@ export default class App extends Component<any, IState> {
   async openLocalDoc(fileUrl: string, fileName: string) {
     this.showLoading(true)
     let filePath = fileUrl;
-    if (filePath.indexOf('http') === -1) {
-      filePath = `${serverUrl}${fileUrl}`
-    }
     if (!this.state.pdfViewer) {
       throw new Error('init fail')
     }
@@ -220,48 +227,34 @@ export default class App extends Component<any, IState> {
   render() {
     const { webCollabClient, isLoading, stepDriver, pdfViewer, pwdVisible } = this.state;
     return (<>
-      <BrowserRouter>
-        <Route path={`${PUBLIC_PATH}`} exact>
-          <Login />
-        </Route>
         <Spin tip="Loading..." spinning={isLoading} size={"large"}>
           {
-            pdfViewer &&
-            <>
-              <Route path={`${PUBLIC_PATH}collabAuthor`} exact>
-                <CollabAuthor
-                  collabClient={webCollabClient}
-                  openLocalDoc={this.openLocalDoc}
-                  openDocAndGetOnlineUser={this.openDocAndGetOnlineUser}
-                  loginAnonymously={this.loginAnonymously}
-                  showLoading={this.showLoading}
-                  stepDriver={stepDriver}
-                />
-              </Route>
-              <Route path={`${PUBLIC_PATH}collabParticipant`} exact>
-                <CollabParticipant
+            pdfViewer && <>
+                { !this.isParticipate() ?
+                  <CollabAuthor
+                      collabClient={webCollabClient}
+                      openLocalDoc={this.openLocalDoc}
+                      openDocAndGetOnlineUser={this.openDocAndGetOnlineUser}
+                      loginAnonymously={this.loginAnonymously}
+                      showLoading={this.showLoading}
+                      stepDriver={stepDriver}
+                  /> : <CollabParticipant
                   collabClient={webCollabClient}
                   openDocAndGetOnlineUser={this.openDocAndGetOnlineUser}
                   loginAnonymously={this.loginAnonymously}
                   showLoading={this.showLoading}
                   stepDriver={stepDriver}
-                />
-              </Route>
-            </>
+                  />
+                }
+              </>
           }
-          <Route
-            path={[`${PUBLIC_PATH}collabAuthor`, `${PUBLIC_PATH}collabParticipant`]}
-            render={() => {
-              return <PDFViewer
-                showLoading={this.showLoading}
-                onFinishInitPDFUI={this.onFinishInitPDFUI}
-                openFileSuccess={this.openFileSuccess}
-                onRequestAnnotPermissions={this.onRequestAnnotPermissions}
-              />;
-            }}
-          />
+            <PDFViewer
+              showLoading={this.showLoading}
+              onFinishInitPDFUI={this.onFinishInitPDFUI}
+              openFileSuccess={this.openFileSuccess}
+              onRequestAnnotPermissions={this.onRequestAnnotPermissions}
+            />;
         </Spin>
-      </BrowserRouter>
       <PasswordPopup visible={pwdVisible} closePopup={this.closePswPupup.bind(this)} onSubmit={this.onSubmit.bind(this)} />
     </>
     );

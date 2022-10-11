@@ -134,11 +134,11 @@ class CollabParticipant extends Component<any, IState> {
   }
   //Enable the boot function
   openDriver() {
-    const driver = this.props.stepDriver;
+    // const driver = this.props.stepDriver;
     // Define the steps for introduction
-    driver.defineSteps(collabParticipantSteps);
+    // driver.defineSteps(collabParticipantSteps);
     // Start the introduction
-    driver.start()
+    // driver.start()
   }
   async componentDidMount() {
     //Judge whether any participant has logged in, if any, continue to log in as the current user, if not, log in with tourist information, and display the "Go to Login" button
@@ -170,7 +170,7 @@ class CollabParticipant extends Component<any, IState> {
     let currentUser: Member = await this.props.loginAnonymously(userName);
     const collabClient = this.props.collabClient;
     if (currentUser) {
-      let docId: string | null = getQueryVariable('docId')
+      let docId: string | null = getQueryVariable('collaborationId')
       if (docId) {
         let collaboration: Collaboration | void = await collabClient.getCollaboration(docId).catch((result: any) => {
           this.props.showLoading(false)

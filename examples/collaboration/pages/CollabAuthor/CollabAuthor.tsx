@@ -5,7 +5,7 @@ import { Collaboration } from '@foxitsoftware/web-collab-client'
 import { Member } from "../../types/index";
 import copy from 'copy-to-clipboard';
 import SharesAndFilesPopup from '../../components/SharesAndFilesPopup/SharesAndFilesPopup';
-import { collabAuthorSteps, storageGetItem, storageRemoveItem } from '../../utils';
+import {collabAuthorSteps, randomMockName, storageGetItem, storageRemoveItem, storageSetItem} from '../../utils';
 import { PUBLIC_PATH, serverUrl } from "../../config";
 import moreIcon from 'assets/icon/more-icon.svg';
 import shareMembers from 'assets/icon/share-members.svg';
@@ -68,11 +68,11 @@ class CollabAuthor extends Component<any, IState> {
     let fileUrl = item.path;
 
     this.props.openLocalDoc(fileUrl, item.name).then(() => {
-      const driver = this.props.stepDriver
+      // const driver = this.props.stepDriver
       // Define the steps for introduction
-      driver.defineSteps(collabAuthorSteps);
+      // driver.defineSteps(collabAuthorSteps);
       // Start the introduction
-      driver.start();
+      // driver.start();
     })
     //打开文档时候执行，打开协作文档不执行
     this.setState({
@@ -97,7 +97,7 @@ class CollabAuthor extends Component<any, IState> {
     })
     let isAllowComment = await permission!.isAllowComment();
     //Construct the address of the collaboration link
-    let linkValue = `${window.location.origin}${PUBLIC_PATH}collabParticipant?docId=${collaboration.id}`;
+    let linkValue = `${window.location}?participate=1&collaborationId=${collaboration.id}`;
     //Open collaboration and Subscription notification event
     await this.props.openDocAndGetOnlineUser(collaboration, async (action: string) => {
       let members: any[] = []
@@ -132,6 +132,7 @@ class CollabAuthor extends Component<any, IState> {
       });
     }
   }
+
   //Create Collaboration
   async createCollab() {
     this.props.showLoading(true)
@@ -226,7 +227,17 @@ class CollabAuthor extends Component<any, IState> {
     }
 
   }
+  createTempUser() {
+    //The creator account is currently randomly generated for login
+    let creatorName = randomMockName('Creator')
+    if (creatorName) {
+      storageSetItem(localStorage, 'creatorName', creatorName);
+    } else {
+      throw new Error('Login failed')
+    }
+  }
   async componentDidMount() {
+    this.createTempUser()
     let creatorName = storageGetItem(localStorage, 'creatorName')
     if (creatorName) {
       let currentUser = await this.props.loginAnonymously(creatorName)
@@ -236,8 +247,6 @@ class CollabAuthor extends Component<any, IState> {
         currentUser,
         collabLists: collaborations
       })
-    } else {
-      window.location.href = '/';
     }
   }
   openFileListPopup() {
@@ -304,11 +313,11 @@ class CollabAuthor extends Component<any, IState> {
         const { curCollaboration } = this.state;
         let isClose = await curCollaboration?.end();
         if (isClose) {
-          storageRemoveItem(localStorage, 'creatorName');
+          // storageRemoveItem(localStorage, 'creatorName');
         }
       }
       stopShareFn().then(() => {
-        window.location.href = '/';
+        window.location.reload()
       })
     })
   }

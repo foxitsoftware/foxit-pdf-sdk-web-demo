@@ -83,9 +83,13 @@
         }
     },
     "dependencies": {
+        "@foxitsoftware/web-collab-client": "1.0.0",
         "@types/react-router-dom": "^5.1.7",
         "antd": "^4.14.0",
+        "axios": "^0.19.0",
+        "copy-to-clipboard": "^3.3.1",
         "core-js": "^3.9.1",
+        "driver.js": "^0.9.8",
         "react": "^17.0.1",
         "react-dom": "^17.0.1",
         "react-router": "^5.2.0",

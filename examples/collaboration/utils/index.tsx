@@ -17,11 +17,11 @@ export function getQueryVariable(variable: string) {
 export let localDocList = [
   {
     name: "FoxitPDFSDKforWeb.pdf",
-    path: `${window.location.origin}${PUBLIC_PATH}assets/FoxitPDFSDKforWeb.pdf`
+    path: `${window.origin}/assets/FoxitPDFSDKforWeb_DemoGuide.pdf`
   },
   {
-    name: "Embed API Demo.pdf",
-    path: `${window.location.origin}${PUBLIC_PATH}assets/Embed API Demo.pdf`
+    name: "Foxit One Pager.pdf",
+    path: `${window.origin}/assets/Foxit_One_Pager.pdf`
   }
 ]
 
