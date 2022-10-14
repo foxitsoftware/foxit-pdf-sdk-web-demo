@@ -83,7 +83,10 @@
         }
     },
     "dependencies": {
-        "@foxitsoftware/web-collab-client": "1.0.0",
+        "@foxitsoftware/collab-db": "file:../CollaborationAddon/packages/collab-db",
+        "@foxitsoftware/collab-server": "file:../CollaborationAddon/packages/web-collab-server",
+        "@foxitsoftware/foxit-pdf-sdk-for-web-library-full": "^8.5.0",
+        "@foxitsoftware/web-collab-client": "file:../CollaborationAddon/packages/web-collab-client",
         "@types/react-router-dom": "^5.1.7",
         "antd": "^4.14.0",
         "axios": "^0.19.0",
