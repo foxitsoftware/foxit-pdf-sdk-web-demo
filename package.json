@@ -11,7 +11,7 @@
         "start": "concurrently --kill-others \"npm run start:webpack\" \"npm run start:snapshot-server\" \"npm run start:collaboration-server\"",
         "start:webpack": "webpack serve --config ./build/webpack.config.js --mode development",
         "start:snapshot-server": "node ./node_modules/@foxitsoftware/foxit-pdf-sdk-for-web-library-full/server/snapshot/src/index -p 3003",
-        "start:collaboration-server": "node ./node_modules/@foxitsoftware/foxit-pdf-sdk-for-web-library-full/server/collaboration-sockjs-server/src/index -p 19112",
+        "start:collaboration-server": "cross-env SERVER_PORT=19112 node ./examples/collaboration/sample-server/server.js",
         "build": "npm run move-sdk-assets && webpack --config ./build/webpack.config.js --mode production",
         "ciServer": "concurrently \"npm run start:snapshot-server\" \"npm run start:collaboration-server\""
     },

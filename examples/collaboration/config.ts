@@ -3,7 +3,7 @@ declare var HTTP_BASE_URL: string; // base url of collab server http api, define
 declare var __webpack_public_path__: string;
 
 // export const serverUrl = `https://${window.location.host}/collab-server`;
-export const serverUrl = `http://${window.location.hostname}:8080`;
+export const serverUrl = `http://${window.location.hostname}:19112`;
 
 export const PUBLIC_PATH = __webpack_public_path__;
 
