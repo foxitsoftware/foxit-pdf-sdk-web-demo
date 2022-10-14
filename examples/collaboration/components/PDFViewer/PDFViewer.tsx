@@ -64,8 +64,16 @@ export default class PDFViewer extends Component<IProps, any> {
       if(UIExtension.PDFViewCtrl.DeviceInfo.isMobile){
         const mobileHeaderRight=root.getComponentByName('fv--mobile-header-right')
         const peotectToolbar=root.getComponentByName('fv--mobile-header-main')
+        const toolbarTabs = root.getComponentByName('fv--mobile-toolbar-tabs');
+        toolbarTabs && toolbarTabs.hide();
         peotectToolbar&& peotectToolbar.hide()
         mobileHeaderRight&& mobileHeaderRight.hide()
+        let collabComponent = root.getComponentByName('collaboration-toolbar');
+        if (!collabComponent) {
+          root.insert(collaborationToolbar(), 1);
+          collabComponent = root.getComponentByName('collaboration-toolbar');
+        }
+        root.getComponentByName('sidebar').element.firstChild.childNodes[3].childNodes[4].style.display = "none";
       }else{
         const toolbarTabs = root.getComponentByName('toolbar');
         toolbarTabs && toolbarTabs.hide();
@@ -75,17 +83,19 @@ export default class PDFViewer extends Component<IProps, any> {
           collabComponent = root.getComponentByName('collaboration-toolbar');
         }
       }
-
     });
     pdfui.addUIEventListener(UIExtension.UIEvents.initializationCompleted, () => {
       this.props.onFinishInitPDFUI(pdfui);
     })
-    pdfui.addUIEventListener(UIExtension.UIEvents.openFileSuccess, () => {
+    pdfui.addUIEventListener(UIExtension.UIEvents.openFileSuccess, async () => {
       this.props.openFileSuccess();
     })
     this.setState({
       pdfui
     })
+    window.onresize = function () {
+      pdfui.redraw().catch(function () { });
+    }
   }
   render() {
     return (<div id="pdf-ui"></div>)

@@ -121,13 +121,10 @@ class CollabParticipant extends Component<any, IState> {
     }
     if (emailValue.match(/^\w+@\w+\.\w+$/i)) {
       storageSetItem(localStorage, 'participantName', emailValue);
-      await this.participantLogin(emailValue);
-
-      // TODO: temp fix for WEBPDFRD-8661
-      setTimeout(function (){
+      let result=await this.participantLogin(emailValue);
+      if(result){
         window.location.reload();
-      }, 1000)
-
+      }
     } else {
       message.error('Email format error');
     }
@@ -162,7 +159,7 @@ class CollabParticipant extends Component<any, IState> {
   }
 
   //Participant Login
-  async participantLogin(userName: string) {
+  async participantLogin(userName: string): Promise<any>{
     const { curCollaboration } = this.state;
     if (curCollaboration) {
       curCollaboration.end()
@@ -183,14 +180,19 @@ class CollabParticipant extends Component<any, IState> {
             })
             return;
           }
-          if (result.ret === 403) {
-            this.setState({
-              isShowNoPermissionPopup: true
-            })
-            return;
-          }
           //If access is not available, show the login interface
+          if (result.ret === 403) {
+            message.error(result.message)
+            this.setState({
+              isShowNoPermissionPopup: true,
+              emailValue:""
+            })
+            return
+          }
         })
+        if(this.state.emailValue){
+          return Promise.resolve(true)
+        }
         if (collaboration) {
           //Get whether the document has the argument permission
           let permissionApi = await collaboration.getPermission().catch((err)=>{
@@ -206,6 +208,7 @@ class CollabParticipant extends Component<any, IState> {
             isAllowComment,
             currentUser
           })
+          return Promise.resolve(true)
         }
       } else {
         message.error('Can not find docId');

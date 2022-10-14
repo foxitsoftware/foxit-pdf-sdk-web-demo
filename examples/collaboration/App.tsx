@@ -36,6 +36,9 @@ interface IState {
   pwdVisible: boolean
   isSdkOpenDoc: boolean
   openFailedDoc: any;
+  checkAnnotFormPermission:boolean
+  isPortfolioDoc:boolean
+  docPassword:string
 }
 export default class App extends Component<any, IState> {
 
@@ -44,9 +47,12 @@ export default class App extends Component<any, IState> {
     this.state = {
       pdfViewer: undefined,
       webCollabClient: null,
+      checkAnnotFormPermission:true,
+      isPortfolioDoc:false,
       isCollabMode: false,
       isLoading: false,
       pwdVisible: false,
+      docPassword:"",
       isSdkOpenDoc: false,
       openFailedDoc: null,
       stepDriver: new Driver(stepOption)
@@ -69,9 +75,18 @@ export default class App extends Component<any, IState> {
   //Open collaboration and Subscription notification event
   async openDocAndGetOnlineUser(doc: Collaboration, callback: any) {
     this.state.pdfViewer.close()
-    let isViewSuccess = await doc.begin().catch(async (e)=>{
-      await this.exceptionHandle(e,doc,callback)
-    });
+    let isViewSuccess;
+    if(this.state.docPassword){
+      isViewSuccess =await doc.begin({password:this.state.docPassword}).catch(async (e)=>{
+        message.error("Password error")
+        await this.exceptionHandle(e,doc,callback)
+      })
+    }else{
+      isViewSuccess = await doc.begin().catch(async (e)=>{
+        await this.exceptionHandle(e,doc,callback)
+      });
+    }
+
     if (isViewSuccess) {
       this.openCollabDocSuccess(doc,callback)
     }
@@ -82,7 +97,8 @@ export default class App extends Component<any, IState> {
       pwdVisible: false,
       isCollabMode: true,
       isSdkOpenDoc: false,
-      openFailedDoc: null
+      openFailedDoc: null,
+      docPassword:""
     })
     message.info('Now,you are in collabrative mode')
     callback && callback();
@@ -156,13 +172,24 @@ export default class App extends Component<any, IState> {
       pdfViewer
     })
   }
-  openFileSuccess() {
+  async checkAllowComment(){
+    const docRender = this.state.pdfViewer.getPDFDocRender();
+    const doc = await this.state.pdfViewer.getCurrentPDFDoc()
+    const isPortfolio = doc.isPortfolio()
+    const hasAnnotFormPermission = docRender.getUserPermission().checkAnnotForm();
+    return {isPortfolio,hasAnnotFormPermission}
+  }
+  async openFileSuccess() {
+    const { isPortfolio, hasAnnotFormPermission } = await this.checkAllowComment();
+    this.setState({
+      checkAnnotFormPermission: Boolean(hasAnnotFormPermission),
+      isPortfolioDoc:isPortfolio
+    })
     this.showLoading(false)
   }
-  onRequestAnnotPermissions(annot: any): Promise<string[]> {
-    const fully = (window as any).UIExtension.PDFViewCtrl.constants.ANNOTATION_PERMISSION.fully
+  onRequestAnnotPermissions(annot: any): Promise<any> {
     if (!this.state.isCollabMode || !this.state.webCollabClient) {
-      return Promise.resolve([fully])
+      return Promise.resolve()
     }
     return this.state.webCollabClient.getAnnotPermissions(annot);
   }
@@ -207,7 +234,8 @@ export default class App extends Component<any, IState> {
       this.setState({
         pwdVisible: false,
         isSdkOpenDoc: false,
-        openFailedDoc: null
+        openFailedDoc: null,
+        docPassword:value
       })
     }).catch((e: any) => {
       console.log(e)
@@ -225,19 +253,21 @@ export default class App extends Component<any, IState> {
     this.showLoading(false)
   }
   render() {
-    const { webCollabClient, isLoading, stepDriver, pdfViewer, pwdVisible } = this.state;
+    const { webCollabClient, isLoading, stepDriver, pdfViewer, pwdVisible,checkAnnotFormPermission,isPortfolioDoc } = this.state;
     return (<>
         <Spin tip="Loading..." spinning={isLoading} size={"large"}>
           {
             pdfViewer && <>
                 { !this.isParticipate() ?
                   <CollabAuthor
-                      collabClient={webCollabClient}
-                      openLocalDoc={this.openLocalDoc}
-                      openDocAndGetOnlineUser={this.openDocAndGetOnlineUser}
-                      loginAnonymously={this.loginAnonymously}
-                      showLoading={this.showLoading}
-                      stepDriver={stepDriver}
+                    collabClient={webCollabClient}
+                    openLocalDoc={this.openLocalDoc}
+                    checkAnnotFormPermission={checkAnnotFormPermission}
+                    isPortfolioDoc={isPortfolioDoc}
+                    openDocAndGetOnlineUser={this.openDocAndGetOnlineUser}
+                    loginAnonymously={this.loginAnonymously}
+                    showLoading={this.showLoading}
+                    stepDriver={stepDriver}
                   /> : <CollabParticipant
                   collabClient={webCollabClient}
                   openDocAndGetOnlineUser={this.openDocAndGetOnlineUser}

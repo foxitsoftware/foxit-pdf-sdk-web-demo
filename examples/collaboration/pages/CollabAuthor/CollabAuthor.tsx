@@ -34,6 +34,7 @@ interface IState {
   isPublic: boolean
   isDocComment: boolean
   isShowStopCollabPopup: boolean
+  isFirstVisit:boolean
 
 }
 class CollabAuthor extends Component<any, IState> {
@@ -41,6 +42,7 @@ class CollabAuthor extends Component<any, IState> {
   constructor(props: any) {
     super(props);
     this.state = {
+      isFirstVisit:true,
       collabMembers: [],
       isGuideStep: true,
       isShowStopCollabPopup: false,
@@ -61,18 +63,23 @@ class CollabAuthor extends Component<any, IState> {
     };
   }
   async openFile(item: any) {
-    const { curCollaboration, isCollabMode } = this.state;
+    const { curCollaboration, isCollabMode, isFirstVisit} = this.state;
     if (curCollaboration && isCollabMode) {
       await curCollaboration.end()
     }
     let fileUrl = item.path;
 
     this.props.openLocalDoc(fileUrl, item.name).then(() => {
-      // const driver = this.props.stepDriver
-      // Define the steps for introduction
-      // driver.defineSteps(collabAuthorSteps);
-      // Start the introduction
-      // driver.start();
+      if (isFirstVisit) {
+        /* const driver = this.props.stepDriver */
+        // Define the steps for introduction
+        /* driver.defineSteps(collabAuthorSteps); */
+        // Start the introduction
+        /* driver.start(); */
+      }
+      this.setState({
+        isFirstVisit: false
+      })
     })
     //打开文档时候执行，打开协作文档不执行
     this.setState({
@@ -270,9 +277,16 @@ class CollabAuthor extends Component<any, IState> {
     }
   }
   createSharePopup() {
-    this.setState({
-      isCreateCollab: true
-    })
+    if (this.props && !this.props.isPortfolioDoc) {
+      if (this.props && this.props.checkAnnotFormPermission) {
+        this.setState({ isCreateCollab: true })
+      } else {
+        message.error("You don't have permission to initiate a collaboration, because the document doesn't allow commenting.")
+      }
+    } else {
+      message.error("Sorry, the pdf portfolio doesn't support sharing.")
+    }
+
   }
   isInviteMembersPopup(visible: boolean) {
     this.setState({

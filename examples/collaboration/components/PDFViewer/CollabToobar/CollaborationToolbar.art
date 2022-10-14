@@ -34,7 +34,4 @@
             </group>
         </group-list>
     </paddle>
-    <div class="fv--collaboration-toolbar-search-wrapper">
-        <search:search-input></search:search-input>
-    </div>
 </toolbar>
