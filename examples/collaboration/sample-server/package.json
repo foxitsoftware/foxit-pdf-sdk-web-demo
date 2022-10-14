@@ -1,0 +1,17 @@
+{
+  "name": "@foxitsoftware/collab-sample-server",
+  "version": "1.0.0",
+  "description": "collab-sample-server",
+  "main": "./dist/server.js",
+  "license": "Commercial",
+  "dependencies": {
+    "axios": "^0.19.0",
+    "cors": "^2.8.5",
+    "dotenv": "16.0.1",
+    "express": "^4.17.3",
+    "express-fileupload": "^1.4.0",
+    "jsonwebtoken": "^8.5.1",
+    "minimist": "^1.2.6",
+    "ms": "^2.1.3"
+  }
+}
