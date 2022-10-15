@@ -3,6 +3,7 @@ import './InvitePopup.less'
 import { Modal, Input, Button, message } from 'antd';
 import DropByAnnotPermission from '../DropByAnnotPermission/DropByAnnotPermission';
 import clearIcon from 'assets/icon/clear.svg';
+import {lang} from '../../locales';
 interface IState {
   email: string
   inviteList: any[]
@@ -24,7 +25,7 @@ class InvitePopup extends PureComponent<any, IState> {
   addEmail() {
     const { email, inviteList } = this.state;
     if (email === '') {
-      message.error('Please enter your email');
+      message.error(lang.submitEmailTip);
       return;
     }
     if (email.match(/^\w+@\w+\.\w+$/i)) {
@@ -33,7 +34,7 @@ class InvitePopup extends PureComponent<any, IState> {
         return item.email;
       })
       if (emailArr.indexOf(email) !== -1) {
-        message.error('email already exists');
+        message.error(lang.Component.emailAlreadyExist);
         return;
       }
       emailLists.push({
@@ -45,7 +46,7 @@ class InvitePopup extends PureComponent<any, IState> {
         email: ""
       })
     } else {
-      message.error('Email format error');
+      message.error(lang.emailFormatError);
     }
   }
   sendInvite() {

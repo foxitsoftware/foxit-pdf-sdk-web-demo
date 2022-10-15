@@ -8,6 +8,7 @@ import PDFViewer from './components/PDFViewer/PDFViewer';
 import { message, Spin } from 'antd';
 import Driver from 'driver.js';
 import { stepOption } from './utils';
+import { lang } from './locales';
 import { getUser, loginAnonymously } from "./service/api";
 import PasswordPopup from './components/PasswordPopup/PasswordPopup';
 function createDeferred() {
@@ -76,7 +77,7 @@ export default class App extends Component<any, IState> {
     let isViewSuccess;
     if(this.state.docPassword){
       isViewSuccess =await doc.begin({password:this.state.docPassword}).catch(async (e)=>{
-        message.error("Password error")
+        message.error(lang.passwordError)
         await this.exceptionHandle(e,doc,callback)
       })
     }else{
@@ -98,7 +99,7 @@ export default class App extends Component<any, IState> {
       openFailedDoc: null,
       docPassword:""
     })
-    message.info('Now,you are in collabrative mode')
+    message.info(lang.createCollabSuccess)
     callback && callback();
     this.subscribeMemberChange(doc, callback)
     return true
@@ -114,7 +115,7 @@ export default class App extends Component<any, IState> {
       let passwordValue=await passwordDefered.promise
       if(passwordValue){
           let isViewSuccess =await doc.begin({password:passwordValue}).catch(async (e)=>{
-            message.error("Password error")
+            message.error(lang.passwordError)
             await this.exceptionHandle(e,doc,callback)
           })
           if(isViewSuccess){
@@ -122,8 +123,7 @@ export default class App extends Component<any, IState> {
           }
       }
     } else {
-      console.log(e)
-      message.error('collabration open error')
+      message.error(lang.collabOpenFailed)
       passwordDefered.resolve(false)
     }
   }
@@ -197,6 +197,9 @@ export default class App extends Component<any, IState> {
     if (!this.state.pdfViewer) {
       throw new Error('init fail')
     }
+    if(!filePath.startsWith("http")) {
+      filePath = `${serverUrl}${filePath}`
+    }
     this.state.pdfViewer.openPDFByHttpRangeRequest({
       range: {
         url: filePath
@@ -216,7 +219,6 @@ export default class App extends Component<any, IState> {
         })
         return
       }
-      console.log("[log][debug] ~ App ~ openLocalDoc ~ error", e)
     })
 
   }
@@ -235,9 +237,8 @@ export default class App extends Component<any, IState> {
         openFailedDoc: null,
         docPassword:value
       })
-    }).catch((e: any) => {
-      console.log(e)
-      message.error("Password error")
+    }).catch(() => {
+      message.error(lang.passwordError)
     });
 
   }

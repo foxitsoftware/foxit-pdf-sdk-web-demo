@@ -4,6 +4,7 @@ import { Modal, Tabs, List, Upload, message } from 'antd';
 import { localDocList } from '../../utils';
 import { serverUrl} from '../../config';
 import {getLocalDocList} from "../../service/api";
+import {lang} from '../../locales';
 const { TabPane } = Tabs;
 interface IProps {
   visible: boolean
@@ -54,7 +55,7 @@ class SharesAndFilesPopup extends PureComponent<IProps, any> {
   async getList(){
     let files=[...localDocList];
     let result=await getLocalDocList(this.props.currentUser?.userName || 'anon_user').catch(()=>{
-      message.error(`Get Filelists failed.`);
+      message.error(lang.Component.getFileFailed);
     })
     if(result){
       files=[...localDocList,...result]
@@ -71,16 +72,16 @@ class SharesAndFilesPopup extends PureComponent<IProps, any> {
     if (info.file.status && info.file.status === 'done') {
       this.props.showLoading(false)
       this.getList();
-      message.success(`File uploaded successfully`);
+      message.success(lang.Component.uploadedSuccess);
     } else if (info.file.status && info.file.status === 'error') {
       this.props.showLoading(false);
-      message.error(`File upload failed.`);
+      message.error(lang.Component.fileuploadFailed);
     }
   }
   beforeUploadFile(file: any) {
     const isLt50M = file.size / 1024 / 1024 < 50
     if (!isLt50M) {
-      message.error(`File cannot exceed 50M.`);
+      message.error(lang.Component.fileMoreThen50M);
       return false
     } else {
       return true

@@ -6,6 +6,7 @@ import { Member } from "../../types/index";
 import copy from 'copy-to-clipboard';
 import SharesAndFilesPopup from '../../components/SharesAndFilesPopup/SharesAndFilesPopup';
 import {collabAuthorSteps, randomMockName, storageGetItem, storageRemoveItem, storageSetItem} from '../../utils';
+import {lang} from '../../locales';
 import { PUBLIC_PATH, serverUrl } from "../../config";
 import moreIcon from 'assets/icon/more-icon.svg';
 import shareMembers from 'assets/icon/share-members.svg';
@@ -97,9 +98,8 @@ class CollabAuthor extends Component<any, IState> {
       curCollaboration.end()
     }
     //Get whether the collaboration has comment permission
-    let permission = await collaboration.getPermission().catch((err)=>{
-      console.log(err)
-      message.error("getPermission error")
+    let permission = await collaboration.getPermission().catch(()=>{
+      message.error(lang.getPermissionError)
       return;
     })
     let isAllowComment = await permission!.isAllowComment();
@@ -133,9 +133,8 @@ class CollabAuthor extends Component<any, IState> {
         this.setState({
           collabMembers
         })
-      }).catch((err)=>{
-        console.log(err)
-        message.error('getMembers error');
+      }).catch(()=>{
+        message.error(lang.getMembersError);
       });
     }
   }
@@ -166,7 +165,7 @@ class CollabAuthor extends Component<any, IState> {
   }
   copyLink() {
     copy(this.state.linkUrl)
-    message.info('copy success!');
+    message.info(lang.copySuccess);
   }
   hideModal() {
     this.setState({
@@ -180,16 +179,14 @@ class CollabAuthor extends Component<any, IState> {
     const { curCollaboration } = this.state;
     if (curCollaboration) {
       let isUpdatePermissionSuccess=await curCollaboration.updatePermission({ isDocPublic }).catch((result: string) => {
-        console.log('Collaboration edit error' + result);
-        message.error('Permission setting error');
+        message.error(lang.CollabAuthor.permissionSetError);
       })
       if(isUpdatePermissionSuccess){
-        message.info('Permission setting succeeded');
         this.setState({
           isPublic: isDocPublic
         })
       }else{
-        message.error('Permission setting error');
+        message.error(lang.CollabAuthor.permissionSetError);
       }
     }
   }
@@ -198,16 +195,14 @@ class CollabAuthor extends Component<any, IState> {
     const { curCollaboration } = this.state;
     if (curCollaboration) {
       let isUpdatePermissionSuccess=await curCollaboration.updatePermission({ isAllowComment: isDocComment }).catch((result: string) => {
-        console.log('Collaboration edit error' + result);
-        message.error('Permission setting error');
+        message.error(lang.CollabAuthor.permissionSetError);
       })
       if(isUpdatePermissionSuccess){
-        message.info('Permission setting succeeded');
         this.setState({
           isDocComment
         })
       }else{
-        message.error('Permission setting error');
+        message.error(lang.CollabAuthor.permissionSetError);
       }
     }
   }
@@ -222,14 +217,12 @@ class CollabAuthor extends Component<any, IState> {
     ]
     if (curCollaboration) {
       let isUpdated=await curCollaboration.updateMemberPermission(members).catch((result: string) => {
-        console.log('Collaboration edit error' + result);
-        message.error('Permission setting error');
+        message.error(lang.CollabAuthor.permissionSetError);
       })
       if(isUpdated){
         this.getDocMembers()
-        message.info('Permission setting succeeded');
       }else{
-        message.error('Permission setting error');
+        message.error(lang.CollabAuthor.permissionSetError);
       }
     }
 
@@ -281,10 +274,10 @@ class CollabAuthor extends Component<any, IState> {
       if (this.props && this.props.checkAnnotFormPermission) {
         this.setState({ isCreateCollab: true })
       } else {
-        message.error("You don't have permission to initiate a collaboration, because the document doesn't allow commenting.")
+        message.error(lang.CollabAuthor.noCommentPermission)
       }
     } else {
-      message.error("Sorry, the pdf portfolio doesn't support sharing.")
+      message.error(lang.CollabAuthor.portfolioTip)
     }
 
   }
@@ -302,11 +295,11 @@ class CollabAuthor extends Component<any, IState> {
         if (result.ret === 400) {
           message.error(result.message);
         } else {
-          message.error('Invitation failed, please re invite');
+          message.error(lang.CollabAuthor.inviteFailed);
         }
       })
       if (isInvited) {
-        message.info('Invitation succeeded!');
+        message.info(lang.CollabAuthor.inviteSuccess);
         this.closePopup()
         this.getDocMembers()
       }
@@ -363,7 +356,7 @@ class CollabAuthor extends Component<any, IState> {
             </Col>
             {
               isCollabMode && <Col>
-                <div className="fileName">{curCollaboration && curCollaboration.docName} {isDocComment ? "(can comment)" : "(can view)"}</div>
+                <div className="fileName">{curCollaboration && curCollaboration.docName}</div>
               </Col>
             }
             <Col>
@@ -407,7 +400,7 @@ class CollabAuthor extends Component<any, IState> {
           ]}
           centered>
           <div className="create-collab-wrap">
-            <div className="createDes">The document needs to upload first!<br />Once uploaded successful, it will automatically switch to collaborative mode.</div>
+            <div className="createDes">{lang.ModalDes.uploadFirst}<br />{lang.ModalDes.uploadSuccessTip}</div>
           </div>
         </Modal>
         <Modal
@@ -419,7 +412,7 @@ class CollabAuthor extends Component<any, IState> {
           ]}
           centered>
           <div className="create-collab-wrap">
-            <div className="createDes">You will not be able to access the Collaboration, do you want to stop sharing<br />continue stop?</div>
+            <div className="createDes">{lang.ModalDes.endCollabTip}<br />{lang.ModalDes.endSure}</div>
           </div>
         </Modal>
         <SharesAndFilesPopup

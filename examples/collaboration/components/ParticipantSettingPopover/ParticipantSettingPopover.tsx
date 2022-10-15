@@ -3,6 +3,7 @@ import './ParticipantSettingPopover.less'
 import copyLink from 'assets/icon/copy-link.svg'
 import Participants from '../Participants/Participants';
 import { Button, Modal, Popover } from 'antd';
+import {lang} from '../../locales';
 interface IState {
   settingPopoverVisible: boolean
   isShowRemovePopup: boolean
@@ -57,7 +58,7 @@ class ParticipantSettingPopover extends PureComponent<any, IState> {
           ]}
           centered>
           <div className="create-collab-wrap">
-            <div className="createDes">You will not be able to access the document, do you want to <br />continue remove?</div>
+            <div className="createDes">{lang.ModalDes.RemoveMe}<br />{lang.ModalDes.isContinue}</div>
           </div>
         </Modal>
       </>

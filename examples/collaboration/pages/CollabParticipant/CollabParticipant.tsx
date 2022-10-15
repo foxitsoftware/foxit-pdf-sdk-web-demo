@@ -11,6 +11,7 @@ import { PUBLIC_PATH } from "../../config";
 import OnlineMembers from '../../components/OnlineMembers/OnlineMembers';
 import ParticipantSettingPopover from '../../components/ParticipantSettingPopover/ParticipantSettingPopover';
 import { MemberContext, UserContext } from '../../context';
+import {lang} from '../../locales';
 interface IState {
   onlineMembers: any[];
   collabMembers: any[] | undefined
@@ -76,9 +77,8 @@ class CollabParticipant extends Component<any, IState> {
       this.setState({
         collabMembers
       })
-    }).catch((err)=>{
-      console.log(err)
-      message.error('getMembers error');
+    }).catch(()=>{
+      message.error(lang.getMembersError);
     });
   }
 
@@ -87,9 +87,9 @@ class CollabParticipant extends Component<any, IState> {
     if (docId) {
       let linkValue = `${window.location.origin}${PUBLIC_PATH}collabParticipant?docId=${docId}`
       copy(linkValue)
-      message.info('Copy succeeded!');
+      message.info(lang.copySuccess);
     } else {
-      message.error('The docId does not exist');
+      message.error(lang.CollabParticipant.noExistCollabId);
     }
 
   }
@@ -103,7 +103,7 @@ class CollabParticipant extends Component<any, IState> {
         //Close Collaboration
         this.signOutShare()
       } else {
-        message.error('Failed to remove member');
+        message.error(lang.CollabParticipant.removeError);
       }
     }
   }
@@ -116,7 +116,7 @@ class CollabParticipant extends Component<any, IState> {
   async loginSubmit() {
     const { emailValue } = this.state;
     if (emailValue === '') {
-      message.error('Please enter your email');
+      message.error(lang.submitEmailTip);
       return;
     }
     if (emailValue.match(/^\w+@\w+\.\w+$/i)) {
@@ -126,7 +126,7 @@ class CollabParticipant extends Component<any, IState> {
         window.location.reload();
       }
     } else {
-      message.error('Email format error');
+      message.error(lang.emailFormatError);
     }
   }
   //Enable the boot function
@@ -195,9 +195,8 @@ class CollabParticipant extends Component<any, IState> {
         }
         if (collaboration) {
           //Get whether the document has the argument permission
-          let permissionApi = await collaboration.getPermission().catch((err)=>{
-            console.log(err)
-            message.error("getPermission error")
+          let permissionApi = await collaboration.getPermission().catch(()=>{
+            message.error(lang.getPermissionError)
             return;
           })
           let isAllowComment = await permissionApi!.isAllowComment();
@@ -211,7 +210,7 @@ class CollabParticipant extends Component<any, IState> {
           return Promise.resolve(true)
         }
       } else {
-        message.error('Can not find docId');
+        message.error(lang.CollabParticipant.noExistCollabId);
       }
     }
   }
@@ -303,7 +302,7 @@ class CollabParticipant extends Component<any, IState> {
           ]}
           centered>
           <div className="create-collab-wrap">
-            <div className="createDes">The owner has stopped sharing. Please contact the owner.</div>
+            <div className="createDes">{lang.ModalDes.collabHasEndedTip}</div>
           </div>
         </Modal>
         <Modal
@@ -316,7 +315,7 @@ class CollabParticipant extends Component<any, IState> {
           ]}
           centered>
           <div className="create-collab-wrap">
-            <div className="createDes">Permission has been changed, please re - enter.</div>
+            <div className="createDes">{lang.ModalDes.permissionChangeTip}</div>
           </div>
         </Modal>
         <Modal

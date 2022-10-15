@@ -7,6 +7,7 @@ import mobileAddons from "@foxitsoftware/foxit-pdf-sdk-for-web-library-full/lib/
 import Addons from "@foxitsoftware/foxit-pdf-sdk-for-web-library-full/lib/uix-addons/allInOne"
 import { PUBLIC_PATH,licenseSN,licenseKey } from "../../config";
 import { message } from 'antd';
+import {lang} from '../../locales';
 
 interface IProps {
   onFinishInitPDFUI: Function;
@@ -48,7 +49,7 @@ export default class PDFViewer extends Component<IProps, any> {
               return
             }
             if (file.size > 1024 * 1024 * 10) {
-              message.error("The size of the file can't be greater than 10 MB")
+              message.error(lang.Component.sizeTip)
               return true
             }
           },
