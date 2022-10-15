@@ -1,12 +1,10 @@
 import React, { Component } from 'react'
 import './App.less';
-import { BrowserRouter, Route } from 'react-router-dom';
 import CollabAuthor from './pages/CollabAuthor/CollabAuthor';
 import CollabParticipant from './pages/CollabParticipant/CollabParticipant';
 import { serverUrl, PUBLIC_PATH } from './config';
 import { WebCollabClient, Collaboration } from '@foxitsoftware/web-collab-client';
 import PDFViewer from './components/PDFViewer/PDFViewer';
-import Login from './pages/Login/Login';
 import { message, Spin } from 'antd';
 import Driver from 'driver.js';
 import { stepOption } from './utils';
