@@ -30,7 +30,7 @@ class CollabSettingPopup extends PureComponent<IProps, IState> {
   render() {
     const { visible } = this.props;
     return (
-      <Modal title={"Share"} visible={visible} footer={null} closable={true} width={500} centered onCancel={() => this.props.closeCollabSettingPopup()}>
+      <Modal title={"Share files"} visible={visible} footer={null} closable={true} width={500} centered onCancel={() => this.props.closeCollabSettingPopup()}>
         <div className="collab-set-wrap">
           <div className="drop-wrap">
             <div className="permission-wrap">

@@ -50,7 +50,7 @@ class ParticipantSettingPopover extends PureComponent<any, IState> {
           {children}
         </Popover>
         <Modal
-          title={"Share"}
+          title={lang.dialogTitle}
           visible={this.state.isShowRemovePopup}
           onCancel={this.hideModal.bind(this)}
           footer={[
@@ -58,7 +58,7 @@ class ParticipantSettingPopover extends PureComponent<any, IState> {
           ]}
           centered>
           <div className="create-collab-wrap">
-            <div className="createDes">{lang.ModalDes.RemoveMe}<br />{lang.ModalDes.isContinue}</div>
+            <div className="createDes">{lang.ModalDes.RemoveMe}</div>
           </div>
         </Modal>
       </>

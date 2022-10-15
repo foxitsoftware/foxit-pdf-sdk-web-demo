@@ -61,7 +61,7 @@ export const collabAuthorSteps=[
     popover: {
       className: 'collab-author-more',
       title:"Step1",
-      description: 'You can open file lists and open file',
+      description: 'Upload a file to start a collaboration',
       position: 'bottom',
     }
   },
@@ -70,7 +70,7 @@ export const collabAuthorSteps=[
     popover: {
       className: 'collab-author-steps-share',
       title: 'Step2',
-      description: 'You can create share',
+      description: 'Create a collaboration session',
       position: 'left'
     }
   }
@@ -81,7 +81,7 @@ export const collabParticipantSteps = [
     popover: {
       className: 'collab-Participant-steps',
       title:"Step1",
-      description: "You can view collaboration related information",
+      description: "Collaboration information",
       position: 'left',
     }
   }

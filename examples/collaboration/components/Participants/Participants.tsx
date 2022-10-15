@@ -22,7 +22,7 @@ class Participants extends PureComponent<any, IState> {
       <UserContext.Consumer>
           {user => (
             <MemberContext.Consumer>
-                {collabMembers => (  
+                {collabMembers => (
                   <div className="participants-wrap">
                     <div className="title">Participants</div>
                     <div className="participant-list-wrap">
@@ -30,7 +30,7 @@ class Participants extends PureComponent<any, IState> {
                         collabMembers && collabMembers.map((item: any) => {
                           return (<div className="participant-list" key={item.id}>
                             <div className="portrait" style={item.lastRead === "null" ? { background: "#ccc" } : user!.id===item.id? { background: "#9C35EE" }:{ background: randomHexColor() }}>{item.userName.charAt(0).toUpperCase()}</div>
-                            <div className="nickName" style={item.lastRead === "null" ? { color: "#ccc" } : { color: "#333333" }}>{item.userName}</div>
+                            <div className="nickName" title={item.userName} style={item.lastRead === "null" ? { color: "#ccc" } : { color: "#333333" }}>{item.userName}</div>
                             {
                               user!.id === item.id?<div className="comment">owner</div>:
                                 isShowPermissionDrop?

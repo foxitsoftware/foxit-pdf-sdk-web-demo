@@ -182,7 +182,7 @@ class CollabParticipant extends Component<any, IState> {
           }
           //If access is not available, show the login interface
           if (result.ret === 403) {
-            message.error(result.message)
+            message.error(lang.CollabParticipant.noPermissionAccess)
             this.setState({
               isShowNoPermissionPopup: true,
               emailValue:""
@@ -294,7 +294,7 @@ class CollabParticipant extends Component<any, IState> {
         </div>
         <Modal
           width={400}
-          title={"Share"}
+          title={lang.dialogTitle}
           visible={stopShareTipPopup}
           closable={false}
           footer={[
@@ -307,7 +307,7 @@ class CollabParticipant extends Component<any, IState> {
         </Modal>
         <Modal
           width={400}
-          title={"Share"}
+          title={lang.dialogTitle}
           visible={reEnterSharePopup}
           closable={false}
           footer={[

@@ -25,7 +25,7 @@ class OnlineMembers extends PureComponent<any, any> {
                       <div className="online-drop-item" key={item.id}>
                         <div className="left-wrap">
                           <div className="portrait" style={ item.id===user.id ? {background: "#9C35EE"} : { background: randomHexColor()} }>{item.userName.charAt(0).toUpperCase()}</div>
-                          <div className="nickName">{item.userName}</div>
+                          <div className="nickName" title={item.userName}>{item.userName}</div>
                         </div>
                         <div className="comment">{item.isAllowComment?"can comment":"can view"}</div>
                       </div>)

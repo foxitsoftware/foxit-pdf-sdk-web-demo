@@ -7,7 +7,7 @@ import { WebCollabClient, Collaboration } from '@foxitsoftware/web-collab-client
 import PDFViewer from './components/PDFViewer/PDFViewer';
 import { message, Spin } from 'antd';
 import Driver from 'driver.js';
-import { stepOption } from './utils';
+import { getQueryVariable, stepOption } from './utils';
 import { lang } from './locales';
 import { getUser, loginAnonymously } from "./service/api";
 import PasswordPopup from './components/PasswordPopup/PasswordPopup';
@@ -99,7 +99,6 @@ export default class App extends Component<any, IState> {
       openFailedDoc: null,
       docPassword:""
     })
-    message.info(lang.createCollabSuccess)
     callback && callback();
     this.subscribeMemberChange(doc, callback)
     return true
@@ -186,10 +185,13 @@ export default class App extends Component<any, IState> {
     this.showLoading(false)
   }
   onRequestAnnotPermissions(annot: any): Promise<any> {
+    let docId: string | null = getQueryVariable('collaborationId')
     if (!this.state.isCollabMode || !this.state.webCollabClient) {
-      return Promise.resolve()
+      if(!docId){
+        return Promise.resolve()
+      }
     }
-    return this.state.webCollabClient.getAnnotPermissions(annot);
+    return this.state.webCollabClient!.getAnnotPermissions(annot);
   }
   async openLocalDoc(fileUrl: string, fileName: string) {
     this.showLoading(true)

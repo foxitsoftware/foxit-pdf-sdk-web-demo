@@ -400,11 +400,11 @@ class CollabAuthor extends Component<any, IState> {
           ]}
           centered>
           <div className="create-collab-wrap">
-            <div className="createDes">{lang.ModalDes.uploadFirst}<br />{lang.ModalDes.uploadSuccessTip}</div>
+            <div className="createDes">{lang.ModalDes.getSharedLink}</div>
           </div>
         </Modal>
         <Modal
-          title={"Share"}
+          title={lang.dialogTitle}
           visible={isShowStopCollabPopup}
           onCancel={this.hideModal.bind(this)}
           footer={[
@@ -412,7 +412,7 @@ class CollabAuthor extends Component<any, IState> {
           ]}
           centered>
           <div className="create-collab-wrap">
-            <div className="createDes">{lang.ModalDes.endCollabTip}<br />{lang.ModalDes.endSure}</div>
+            <div className="createDes">{lang.ModalDes.endCollabTip}</div>
           </div>
         </Modal>
         <SharesAndFilesPopup

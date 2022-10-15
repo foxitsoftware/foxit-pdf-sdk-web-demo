@@ -1,41 +1,39 @@
 export const lang = {
+  "dialogTitle" : "Web Collaboration",
   "Component": {
-    "emailAlreadyExist": "Email already exists",
-    "enterPwdTip": "Please enter your password",
-    "sizeTip": "The size of the file can't be greater than 10 MB",
-    "getFileFailed": "get file failed",
-    "uploadedSuccess": "File uploaded successfully",
-    "fileuploadFailed": "File upload failed.",
-    "fileMoreThen50M": "File cannot exceed 50M."
+    "emailAlreadyExist": "The email already exists",
+    "enterPwdTip": "Please enter password",
+    "sizeTip": "The size of the file can't be greater than 10 MB.",
+    "getFileFailed": "Failed to get the file list.",
+    "uploadedSuccess": "Upload file successfully.",
+    "fileuploadFailed": "Failed to upload the PDF file.",
+    "fileMoreThen50M": "The file is too large. The maximum file size is 50M."
   },
   "CollabAuthor": {
-    "inviteFailed": "Invitation failed, please re invite",
+    "inviteFailed": "Invitation failed, please try again later.",
     "noCommentPermission": "You don't have permission to initiate a collaboration, because the document doesn't allow commenting.",
     "portfolioTip": "Sorry, the pdf portfolio doesn't support sharing.",
-    "permissionSetError": "Permission setting error",
+    "permissionSetError": "Failed to update permission",
     "inviteSuccess": "Invitation succeeded!"
   },
   "CollabParticipant": {
-    "noExistCollabId": "The docId does not exist",
-    "removeError": "Failed to remove member",
+    "noExistCollabId": "The id of the collaboration session does not exist",
+    "removeError": "Failed to remove the collaboration member",
+    "noPermissionAccess":"Your current account doesn't have access to this file. Please log in with another account."
   },
   "ModalDes":{
-    "uploadFirst":"The document needs to upload first!",
-    "uploadSuccessTip":"Once uploaded successful, it will automatically switch to collaborative mode.",
-    "endCollabTip":"You will not be able to access the Collaboration, do you want to end collaboration.",
-    "endSure":"continue end?",
-    "collabHasEndedTip":"The owner has stopped sharing. Please contact the owner.",
-    "permissionChangeTip":"Permission has been changed, please re - enter.",
-    "RemoveMe":"You will not be able to access the document, do you want to",
-    "isContinue":"continue remove?",
+    "getSharedLink":"Get a link of this file to share with others to allow others to view this PDF file. This file can be accessed by anyone or the specified people with this link.",
+    "endCollabTip":"This document will no longer be shared. Do you want to continue?",
+    "collabHasEndedTip":"The shared document has been removed. Please contact the owner",
+    "permissionChangeTip":"Your permission has been changed, please try it again.",
+    "RemoveMe":"If you remove yourself, this file will be removed from your list of shared files. Do you want to continue?",
     "pwdTitle":"Please input password:",
   },
-  "emailFormatError": "Email format error",
-  "submitEmailTip": "Please enter your email",
+  "emailFormatError": "The email format is error",
+  "submitEmailTip": "Please enter email",
   "copySuccess": "Copied Successfully",
-  "getMembersError": "getMembers error",
-  "getPermissionError": "getPermission error",
-  "passwordError": "Password error",
-  "createCollabSuccess": "Now,you are in collabrative mode",
-  "collabOpenFailed": "collabration open error"
+  "getMembersError": "Failed to get the member list.",
+  "getPermissionError": "Failed to get permission.",
+  "passwordError": "Password error.",
+  "collabOpenFailed": "Failed to create a collabration session."
 }

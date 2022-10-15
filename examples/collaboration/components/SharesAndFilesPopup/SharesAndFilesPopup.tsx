@@ -97,7 +97,7 @@ class SharesAndFilesPopup extends PureComponent<IProps, any> {
       beforeUpload:this.beforeUploadFile
     };
     return (
-      <Modal title={"Open file"} visible={visible} footer={null} closable={true} width={840} centered onCancel={() => this.props.closeFilePopup()}>
+      <Modal title={"File list"} visible={visible} footer={null} closable={true} width={840} centered onCancel={() => this.props.closeFilePopup()}>
         <div className="files-wrap">
           <Tabs tabPosition={'left'} onTabClick={(key) => this.props.onTabDocListClick(key)}>
             {/* <TabPane tab={<div className="shareList-tab">Share list</div>} key="ShareList">
@@ -109,7 +109,7 @@ class SharesAndFilesPopup extends PureComponent<IProps, any> {
                 />
               </div>
             </TabPane> */}
-            <TabPane tab={<div className="shareList-tab">File list</div>} key="fileList">
+            <TabPane tab={<div className="shareList-tab"></div>} key="fileList">
               <div className="shareList">
                 <List
                   size="small"
