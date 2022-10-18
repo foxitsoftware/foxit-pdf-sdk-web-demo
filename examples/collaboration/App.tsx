@@ -316,8 +316,7 @@ export default class App extends Component<any, IState> {
               showLoading={this.showLoading}
               onFinishInitPDFUI={this.onFinishInitPDFUI}
               openFileSuccess={this.openFileSuccess}
-              onRequestAnnotPermissions={this.onRequestAnnotPermissions}
-            />;
+            />
         </Spin>
       <PasswordPopup visible={pwdVisible} closePopup={this.closePswPupup.bind(this)} onSubmit={this.onSubmit.bind(this)} />
     </>
