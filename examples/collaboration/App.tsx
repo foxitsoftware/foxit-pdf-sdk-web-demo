@@ -29,6 +29,7 @@ enum DocEvent {
 interface IState {
   webCollabClient: null | WebCollabClient;
   pdfViewer: any;
+  pdfui:any;
   isCollabMode: boolean;
   isLoading: boolean;
   stepDriver: any;
@@ -45,6 +46,7 @@ export default class App extends Component<any, IState> {
     super(props)
     this.state = {
       pdfViewer: undefined,
+      pdfui:undefined,
       webCollabClient: null,
       checkAnnotFormPermission:true,
       isPortfolioDoc:false,
@@ -65,6 +67,7 @@ export default class App extends Component<any, IState> {
     this.onRequestAnnotPermissions = this.onRequestAnnotPermissions.bind(this)
     this.openLocalDoc = this.openLocalDoc.bind(this)
     this.loginAnonymously = this.loginAnonymously.bind(this)
+    this.isHideRightSelectText=this.isHideRightSelectText.bind(this)
   }
   showLoading(isLoading: boolean) {
     this.setState({
@@ -166,7 +169,8 @@ export default class App extends Component<any, IState> {
   async onFinishInitPDFUI(pdfui: any) {
     let pdfViewer = await pdfui.getPDFViewer();
     this.setState({
-      pdfViewer
+      pdfViewer,
+      pdfui
     })
   }
   async checkAllowComment(){
@@ -220,6 +224,8 @@ export default class App extends Component<any, IState> {
           openFailedDoc: e.pdfDoc
         })
         return
+      }else{
+        message.error(lang.openFailed)
       }
     })
 
@@ -253,6 +259,21 @@ export default class App extends Component<any, IState> {
     passwordDefered = createDeferred();
     this.showLoading(false)
   }
+  async isHideRightSelectText(isAllowComment){
+    if(!isAllowComment){
+      let selectText=await this.state.pdfui.getComponentByName('fv--contextmenu-item-select-text-image')
+      selectText.hide()
+
+      let keyboard = await this.state.pdfui.getKeyboard()
+      keyboard.interceptor((e, next) => {
+        if(e.command === (window as any).UIExtension.PDFViewCtrl.keyboard.BuiltinCommand.COPY_ACTIVATE_ELEMENT) {
+            return;
+        } else {
+            next(e);
+        }
+      })
+    }
+  }
   render() {
     const { webCollabClient, isLoading, stepDriver, pdfViewer, pwdVisible,checkAnnotFormPermission,isPortfolioDoc } = this.state;
     return (<>
@@ -274,6 +295,7 @@ export default class App extends Component<any, IState> {
                   openDocAndGetOnlineUser={this.openDocAndGetOnlineUser}
                   loginAnonymously={this.loginAnonymously}
                   showLoading={this.showLoading}
+                  isHideRightSelectText={this.isHideRightSelectText}
                   stepDriver={stepDriver}
                   />
                 }

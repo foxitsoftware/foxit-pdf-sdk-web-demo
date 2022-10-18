@@ -43,8 +43,8 @@ export function storageSetItem(storage:any, key: string, value: string) {
 }
 
 //Randomly generate hex color
-export function randomHexColor() {
-  var hex = Math.floor(Math.random() * 16777216).toString(16);
+export function randomHexColor(userId) {
+  var hex = Math.floor(userId * 123).toString(16);
   while (hex.length < 6) {
     hex = '0' + hex;
   }
@@ -61,7 +61,7 @@ export const collabAuthorSteps=[
     popover: {
       className: 'collab-author-more',
       title:"Step1",
-      description: 'Upload a file to start a collaboration',
+      description: 'Upload a file to start collaboration',
       position: 'bottom',
     }
   },

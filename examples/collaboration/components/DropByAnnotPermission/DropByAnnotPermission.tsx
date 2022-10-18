@@ -40,7 +40,7 @@ class DropByAnnotPermission extends PureComponent<any, IState> {
             key: 'Comment',
             label: (
               <div className={isParticipantsUse?"annot-drop-title drop-item annot-participants-drop-title":"annot-drop-title drop-item"}>
-                can comment
+                Can Comment
                 {
                   isComment === "Comment" && <img className={isParticipantsUse?"annot-arrow-icon annot-participants-check-icon":"annot-arrow-icon"} src={checkIcon} />
                 }
@@ -52,7 +52,7 @@ class DropByAnnotPermission extends PureComponent<any, IState> {
             key: 'View',
             label: (
               <div className={isParticipantsUse?"annot-drop-title drop-item annot-participants-drop-title":"annot-drop-title drop-item"}>
-                can view
+                Can View
                 {
                   isComment === "View" && <img className={isParticipantsUse?"annot-arrow-icon annot-participants-check-icon":"annot-arrow-icon"} src={checkIcon} />
                 }
@@ -67,7 +67,7 @@ class DropByAnnotPermission extends PureComponent<any, IState> {
         <Dropdown overlay={menu} placement="bottom" trigger={['click']} disabled={dropDisabled}>
           <div className="annot-drop-wrap" style={{ opacity: dropDisabled ? "0.6" : "1" }}>
             <div className={isParticipantsUse?"annot-drop-title annot-participants-drop-title":"annot-drop-title"}>
-              {isComment === 'Comment' ? "can comment" : "can view"}
+              {isComment === 'Comment' ? "Can Comment" : "Can View"}
               <img className={isParticipantsUse?"annot-arrow-icon annot-participants-arrow-icon":"annot-arrow-icon"} src={bottomArrow} />
             </div>
           </div>

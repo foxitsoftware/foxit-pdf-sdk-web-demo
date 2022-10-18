@@ -67,28 +67,36 @@ export default class PDFViewer extends Component<IProps, any> {
         const peotectToolbar=root.getComponentByName('fv--mobile-header-main')
         const toolbarTabs = root.getComponentByName('fv--mobile-toolbar-tabs');
         toolbarTabs && toolbarTabs.hide();
-        peotectToolbar&& peotectToolbar.hide()
-        mobileHeaderRight&& mobileHeaderRight.hide()
+        peotectToolbar&& peotectToolbar.hide();
+        mobileHeaderRight&& mobileHeaderRight.hide();
         let collabComponent = root.getComponentByName('collaboration-toolbar');
         if (!collabComponent) {
           root.insert(collaborationToolbar(), 1);
           collabComponent = root.getComponentByName('collaboration-toolbar');
         }
         root.getComponentByName('sidebar').element.firstChild.childNodes[3].childNodes[4].style.display = "none";
+        root.getComponentByName('sidebar').element.firstChild.childNodes[3].childNodes[3].style.display = "none";
       }else{
         const toolbarTabs = root.getComponentByName('toolbar');
+        const thumbnailContextmenu=root.getComponentByName('fv--thumbnail-contextmenu')
         toolbarTabs && toolbarTabs.hide();
+        thumbnailContextmenu&&thumbnailContextmenu.destroy();
         let collabComponent = root.getComponentByName('collaboration-toolbar');
         if (!collabComponent) {
           root.insert(collaborationToolbar(), 1);
           collabComponent = root.getComponentByName('collaboration-toolbar');
         }
+        root.getComponentByName('sidebar').element.firstChild.childNodes[3].childNodes[5].style.display = "none";
+        root.getComponentByName('sidebar').element.firstChild.childNodes[3].childNodes[3].style.display = "none";
       }
+      let attachmentEdit=root.getComponentByName('attachment-edit-button')
+      attachmentEdit && attachmentEdit.hide()
     });
     pdfui.addUIEventListener(UIExtension.UIEvents.initializationCompleted, () => {
       this.props.onFinishInitPDFUI(pdfui);
     })
     pdfui.addUIEventListener(UIExtension.UIEvents.openFileSuccess, async () => {
+      pdfui.registerDialog('fv--bookmark-contextmenu', undefined)
       this.props.openFileSuccess();
     })
     this.setState({

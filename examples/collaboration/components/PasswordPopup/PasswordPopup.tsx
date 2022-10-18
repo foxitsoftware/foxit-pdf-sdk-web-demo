@@ -74,7 +74,7 @@ class PasswordPopup extends PureComponent<IProps, IState> {
 
           </div>
           <div className='bottom-btn'>
-            <div className="to-login" onClick={this.loginSubmit.bind(this)}>Ok</div>
+            <div className="to-login" onClick={this.loginSubmit.bind(this)}>OK</div>
             <div className="cancel-btn" onClick={this.props.closePopup}>Cancel</div>
           </div>
 

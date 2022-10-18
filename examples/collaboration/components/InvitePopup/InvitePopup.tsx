@@ -89,7 +89,7 @@ class InvitePopup extends PureComponent<any, IState> {
         title={<div onClick={() => this.props.backCollabSettingPopup()}>Back</div>}
         visible={visible}
         footer={[
-          <Button type="primary" className="send-invite" disabled={inviteList.length === 0} key={"sendInvite"} onClick={this.sendInvite.bind(this)}>Send invite</Button>
+          <Button type="primary" className="send-invite" disabled={inviteList.length === 0} key={"sendInvite"} onClick={this.sendInvite.bind(this)}>Send invitation</Button>
         ]}
         closable={true}
         width={500}

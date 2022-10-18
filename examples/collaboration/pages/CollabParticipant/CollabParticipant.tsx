@@ -110,7 +110,7 @@ class CollabParticipant extends Component<any, IState> {
   signOutShare() {
     storageRemoveItem(localStorage, 'participantName')
     storageRemoveItem(localStorage, 'touristName')
-    window.location.href = '/';
+    window.close()
   }
   //Participant Email Login
   async loginSubmit() {
@@ -124,6 +124,8 @@ class CollabParticipant extends Component<any, IState> {
       let result=await this.participantLogin(emailValue);
       if(result){
         window.location.reload();
+      }else{
+        message.error(lang.CollabParticipant.noPermissionAccess)
       }
     } else {
       message.error(lang.emailFormatError);
@@ -182,7 +184,6 @@ class CollabParticipant extends Component<any, IState> {
           }
           //If access is not available, show the login interface
           if (result.ret === 403) {
-            message.error(lang.CollabParticipant.noPermissionAccess)
             this.setState({
               isShowNoPermissionPopup: true,
               emailValue:""
@@ -207,6 +208,7 @@ class CollabParticipant extends Component<any, IState> {
             isAllowComment,
             currentUser
           })
+          this.props.isHideRightSelectText(isAllowComment)
           return Promise.resolve(true)
         }
       } else {
@@ -258,7 +260,7 @@ class CollabParticipant extends Component<any, IState> {
             <Col></Col>
             {
               curCollaboration && <Col>
-                <div className="fileName">{curCollaboration.docName} {isAllowComment ? "(can comment)" : "(can view)"}</div>
+                <div className="fileName">{curCollaboration.docName} {isAllowComment ? "(Can Comment)" : "(Can View)"}</div>
               </Col>
             }
             <Col>
@@ -341,7 +343,7 @@ class CollabParticipant extends Component<any, IState> {
         {
           isShowLogin &&
           <>
-            <div className='login-tip'>You are not currently logged in, please <span onClick={this.toLogin.bind(this)}>log in</span></div>
+            <div className='login-tip'>Welcome to Foxit PDF Web Collaboration! <span onClick={this.toLogin.bind(this)}>Log in</span> to collaborate on this file.</div>
           </>
         }
 

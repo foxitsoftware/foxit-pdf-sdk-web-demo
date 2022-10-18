@@ -6,6 +6,16 @@ import { serverUrl} from '../../config';
 import {getLocalDocList} from "../../service/api";
 import {lang} from '../../locales';
 const { TabPane } = Tabs;
+function createDeferred() {
+  const deferred: any = {};
+  deferred.promise = new Promise((resolve, reject) => {
+    deferred.resolve = resolve;
+    deferred.reject = reject;
+  });
+  return deferred;
+}
+
+let passwordDefered = createDeferred();
 interface IProps {
   visible: boolean
   openFile: Function
@@ -21,7 +31,8 @@ class SharesAndFilesPopup extends PureComponent<IProps, any> {
     super(props);
     this.state = {
       rowClickItemId: '',
-      fileList:[]
+      fileList:[],
+      isSameFileTip:false
     }
   }
   openCollabDocument(item: any) {
@@ -78,25 +89,53 @@ class SharesAndFilesPopup extends PureComponent<IProps, any> {
       message.error(lang.Component.fileuploadFailed);
     }
   }
-  beforeUploadFile(file: any) {
+ beforeUploadFile=async (file: any)=> {
+    passwordDefered = createDeferred();
+    const uploadedfiles=this.state.fileList.map((item)=>{
+      return item.name
+    })
     const isLt50M = file.size / 1024 / 1024 < 50
     if (!isLt50M) {
       message.error(lang.Component.fileMoreThen50M);
       return false
     } else {
-      return true
+      if(uploadedfiles.indexOf(file.name)!==-1){
+        this.setState({
+          isSameFileTip:true
+        })
+        let result=await passwordDefered.promise
+        if(!result){
+          return false
+        }
+      }else{
+        return true
+      }
     }
+  }
+  cancelTipPopup(){
+    passwordDefered.resolve(false)
+    this.setState({
+      isSameFileTip:false
+    })
+  }
+  sureBtn(){
+    passwordDefered.resolve(true)
+    this.setState({
+      isSameFileTip:false
+    })
   }
   render() {
     const { visible,collabLists, currentUser } = this.props;
+    const {isSameFileTip}=this.state;
     const uploadProps = {
       name: 'file',
       action: `${serverUrl}/api/files/upload?username=${currentUser?.userName || 'anon_user'}`,
       showUploadList:false,
       accept:".pdf",
-      beforeUpload:this.beforeUploadFile
+      beforeUpload:this.beforeUploadFile.bind(this)
     };
     return (
+      <>
       <Modal title={"File list"} visible={visible} footer={null} closable={true} width={840} centered onCancel={() => this.props.closeFilePopup()}>
         <div className="files-wrap">
           <Tabs tabPosition={'left'} onTabClick={(key) => this.props.onTabDocListClick(key)}>
@@ -126,6 +165,24 @@ class SharesAndFilesPopup extends PureComponent<IProps, any> {
           </div>
         </div>
       </Modal>
+       <Modal
+        zIndex={10000}
+        title={lang.dialogTitle}
+        visible={isSameFileTip}
+        footer={null}
+        closable={false}
+        className={"passwordPopup"}
+        width={360}
+        centered>
+        <div className="login-password-wrap">
+          <div>{lang.Component.fileExistTip}</div>
+          <div className='bottom-btn'>
+            <div className="to-login" onClick={this.sureBtn.bind(this)}>OK</div>
+            <div className="cancel-btn" onClick={this.cancelTipPopup.bind(this)}>Cancel</div>
+          </div>
+        </div>
+     </Modal>
+     </>
     );
   }
 }

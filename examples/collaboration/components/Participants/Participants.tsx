@@ -29,10 +29,10 @@ class Participants extends PureComponent<any, IState> {
                       {
                         collabMembers && collabMembers.map((item: any) => {
                           return (<div className="participant-list" key={item.id}>
-                            <div className="portrait" style={item.lastRead === "null" ? { background: "#ccc" } : user!.id===item.id? { background: "#9C35EE" }:{ background: randomHexColor() }}>{item.userName.charAt(0).toUpperCase()}</div>
+                            <div className="portrait" style={item.lastRead === "null" ? { background: "#ccc" } : user!.id===item.id? { background: "#9C35EE" }:{ background: randomHexColor(item.id) }}>{item.userName.charAt(0).toUpperCase()}</div>
                             <div className="nickName" title={item.userName} style={item.lastRead === "null" ? { color: "#ccc" } : { color: "#333333" }}>{item.userName}</div>
                             {
-                              user!.id === item.id?<div className="comment">owner</div>:
+                              user!.id === item.id?<div className="comment owner-des">[You]</div>:
                                 isShowPermissionDrop?
                                 <div className="comment-wrap">
                                   <DropByAnnotPermission
@@ -41,7 +41,7 @@ class Participants extends PureComponent<any, IState> {
                                     setPermission={(key:string)=>{this.setAnnotPermission(key,item)}}
                                   />
                                 </div>:
-                                <div className="comment">{item.isAllowComment?"can comment":"can view"}</div>
+                                <div className="comment owner-des">{item.isAllowComment?"Can Comment":"Can View"}</div>
                             }
                           </div>)
                         })
