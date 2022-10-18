@@ -1,11 +1,11 @@
 import React, { Component, Fragment } from 'react';
 import './CollabAuthor.css'
-import { Modal, Button, message, Col, Row, Tooltip } from 'antd'
+import { Modal, Button, message, Col, Row, Tooltip, Checkbox } from 'antd'
 import { Collaboration } from '@foxitsoftware/web-collab-client'
 import { Member } from "../../types/index";
 import copy from 'copy-to-clipboard';
 import SharesAndFilesPopup from '../../components/SharesAndFilesPopup/SharesAndFilesPopup';
-import {collabAuthorSteps, randomMockName, storageGetItem, storageRemoveItem, storageSetItem} from '../../utils';
+import {collabAuthorSteps, randomMockName, storageGetItem, storageRemoveItem, storageSetItem, privacyPolicy} from '../../utils';
 import {lang} from '../../locales';
 import { PUBLIC_PATH, serverUrl } from "../../config";
 import moreIcon from 'assets/icon/more-icon.svg';
@@ -36,6 +36,7 @@ interface IState {
   isDocComment: boolean
   isShowStopCollabPopup: boolean
   isFirstVisit:boolean
+  isCheckPrivacy:boolean
 
 }
 class CollabAuthor extends Component<any, IState> {
@@ -43,6 +44,7 @@ class CollabAuthor extends Component<any, IState> {
   constructor(props: any) {
     super(props);
     this.state = {
+      isCheckPrivacy:false,
       isFirstVisit:true,
       collabMembers: [],
       isGuideStep: true,
@@ -328,6 +330,11 @@ class CollabAuthor extends Component<any, IState> {
       })
     })
   }
+  checkBoxChange(e){
+    this.setState({
+      isCheckPrivacy:e.target.checked
+    })
+  }
   render() {
     const {
       chooseFileInfo,
@@ -343,7 +350,8 @@ class CollabAuthor extends Component<any, IState> {
       collabLists,
       isSetCollabPopup,
       isInvitePopup,
-      isDocComment
+      isDocComment,
+      isCheckPrivacy
     } = this.state;
     return (
       <Fragment>
@@ -355,7 +363,7 @@ class CollabAuthor extends Component<any, IState> {
               </PopoverTip>
             </Col>
             {
-              isCollabMode && <Col>
+              isCollabMode && <Col style={{maxWidth: "50%"}}>
                 <div className="fileName">{curCollaboration && curCollaboration.docName}</div>
               </Col>
             }
@@ -395,12 +403,17 @@ class CollabAuthor extends Component<any, IState> {
           title={"Start Collaboration"}
           visible={isCreateCollab}
           onCancel={this.hideModal.bind(this)}
-          footer={[
-            <Button type="primary" className="create-collab-btn" key={'create-collab-btn'} onClick={this.createCollab.bind(this)}>Create</Button>
-          ]}
+          footer={null}
           centered>
           <div className="create-collab-wrap">
             <div className="createDes">{lang.ModalDes.getSharedLink}</div>
+            <div className="create-footor-wrap">
+              <div className="privacy-wrap">
+                <Checkbox onChange={this.checkBoxChange.bind(this)}><a href={privacyPolicy} target="_blank">Foxit Privacy Policy</a></Checkbox>
+              </div>
+              <Button type="primary" className="create-collab-btn" key={'create-collab-btn'} disabled={!isCheckPrivacy} onClick={this.createCollab.bind(this)}>Create</Button>
+            </div>
+
           </div>
         </Modal>
         <Modal

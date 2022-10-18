@@ -259,7 +259,7 @@ class CollabParticipant extends Component<any, IState> {
           <Row justify="space-between">
             <Col></Col>
             {
-              curCollaboration && <Col>
+              curCollaboration && <Col style={{maxWidth: "60%"}}>
                 <div className="fileName">{curCollaboration.docName} {isAllowComment ? "(Can Comment)" : "(Can View)"}</div>
               </Col>
             }
@@ -344,13 +344,6 @@ class CollabParticipant extends Component<any, IState> {
           isShowLogin &&
           <>
             <div className='login-tip'>Welcome to Foxit PDF Web Collaboration! <span onClick={this.toLogin.bind(this)}>Log in</span> to collaborate on this file.</div>
-          </>
-        }
-
-        {
-          !isAllowComment &&
-          <>
-            <div className="disabledComment"></div>
           </>
         }
         {

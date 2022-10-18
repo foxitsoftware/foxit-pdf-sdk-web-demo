@@ -8,7 +8,6 @@ import Addons from "@foxitsoftware/foxit-pdf-sdk-for-web-library-full/lib/uix-ad
 import { PUBLIC_PATH,licenseSN,licenseKey } from "../../config";
 import { message } from 'antd';
 import {lang} from '../../locales';
-
 interface IProps {
   onFinishInitPDFUI: Function;
   openFileSuccess:Function;
@@ -55,11 +54,42 @@ export default class PDFViewer extends Component<IProps, any> {
       },
       renderTo: '#pdf-ui',
       appearance: UIExtension.appearances.adaptive,
-      fragments: [],
-      // addons: [
-      //   libPath+'uix-addons/thumbnail'
-      // ]
-      addons: UIExtension.PDFViewCtrl.DeviceInfo.isMobile ? [] : Addons,
+      fragments: [
+        {
+          target:"@layer-sidebar-panel",
+          action:"remove"
+        },
+        {
+          target:"@sidebar-field",
+          action:"remove"
+        },
+        {
+          target:"@bookmark-sidebar-panel",
+          action:"remove"
+        },
+
+        {
+          target: '@thumbnail:thumbnail-list',
+          action: 'replace',
+          template: `
+            <thumbnail:thumbnail-list
+                @thumbnail:centered
+                @aria:label="thumbnail:title"
+            >
+                <thumbnail:thumbnail-item
+                    @foreach="thumbnail in thumbnail_list.thumbnails track by id"
+                    @setter.thumbnail_id="thumbnail.id"
+                    @lazy-content="visible"
+                >
+                    <div class="fv__ui-thumbnail-viewer-container">
+                        <thumbnail:thumbnail-viewer @setter.thumbnail="thumbnail" @thumbnail:visible-rect-control></thumbnail:thumbnail-viewer>
+                    </div>
+                    <thumbnail:page-number>@{thumbnail.pageIndex+1}</thumbnail:page-number>
+                </thumbnail:thumbnail-item>
+            </thumbnail:thumbnail-list>`
+        }
+      ],
+      addons: UIExtension.PDFViewCtrl.DeviceInfo.isMobile ? mobileAddons : Addons,
     });
     pdfui.getRootComponent().then((root: any) => {
       // Hide Default Toolbar
@@ -87,8 +117,6 @@ export default class PDFViewer extends Component<IProps, any> {
           root.insert(collaborationToolbar(), 1);
           collabComponent = root.getComponentByName('collaboration-toolbar');
         }
-        root.getComponentByName('sidebar').element.firstChild.childNodes[3].childNodes[5].style.display = "none";
-        root.getComponentByName('sidebar').element.firstChild.childNodes[3].childNodes[3].style.display = "none";
       }
       let attachmentToolbar=root.getComponentByName('attachment-toolbar')
       attachmentToolbar && attachmentToolbar.hide()
@@ -101,7 +129,17 @@ export default class PDFViewer extends Component<IProps, any> {
       this.props.onFinishInitPDFUI(pdfui);
     })
     pdfui.addUIEventListener(UIExtension.UIEvents.openFileSuccess, async () => {
-      pdfui.registerDialog('fv--bookmark-contextmenu', undefined)
+      // pdfui.registerDialog('fv--bookmark-contextmenu', undefined)
+      // pdfui.getRootComponent().then(root => {
+      //     setTimeout(()=>{
+      //       const bookmarkSidebarPanel = root.querySelector('fv-bookmark-sidebar-panel');
+      //       bookmarkSidebarPanel.enableDragAndDrop(false);
+      //       bookmarkSidebarPanel.setEditable(false);
+      //     },3000)
+      // });
+      const root=await pdfui.getRootComponent();
+      root.querySelector('fv--contextmenu-item-rotate-left').hide()
+      root.querySelector('fv--contextmenu-item-rotate-right').hide()
       this.props.openFileSuccess();
     })
     this.setState({

@@ -261,6 +261,7 @@ export default class App extends Component<any, IState> {
   }
   async isHideWidthCanViewMode(isAllowComment){
     const {pdfui}=this.state;
+    const root=await pdfui.getRootComponent();
     if(!isAllowComment){
       let selectText=await pdfui.getComponentByName('fv--contextmenu-item-select-text-image')
       selectText.hide()
@@ -272,8 +273,13 @@ export default class App extends Component<any, IState> {
             next(e);
         }
       })
-      const root=await pdfui.getRootComponent();
-      root.querySelectorAll('collaboration-comment-tab-group-mark,collaboration-comment-tab-group-text').forEach(it => {it.lock()})
+      root.querySelectorAll('collaboration-comment-tab-group-mark,collaboration-comment-tab-group-text','fv--text-selection-tooltip > *').forEach(it => {it.lock()})
+      root.querySelectorAll('fv--text-selection-tooltip > *').forEach(it => {
+          if(it.name === 'fv--text-selection-tooltip-copy') {
+              return;
+          }
+          it.hide();
+      })
     }
   }
   render() {

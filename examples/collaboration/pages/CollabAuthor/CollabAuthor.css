@@ -25,6 +25,9 @@
   font-weight: 400;
   font-size: 16px;
   color: #1C1C1C;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 .create-share-btn,.share-btn{
   height:28px;
@@ -65,6 +68,7 @@
 }
 .create-collab-wrap{
   padding:20px;
+  position: relative;
 }
 .list-des{
   cursor: pointer;
@@ -99,4 +103,14 @@
 }
 .page-loading{
   height:100%;
+}
+.privacy-wrap a{
+  text-decoration: underline;
+}
+.create-footor-wrap{
+  display:flex;
+  padding-top:13px;
+  align-items: center;
+  justify-content: space-between;
+  margin-top:15px;
 }

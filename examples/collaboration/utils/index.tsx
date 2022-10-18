@@ -93,3 +93,4 @@ export const stepOption={
   nextBtnText: 'Next',
   prevBtnText: 'Previous',
 }
+export const privacyPolicy="https://www.foxit.com/company/privacy-policy.html"
