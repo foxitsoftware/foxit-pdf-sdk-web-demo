@@ -65,10 +65,9 @@ export default class App extends Component<any, IState> {
     this.onFinishInitPDFUI = this.onFinishInitPDFUI.bind(this);
     this.openFileSuccess = this.openFileSuccess.bind(this);
     this.showLoading = this.showLoading.bind(this)
-    this.onRequestAnnotPermissions = this.onRequestAnnotPermissions.bind(this)
     this.openLocalDoc = this.openLocalDoc.bind(this)
     this.loginAnonymously = this.loginAnonymously.bind(this)
-    this.isHideRightSelectText=this.isHideRightSelectText.bind(this)
+    this.isHideWidthCanViewMode=this.isHideWidthCanViewMode.bind(this)
   }
   showLoading(isLoading: boolean) {
     this.setState({
@@ -198,15 +197,6 @@ export default class App extends Component<any, IState> {
     })
     this.showLoading(false)
   }
-  onRequestAnnotPermissions(annot: any): Promise<any> {
-    let docId: string | null = getQueryVariable('collaborationId')
-    if (!this.state.isCollabMode || !this.state.webCollabClient) {
-      if(!docId){
-        return Promise.resolve()
-      }
-    }
-    return this.state.webCollabClient!.getAnnotPermissions(annot);
-  }
   async openLocalDoc(fileUrl: string, fileName: string) {
     this.showLoading(true)
     let filePath = fileUrl;
@@ -269,12 +259,12 @@ export default class App extends Component<any, IState> {
     passwordDefered = createDeferred();
     this.showLoading(false)
   }
-  async isHideRightSelectText(isAllowComment){
+  async isHideWidthCanViewMode(isAllowComment){
+    const {pdfui}=this.state;
     if(!isAllowComment){
-      let selectText=await this.state.pdfui.getComponentByName('fv--contextmenu-item-select-text-image')
+      let selectText=await pdfui.getComponentByName('fv--contextmenu-item-select-text-image')
       selectText.hide()
-
-      let keyboard = await this.state.pdfui.getKeyboard()
+      let keyboard = await pdfui.getKeyboard()
       keyboard.interceptor((e, next) => {
         if(e.command === (window as any).UIExtension.PDFViewCtrl.keyboard.BuiltinCommand.COPY_ACTIVATE_ELEMENT) {
             return;
@@ -282,6 +272,8 @@ export default class App extends Component<any, IState> {
             next(e);
         }
       })
+      const root=await pdfui.getRootComponent();
+      root.querySelectorAll('collaboration-comment-tab-group-mark,collaboration-comment-tab-group-text').forEach(it => {it.lock()})
     }
   }
   render() {
@@ -308,7 +300,7 @@ export default class App extends Component<any, IState> {
                   openDocAndGetOnlineUser={this.openDocAndGetOnlineUser}
                   loginAnonymously={this.loginAnonymously}
                   showLoading={this.showLoading}
-                  isHideRightSelectText={this.isHideRightSelectText}
+                  isHideWidthCanViewMode={this.isHideWidthCanViewMode}
                   stepDriver={stepDriver}
                   />
                 }

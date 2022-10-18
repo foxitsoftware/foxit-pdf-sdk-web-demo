@@ -12,7 +12,6 @@ import {lang} from '../../locales';
 interface IProps {
   onFinishInitPDFUI: Function;
   openFileSuccess:Function;
-  onRequestAnnotPermissions: (annot: any) => Promise<String[]>;
   showLoading:Function;
 }
 export default class PDFViewer extends Component<IProps, any> {
@@ -43,7 +42,6 @@ export default class PDFViewer extends Component<IProps, any> {
           licenseKey: licenseKey,
         },
         customs: {
-          getAnnotPermissions: this.props.onRequestAnnotPermissions,
           isAttachFileOverSize: (file:any) => {
             if (!file) {
               return
@@ -58,7 +56,10 @@ export default class PDFViewer extends Component<IProps, any> {
       renderTo: '#pdf-ui',
       appearance: UIExtension.appearances.adaptive,
       fragments: [],
-      addons: UIExtension.PDFViewCtrl.DeviceInfo.isMobile ? mobileAddons : Addons,
+      // addons: [
+      //   libPath+'uix-addons/thumbnail'
+      // ]
+      addons: UIExtension.PDFViewCtrl.DeviceInfo.isMobile ? [] : Addons,
     });
     pdfui.getRootComponent().then((root: any) => {
       // Hide Default Toolbar
@@ -66,6 +67,8 @@ export default class PDFViewer extends Component<IProps, any> {
         const mobileHeaderRight=root.getComponentByName('fv--mobile-header-right')
         const peotectToolbar=root.getComponentByName('fv--mobile-header-main')
         const toolbarTabs = root.getComponentByName('fv--mobile-toolbar-tabs');
+        const mobileHeader = root.getComponentByName('fv--mobile-header');
+        mobileHeader && mobileHeader.hide()
         toolbarTabs && toolbarTabs.hide();
         peotectToolbar&& peotectToolbar.hide();
         mobileHeaderRight&& mobileHeaderRight.hide();
@@ -74,8 +77,6 @@ export default class PDFViewer extends Component<IProps, any> {
           root.insert(collaborationToolbar(), 1);
           collabComponent = root.getComponentByName('collaboration-toolbar');
         }
-        root.getComponentByName('sidebar').element.firstChild.childNodes[3].childNodes[4].style.display = "none";
-        root.getComponentByName('sidebar').element.firstChild.childNodes[3].childNodes[3].style.display = "none";
       }else{
         const toolbarTabs = root.getComponentByName('toolbar');
         const thumbnailContextmenu=root.getComponentByName('fv--thumbnail-contextmenu')
@@ -89,8 +90,12 @@ export default class PDFViewer extends Component<IProps, any> {
         root.getComponentByName('sidebar').element.firstChild.childNodes[3].childNodes[5].style.display = "none";
         root.getComponentByName('sidebar').element.firstChild.childNodes[3].childNodes[3].style.display = "none";
       }
-      let attachmentEdit=root.getComponentByName('attachment-edit-button')
-      attachmentEdit && attachmentEdit.hide()
+      let attachmentToolbar=root.getComponentByName('attachment-toolbar')
+      attachmentToolbar && attachmentToolbar.hide()
+      let applyAll=root.getComponentByName('fv--contextmenu-item-apply-all')
+      let apply=root.getComponentByName('fv--contextmenu-item-apply')
+      applyAll && applyAll.doDestroy()
+      apply && apply.doDestroy()
     });
     pdfui.addUIEventListener(UIExtension.UIEvents.initializationCompleted, () => {
       this.props.onFinishInitPDFUI(pdfui);

@@ -5,7 +5,7 @@
                 <hand-ribbon-button></hand-ribbon-button>
                 <selection-ribbon-dropdown></selection-ribbon-dropdown>
             </group>
-            <group retain-count="1">
+            <group retain-count="1" name="collaboration-comment-tab-group-mark">
                 <div class="fx-ribbon-items-sm">
                     <create-text-highlight-ribbon-button small="true"></create-text-highlight-ribbon-button>
                     <create-strikeout-ribbon-button small="true"></create-strikeout-ribbon-button>
@@ -19,7 +19,7 @@
                     <create-caret-ribbon-button small="true"></create-caret-ribbon-button>
                 </div>
             </group>
-            <group retain-count="7">
+            <group retain-count="7" name="collaboration-comment-tab-group-text">
                 <create-note-ribbon-button></create-note-ribbon-button>
                 <create-attachment-ribbon-button></create-attachment-ribbon-button>
                 <create-typewriter-ribbon-button></create-typewriter-ribbon-button>

@@ -208,7 +208,7 @@ class CollabParticipant extends Component<any, IState> {
             isAllowComment,
             currentUser
           })
-          this.props.isHideRightSelectText(isAllowComment)
+          this.props.isHideWidthCanViewMode(isAllowComment)
           return Promise.resolve(true)
         }
       } else {

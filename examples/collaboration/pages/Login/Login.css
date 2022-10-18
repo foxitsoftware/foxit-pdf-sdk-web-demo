@@ -10,6 +10,7 @@
   flex-direction: column;
   padding-top:21.4%;
   padding-bottom:38.5px;
+  overflow: hidden;
 }
 .login-wrap .bgL{
   position: absolute;
