@@ -110,7 +110,7 @@ class CollabParticipant extends Component<any, IState> {
   signOutShare() {
     storageRemoveItem(localStorage, 'participantName')
     storageRemoveItem(localStorage, 'touristName')
-    window.close()
+    window.location.search = '?quit=1';
   }
   //Participant Email Login
   async loginSubmit() {

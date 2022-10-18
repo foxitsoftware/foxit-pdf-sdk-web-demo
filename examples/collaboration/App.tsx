@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import './App.less';
 import CollabAuthor from './pages/CollabAuthor/CollabAuthor';
 import CollabParticipant from './pages/CollabParticipant/CollabParticipant';
+import Login from './pages/Login/Login';
 import { serverUrl, PUBLIC_PATH } from './config';
 import { WebCollabClient, Collaboration } from '@foxitsoftware/web-collab-client';
 import PDFViewer from './components/PDFViewer/PDFViewer';
@@ -145,6 +146,15 @@ export default class App extends Component<any, IState> {
     }
   }
 
+  hasQuit = () => {
+    const searchParams = new URLSearchParams(window.location.search)
+    if(searchParams.get("quit")){
+      return true
+    }else{
+      return false
+    }
+  }
+
   async loginAnonymously(userName: string) {
     let currentToken = await loginAnonymously(userName);
     let userInfo = await getUser().catch(() => {
@@ -276,6 +286,9 @@ export default class App extends Component<any, IState> {
   }
   render() {
     const { webCollabClient, isLoading, stepDriver, pdfViewer, pwdVisible,checkAnnotFormPermission,isPortfolioDoc } = this.state;
+    if(this.hasQuit()){
+      return <Login />
+    }
     return (<>
         <Spin tip="Loading..." spinning={isLoading} size={"large"}>
           {
