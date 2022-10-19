@@ -84,7 +84,6 @@ class CollabAuthor extends Component<any, IState> {
         isFirstVisit: false
       })
     })
-    //打开文档时候执行，打开协作文档不执行
     this.setState({
       chooseFileInfo: item,
       curCollaboration: null,
@@ -106,7 +105,7 @@ class CollabAuthor extends Component<any, IState> {
     })
     let isAllowComment = await permission!.isAllowComment();
     //Construct the address of the collaboration link
-    let linkValue = `${window.location}?participate=1&collaborationId=${collaboration.id}`;
+    let linkValue = `${window.location.origin + window.location.pathname}?participate=1&collaborationId=${collaboration.id}`;
     //Open collaboration and Subscription notification event
     await this.props.openDocAndGetOnlineUser(collaboration, async (action: string) => {
       let members: any[] = []
@@ -321,12 +320,9 @@ class CollabAuthor extends Component<any, IState> {
         this.props.showLoading(true)
         const { curCollaboration } = this.state;
         let isClose = await curCollaboration?.end();
-        if (isClose) {
-          // storageRemoveItem(localStorage, 'creatorName');
-        }
       }
       stopShareFn().then(() => {
-        window.location.reload()
+        window.location.search = '?quit=1';
       })
     })
   }

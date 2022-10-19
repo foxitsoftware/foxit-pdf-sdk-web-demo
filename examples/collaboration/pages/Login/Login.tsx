@@ -10,15 +10,7 @@ class Login extends Component<any, any> {
     super(props);
   }
   login() {
-    //The creator account is currently randomly generated for login
-    let creatorName = randomMockName('Creator')
-    if (creatorName) {
-      storageSetItem(localStorage, 'creatorName', creatorName);
-      let pathname = this.props.history.location.pathname;
-      this.props.history.push(pathname + 'collabAuthor');
-    } else {
-      throw new Error('Login failed')
-    }
+    window.location.search = ""
   }
   render() {
     return (
@@ -30,7 +22,7 @@ class Login extends Component<any, any> {
             <div className="title">Foxit PDFViewer Collaboration Demo</div>
             {/* <div className="des">An  demo showing off the</div>
             <div className="des">WebViewer Collaboration modules</div> */}
-            {/* <Button type="primary" shape="round" className="btn" style={{ backgroundColor: "#923094", border: 0 }} onClick={() => this.login()}>Go to  Demo</Button> */}
+             <Button type="primary" shape="round" className="btn" style={{ backgroundColor: "#923094", border: 0 }} onClick={() => this.login()}>Go to  Demo</Button>
           </div>
           <div className="login-footer">
             ©️Copyright belongs to foxit
