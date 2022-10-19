@@ -288,8 +288,7 @@ export default class App extends Component<any, IState> {
       return <Login />
     }
     return (<>
-        <Spin tip="Loading..." spinning={isLoading} size={"large"}>
-          {
+        {
             pdfViewer && <>
                 { !this.isParticipate() ?
                   <CollabAuthor
@@ -317,7 +316,6 @@ export default class App extends Component<any, IState> {
               onFinishInitPDFUI={this.onFinishInitPDFUI}
               openFileSuccess={this.openFileSuccess}
             />
-        </Spin>
       <PasswordPopup visible={pwdVisible} closePopup={this.closePswPupup.bind(this)} onSubmit={this.onSubmit.bind(this)} />
     </>
     );

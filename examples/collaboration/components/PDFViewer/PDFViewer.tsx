@@ -145,9 +145,13 @@ export default class PDFViewer extends Component<IProps, any> {
     this.setState({
       pdfui
     })
-    window.onresize = function () {
-      pdfui.redraw().catch(function () { });
-    }
+
+    window.addEventListener(
+        UIExtension.PDFViewCtrl.DeviceInfo.isMobile ? "orientationchange" : "resize",
+        function (e) {
+          pdfui.redraw();
+        }
+    );
   }
   render() {
     return (<div id="pdf-ui"></div>)
