@@ -114,6 +114,7 @@ export default class PDFViewer extends Component<IProps, any> {
         if (!collabComponent) {
           root.insert(collaborationToolbar(), 1);
           collabComponent = root.getComponentByName('collaboration-toolbar');
+          root.getComponentByName('selection-dropdown').hide();
         }
       }else{
         const toolbarTabs = root.getComponentByName('toolbar');
