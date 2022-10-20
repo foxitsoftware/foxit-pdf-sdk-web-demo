@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const collab_server_1 = require("@foxitsoftware/collab-server");
+const web_collab_server_1 = require("@foxitsoftware/web-collab-server");
 const file_service_1 = require("./file-service");
 const user_service_1 = require("./user-service");
 const dotenv_1 = __importDefault(require("dotenv"));
@@ -17,7 +17,7 @@ const databaseConfig = {
     user: process.env['DB_USER'] || 'postgres',
     password: process.env['DB_PASSWORD'] || '123456',
 };
-const server = new collab_server_1.WebCollabServer({
+const server = new web_collab_server_1.WebCollabServer({
     databaseConfig,
     userService: user_service_1.userService
 });
