@@ -13,6 +13,14 @@ interface IProps {
   openFileSuccess:Function;
   showLoading:Function;
 }
+
+let appearance = UIExtension.appearances.adaptive
+let isMobile = false
+if(window.innerWidth <= 900){
+  appearance = UIExtension.appearances.MobileAppearance
+  isMobile = true
+}
+
 export default class PDFViewer extends Component<IProps, any> {
   constructor(props: IProps) {
     super(props)
@@ -53,7 +61,7 @@ export default class PDFViewer extends Component<IProps, any> {
         }
       },
       renderTo: '#pdf-ui',
-      appearance: UIExtension.appearances.adaptive,
+      appearance,
       fragments: [
         {
           target:"@layer-sidebar-panel",
@@ -89,11 +97,11 @@ export default class PDFViewer extends Component<IProps, any> {
             </thumbnail:thumbnail-list>`
         }
       ],
-      addons: UIExtension.PDFViewCtrl.DeviceInfo.isMobile ? mobileAddons : Addons,
+      addons: isMobile ? mobileAddons : Addons,
     });
     pdfui.getRootComponent().then((root: any) => {
       // Hide Default Toolbar
-      if(UIExtension.PDFViewCtrl.DeviceInfo.isMobile){
+      if(isMobile){
         const mobileHeaderRight=root.getComponentByName('fv--mobile-header-right')
         const peotectToolbar=root.getComponentByName('fv--mobile-header-main')
         const toolbarTabs = root.getComponentByName('fv--mobile-toolbar-tabs');
@@ -147,7 +155,7 @@ export default class PDFViewer extends Component<IProps, any> {
     })
 
     window.addEventListener(
-        UIExtension.PDFViewCtrl.DeviceInfo.isMobile ? "orientationchange" : "resize",
+        isMobile ? "orientationchange" : "resize",
         function (e) {
           pdfui.redraw();
         }
