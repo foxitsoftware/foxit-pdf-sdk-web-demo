@@ -16,7 +16,7 @@ interface IProps {
 
 let appearance = UIExtension.appearances.adaptive
 let isMobile = false
-if(window.innerWidth <= 900){
+if(window.innerWidth <= 900 && UIExtension.PDFViewCtrl.DeviceInfo.isTouchDevice){
   appearance = UIExtension.appearances.MobileAppearance
   isMobile = true
 }
