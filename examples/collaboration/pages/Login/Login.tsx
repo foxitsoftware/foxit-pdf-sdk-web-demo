@@ -19,7 +19,7 @@ class Login extends Component<any, any> {
           <img src={bgL} className="bgL" />
           <img src={bgS} className="bgS" />
           <div>
-            <div className="title">Foxit PDFViewer Collaboration Demo</div>
+            <div className="title">Foxit Web Collaboration Demo</div>
             {/* <div className="des">An  demo showing off the</div>
             <div className="des">WebViewer Collaboration modules</div> */}
              <Button type="primary" shape="round" className="btn" style={{ backgroundColor: "#923094", border: 0 }} onClick={() => this.login()}>Go to  Demo</Button>

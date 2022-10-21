@@ -171,7 +171,23 @@
 .collab-Participant-steps{
   top:11px !important;
 }
-
+.fileName-wrap{
+  display: flex;
+}
+.participant-fileName{
+  font-family: 'Tahoma';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  color: #1C1C1C;
+}
+.participant-permission{
+  font-family: 'Tahoma';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  color: #1C1C1C;
+}
 @media screen and (max-width: 500px) {
   .participant-wrap{
     height:auto;
@@ -184,7 +200,8 @@
   .participant-wrap .right-wrap {
     display: flex;
     position: relative;
-    left: 130px;
+    left: 5px;
+    margin-top:10px;
   }
   .login-tip{
     left: 71%;
@@ -192,5 +209,20 @@
     top: 76px;
     height: 60px;
     line-height: 30px;
+  }
+  .participant-wrap .online-wrap{
+    width:183px;
+  }
+  .share-popover{
+    height:28px;
+    width:84px;
+    padding-left:8px;
+    box-sizing: border-box;
+  }
+  .participant-fileName{
+    width:200px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 }

@@ -30,7 +30,7 @@ class SharesAndFilesPopup extends PureComponent<IProps, any> {
   constructor(props: IProps) {
     super(props);
     this.state = {
-      rowClickItemId: '',
+      rowClickItemName: '',
       fileList:[],
       isSameFileTip:false
     }
@@ -38,13 +38,13 @@ class SharesAndFilesPopup extends PureComponent<IProps, any> {
   openCollabDocument(item: any) {
     this.props.openCollabDocument(item);
     this.setState({
-      rowClickItemId: item.id
+      rowClickItemName: item.name
     })
   }
   openLocalFile(item: any,index:number) {
     this.props.openFile(item)
     this.setState({
-      rowClickItemId: index
+      rowClickItemName: item.name
     })
   }
   async componentDidMount() {
@@ -53,7 +53,7 @@ class SharesAndFilesPopup extends PureComponent<IProps, any> {
     let defauleDoc = files[0]
     this.props.openFile(defauleDoc)
     this.setState({
-      rowClickItemId: 0
+      rowClickItemName: defauleDoc.name
     })
   }
 
@@ -153,7 +153,7 @@ class SharesAndFilesPopup extends PureComponent<IProps, any> {
                 <List
                   size="small"
                   dataSource={this.state.fileList}
-                  renderItem={(item: any,index:number) => <List.Item onClick={() => this.openLocalFile(item,index)}><div className={this.state.rowClickItemId !== index ? 'list-des' : 'list-des-active'}>{item.name}</div></List.Item>}
+                  renderItem={(item: any,index:number) => <List.Item onClick={() => this.openLocalFile(item,index)}><div className={this.state.rowClickItemName !== item.name ? 'list-des' : 'list-des-active'}>{item.name}</div></List.Item>}
                 />
               </div>
             </TabPane>

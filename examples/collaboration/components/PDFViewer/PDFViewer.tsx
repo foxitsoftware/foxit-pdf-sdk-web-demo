@@ -75,6 +75,10 @@ export default class PDFViewer extends Component<IProps, any> {
           target:"@bookmark-sidebar-panel",
           action:"remove"
         },
+        {
+          target:"@search-sidebar-panel",
+          action:"remove"
+        },
 
         {
           target: '@thumbnail:thumbnail-list',
@@ -99,7 +103,7 @@ export default class PDFViewer extends Component<IProps, any> {
       ],
       addons: isMobile ? mobileAddons : Addons,
     });
-    pdfui.getRootComponent().then((root: any) => {
+    pdfui.getRootComponent().then(async (root: any) => {
       // Hide Default Toolbar
       if(isMobile){
         const mobileHeaderRight=root.getComponentByName('fv--mobile-header-right')
@@ -116,6 +120,12 @@ export default class PDFViewer extends Component<IProps, any> {
           collabComponent = root.getComponentByName('collaboration-toolbar');
           // root.getComponentByName('selection-dropdown').hide();
         }
+        let pdfViewer = await pdfui.getPDFViewer();
+        pdfViewer.getAnnotManager().registerMatchRule(function (pdfAnnot, AnnotComponent) {
+          return class CustomComponent extends AnnotComponent {
+            showReplyDialog() {}
+          }
+         })
       }else{
         const toolbarTabs = root.getComponentByName('toolbar');
         const thumbnailContextmenu=root.getComponentByName('fv--thumbnail-contextmenu')
@@ -138,17 +148,14 @@ export default class PDFViewer extends Component<IProps, any> {
       this.props.onFinishInitPDFUI(pdfui);
     })
     pdfui.addUIEventListener(UIExtension.UIEvents.openFileSuccess, async () => {
-      // pdfui.registerDialog('fv--bookmark-contextmenu', undefined)
-      // pdfui.getRootComponent().then(root => {
-      //     setTimeout(()=>{
-      //       const bookmarkSidebarPanel = root.querySelector('fv-bookmark-sidebar-panel');
-      //       bookmarkSidebarPanel.enableDragAndDrop(false);
-      //       bookmarkSidebarPanel.setEditable(false);
-      //     },3000)
-      // });
       const root=await pdfui.getRootComponent();
       root.querySelector('fv--contextmenu-item-rotate-left').hide()
       root.querySelector('fv--contextmenu-item-rotate-right').hide()
+      root.querySelectorAll('fv--text-selection-tooltip > *').forEach(it => {
+          if(it.name === 'fv--text-selection-tooltip-create-bookmark') {
+            it.hide()
+          }
+      })
       this.props.openFileSuccess();
     })
     this.setState({

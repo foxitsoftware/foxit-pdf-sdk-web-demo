@@ -88,6 +88,7 @@ export const collabParticipantSteps = [
 ]
 
 export const stepOption={
+  animate: false,
   allowClose:false,
   closeBtnText: 'Skip',
   nextBtnText: 'Next',

@@ -171,7 +171,10 @@ class CollabParticipant extends Component<any, IState> {
     if (currentUser) {
       let docId: string | null = getQueryVariable('collaborationId')
       if (docId) {
-        let collaboration: Collaboration | void = await collabClient.getCollaboration(docId).catch((result: any) => {
+        let collaboration: Collaboration | void
+        try {
+          collaboration = await collabClient.getCollaboration(docId)
+        }catch (result: any){
           this.props.showLoading(false)
           storageRemoveItem(localStorage, 'participantName')
           storageRemoveItem(localStorage, 'touristName')
@@ -190,7 +193,8 @@ class CollabParticipant extends Component<any, IState> {
             })
             return
           }
-        })
+        }
+
         if(this.state.emailValue){
           return Promise.resolve(true)
         }
@@ -259,8 +263,11 @@ class CollabParticipant extends Component<any, IState> {
           <Row justify="space-between">
             <Col></Col>
             {
-              curCollaboration && <Col style={{maxWidth: "60%"}}>
-                <div className="fileName">{curCollaboration.docName} {isAllowComment ? "(Can Comment)" : "(Can View)"}</div>
+              curCollaboration && <Col>
+                <div className="fileName-wrap">
+                  <div className="participant-fileName">{curCollaboration.docName}</div>
+                  <div className="participant-permission">{isAllowComment ? "(Can Comment)" : "(Can View)"}</div>
+                </div>
               </Col>
             }
             <Col>

@@ -8,7 +8,7 @@ import { WebCollabClient, Collaboration } from '@foxitsoftware/web-collab-client
 import PDFViewer from './components/PDFViewer/PDFViewer';
 import { message, Spin } from 'antd';
 import Driver from 'driver.js';
-import { getQueryVariable, stepOption } from './utils';
+import { stepOption } from './utils';
 import { lang } from './locales';
 import { getUser, loginAnonymously } from "./service/api";
 import PasswordPopup from './components/PasswordPopup/PasswordPopup';
@@ -259,12 +259,11 @@ export default class App extends Component<any, IState> {
     passwordDefered = createDeferred();
     this.showLoading(false)
   }
+  //After the participant enters, some functions are disabled when the permission is can view
   async isHideWidthCanViewMode(isAllowComment){
-    const {pdfui}=this.state;
+    const {pdfui,pdfViewer}=this.state;
     const root=await pdfui.getRootComponent();
     if(!isAllowComment){
-      let selectText=await pdfui.getComponentByName('fv--contextmenu-item-select-text-image')
-      selectText.hide()
       let keyboard = await pdfui.getKeyboard()
       keyboard.interceptor((e, next) => {
         if(e.command === (window as any).UIExtension.PDFViewCtrl.keyboard.BuiltinCommand.COPY_ACTIVATE_ELEMENT) {
@@ -273,6 +272,9 @@ export default class App extends Component<any, IState> {
             next(e);
         }
       })
+      pdfViewer.onShortcutKey('ctrl+v', (e)=>{
+        e.preventDefault();
+      });
       root.querySelectorAll('collaboration-comment-tab-group-mark,collaboration-comment-tab-group-text','fv--text-selection-tooltip > *').forEach(it => {it.lock()})
       root.querySelectorAll('fv--text-selection-tooltip > *').forEach(it => {
           if(it.name === 'fv--text-selection-tooltip-copy') {
