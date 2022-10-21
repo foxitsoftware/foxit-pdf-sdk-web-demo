@@ -6,6 +6,9 @@ The app only generate and display pdf examples in the iframe. Here use snippets,
 
 The application was built with Node 14.16.0.
 
+**NOTE:**
+The collaboration example requires version 8.5.1 of the Foxit PDF SDK for Web.
+
 ## Available Scripts
 
 In the project directory, you can run:
