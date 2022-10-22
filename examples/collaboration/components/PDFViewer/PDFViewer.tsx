@@ -122,8 +122,10 @@ export default class PDFViewer extends Component<IProps, any> {
         }
         let pdfViewer = await pdfui.getPDFViewer();
         pdfViewer.getAnnotManager().registerMatchRule(function (pdfAnnot, AnnotComponent) {
-          return class CustomComponent extends AnnotComponent {
-            showReplyDialog() {}
+          if (pdfAnnot.getType() !== 'freetext') {
+            return class CustomComponent extends AnnotComponent {
+              showReplyDialog() {}
+            }
           }
          })
       }else{
