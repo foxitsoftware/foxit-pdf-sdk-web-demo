@@ -76,7 +76,7 @@
                 "changeOrigin": true
             },
             "/collab": {
-                "target": "http://127.0.0.1:19112",
+                "target": "https://webviewer-examples.foxit.com",
                 "changeOrigin": true,
                 "ws": true
             }
