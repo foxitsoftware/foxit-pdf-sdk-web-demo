@@ -1,8 +1,8 @@
 # Example PDF APP
 
-This project was created for generate PDF example, for implement main app foxit [FOXIT-FRONT-END](https://github.com/Halo-Lab/foxit-front-end).
+This project was created for generating PDF example, for implementing the main app Foxit [FOXIT-FRONT-END](https://github.com/foxitsoftware/foxit-pdf-sdk-web-demo-frontend).
 
-The app only generate and display pdf examples in the iframe. Here use snippets, scenes, routes.
+The app only generates and displays pdf examples in the iframe. Here use snippets, scenes, and routes.
 
 The application was built with Node 14.16.0.
 
