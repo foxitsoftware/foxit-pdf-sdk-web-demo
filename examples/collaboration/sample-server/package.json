@@ -2,7 +2,7 @@
   "name": "@foxitsoftware/collab-sample-server",
   "version": "1.0.0",
   "description": "collab-sample-server",
-  "main": "./dist/server.js",
+  "main": "./server.js",
   "license": "Commercial",
   "dependencies": {
     "axios": "^0.19.0",
