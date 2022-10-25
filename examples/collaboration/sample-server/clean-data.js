@@ -22,20 +22,29 @@ const prisma = new PrismaClient({
 
 console.log("starting to clean demo data...")
 
-console.log("starting to clean file uploads...")
-rimraf.sync("./file-uploads/*")
-console.log("clean file uploads succeeded")
+// console.log("starting to clean file uploads...")
+// rimraf.sync("./file-uploads/*")
+// console.log("clean file uploads succeeded")
 
-console.log("starting to clean database data...")
-Promise.all(
-    [
-        prisma.user.deleteMany({}),
-        prisma.document.deleteMany({}),
-        prisma.annotation.deleteMany({}),
-        prisma.documentMember.deleteMany({}),
-        prisma.invitation.deleteMany({})
-    ]
-).then(function (res) {
+async function cleanDB(){
+    console.log("starting to clean database data...")
+    const cleanTime = new Date().getTime() - 24 * 3600 * 1000
+    const condition = {
+        where: {
+            updatedAt: {
+                lt: cleanTime
+            }
+        }
+    }
+    const r1 = await prisma.annotation.deleteMany(condition)
+    const r2 = await prisma.documentMember.deleteMany(condition)
+    const r3 = await prisma.document.deleteMany(condition)
+    const r4 = await prisma.invitation.deleteMany(condition)
+    const r5 = await prisma.user.deleteMany(condition)
+    return [r1, r2, r3, r4, r5]
+}
+
+cleanDB().then(function (res) {
     console.log("clean database succeeded", res)
     process.exit(0)
 }).catch(function (err) {
