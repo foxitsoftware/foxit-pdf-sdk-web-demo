@@ -54,6 +54,15 @@ const libPath = path.resolve(libraryModulePath, 'lib');
 module.exports = function (env, argv) {
     const mode = argv.mode;
     const isDev = mode === 'development';
+
+    function getLicensePath(){
+        if(process.env['LICENSE_PATH']){
+            return process.env['LICENSE_PATH']
+        }else {
+            return isDev? 'https://cdn-sdk.foxitsoftware.com/pdf-sdk/download/foxit-pdf-sdk-for-web/pcmobile/8.x/8.0/license-key.js' : 'https://cdn-sdk.foxitsoftware.com/pdf-sdk/download/foxit-pdf-sdk-for-web/license-key.js'
+        }
+    }
+
     return [
         createWebpackConfig(
             entries.reduce((entries, entry) => {
@@ -71,7 +80,7 @@ module.exports = function (env, argv) {
                     filename: path.resolve(distPath, entry.dir, 'index.html'),
                     chunks: entry.htmlchunks,
                     info: entry.info,
-                    licensePath: isDev? 'https://cdn-sdk.foxitsoftware.com/pdf-sdk/download/foxit-pdf-sdk-for-web/pcmobile/8.x/8.0/license-key.js' : 'https://cdn-sdk.foxitsoftware.com/pdf-sdk/download/foxit-pdf-sdk-for-web/license-key.js',
+                    licensePath: getLicensePath(),
                     UIExtensionLib: '/lib/UIExtension.full.js',
                     PDFViewCtrlLib: '/lib/PDFViewCtrl.full.js'
                 });
