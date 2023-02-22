@@ -56,7 +56,7 @@ const editPdf = [
     positionX: "115px",
     positionY: "90px",
     sideTriangle: "top-custom",
-    elementName: "edit-all-objects",
+    elementName: "edit-object-ribbon-dropdown",
     header: "Directly edit PDF content",
     description:
       "Select the Edit tool to move or modify text, images, and shapes within the PDF.",

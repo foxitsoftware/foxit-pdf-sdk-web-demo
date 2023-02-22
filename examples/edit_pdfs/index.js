@@ -3,6 +3,7 @@ import "@foxitsoftware/foxit-pdf-sdk-for-web-library-full/lib/UIExtension.vw.css
 import {
   createPDFUI,
   hideComponent,
+  initTab,
   isMobile
 } from '../../common/pdfui';
 import {
@@ -21,6 +22,9 @@ const pdfui = createPDFUI({
   viewerOptions: {
     StateHandlers: [CropPagesStateHandler]
   }
+});
+initTab(pdfui,{
+  menuTabName: "edit-tab",
 });
 hideComponent(pdfui, "download-file-button");
 

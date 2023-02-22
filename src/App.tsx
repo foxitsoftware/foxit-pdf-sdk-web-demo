@@ -122,7 +122,7 @@ const App = () => {
     const {sideTriangle,positionX,positionY,offsetX=0,offsetY=0,elementIndex=0} = scene[current];
     const rectLeft = Number(positionX.slice(0,-2));
     const rectTop = Number(positionY.slice(0,-2));
-    if (el.length) {
+    if (el && el.length) {
       if(!el[elementIndex]){
         setLocationTooltipX(`200%`);
         setLocationTooltipY(`200%`);

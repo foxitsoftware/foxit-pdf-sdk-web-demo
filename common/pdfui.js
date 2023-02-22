@@ -109,11 +109,13 @@ export function initTab(pdfui,options){
     if(menuTabName){
       activeComponent()
     }
-    pdfui.addViewerEventListener(Events.openFileSuccess, () => {
+    let handle = () => {
       if(menuTabName){
         activeComponent();
       }
-    });
+      pdfui.removeViewerEventListener(Events.renderFileSuccess,handle)
+    }
+    pdfui.addViewerEventListener(Events.renderFileSuccess, handle);
     function activeComponent(){
       pdfui.getRootComponent().then((root) => {
         const tabComponent = root.getComponentByName(menuTabName);
