@@ -23,7 +23,9 @@ function decodeFileName(filename) {
 }
 function setupFileService(app) {
     console.log("initiated file service");
-    app.use((0, cors_1.default)());
+    app.use((0, cors_1.default)({
+        exposedHeaders: ['Content-Range', 'Content-Length', 'Accept-Ranges']
+    }));
     app.use((0, express_fileupload_1.default)({
         createParentPath: true,
         defParamCharset: 'utf8'
@@ -84,7 +86,7 @@ function setupFileService(app) {
         });
     });
     app.use(FILE_PATH_PREFIX, express_1.default.static(path_1.default.resolve(FILE_UPLOAD_BASE), {
-        acceptRanges: false,
+        acceptRanges: true,
         cacheControl: false,
         etag: false,
         lastModified: false
