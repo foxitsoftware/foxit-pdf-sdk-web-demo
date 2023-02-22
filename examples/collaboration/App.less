@@ -1,13 +1,41 @@
 @import '~antd/dist/antd.less';
 @primary-color: #923094;
-.ant-modal-body{
-  padding:0!important;
+@border-radius-base: 4px;
+@font-size-base: 14px;
+body ,html{
+  height: calc(var(--vh, 1vh) * 100) !important;
+}
+html{
+  overflow: hidden;
 }
 
 #root{
-  /* height:100px; */
-  height: 100vh;
+  height: calc(var(--vh, 1vh) * 100);
+  font-family: 'Arial';
+  font-size: 14px;
+}
 
+#pdf-ui {
+  width:100%;
+  height: calc(var(--vh, 1vh) * 95);
+  overflow-y: auto;
+}
+
+.fv__ui-mobile #pdf-ui {
+  top: 0;
+}
+
+.fv__ui-mobile .fv__ui-nav {
+  display: none;
+}
+.fv__ui-toolbar .fv__ui-tab-nav{
+  height:30px;
+}
+.fv__ui-sidebar-comments-filter-fixed{
+  top:-5rem !important;
+}
+.ant-modal-body{
+  padding:16px!important;
 }
 select.file-list {
     max-width: 150px;
@@ -22,42 +50,8 @@ select.file-list {
 .ant-message{
   z-index:20001!important;
 }
-.collab-author-steps-share,.collab-Participant-steps{
-  width:188px !important;
-  padding-top:38px!important;
+.collab-modal-wrap{
+  padding:4px;
+  position: relative;
 }
-.driver-disabled,.driver-popover-title{
-  display:none !important;
-}
-.collab-author-steps-share .driver-close-btn{
-  display:none !important;
-}
-.collab-author-steps-share .driver-navigation-btns{
-  float:none!important;
-  display: flex;
-  justify-content: space-between;
-}
-.driver-next-btn,.driver-close-btn,.driver-prev-btn{
-  background: #a14d9f!important;
-  color:#fff!important;
-  text-shadow:none!important;
-}
-#driver-popover-item .driver-popover-footer{
-  margin-top:27px!important;
-}
-.driver-popover-footer button{
-  padding: 5px 18px !important;
-}
-.collab-Participant-steps .driver-close-only-btn{
-  display:none !important;
-}
-.collab-Participant-steps .driver-next-btn{
-  display:block !important;
-}
-@media screen and (max-width: 500px) {
-  .collab-Participant-steps{
-    left:0 !important;
-    min-width: 100px !important;
-    max-width: 200px !important;
-  }
-}
+

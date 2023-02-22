@@ -1,0 +1,108 @@
+@font-family:'Tahoma';
+.collabView-wrap{
+  height:44px;
+  background: #FFFFFF;
+  box-shadow: inset 0px -1px 0px #EEEEEE;
+  position: relative;
+  padding:8px 16px;
+  box-sizing: border-box;
+  .fileName-wrap{
+    display: flex;
+    .fileName{
+      font-family: @font-family;
+      font-size: 16px;
+      color: #1C1C1C;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .participant-permission{
+      font-family: @font-family;
+      font-size: 16px;
+      color: #1C1C1C;
+    }
+  }
+  .operation-wrap{
+    display: flex;
+    .share-popover{
+      height:28px;
+      padding:0 8px;
+      color: #1C1C1C;
+      background: #FFFFFF;
+      border: 1px solid #EAEAEA;
+      border-radius: 4px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      margin-right:10px;
+    }
+    .share-popover img{
+      width:18px;
+      height:17px;
+      margin-right:10px;
+    }
+    .login-btn-wrap{
+      width: 80px;
+      height: 26px;
+    }
+  }
+}
+.collab-Participant-steps{
+  top:11px !important;
+}
+.collab-author-steps-share,.collab-Participant-steps{
+  width:188px !important;
+  padding-top:38px!important;
+}
+.driver-disabled,.driver-popover-title{
+  display:none !important;
+}
+.collab-author-steps-share .driver-close-btn{
+  display:none !important;
+}
+.collab-author-steps-share .driver-navigation-btns{
+  float:none!important;
+  display: flex;
+  justify-content: space-between;
+}
+.driver-next-btn,.driver-close-btn,.driver-prev-btn{
+  background: #a14d9f!important;
+  color:#fff!important;
+  text-shadow:none!important;
+}
+#driver-popover-item .driver-popover-footer{
+  margin-top:27px!important;
+}
+.driver-popover-footer button{
+  padding: 5px 18px !important;
+}
+.collab-Participant-steps .driver-close-only-btn{
+  display:none !important;
+}
+.collab-Participant-steps .driver-next-btn{
+  display:block !important;
+}
+@media screen and (max-width: 500px) {
+  .collabView-wrap{
+    height:auto;
+    background: #FFFFFF;
+    box-shadow: inset 0px -1px 0px #EEEEEE;
+    position: relative;
+    padding:8px 16px;
+    box-sizing: border-box;
+    .fileName-wrap{
+      .fileName {
+        width: 200px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        text-align: center;
+      }
+    }
+  }
+  .collab-Participant-steps{
+    left:0 !important;
+    min-width: 100px !important;
+    max-width: 200px !important;
+  }
+}
