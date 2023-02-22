@@ -96,7 +96,7 @@ export function createCustomStamp(url) {
   if (q > -1) {
     url = url.substring(0, q);
   }
-  const filename = url.substring(sepIndex);
+  const filename = url.substring(sepIndex + 1);
   const dotIndex = filename.lastIndexOf(".");
   let ext;
   let name = filename;
