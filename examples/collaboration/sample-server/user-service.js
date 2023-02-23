@@ -14,13 +14,14 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.userService = void 0;
 const axios_1 = __importDefault(require("axios"));
+const server_1 = require("./server");
 exports.userService = {
     getUserByToken(token) {
         var _a;
         return __awaiter(this, void 0, void 0, function* () {
             const result = yield axios_1.default.request({
-                url: `/api/user`,
-                method: 'get',
+                url: `http://localhost:${server_1.serverPort}/api/user/auth`,
+                method: 'post',
                 params: {
                     token
                 }

@@ -3,12 +3,13 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.serverPort = void 0;
 const web_collab_server_1 = require("@foxitsoftware/web-collab-server");
 const file_service_1 = require("./file-service");
 const user_service_1 = require("./user-service");
 const dotenv_1 = __importDefault(require("dotenv"));
 dotenv_1.default.config();
-let serverPort = process.env['SERVER_PORT'] ? +process.env['SERVER_PORT'] : 8080;
+exports.serverPort = process.env['SERVER_PORT'] ? +process.env['SERVER_PORT'] : 8080;
 const databaseConfig = {
     type: 'postgres',
     host: process.env['DB_HOST'] || 'localhost',
@@ -22,5 +23,5 @@ const server = new web_collab_server_1.WebCollabServer({
     userService: user_service_1.userService
 });
 server.applyConfig(file_service_1.setupFileService);
-server.start(serverPort);
+server.start(exports.serverPort);
 //# sourceMappingURL=server.js.map

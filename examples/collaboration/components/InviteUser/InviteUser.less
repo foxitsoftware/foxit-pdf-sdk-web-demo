@@ -1,0 +1,84 @@
+
+@primary-color: #923094;
+.invite-wrap{
+  .email-wrap{
+    display: flex;
+    padding:16px;
+    .email-input{
+      width:80%;
+      height: 40px;
+      border-radius: 4px 0px 0px 4px;
+      border:1px solid #EAEAEA;
+      padding-left:15px;
+      box-sizing: border-box;
+      line-height: 40px;
+      border-right:0;
+      outline: none;
+    }
+    .email-btn{
+      width:20%;
+      height: 40px;
+      color:@primary-color;
+      background: #fff;
+      font-weight: 600;
+      text-align: center;
+      border-radius: 0px 8px 8px 0px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+  .email-list{
+    padding:20px;
+    height:300px;
+    overflow: auto;
+    .title{
+      font-family: 'Poppins';
+      font-weight: 600;
+      font-size: 12px;
+      color: #1C1C1C;
+      margin-bottom:12px;
+    }
+    .participant-list{
+      display: flex;
+      margin-bottom:15px;
+      align-items: center;
+      position: relative;
+      justify-content: space-between;
+      padding-right:15px;
+      .invite-left-wrap{
+        display: flex;
+      }
+      .portrait{
+        width: 26px;
+        height: 26px;
+        background: @primary-color;
+        border-radius: 50px;
+        margin-right:4px;
+        color:#fff;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-right:20px;
+      }
+      .nickName,.comment{
+        font-family: 'Poppins';
+        color: #1C1C1C;
+      }
+    }
+    .invite-drop-wrap{
+      width:132px;
+    }
+    .clear-icon{
+      cursor: pointer;
+      position: absolute;
+      right:-7px;
+      top:11px;
+      width:16px;
+      height:16px;
+    }
+  }
+}
+
+

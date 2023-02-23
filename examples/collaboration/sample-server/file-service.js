@@ -11,9 +11,21 @@ const fs_1 = __importDefault(require("fs"));
 const cors_1 = __importDefault(require("cors"));
 const FILE_UPLOAD_BASE = process.env['FILE_UPLOAD_BASE'] || path_1.default.resolve(process.cwd(), 'file-uploads');
 const FILE_PATH_PREFIX = '/files';
+function encodeFileName(filename) {
+    const t = path_1.default.parse(filename);
+    const b = Buffer.from(t.name, 'utf8');
+    return b.toString('hex') + t.ext;
+}
+function decodeFileName(filename) {
+    const t = path_1.default.parse(filename);
+    const b = Buffer.from(t.name, 'hex');
+    return b.toString('utf8') + t.ext;
+}
 function setupFileService(app) {
     console.log("initiated file service");
-    app.use((0, cors_1.default)());
+    app.use((0, cors_1.default)({
+        exposedHeaders: ['Content-Range', 'Content-Length', 'Accept-Ranges']
+    }));
     app.use((0, express_fileupload_1.default)({
         createParentPath: true,
         defParamCharset: 'utf8'
@@ -29,7 +41,7 @@ function setupFileService(app) {
             });
         }
         uploadFile = req.files.file;
-        const fileName = uploadFile.name;
+        const fileName = encodeFileName(uploadFile.name);
         const username = req.query.username;
         uploadPath = path_1.default.resolve(FILE_UPLOAD_BASE, username, fileName);
         console.log("saving files to: ", uploadPath);
@@ -65,7 +77,7 @@ function setupFileService(app) {
                     ret: 0,
                     data: files.map(fileName => {
                         return {
-                            name: fileName,
+                            name: decodeFileName(fileName),
                             path: `${FILE_PATH_PREFIX}/${username}/${fileName}`
                         };
                     })
@@ -74,7 +86,7 @@ function setupFileService(app) {
         });
     });
     app.use(FILE_PATH_PREFIX, express_1.default.static(path_1.default.resolve(FILE_UPLOAD_BASE), {
-        acceptRanges: false,
+        acceptRanges: true,
         cacheControl: false,
         etag: false,
         lastModified: false
