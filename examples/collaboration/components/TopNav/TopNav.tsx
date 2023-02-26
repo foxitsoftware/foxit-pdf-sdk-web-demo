@@ -119,9 +119,9 @@ export default (props) => {
     setIsCollabMode(false);
     setChooseFile(fileInfo);
     let filePath = fileInfo.path;
-    // if (filePath.indexOf('http') === -1) {
-    //   filePath = `${serverUrl}${fileInfo.path}`
-    // }
+    if (filePath.indexOf('http') === -1) {
+      filePath = `${serverUrl}${fileInfo.path}`
+    }
     try{
       let openSuccess=await props.pdfViewer.openPDFByHttpRangeRequest({
         range: {

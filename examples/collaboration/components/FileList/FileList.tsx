@@ -289,7 +289,7 @@ export default (props: IProps) => {
     >
       <div className="login-password-wrap">
         <div>{lang.Component.fileExistTip}</div>
-        <div className="bottom-btn">
+        <div className="bottom-btn password-footor">
           <div className="to-login" onClick={sureBtn}>
             OK
           </div>

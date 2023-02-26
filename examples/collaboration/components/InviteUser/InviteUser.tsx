@@ -86,7 +86,7 @@ export default  (props) => {
       onCancel={() => props.onExit()}>
       <div className="invite-wrap">
         <div className="email-wrap">
-          <Input placeholder="Email ,command Enter to add " className='email-input' key={"email"} defaultValue={email} onBlur={handleChange} />
+          <Input placeholder="Email ,command Enter to add " className='email-input' key={"email"} value={email} onChange={handleChange} />
           <Button type="primary" onClick={addEmail} className='email-btn'>Add</Button>
         </div>
         {
