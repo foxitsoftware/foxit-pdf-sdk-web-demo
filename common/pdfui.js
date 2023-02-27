@@ -1,7 +1,5 @@
 import * as U from "UIExtension";
 import "@foxitsoftware/foxit-pdf-sdk-for-web-library-full/lib/UIExtension.vw.css";
-import Addons from "@foxitsoftware/foxit-pdf-sdk-for-web-library-full/lib/uix-addons/allInOne"
-import mobileAddons from "@foxitsoftware/foxit-pdf-sdk-for-web-library-full/lib/uix-addons/allInOne.mobile"
 import "./pdfui.less";
 import { initSignatureHandlers } from './signature';
 import {deepCloneAssign} from './util';
@@ -34,9 +32,9 @@ export function createPDFUI(options) {
     },
     renderTo: elm,
     appearance,
-    addons: isMobile
-      ? mobileAddons
-      : Addons,
+    addons: libPath + (isMobile
+      ? 'uix-addons/allInOne.mobile.js'
+      : 'uix-addons/allInOne.js'),
   };
   const uiOptions = deepCloneAssign({},defaultOptions, options || {});
   const pdfui = new UIExtension.PDFUI(

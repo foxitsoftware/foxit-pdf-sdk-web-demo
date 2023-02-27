@@ -2,8 +2,6 @@ import * as UIExtension from "UIExtension";
 import "@foxitsoftware/foxit-pdf-sdk-for-web-library-full/lib/UIExtension.vw.css";
 import '../../common/pdfui.less';
 import { initSignatureHandlers } from '../../common/signature';
-import Addons from "@foxitsoftware/foxit-pdf-sdk-for-web-library-full/lib/uix-addons/allInOne"
-import mobileAddons from "@foxitsoftware/foxit-pdf-sdk-for-web-library-full/lib/uix-addons/allInOne.mobile"
 
 const { PDFUI, appearances:{MobileAppearance, RibbonAppearance}  } = UIExtension;
 let appearance = RibbonAppearance,isMobile = false;
@@ -30,9 +28,9 @@ const pdfui = new PDFUI({
   },
   renderTo: wrapperElement,
   appearance,
-  addons: isMobile
-    ? mobileAddons
-    : Addons,
+  addons: libPath + (isMobile
+    ? 'uix-addons/allInOne.mobile.js'
+    : 'uix-addons/allInOne.js'),
 });
 window.pdfui = pdfui;
 pdfui.openPDFByHttpRangeRequest(
