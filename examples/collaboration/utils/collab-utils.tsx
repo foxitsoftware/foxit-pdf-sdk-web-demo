@@ -189,10 +189,6 @@ export const participantLogin = async () => {
   return nickName;
 };
 export const creatorLogin = async () => {
-  let participant: string | null = getQueryVariable('participant')
-  if (participant===null) {
-    storageRemoveItem(localStorage, 'creatorName');
-  }
   let screenSyncId = storageGetItem(localStorage, 'screenSyncId');
   let creator = storageGetItem(localStorage, 'creatorName');
   if (screenSyncId) {
