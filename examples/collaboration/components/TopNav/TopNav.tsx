@@ -7,13 +7,10 @@ import {
   createDeferred,
   getQueryVariable,
   storageGetItem,
+  storageSetItem,
 } from '../../utils/utils';
 import {
-  collabCreatorSteps,
-  collabParticipantSteps,
-  isParticipantView,
-  toCreatorCollaboration,
-  stepOption,
+  isParticipantView
 } from '../../utils/collab-utils';
 import './TopNav.less';
 import 'driver.js/dist/driver.min.css';
@@ -59,7 +56,7 @@ export default (props) => {
 
   useEffect(() => {
     (async () => {
-      let collaborationId: string | null = getQueryVariable('collaborationId')
+      let collaborationId: string | null = getQueryVariable('collaborationId')||storageGetItem(sessionStorage,'collaborationId');
       if (collaborationId && collabClient) {
         try {
           let collaboration = await collabClient.getCollaboration(
@@ -191,7 +188,9 @@ export default (props) => {
         isDocPublic: true,
         docName: chooseFile.name,
       });
-      toCreatorCollaboration(collaboration.id)
+      if (collaboration) {
+        beginCollaboration(collaboration);
+      }
     } catch (err) {
       message.error(lang.collabOpenFailed);
       setIsLoading(false);
@@ -254,9 +253,9 @@ export default (props) => {
     setIsCollaborationBegin(false);
     setOpenFailedDocInfo(null);
     setPassword('');
-    // if (isParticipantView()) {
-    //   startDriver(collabParticipantSteps)
-    // }
+    if (!isParticipantView()) {
+      storageSetItem(sessionStorage, 'collaborationId', collaboration.id);
+    }
     // @ts-ignore
     let app = window.app = window.app || {}; let state = app.state = app.state || {}; state.curCollaboration = collaboration;
   };

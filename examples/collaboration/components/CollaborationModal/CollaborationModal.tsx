@@ -5,6 +5,7 @@ import showPasswordIcon from 'assets/icon/show-pwd.svg'
 import hidePasswordIcon from 'assets/icon/hide-pwd.svg'
 import {lang} from '../../locales';
 import { toStartLocation } from '../../utils/collab-utils';
+import { storageRemoveItem } from '../../utils/utils';
 export default (props) => {
   const [email, setEmail] = useState('')
   const [isHidePassword, setIsHidePassword] = useState(true)
@@ -63,7 +64,10 @@ export default (props) => {
           <Button
             type="primary"
             key={'signOutShare'}
-            onClick={() => (toStartLocation())}
+            onClick={() => {
+              storageRemoveItem(sessionStorage, 'collaborationId');
+              toStartLocation()
+            }}
           >
             Sure
           </Button>,

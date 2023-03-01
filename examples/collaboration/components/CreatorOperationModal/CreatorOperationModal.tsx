@@ -12,7 +12,8 @@ import { useCurrentCollaboration } from '../../context/collaboration';
 import InviteUser from '../InviteUser/InviteUser';
 import SetCommentPermission from '../SetCommentPermission/SetCommentPermission';
 import SetPublicPermission from '../SetPublicPermission/SetPublicPermission';
-import { toCreatorPage } from '../../utils/collab-utils';
+import { toStartLocation } from '../../utils/collab-utils';
+import { storageRemoveItem } from '../../utils/utils';
 
 export default (props) => {
   const {setIsLoading}=useIsLoading()
@@ -47,9 +48,10 @@ export default (props) => {
       await collaboration?.end();
     }
     stopShareFn().then(() => {
+      storageRemoveItem(sessionStorage, 'collaborationId');
       setVisible(false)
       setShowStopCollabPopup(false)
-      toCreatorPage()
+      toStartLocation();
     })
   }
   const setPublicPermissionFn=async(key: string) =>{

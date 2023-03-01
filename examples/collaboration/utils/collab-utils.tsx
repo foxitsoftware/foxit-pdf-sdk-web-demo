@@ -1,5 +1,4 @@
 import { message } from 'antd';
-import { PUBLIC_PATH } from '../config';
 import { lang } from '../locales';
 import collaborationToolbar from '../components/PDFViewer/CollabToobar/CollaborationToolbar.art';
 import { getQueryVariable, randomHexColor, storageGetItem, storageRemoveItem, storageSetItem } from './utils';
@@ -314,15 +313,6 @@ export function setAnnotPermissionByCanView(pdfViewer) {
       });
     }
   );
-}
-
-export const toCreatorCollaboration = (collaborationId) => {
-  let href = `${window.location.origin}${window.location.pathname}?participant=false&collaborationId=${collaborationId}`;
-  window.location.href = href
-}
-export const toCreatorPage = () => {
-  let href = `${window.location.origin}${window.location.pathname}?participant=false`;
-  window.location.href = href
 }
 export const toStartLocation = () => {
   window.location.href = `${window.location.origin}${window.location.pathname}`

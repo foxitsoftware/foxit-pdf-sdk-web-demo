@@ -3,10 +3,8 @@ import React, { useEffect, useState } from 'react';
 import {lang} from '../../locales';
 import { useIsLoading } from '../../context/isLoading';
 import { serverUrl } from '../../config';
-import { createDeferred, formatTime, getQueryVariable, storageGetItem, storageRemoveItem, storageSetItem } from '../../utils/utils';
-import {
-  localDocList, toCreatorCollaboration, toCreatorPage,
-} from '../../utils/collab-utils';
+import { createDeferred, formatTime, storageGetItem, storageRemoveItem } from '../../utils/utils';
+import { localDocList } from '../../utils/collab-utils';
 import { useCurrentUser } from '../../context/user';
 import './FileList.less';
 import PopoverTip from '../PopoverTip/PopoverTip';
@@ -38,17 +36,15 @@ export default (props: IProps) => {
   useEffect(()=>{
     (async () => {
       let files=await getList();
-      const searchParams = new URLSearchParams(window.location.search);
-      let collabId = searchParams.get('collaborationId');
+      let collabId =  storageGetItem(sessionStorage, 'collaborationId');
       if (collabId) {
         setCollaborationId(collabId)
         return;
       }
       //Open the doc by default and record the selected doc
-      let localFile = JSON.parse(storageGetItem(localStorage, 'localFile'));
-      let file=localFile?localFile:files[0]
-      props.openFile(file)
-      setActiveFile(file.name)
+      let defauleDoc = files[0]
+      props.openFile(defauleDoc)
+      setActiveFile(defauleDoc.name)
     })();
   }, [])
 
@@ -58,8 +54,7 @@ export default (props: IProps) => {
         if (tabKey !== 'fileList') {
           getCollaborationList()
         }
-        const searchParams = new URLSearchParams(window.location.search);
-        let collabId = searchParams.get('collaborationId');
+        let collabId =  storageGetItem(sessionStorage, 'collaborationId');
         if (collabId) {
           setCollaborationId(collabId)
         } else {
@@ -69,18 +64,13 @@ export default (props: IProps) => {
     })();
   }, [visible])
 
-  const openLocalFile = (fileInfo) => {
-    if( storageGetItem(localStorage,'collaborationId')){
-      storageRemoveItem(localStorage, 'collaborationId');
+  const openLocalFile=(fileInfo)=>{
+    if( storageGetItem(sessionStorage,'collaborationId')){
+      storageRemoveItem(sessionStorage, 'collaborationId');
     }
-    storageSetItem(localStorage, 'localFile', JSON.stringify(fileInfo));
-    if (getQueryVariable('collaborationId')) {
-      toCreatorPage()
-    } else {
-      props.openFile(fileInfo)
-      setActiveFile(fileInfo.name)
-      setVisible(false)
-    }
+    props.openFile(fileInfo)
+    setActiveFile(fileInfo.name)
+    setVisible(false)
   }
 
   const getList = async () => {
@@ -215,7 +205,8 @@ export default (props: IProps) => {
                       {(collaborationId !== item.id) ? (
                         <Button
                           onClick={() => {
-                            toCreatorCollaboration(item.id)
+                            props.openCollaboration(item.id)
+                            setVisible(false)
                           }}
                         >
                           Start collaboration
