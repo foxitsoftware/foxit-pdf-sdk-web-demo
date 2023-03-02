@@ -16,5 +16,8 @@ module.exports = {
     disableHostCheck: true,
     clientLogLevel: 'error',
     historyApiFallback: true,
-    proxy: pkg.serve.proxy
+    proxy: pkg.serve.proxy,
+    watchOptions: {
+        ignored: /node_modules/
+    }
 }
