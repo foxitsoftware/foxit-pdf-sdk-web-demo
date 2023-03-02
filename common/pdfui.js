@@ -7,15 +7,12 @@ import {deepCloneAssign} from './util';
 export const UIExtension = U;
 
 const libPath = "/lib/";
-const { PDFViewCtrl, appearances:{MobileAppearance, RibbonAppearance} } = UIExtension;
+const { PDFViewCtrl, appearances:{AdaptiveAppearance} } = UIExtension;
 const { Events } = PDFViewCtrl;
-export let isMobile = false;
-let appearance = RibbonAppearance;
+const appearance = AdaptiveAppearance;
+
 export function createPDFUI(options) {
-  if(window.innerWidth <= 900){
-    appearance = MobileAppearance
-    isMobile = true
-  }
+  const isMobile = PDFViewCtrl.DeviceInfo.isMobile;
   const elm = document.createElement("div");
   elm.classList.add("fv__catalog-pdfui-wrapper");
   document.body.appendChild(elm);

@@ -287,6 +287,7 @@ const App = () => {
                         }}
                         ref={iframeRef}
                         className="fv__catalog-app-previewer"
+                        x-screen-size={screenSize}
                         src={it.path}
                         allowFullScreen
                       ></iframe>

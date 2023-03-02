@@ -19,6 +19,29 @@
 </head>
 <body>
     <script>
+        var _device_type_;
+        (function() {
+            var containerWindow = window.parent;
+            var iframe = containerWindow.document.querySelector('iframe');
+            _device_type_ = iframe.getAttribute('x-screen-size');
+            var userAgent = navigator.userAgent;
+            Object.defineProperty(navigator, 'userAgent', {
+                value: (function() {
+                    switch(_device_type_) {
+                        case 'mobile':
+                            return 'Mozilla/5.0 (Linux; Android 11; Pixel 5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.91 Mobile Safari/537.36';
+                        case 'tablet':
+                            return 'Mozilla/5.0 (iPad; CPU OS 13_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/87.0.4280.77 Mobile/15E148 Safari/604.1'
+                        case 'desktop':
+                            return 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36';
+                        default:
+                    }
+                    return userAgent;
+                })()
+            });
+        })()
+    </script>
+    <script>
         (function(){
             var LICENSE_KEY_PATH = '<%=htmlWebpackPlugin.options.licensePath%>?' + Date.now().toString(16);
             document.write('<script src="'+LICENSE_KEY_PATH+'"><\/script>');

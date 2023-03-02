@@ -3,12 +3,9 @@ import "@foxitsoftware/foxit-pdf-sdk-for-web-library-full/lib/UIExtension.vw.css
 import '../../common/pdfui.less';
 import { initSignatureHandlers } from '../../common/signature';
 
-const { PDFUI, appearances:{MobileAppearance, RibbonAppearance}  } = UIExtension;
-let appearance = RibbonAppearance,isMobile = false;
-if(window.innerWidth <= 900){
-  appearance = MobileAppearance
-  isMobile = true
-}
+const { PDFUI, appearances:{AdaptiveAppearance}  } = UIExtension;
+const appearance = AdaptiveAppearance;
+const isMobile = UIExtension.PDFViewCtrl.DeviceInfo.isMobile;
 
 const libPath = "/lib/";
 const wrapperElement = document.createElement("div");
