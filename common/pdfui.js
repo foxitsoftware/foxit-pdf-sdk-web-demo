@@ -11,8 +11,9 @@ const { PDFViewCtrl, appearances:{AdaptiveAppearance} } = UIExtension;
 const { Events } = PDFViewCtrl;
 const appearance = AdaptiveAppearance;
 
+export const isMobile = PDFViewCtrl.DeviceInfo.isMobile;
+
 export function createPDFUI(options) {
-  const isMobile = PDFViewCtrl.DeviceInfo.isMobile;
   const elm = document.createElement("div");
   elm.classList.add("fv__catalog-pdfui-wrapper");
   document.body.appendChild(elm);
