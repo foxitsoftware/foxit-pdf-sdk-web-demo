@@ -18,8 +18,11 @@ import {
   search,
   measurement
 } from "./scenes";
+import { isMobile, isTablet } from "./foundation/device";
 
 const { Content } = Layout;
+
+const intialScreenSize = isMobile ? 'mobile' : isTablet ? 'tablet' : 'desktop';
 
 const App = () => {
   const iframeRef = useRef<any>(null);
@@ -32,7 +35,7 @@ const App = () => {
   const [scene, setScene] = useState<any>(hello);
   const [locationTooltipX, setLocationTooltipX] = useState<string>("");
   const [locationTooltipY, setLocationTooltipY] = useState<string>("");
-  const [screenSize, setScreenSize] = useState<string>("desktop");
+  const [screenSize, setScreenSize] = useState<string>(intialScreenSize);
   const [isReloadToolTip, setIsReloadToolTip] = useState<boolean>(false);
   const getMessage = (event: any) => {
     let Data;
