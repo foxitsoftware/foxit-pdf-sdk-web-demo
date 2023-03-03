@@ -23,6 +23,7 @@
         (function() {
             var containerWindow = window.parent;
             var iframe = containerWindow.document.querySelector('iframe');
+            if(!iframe)return
             _device_type_ = iframe.getAttribute('x-screen-size');
             var userAgent = navigator.userAgent;
             Object.defineProperty(navigator, 'userAgent', {
