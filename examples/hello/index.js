@@ -46,7 +46,7 @@ if(!isMobile){
 }
 
 window.addEventListener(
-  !isMobile ? "resize" : "orientationchange",
+  "resize",
   function (e) {
     pdfui.redraw();
   }

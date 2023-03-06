@@ -89,7 +89,7 @@ export function createPDFUI(options) {
   });
 
   window.addEventListener(
-    !isMobile ? "resize" : "orientationchange",
+    "resize",
     () => {
       pdfui.redraw();
     }
