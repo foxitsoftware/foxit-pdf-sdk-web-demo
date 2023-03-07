@@ -115,6 +115,9 @@ export function initTab(pdfui,options){
     function activeComponent(){
       pdfui.getRootComponent().then((root) => {
         const tabComponent = root.getComponentByName(menuTabName);
+        if(!tabComponent) {
+          return;
+        }
         tabComponent.active();
         if(group.length > 0){
           setTimeout(()=>{

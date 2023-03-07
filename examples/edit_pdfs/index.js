@@ -215,7 +215,7 @@ pdfui.addViewerEventListener(Events.openFileSuccess, () => {
   if (!isMobile) {
     pdfui.getRootComponent().then((root) => {
       const editTab = root.getComponentByName("edit-tab");
-      editTab.active();
+      editTab && editTab.active();
     });
   }
 });
