@@ -22,7 +22,7 @@ import { isMobile, isTablet } from "./foundation/device";
 
 const { Content } = Layout;
 
-const intialScreenSize = isMobile ? 'mobile' : isTablet ? 'tablet' : 'desktop';
+const intialScreenSize = new URL(location.href).searchParams.get('screen-size') || (isMobile ? 'mobile' : isTablet ? 'tablet' : 'desktop');
 
 const App = () => {
   const iframeRef = useRef<any>(null);
