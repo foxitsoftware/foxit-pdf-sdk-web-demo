@@ -59,7 +59,7 @@ module.exports = function (env, argv) {
         if(process.env['LICENSE_PATH']){
             return process.env['LICENSE_PATH']
         }else {
-            return isDev? 'https://cdn-sdk.foxitsoftware.com/pdf-sdk/download/foxit-pdf-sdk-for-web/pcmobile/8.x/8.0/license-key.js' : 'https://cdn-sdk.foxitsoftware.com/pdf-sdk/download/foxit-pdf-sdk-for-web/license-key.js'
+            return isDev? 'https://cdn-sdk.foxitsoftware.com/pdf-sdk/download/foxit-pdf-sdk-for-web/pcmobile/license-key.js' : 'https://cdn-sdk.foxitsoftware.com/pdf-sdk/download/foxit-pdf-sdk-for-web/license-key.js'
         }
     }
 
