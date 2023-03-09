@@ -22,21 +22,20 @@ import { isMobile, isTablet } from "./foundation/device";
 
 const { Content } = Layout;
 
-const intialScreenSize = new URL(location.href).searchParams.get('screen-size') || (isMobile ? 'mobile' : isTablet ? 'tablet' : 'desktop');
+const screenSize = new URL(location.href).searchParams.get('screen-size') || (isMobile ? 'mobile' : isTablet ? 'tablet' : 'desktop');
 
 const App = () => {
   const iframeRef = useRef<any>(null);
   const locationDom = useLocation();
-  const [isShow, setIsShow] = useState(true);
+  const [isShow, setIsShow] = useState(false);
   const [current, setCurrent] = useState<number>(0);
   const [isDoneScene, changeDone] = useState<boolean>(true);
   const [isLoad, setIsLoad] = useState<boolean>(false);
-  const [isSuccess, setIsSuccess] = useState<boolean>(false);
   const [scene, setScene] = useState<any>(hello);
   const [locationTooltipX, setLocationTooltipX] = useState<string>("");
   const [locationTooltipY, setLocationTooltipY] = useState<string>("");
-  const [screenSize, setScreenSize] = useState<string>(intialScreenSize);
   const [isReloadToolTip, setIsReloadToolTip] = useState<boolean>(false);
+  const [isTurn, setIsTurn] = useState(true);
   const getMessage = (event: any) => {
     let Data;
     try {
@@ -45,16 +44,7 @@ const App = () => {
       return;
     }
     if (Data.hasOwnProperty("isTurn")) {
-      setIsShow(Data.isTurn);
-    }
-    if (Data.screenSize) {
-      setScreenSize(Data.screenSize);
-      if(Data.screenSize !== "desktop"){
-        setIsSuccess(false)
-      }else{
-        setIsSuccess(true)
-      }
-      iframeRef.current.contentWindow.location.reload();
+      setIsTurn(Data.isTurn);
     }
   };
 
@@ -64,9 +54,12 @@ const App = () => {
       window.addEventListener("message", getMessage, false);
     };
   }, [iframeRef, location.hash]);
-
+  
+  useEffect(() => {
+    setIsShow(isTurn && isLoad);
+  }, [isTurn, isLoad])
+  
   const getElement = (newCurrent: number) => {
-    setIsSuccess(true);
     let currentScene = scene[newCurrent], element = null;
     if(currentScene.elementClassName){
       element = iframeRef.current.contentDocument.getElementsByClassName(
@@ -212,7 +205,6 @@ const App = () => {
   useEffect(() => {
     changeDone(true);
     setIsLoad(false);
-    setIsSuccess(false);
     setCurrent(0);
   }, [locationDom.hash]);
 
@@ -243,7 +235,6 @@ const App = () => {
                     <Route path={"/" + it.baseName} key={it.name}>
                       {isShow &&
                         isDoneScene &&
-                        isSuccess &&
                         locationDom.hash !== "#/advanced_form" &&
                         screenSize === "desktop" &&
                         locationDom.hash !== "#/collaboration" && (
@@ -273,7 +264,6 @@ const App = () => {
                         )}
                       {locationDom.hash === "#/advanced_form" &&
                         isShow &&
-                        isSuccess &&
                         screenSize === "desktop" && (
                           <AdvancedTooltip
                             header="Save your form data"
