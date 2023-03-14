@@ -90,7 +90,7 @@ const editPdf = [
   },
   {
     positionX: "250px",
-    positionY: "600px",
+    positionY: "500px",
     sideTriangle: "left",
     header: "Crop pages",
     description:
