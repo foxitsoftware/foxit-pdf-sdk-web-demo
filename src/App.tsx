@@ -210,14 +210,14 @@ const App = () => {
 
   useEffect(() => {
     if (iframeRef.current && iframeRef.current.contentWindow.pdfui) {
-      iframeRef.current.contentWindow.pdfui.addViewerEventListener(
+      return iframeRef.current.contentWindow.pdfui.addViewerEventListener(
         "open-file-success",
         () => {
           getElement(current);
         }
       );
     }
-  }, [isLoad, screenSize]);
+  }, [iframeRef.current]);
 
   useEffect(() => {
     if(isReloadToolTip){
