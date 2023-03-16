@@ -56,10 +56,15 @@ const App = () => {
   }, [iframeRef, location.hash]);
   
   useEffect(() => {
-    setIsShow(isTurn && isLoad);
+    const pdfui = iframeRef.current?.contentWindow?.pdfui;
+    if(pdfui) {
+      pdfui.getCurrentPDFDoc().then((doc: any) => {
+        setIsShow(!!doc && isTurn && isLoad);
+      })
+    }
   }, [isTurn, isLoad])
   
-  const getElement = (newCurrent: number) => {
+  const updateCurrentElement = (newCurrent: number) => {
     let currentScene = scene[newCurrent], element = null;
     if(currentScene.elementClassName){
       element = iframeRef.current.contentDocument.getElementsByClassName(
@@ -70,7 +75,7 @@ const App = () => {
         currentScene.elementName
       )
     }
-    getOffset(element);
+    updateOffset(element);
   };
 
   const handleNext = () => {
@@ -78,7 +83,7 @@ const App = () => {
       const newCurrent = prevCurrent + 1;
       scene[newCurrent].func(iframeRef);
       scene[newCurrent].asyncLoadToolTip&&reloadToolTip(newCurrent);
-      getElement(newCurrent);
+      updateCurrentElement(newCurrent);
       return newCurrent;
     });
   };
@@ -88,7 +93,7 @@ const App = () => {
       const newCurrent = prevCurrent - 1;
       scene[newCurrent].func(iframeRef);
       scene[newCurrent].asyncLoadToolTip&&reloadToolTip(newCurrent);
-      getElement(newCurrent);
+      updateCurrentElement(newCurrent);
       return newCurrent;
     });
   };
@@ -106,14 +111,14 @@ const App = () => {
     const resetPosition = ()=>{
       const { elementClassName, elementIndex} = scene[newCurrent]
       setIsReloadToolTip(true);
-      getOffset(iframeRef.current.contentDocument.getElementsByClassName(elementClassName)[elementIndex])
+      updateOffset(iframeRef.current.contentDocument.getElementsByClassName(elementClassName)[elementIndex])
       pdfui.removeUIEventListener("render-page-success",resetPosition)
       setIsReloadToolTip(false);
     }
     return pdfui.addUIEventListener("render-page-success",resetPosition)
   }
 
-  const getOffset = (el: any) => {
+  const updateOffset = (el: any) => {
     const {scrollX,scrollY,innerWidth} = window;
     const {sideTriangle,positionX,positionY,offsetX=0,offsetY=0,elementIndex=0} = scene[current];
     const rectLeft = Number(positionX.slice(0,-2));
@@ -199,7 +204,7 @@ const App = () => {
   }, [locationDom.hash]);
 
   useEffect(() => {
-    getElement(current);
+    updateCurrentElement(current);
   }, [current]);
 
   useEffect(() => {
@@ -208,20 +213,49 @@ const App = () => {
     setCurrent(0);
   }, [locationDom.hash]);
 
+  const [pdfui, setPDFUI] = useState<any>(null);
+  
   useEffect(() => {
-    if (iframeRef.current && iframeRef.current.contentWindow.pdfui) {
-      return iframeRef.current.contentWindow.pdfui.addViewerEventListener(
-        "open-file-success",
-        () => {
-          getElement(current);
-        }
-      );
+    if(!pdfui) {
+      return;
     }
+    pdfui.getCurrentPDFDoc().then((doc: any) => {
+      if(doc) {
+        setIsShow(!!doc && isTurn && isLoad);
+        updateCurrentElement(current);
+      }
+    })
+    return pdfui.addViewerEventListener(
+      "open-file-success",
+      () => {
+        setIsShow(isTurn && isLoad);
+        updateCurrentElement(current);
+      }
+    );
+  }, [pdfui])
+
+
+  useEffect(() => {
+    const win = iframeRef.current?.contentWindow;
+    let pdfui = win.pdfui;
+    if(pdfui) {
+      setPDFUI(pdfui);
+      return;
+    }
+    setTimeout(function wait() {
+      pdfui = win.pdfui;
+      if(!pdfui) {
+        setTimeout(wait, 100);
+      } else {
+        setIsLoad(true);
+        setPDFUI(pdfui);
+      }
+    }, 100)
   }, [iframeRef.current]);
 
   useEffect(() => {
     if(isReloadToolTip){
-      getElement(current);
+      updateCurrentElement(current);
     }
   }, [isReloadToolTip]);
 
