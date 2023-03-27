@@ -50,6 +50,9 @@ const App = () => {
 
   useEffect(() => {
     window.addEventListener("message", getMessage, false);
+    window.top?.postMessage('ready', {
+      targetOrigin: '*'
+    });
     return () => {
       window.addEventListener("message", getMessage, false);
     };
