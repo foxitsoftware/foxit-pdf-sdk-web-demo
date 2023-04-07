@@ -240,7 +240,7 @@ const App = () => {
 
   useEffect(() => {
     const win = iframeRef.current?.contentWindow;
-    let pdfui = win.pdfui;
+    let pdfui = win?.pdfui;
     if(pdfui) {
       setPDFUI(pdfui);
       return;
