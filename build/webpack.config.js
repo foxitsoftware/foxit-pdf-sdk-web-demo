@@ -86,7 +86,7 @@ module.exports = function (env, argv) {
                 });
             }),
             {
-                filename: '[name].js',
+                filename: '[name].[contenthash].js',
                 path: distPath,
                 library: '__example__',
                 libraryTarget: 'window',
@@ -134,7 +134,7 @@ module.exports = function (env, argv) {
                 }),
             ],
             {
-                filename: '[name].js',
+                filename: '[name].[contenthash].js',
                 path: distPath,
                 globalObject: 'window',
             },
@@ -239,7 +239,7 @@ function createWebpackConfig(entry, morePlugins, output, env, argv, devServer) {
         },
         plugins: [
             new MiniCssExtractPlugin({
-                filename: '[name].css',
+                filename: '[name].[contenthash].css',
             }),
         ]
             .concat(morePlugins)
