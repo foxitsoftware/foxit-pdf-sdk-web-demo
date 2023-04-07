@@ -1,0 +1,180 @@
+[Override]
+[Override."CourierNewPS"]
+Normal="cour.cfg"
+Bold="courbd.cfg"
+BoldItalic="courbi.cfg"
+Italic="couri.cfg"
+
+[Override."CourierNewPSMT"]
+Normal="cour.cfg"
+Bold="courbd.cfg"
+BoldItalic="courbi.cfg"
+Italic="couri.cfg"
+
+[Override."黑体"]
+Normal="simhei.cfg"
+Bold="simhei.cfg"
+BoldItalic="simhei.cfg"
+Italic="simhei.cfg"
+
+[Override."宋体"]
+Normal="simsun.cfg"
+Bold="simsun.cfg"
+BoldItalic="simsun.cfg"
+Italic="simsun.cfg"
+
+[Override."新宋体"]
+Normal="nsimsun.cfg"
+Bold="nsimsun.cfg"
+BoldItalic="nsimsun.cfg"
+Italic="nsimsun.cfg"
+
+[Override."微软雅黑"]
+Normal="msyh.cfg"
+Bold="msyhbd.cfg"
+BoldItalic="msyh.cfg"
+Italic="msyh.cfg"
+
+[Fonts]
+[Fonts."Arial"]
+Normal="arial.cfg"
+Bold="arialbd.cfg"
+BoldItalic="arialbi.cfg"
+Italic="ariali.cfg"
+
+[Fonts."Courier New"]
+Normal="cour.cfg"
+Bold="courbd.cfg"
+BoldItalic="courbi.cfg"
+Italic="couri.cfg"
+
+[Fonts."Lucida Sans Typewriter"]
+Normal="ltype.cfg"
+Bold="ltypeb.cfg"
+BoldItalic="ltypebo.cfg"
+Italic="ltypeo.cfg"
+
+[Fonts."Times New Roman"]
+Normal="times.cfg"
+Bold="timesbd.cfg"
+BoldItalic="timesbi.cfg"
+Italic="timesi.cfg"
+
+[Fonts."MS Gothic"]
+Normal="msgothic.cfg"
+
+[Fonts."MS Mincho"]
+Normal="msmincho.cfg"
+
+[Fonts."SimHei"]
+Normal="simhei.cfg"
+
+[Fonts."SimSun"]
+Normal="simsun.cfg"
+
+[Fonts."Lucida Console"]
+Normal="lucon.cfg"
+
+[Fonts."Cambria Math"]
+Normal="cambriaMath.cfg"
+
+[Fonts."Batang"]
+Normal="batang.cfg"
+
+[Fonts."Gulim"]
+Normal="gulim.cfg"
+
+[Fonts."MingLiU"]
+Normal="mingliu.cfg"
+
+[Fonts."NSimSun"]
+Normal="nsimsun.cfg"
+
+[Fonts."BatangChe"]
+Normal="batangche.cfg"
+
+[Fonts."GulimChe"]
+Normal="gulimche.cfg"
+
+[Fonts."PMingLiU"]
+Normal="pmingliu.cfg"
+
+[Fonts."MS PMincho"]
+Normal="mspmincho.cfg"
+
+[Fonts."MS PGothic"]
+Normal="mspgothic.cfg"
+
+[Fonts."Webdings"]
+Normal="webdings.cfg"
+
+[Fonts."Wingdings"]
+Normal="wingding.cfg"
+
+[Fonts."Wingdings 2"]
+Normal="wingdings2.cfg"
+
+[Fonts."Wingdings 3"]
+Normal="wingdings3.cfg"
+
+[Fonts."Malgun Gothic"]
+Normal="malgun.cfg"
+Bold="malgunbd.cfg"
+
+[Fonts."Meiryo"]
+Normal="meiryo.cfg"
+Bold="meiryob.cfg"
+BoldItalic="meiryobi.cfg"
+Italic="meiryoi.cfg"
+
+[Fonts."Segoe UI Symbol"]
+Normal="seguisym.cfg"
+
+[Fonts."Calibri"]
+Normal="calibri.cfg"
+Bold="calibrib.cfg"
+BoldItalic="calibriz.cfg"
+Italic="calibrii.cfg"
+
+[Fonts."Consolas"]
+Normal="consola.cfg"
+Bold="consolab.cfg"
+BoldItalic="consolaz.cfg"
+Italic="consolai.cfg"
+
+[Fonts."Cambria"]
+Normal="cambria.cfg"
+Bold="cambriab.cfg"
+BoldItalic="cambriaz.cfg"
+Italic="cambriai.cfg"
+
+[Fonts."Microsoft YaHei"]
+Normal="msyh.cfg"
+
+[Fonts."Microsoft JhengHei"]
+Normal="msjh.cfg"
+
+[Fonts."Gill Sans MT Condensed"]
+Normal="gilc.cfg"
+
+[Fonts."Bodoni MT Condensed"]
+Normal="bod_cr.cfg"
+Bold="bod_cb.cfg"
+BoldItalic="bod_cbi.cfg"
+Italic="bod_ci.cfg"
+
+[Fonts."Comic Sans MS"]
+Normal="comic.cfg"
+Bold="comicbd.cfg"
+BoldItalic="comicz.cfg"
+Italic="comici.cfg"
+
+[Fonts."Segoe UI Light"]
+Normal="segoeuil.cfg"
+Italic="seguili.cfg"
+
+[Fonts."Perpetua Titling MT"]
+Normal="pertili.cfg"
+
+[Fallback]
+Fallback="arialuni.cfg"
