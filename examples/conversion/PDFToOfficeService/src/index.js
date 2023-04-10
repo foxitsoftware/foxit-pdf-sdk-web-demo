@@ -31,6 +31,7 @@ app.use(koaBody({
         uploadDir: path.join(__dirname, 'static/fileUploads/'+getDateDirName()),
         keepExtensions: true,
         onFileBegin: () => {
+            dateFolder = path.join(__dirname, 'static/fileUploads/' + getDateDirName());
             if (!fs.existsSync(dateFolder)) {
                 fs.mkdirSync(dateFolder);
             }
