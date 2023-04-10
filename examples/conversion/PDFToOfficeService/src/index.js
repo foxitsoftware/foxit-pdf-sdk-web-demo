@@ -24,16 +24,18 @@ app.use(cors({
   credentials: true
 }));
 app.use(koaStatic(path.join(__dirname, 'static')))
-let dateFolder = path.join(__dirname, 'static/fileUploads/' + getDateDirName())
+
+const getDateFolderToday = () => path.join(__dirname, 'static/fileUploads/' + getDateDirName())
+
 app.use(koaBody({
     multipart: true,
     formidable: {
-        uploadDir: path.join(__dirname, 'static/fileUploads/'+getDateDirName()),
+        uploadDir: getDateFolderToday(),
         keepExtensions: true,
         onFileBegin: () => {
-            dateFolder = path.join(__dirname, 'static/fileUploads/' + getDateDirName());
-            if (!fs.existsSync(dateFolder)) {
-                fs.mkdirSync(dateFolder);
+            const folder = getDateFolderToday();
+            if (!fs.existsSync(folder)) {
+                fs.mkdirSync(folder);
             }
         },
     }
