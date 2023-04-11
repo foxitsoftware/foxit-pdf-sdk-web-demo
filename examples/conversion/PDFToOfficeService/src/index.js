@@ -24,15 +24,18 @@ app.use(cors({
   credentials: true
 }));
 app.use(koaStatic(path.join(__dirname, 'static')))
-let dateFolder = path.join(__dirname, 'static/fileUploads/' + getDateDirName())
+
+const getDateFolderToday = () => path.join(__dirname, 'static/fileUploads/' + getDateDirName())
+
 app.use(koaBody({
     multipart: true,
     formidable: {
-        uploadDir: path.join(__dirname, 'static/fileUploads/'+getDateDirName()),
+        uploadDir: path.join(__dirname, 'static/fileUploads/'),
         keepExtensions: true,
         onFileBegin: () => {
-            if (!fs.existsSync(dateFolder)) {
-                fs.mkdirSync(dateFolder);
+            const folder = path.join(__dirname, 'static/fileUploads/');
+            if (!fs.existsSync(folder)) {
+                fs.mkdirSync(folder);
             }
         },
     }
@@ -65,6 +68,16 @@ initConversionSdk()
 router.post('/api/upload', async (ctx) => {
     const file = ctx.request.files.file
     const basename = path.basename(file.newFilename)
+    try {
+        const folder = getDateFolderToday();
+        if (!fs.existsSync(folder)) {
+            fs.mkdirSync(folder);
+        }
+        fs.renameSync(path.join(__dirname, 'static/fileUploads/', file.newFilename), path.join(__dirname, 'static/fileUploads/' + getDateDirName(), file.newFilename))
+    } catch (e) {
+        return ctx.body = {code: 400, msg: `Upload faild, ${e.message}`} 
+    }
+    
     let docId=basename.replace('.pdf', '')
     ctx.body = { "docId": `${docId}` }
 })
