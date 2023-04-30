@@ -30,10 +30,10 @@ const getDateFolderToday = () => path.join(__dirname, 'static/fileUploads/' + ge
 app.use(koaBody({
     multipart: true,
     formidable: {
-        uploadDir: getDateFolderToday(),
+        uploadDir: path.join(__dirname, 'static/fileUploads/'),
         keepExtensions: true,
         onFileBegin: () => {
-            const folder = getDateFolderToday();
+            const folder = path.join(__dirname, 'static/fileUploads/');
             if (!fs.existsSync(folder)) {
                 fs.mkdirSync(folder);
             }
@@ -68,6 +68,16 @@ initConversionSdk()
 router.post('/api/upload', async (ctx) => {
     const file = ctx.request.files.file
     const basename = path.basename(file.newFilename)
+    try {
+        const folder = getDateFolderToday();
+        if (!fs.existsSync(folder)) {
+            fs.mkdirSync(folder);
+        }
+        fs.renameSync(path.join(__dirname, 'static/fileUploads/', file.newFilename), path.join(__dirname, 'static/fileUploads/' + getDateDirName(), file.newFilename))
+    } catch (e) {
+        return ctx.body = {code: 400, msg: `Upload faild, ${e.message}`} 
+    }
+    
     let docId=basename.replace('.pdf', '')
     ctx.body = { "docId": `${docId}` }
 })
