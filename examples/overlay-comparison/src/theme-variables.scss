@@ -1,0 +1,24 @@
+$primary-bd-color: #923094;
+$primary-bg-color: #923094;
+$primary-color: white;
+$primary-hover-bd-color: #7E0681;
+$primary-hover-bg-color: #7E0681;
+$primary-hover-color: white;
+$primary-active-bd-color: rgba(126, 6, 129, 0.5);
+$primary-active-bg-color: rgba(126, 6, 129, 0.5);
+$primary-active-color: white;
+$primary-active-opacity: 0.5;
+
+$default-bd-color: #D1D1D1;
+$default-bg-color: white;
+$default-color: #333;
+
+$default-hover-bd-color: #7E0681;
+$default-hover-bg-color: white;
+$default-hover-color: #7E0681;
+
+$default-active-bd-color: $default-hover-bd-color;
+$default-active-bg-color: $default-hover-bg-color;
+$default-active-color: $default-hover-color;
+
+$default-active-opacity: 0.5;

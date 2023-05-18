@@ -1,0 +1,5 @@
+{
+    "name": "check-license",
+    "description": "",
+    "GSDKJS": "/lib/jr-engine/gsdk/gsdk.js"
+}

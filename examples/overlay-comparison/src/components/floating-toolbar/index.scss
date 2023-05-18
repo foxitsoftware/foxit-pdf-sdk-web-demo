@@ -1,0 +1,50 @@
+.fx_oc-floating-toolbar {
+    position: absolute;
+    
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    
+    max-width: 100%;
+    height: 36px;
+    line-height: 36px;
+    
+    bottom: 0;
+    right: 0;
+    
+    overflow: hidden;
+    
+    background-color: #f4f4f4;
+    z-index: 26;
+    &.expand {
+        left: 0;
+        // position: relative;
+    }
+    
+    &-content {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        align-items: center;
+        
+        flex: 1;
+        min-width: 0;
+        width: 0;
+        overflow: hidden;
+        
+        transition: width 1s ease-in-out;
+
+        .expand & {
+            width: auto;
+        }
+    }
+    &-toggler {
+        display: flex;
+        
+        width: 36px;
+        height: 36px;
+        
+        justify-content: center;
+        align-items: center;
+    }
+}

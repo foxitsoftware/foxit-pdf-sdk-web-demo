@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Multiple PDFViewer case</title>
+    <style>
+        html， body {
+            padding: 0;
+            margin: 0;
+        }
+    </style>
+    <style>
+        body {
+            display: flex;
+            overflow: hidden;
+            flex-direction: row;
+        }
+        .foxit-web-pdf-app {
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+            height: 100vh;
+            min-width: 50vw;
+            border-right: 1px solid #ddd;
+            box-sizing: border-box;
+            position: relative;
+        }
+        .pdf-viewer-toolbar {
+            height: 64px;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            padding-left: 1em;
+            border-bottom: 1px solid #ddd;
+            box-sizing: border-box;
+        }
+        .pdf-viewer-toolbar input {
+            height: 32px;
+            line-height: 32px;
+        }
+        .pdf-viewer-container {
+            flex: 1;
+            overflow: scroll;
+            min-width: 0;
+        }
+        .fv__viewer-single-view-mode .fv__pdf-view-mode-item {
+            --facing-margin: 0;
+        }
+        .continuous-view-mode .fv__pdf-view-mode-item.fv__pdf-view-mode-item.fv__pdf-view-mode-item {
+            --facing-margin: auto;
+            margin-top: 8px;
+        }
+    </style>
+</head>
+<body>
+    <div class="foxit-web-pdf-app" id="pdf-app-0">
+        <div class="pdf-viewer-toolbar">
+            <input type="file" name="select-pdf-file" accept="application/pdf">
+        </div>
+        <div class="pdf-viewer-container">
+            <div class="pdf-viewer"></div>
+        </div>
+    </div>
+    <div class="foxit-web-pdf-app" id="pdf-app-1">
+        <div class="pdf-viewer-toolbar">
+            <input type="file" name="select-pdf-file" accept="application/pdf">
+        </div>
+        <div class="pdf-viewer-container">
+            <div class="pdf-viewer"></div>
+        </div>
+    </div>
+
+    <script>
+        (function(){
+            var LICENSE_KEY_PATH = '<%=htmlWebpackPlugin.options.licensePath%>?' + Date.now().toString(16);
+            document.write('<script src="'+LICENSE_KEY_PATH+'"><\/script>');
+        })()
+    </script>
+    <script src="<%=htmlWebpackPlugin.options.PDFViewCtrlLib%>"></script>
+</body>
+</html>

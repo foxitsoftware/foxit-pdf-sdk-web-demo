@@ -1,0 +1,45 @@
+
+.fx_oc-icon-hg {
+    &, svg {
+        width: 64px;
+        height: 64px;
+    }
+}
+
+.fx_oc-icon-lg {
+    &, svg {
+        width: 48px;
+        height: 48px;
+    }
+}
+.fx_oc-icon-md {
+    &, svg {
+        width: 32px;
+        height: 32px;
+    }
+}
+.fx_oc-icon-sm {
+    &, svg {
+        width: 16px;
+        height: 16px;
+    }
+}
+
+.fx_oc-icon-xs {
+    &, svg {
+        width: 7px;
+        height: 7px;
+    }
+}
+.fx_oc-icon-rem {
+    &, svg {
+        width: 1rem;
+        height: 1rem;
+    }
+}
+.fx_oc-icon-em {
+    &, svg {
+        width: 1em;
+        height: 1em;
+    }
+}

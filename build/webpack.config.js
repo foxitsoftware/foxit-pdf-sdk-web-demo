@@ -211,6 +211,20 @@ function createWebpackConfig(entry, morePlugins, output, env, argv, devServer) {
                     ],
                 },
                 {
+                    test: /\.scss$/,
+                    use: [
+                        MiniCssExtractPlugin.loader,
+                        'css-loader',
+                        {
+                            loader: 'sass-loader',
+                        },
+                    ],
+                },
+                {
+                    test: /\.svg$/,
+                    use: ['@svgr/webpack'],
+                },
+                {
                     test: /\.art$/,
                     use: [
                         {

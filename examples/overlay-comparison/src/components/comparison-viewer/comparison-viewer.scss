@@ -1,0 +1,59 @@
+$cls: '.fx_oc-comparison-viewer';
+.fx_oc-comparison-viewer {
+    display: flex;
+    flex-direction: column;
+    background-color: #DDDEDF;
+    border-radius: 5px;
+    box-shadow: 0 4px 4px rgba(0, 0, 0, .25);
+    position: relative;
+    &-header {
+        height: 44px;
+        line-height: 44px;
+        display: flex;
+        &-title {
+            
+            max-width: 29vw;;
+            margin-left: auto;
+            margin-right: 7px;
+            
+            text-overflow: ellipsis;
+            overflow: hidden;
+            
+            white-space: nowrap;
+            word-break:keep-all;
+            
+            color: #666;
+            font-family: 'Inter';
+            font-weight: 500;
+            font-size: 14px;
+        }
+    }
+    &-body {
+        flex: 1;
+        position: relative;
+        overflow: auto;
+        min-width: 0;
+        .anticon {
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: auto;
+            height: auto;
+            background-color: white;
+            svg {
+                width: 204px;
+                height: 150px;
+            }
+        }
+    }
+    &.file-opened {
+        #{$cls}-body .anticon {
+            display: none;
+        }
+    }
+}

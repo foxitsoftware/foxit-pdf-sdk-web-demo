@@ -1,0 +1,7 @@
+<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect width="14" height="1" rx="0.5" transform="matrix(-1 0 0 1 15 2)" fill="#333333"/>
+<rect width="8" height="1" rx="0.5" transform="matrix(-1 0 0 1 15 6)" fill="#333333"/>
+<rect width="8" height="1" rx="0.5" transform="matrix(-1 0 0 1 15 10)" fill="#333333"/>
+<rect width="14" height="1" rx="0.5" transform="matrix(-1 0 0 1 15 14)" fill="#333333"/>
+<path d="M1 8.15789L5 5V11L1 8.15789Z" fill="#333333"/>
+</svg>

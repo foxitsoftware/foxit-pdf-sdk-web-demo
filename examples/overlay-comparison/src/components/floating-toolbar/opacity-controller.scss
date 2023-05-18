@@ -1,0 +1,26 @@
+.fx_oc-opacity-controller {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: 220px;
+    padding: 0 10px;
+    
+    .fx_oc-opacity-controller-label {
+        color: #333;
+        font-size: 11px;
+        font-weight: 400;
+        font-family: 'Tohoma';
+    }
+
+    &.disabled  .fx_oc-opacity-controller-label {
+        opacity: .6;
+        cursor: not-allowed;
+    }
+    
+    
+    .fx_oc-floating-toolbar-button {
+        width: 16px;
+        height: 16px;
+    }
+}

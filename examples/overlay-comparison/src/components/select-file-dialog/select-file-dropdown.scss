@@ -1,0 +1,38 @@
+$select-height: 24px;
+
+.fx_oc-select-file {
+    display: flex;
+    
+    .ant-btn {
+        height: 24px;
+        line-height: 20px;
+        padding: 0 12px;
+        font-size: 14px;
+        background-color: #f8f8f8;
+        border-radius: 10px;
+        border: 1px solid #ddd;
+    }
+}
+.fx_oc-select-file-dropdown {
+    flex: 1;
+    min-width: 0;
+    width: auto;
+    margin-right: 1em;
+    &.ant-select-single .ant-select-selector .ant-select-selection-item {
+        line-height: $select_height;
+        padding-right: 4px;
+    }
+    
+    &, &.ant-select-single:not(.ant-select-customize-input) .ant-select-selector {
+        height: $select-height;
+        line-height: $select-height;
+    }
+    .ant-select-arrow {
+        right: 6px;
+    }
+}
+.fx_oc-select-file-choose-button {
+    input {
+        display: none;
+    }
+}

@@ -1,0 +1,30 @@
+
+.fx_oc-compare-fieldset {
+    legend {
+        font-size: 14px;
+    }
+}
+.fx_oc-compare-fieldset-content {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    .fx_oc-compare-fieldset {
+        width: 222px;
+    }
+}
+
+.fx_oc-compare-page-range-fieldset {
+    margin-top: 10px;
+    .fx_oc-compare-fieldset-content {
+        display: flex;
+        flex-direction: column;
+        background-color: #f0f0f0;
+        border-radius: 3px;
+        padding: 10px;
+        
+        .fx_oc-compare-page-range:first-child {
+            margin-bottom: 10px;
+        }
+    }
+}
