@@ -55,8 +55,12 @@ document.getElementById('plus').onclick = function () {
     }
     if (!scale) {
         scale = 1;
-    } else {
+    } else if (scale > 1) {
         scale += 0.25;
+    } else if (scale > 0.1) {
+        scale += 0.1;
+    } else {
+        scale += 0.01;
     }
     if (scale > maxScale) {
         scale = maxScale;
@@ -66,8 +70,12 @@ document.getElementById('plus').onclick = function () {
 document.getElementById('sub').onclick = function () {
     if (!scale) {
         scale = 1;
-    } else {
+    } else if (scale > 1) {
         scale -= 0.25;
+    } else if (scale > 0.2) {
+        scale -= 0.1;
+    } else {
+        scale -= 0.01;
     }
     if (scale < minScale) {
         scale = minScale;
