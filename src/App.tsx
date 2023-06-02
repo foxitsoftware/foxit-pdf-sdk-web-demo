@@ -74,7 +74,7 @@ const App = () => {
         currentScene.elementClassName
       )
     }else{
-      element = iframeRef.current.contentDocument.getElementsByName(
+      element = iframeRef.current?.contentDocument.getElementsByName(
         currentScene.elementName
       )
     }
@@ -246,7 +246,7 @@ const App = () => {
       return;
     }
     setTimeout(function wait() {
-      pdfui = win.pdfui;
+      pdfui = win?.pdfui;
       if(!pdfui) {
         setTimeout(wait, 100);
       } else {
