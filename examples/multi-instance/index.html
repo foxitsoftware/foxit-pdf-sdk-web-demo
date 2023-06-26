@@ -7,12 +7,12 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Multiple PDFViewer case</title>
     <style>
-        html， body {
+        html, body {
             padding: 0;
             margin: 0;
+            background-color: #FFFFFF;
+            font-family: 'Open Sans';
         }
-    </style>
-    <style>
         body {
             display: flex;
             overflow: hidden;
@@ -53,12 +53,64 @@
             --facing-margin: auto;
             margin-top: 8px;
         }
+        .fv__viewer-file-btn {
+            background-color: #F2962E;
+            color: #FFFFFF;
+            border-radius: 1rem;
+            line-height: 2rem;
+            padding: 0 1rem;
+        }
+        .fv__viewer-file-name {
+            margin-left: 1em;
+            color: #000000;
+            font-weight: 600;
+        }
+        .fv__viewer-icon-tip {
+            position: absolute;
+            display: inline-block;
+            width: 2rem;
+            height: 2rem;
+            background-image: url("./tip.svg");
+            right: 0;
+        }
+        .fv__viewer-icon-tip-content {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: -250px;
+            width: 500px;
+            box-shadow: 0px 4px 19px 0px #00000040;
+            background-color: #FFFFFF;
+            border-radius: 3px;
+            font-size: 20px;
+            padding: 2rem;
+            color: #000000;
+            z-index: 11;
+            font-weight: 400;
+        }
+        .fv__viewer-icon-tip:hover .fv__viewer-icon-tip-content {
+            display: block;
+        }
     </style>
 </head>
 <body>
     <div class="foxit-web-pdf-app" id="pdf-app-0">
         <div class="pdf-viewer-toolbar">
-            <input type="file" name="select-pdf-file" accept="application/pdf">
+            <label class="fv__viewer-file-btn">
+                Browse...
+                <input type="file" name="select-pdf-file" accept="application/pdf" style="display:none;">
+            </label>
+            <span class="fv__viewer-file-name"></span>
+            <span class="fv__viewer-icon-tip">
+                <svg width="26" height="26" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M14.6328 10.2656V19H12.25V10.2656H14.6328ZM13.4453 6.84375C13.7995 6.84375 14.1042 6.92708 14.3594 7.09375C14.6146 7.25521 14.7422 7.5599 14.7422 8.00781C14.7422 8.45052 14.6146 8.75781 14.3594 8.92969C14.1042 9.09635 13.7995 9.17969 13.4453 9.17969C13.0859 9.17969 12.7786 9.09635 12.5234 8.92969C12.2734 8.75781 12.1484 8.45052 12.1484 8.00781C12.1484 7.5599 12.2734 7.25521 12.5234 7.09375C12.7786 6.92708 13.0859 6.84375 13.4453 6.84375Z" fill="black"/>
+                    <circle cx="13" cy="13" r="11.5" stroke="black" stroke-width="3"/>
+                </svg>
+
+                <div class="fv__viewer-icon-tip-content">
+                    This demo demonstrates the use of two PDF viewer instances to display PDFs on two separate DIVs instead of using Iframes.
+                </div>
+            </span>
         </div>
         <div class="pdf-viewer-container">
             <div class="pdf-viewer"></div>
@@ -66,7 +118,11 @@
     </div>
     <div class="foxit-web-pdf-app" id="pdf-app-1">
         <div class="pdf-viewer-toolbar">
-            <input type="file" name="select-pdf-file" accept="application/pdf">
+            <label class="fv__viewer-file-btn">
+                Browse...
+                <input type="file" name="select-pdf-file" accept="application/pdf" style="display:none;">
+            </label>
+            <span class="fv__viewer-file-name"></span>
         </div>
         <div class="pdf-viewer-container">
             <div class="pdf-viewer"></div>
