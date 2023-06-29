@@ -23,6 +23,7 @@ import { isMobile, isTablet } from "./foundation/device";
 const { Content } = Layout;
 
 const screenSize = new URL(location.href).searchParams.get('screen-size') || (isMobile ? 'mobile' : isTablet ? 'tablet' : 'desktop');
+const TURN_ON_OFF_STORE_KEY = '__foxit_websdk_turn_on_off_tooltip__';
 
 const App = () => {
   const iframeRef = useRef<any>(null);
@@ -35,7 +36,7 @@ const App = () => {
   const [locationTooltipX, setLocationTooltipX] = useState<string>("");
   const [locationTooltipY, setLocationTooltipY] = useState<string>("");
   const [isReloadToolTip, setIsReloadToolTip] = useState<boolean>(false);
-  const [isTurn, setIsTurn] = useState(true);
+  const [isTurn, setIsTurn] = useState(localStorage.getItem(TURN_ON_OFF_STORE_KEY) ?? true);
   const getMessage = (event: any) => {
     let Data;
     try {
