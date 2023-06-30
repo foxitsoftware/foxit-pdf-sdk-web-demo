@@ -14,6 +14,18 @@
     }
 }
 
+@media (max-width: 768px) {
+    .fx_oc-doc-selector-container {
+        flex-direction: column;
+    }
+    .fx_oc-compare-page-range-from-label,
+    .fx_oc-compare-page-range-to-label {
+        display: block;
+        text-align: left;
+        margin-left: 10px;
+    }
+}
+
 .fx_oc-compare-page-range-fieldset {
     margin-top: 10px;
     .fx_oc-compare-fieldset-content {

@@ -4,6 +4,7 @@
     align-items: center;
     justify-content: space-between;
     width: 220px;
+    max-width: 100%;
     padding: 0 10px;
     
     .fx_oc-opacity-controller-label {
@@ -11,6 +12,12 @@
         font-size: 11px;
         font-weight: 400;
         font-family: 'Tohoma';
+    }
+    @media screen and (max-width: 768px) {
+        .fx_oc-opacity-controller-label {
+            display: none;
+        }
+
     }
 
     &.disabled  .fx_oc-opacity-controller-label {

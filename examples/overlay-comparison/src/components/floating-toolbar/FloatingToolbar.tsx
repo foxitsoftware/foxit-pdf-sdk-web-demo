@@ -8,7 +8,7 @@ import { OpacityController } from "./OpacityController";
 import { PageNumberControl } from "./PageNumberControl";
 
 export function FloatingToolbar() {
-    const [isExpand, setExpand] = useState(true);
+    const [isExpand, setExpand] = useState(false);
 
     return (
         <div className={"fx_oc-floating-toolbar " + (isExpand ? "expand" : "")}>
