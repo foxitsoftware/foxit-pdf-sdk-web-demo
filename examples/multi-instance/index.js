@@ -43,7 +43,16 @@ function createPDFViewer(containerId, open, openOptions) {
                 fdf = file
             }
         }
-        pdfViewer.openPDFByFile(pdf, {password: '', fdf: {file: fdf}});
+        pdfViewer.openPDFByFile(pdf, {password: '', fdf: {file: fdf}}).catch(function(e) {
+            if (e && e.error === 3) {
+                var result = prompt('Please input password');
+                if (result) {
+                    pdfViewer.reopenPDFDoc(e.pdfDoc, {password: result, fdf: {file: fdf}});
+                } else {
+                    eFileName.textContent = '';
+                }
+            }
+        });
         this.value = '';
     }
 
