@@ -1,7 +1,14 @@
+function getBaseURL(){
+    if(window.location.hostname.indexOf('-azk8s') > -1 || window.location.hostname.indexOf('-stg') > -1){
+        return window.location.origin;
+    }
+    return 'https://webviewer-demo.foxitsoftware.com';
+}
+
 function requestData(type, url, responseType, body){
     return new Promise(function(res, rej){
         var xmlHttp = new XMLHttpRequest();
-        xmlHttp.open(type, 'https://webviewer-demo.foxitsoftware.com' + url);
+        xmlHttp.open(type, getBaseURL() + url);
 
         xmlHttp.responseType = responseType || 'arraybuffer';
         var formData = new FormData();
@@ -22,7 +29,7 @@ function requestData(type, url, responseType, body){
                 rej(new Error('Sign server is not available.'));
             }
         };
-        
+
         xmlHttp.send(body ? formData : null);
     });
 };
