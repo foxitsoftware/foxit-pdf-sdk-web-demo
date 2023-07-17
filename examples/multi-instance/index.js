@@ -44,14 +44,7 @@ function createPDFViewer(containerId, open, openOptions) {
             }
         }
         pdfViewer.openPDFByFile(pdf, {password: '', fdf: {file: fdf}}).catch(function(e) {
-            if (e && e.error === 3) {
-                var result = prompt('Please input password');
-                if (result) {
-                    pdfViewer.reopenPDFDoc(e.pdfDoc, {password: result, fdf: {file: fdf}});
-                } else {
-                    eFileName.textContent = '';
-                }
-            }
+            reopenPDF(pdfViewer, e, {password: '', fdf: {file: fdf}}, eFileName);
         });
         this.value = '';
     }
@@ -66,6 +59,18 @@ function createPDFViewer(containerId, open, openOptions) {
     })
     pdfViewer.openPDFByHttpRangeRequest(open, openOptions);
     return pdfViewer;
+}
+
+function reopenPDF (viewer, ex, options, eFileName) {
+    if (ex && ex.error === 3) {
+        var result = prompt('Please input password');
+        if (result) {
+            var reopenOptions = Object.assign({}, options, {password: result})
+            pdfViewer.reopenPDFDoc(ex.pdfDoc, reopenOptions);
+        } else {
+            eFileName.textContent = '';
+        }
+    }
 }
 
 var pdfViewer0 = createPDFViewer('pdf-app-0', {
