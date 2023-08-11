@@ -16,6 +16,7 @@ export const isMobile = PDFViewCtrl.DeviceInfo.isMobile;
 export function createPDFUI(options) {
   const elm = document.createElement("div");
   elm.classList.add("fv__catalog-pdfui-wrapper");
+  elm.setAttribute('id', 'pdf-ui');
   document.body.appendChild(elm);
   const defaultOptions = {
     viewerOptions: {
