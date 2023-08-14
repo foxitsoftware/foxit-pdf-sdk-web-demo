@@ -43,8 +43,8 @@ export default  (props) => {
       let isInvited = await collaboration?.addMembers(inviteList);
       if (isInvited) {
         message.info(lang.CollabAuthor.inviteSuccess);
-        setEmail('');
-        setInviteList([]);
+      //  setEmail('');
+      //  setInviteList([]);
         props.onExit(isInvited);
       }
     }catch(error:any){
