@@ -1,5 +1,3 @@
-
-
 const koa = require('koa')
 const {koaBody} = require('koa-body')
 const koaStatic = require('koa-static')
@@ -14,6 +12,30 @@ const {
     custom_callback,
     State, ErrorCode
 } = require('./conversionSdk/pdfToOffice.js');
+
+// a map from conversion type to conversion config
+const conversionTypeMap = {
+    200: {
+        type: 200,
+        fileExtension: 'docx',
+        fileType: 'Word',
+        method: 'StartConvertToWordWithPath',
+    },
+    201: {
+        type: 201,
+        fileExtension: 'xlsx',
+        fileType: 'Excel',
+        method: 'StartConvertToExcelWithPath',
+    },
+    202: {
+        type: 202,
+        fileExtension: 'pptx',
+        fileType: 'PPT',
+        method: 'StartConvertToPowerPointWithPath',
+    }
+
+}
+
 const router = new Router()
 const app = new koa()
 const { v4: uuidv4 } = require('uuid');
@@ -63,7 +85,7 @@ function throwError(e,ctx){
         return ctx.body = {code: 400, msg: 'Parameter error.'}
     }
 }
-  
+
 initConversionSdk()
 router.post('/api/upload', async (ctx) => {
     const file = ctx.request.files.file
@@ -75,9 +97,9 @@ router.post('/api/upload', async (ctx) => {
         }
         fs.renameSync(path.join(__dirname, 'static/fileUploads/', file.newFilename), path.join(__dirname, 'static/fileUploads/' + getDateDirName(), file.newFilename))
     } catch (e) {
-        return ctx.body = {code: 400, msg: `Upload faild, ${e.message}`} 
+        return ctx.body = {code: 400, msg: `Upload faild, ${e.message}`}
     }
-    
+
     let docId=basename.replace('.pdf', '')
     ctx.body = { "docId": `${docId}` }
 })
@@ -107,10 +129,12 @@ router.post('/api/convert', (ctx) => {
     let setting_data = new PDF2OfficeSettingData(path.join(__dirname, 'metrics_data'), AIRecognize);
     let saved_file_path;
     let save_doc_id;
-    if (convertType === 200) {
+
+    const convertConfig = conversionTypeMap[convertType]
+    if (convertConfig) {
         const current_time = new Date().getTime().toString();
         save_doc_id = uuidv4() + '_' + current_time;
-        saved_file_path = output + save_doc_id + '.docx'
+        saved_file_path = output + save_doc_id + '.' + convertConfig.fileExtension;
         if (fs.existsSync(saved_file_path)) {
             try {
               fs.unlinkSync(saved_file_path);
@@ -120,71 +144,22 @@ router.post('/api/convert', (ctx) => {
             }
         }
         try {
-            let progressive = PDF2Office.StartConvertToWordWithPath(src_pdf_path, passwordValue, saved_file_path, setting_data, custom_callback);
+            let progressive = PDF2Office[convertConfig.method](src_pdf_path, passwordValue, saved_file_path, setting_data, custom_callback);
             if (progressive.GetRateOfProgress() != 100) {
                 var state = State.e_ToBeContinued;
                 while (State.e_ToBeContinued == state) {
                       state = progressive.Continue();
                   }
             }
-          console.log("Convert PDF file to Word format file with path.");
+            console.log(`Convert PDF file to ${convertConfig.fileType} format file with path.`);
         } catch (e) {
-            return throwError(e,ctx)   
-        }
-    } else if (convertType === 201) {
-        const current_time = new Date().getTime().toString();
-        save_doc_id = uuidv4() + '_' + current_time;
-        saved_file_path = output + save_doc_id + '.xlsx'
-        if (fs.existsSync(saved_file_path)) {
-            try {
-              fs.unlinkSync(saved_file_path);
-              console.log('remove file success %s', saved_file_path);
-            } catch (err) {
-              console.error('remove file failed %s', saved_file_path);
-            }
-        }
-        try {
-            var progressive = PDF2Office.StartConvertToExcelWithPath(src_pdf_path, passwordValue, saved_file_path, setting_data, custom_callback);
-            if (progressive.GetRateOfProgress() != 100) {
-                var state = State.e_ToBeContinued;
-                while (State.e_ToBeContinued == state) {
-                    state = progressive.Continue();
-                }
-            }
-            console.log("Convert PDF file to excel format file with path.");
-        } catch (e) {
-            return throwError(e,ctx)   
-        }
-    } else if (convertType === 202) {
-        const current_time = new Date().getTime().toString();
-        save_doc_id = uuidv4() + '_' + current_time;
-        saved_file_path = output + save_doc_id + '.pptx'
-        if (fs.existsSync(saved_file_path)) {
-            try {
-              fs.unlinkSync(saved_file_path);
-              console.log('remove file success %s', saved_file_path);
-            } catch (err) {
-              console.error('remove file failed %s', saved_file_path);
-            }
-        }
-        try {
-            var progressive = PDF2Office.StartConvertToPowerPointWithPath(src_pdf_path, passwordValue, saved_file_path, setting_data, custom_callback);
-            if (progressive.GetRateOfProgress() != 100) {
-                var state = State.e_ToBeContinued;
-                while (State.e_ToBeContinued == state) {
-                    state = progressive.Continue();
-                }
-            }
-            console.log("Convert PDF file to ppt format file with path.");
-        } catch (e) {
-            return throwError(e,ctx)   
+            return throwError(e,ctx)
         }
     }
     ctx.body = { code: 200, data: { "url": save_doc_id } }
 
 })
 app.use(router.routes());
-
 
 app.listen(process.env['SERVER_PORT'] ? +process.env['SERVER_PORT'] : 8080, () => {
     console.log('start success')
