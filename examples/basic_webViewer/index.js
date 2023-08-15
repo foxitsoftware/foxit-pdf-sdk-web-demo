@@ -27,8 +27,8 @@ window.addEventListener(
     pdfViewer.redraw();
   }
 );
-
-document.getElementById('file').onchange = function (e) {
+const eFileName = document.getElementById('file')
+eFileName.onchange = function (e) {
     if (!this.value) {
         return;
     }
@@ -42,7 +42,9 @@ document.getElementById('file').onchange = function (e) {
             fdf = file
         }
     }
-    pdfViewer.openPDFByFile(pdf, {password: '', fdf: {file: fdf}});
+    pdfViewer.openPDFByFile(pdf, {password: '', fdf: {file: fdf}}).catch(function(e) {
+        reopenPDF(pdfViewer, e, {password: '', fdf: {file: fdf}}, eFileName);
+    });
     this.value = '';
 };
 let scale;
@@ -82,3 +84,14 @@ document.getElementById('sub').onclick = function () {
     }
     pdfViewer.zoomTo(scale).catch(function(){});
 };
+function reopenPDF (viewer, ex, options, eFileName) {
+    if (ex && ex.error === 3) {
+        var result = prompt('Please input password');
+        if (result) {
+            var reopenOptions = Object.assign({}, options, {password: result})
+            pdfViewer.reopenPDFDoc(ex.pdfDoc, reopenOptions);
+        } else {
+            eFileName.textContent = '';
+        }
+    }
+}
