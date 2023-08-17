@@ -236,7 +236,7 @@ const App = () => {
         updateCurrentElement(current);
       }
     );
-  }, [pdfui])
+  }, [pdfui, isTurn])
 
 
   useEffect(() => {
