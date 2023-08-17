@@ -67,7 +67,7 @@ export default (props: IProps) => {
     );
   };
   const initPDFUI = async () => {
-    const libPath = PUBLIC_PATH + 'lib/';
+    const libPath = '/lib/';
     const PDFUI = UIExtension.PDFUI;
     // eventEm
     const pdfui = new PDFUI({
