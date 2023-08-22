@@ -75,15 +75,15 @@ function reopenPDF (viewer, ex, options, eFileName) {
 
 var pdfViewer0 = createPDFViewer('pdf-app-0', {
         range: {
-            url: "/assets/1-feature-example_default-setup.pdf",
+            url: "/assets/PDFViewer_Multiple_Instances.pdf",
         },
     },
-    { fileName: "1-feature-example_default-setup.pdf" }
+    { fileName: "PDFViewer Multiple Instances" }
 )
 var pdfViewer1 = createPDFViewer('pdf-app-1', {
         range: {
-            url: "/assets/1-feature-example_default-setup.pdf",
+            url: "/assets/PDFViewer_Multiple_Instances.pdf",
         },
     },
-    { fileName: "1-feature-example_default-setup.pdf" }
+    { fileName: "PDFViewer Multiple Instances" }
 )
