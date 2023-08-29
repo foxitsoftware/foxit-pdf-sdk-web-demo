@@ -90,17 +90,18 @@ initConversionSdk()
 router.post('/api/upload', async (ctx) => {
     const file = ctx.request.files.file
     const basename = path.basename(file.newFilename)
+    const parentDir = getDateDirName()
+    const fullPath = path.join(__dirname, 'static/fileUploads/' + parentDir)
     try {
-        const folder = getDateFolderToday();
-        if (!fs.existsSync(folder)) {
-            fs.mkdirSync(folder);
+        if (!fs.existsSync(fullPath)) {
+            fs.mkdirSync(fullPath);
         }
-        fs.renameSync(path.join(__dirname, 'static/fileUploads/', file.newFilename), path.join(__dirname, 'static/fileUploads/' + getDateDirName(), file.newFilename))
+        fs.renameSync(path.join(__dirname, 'static/fileUploads/', file.newFilename), path.join(fullPath, file.newFilename))
     } catch (e) {
         return ctx.body = {code: 400, msg: `Upload faild, ${e.message}`}
     }
 
-    let docId=basename.replace('.pdf', '')
+    const docId = parentDir + '/' + basename.replace('.pdf', '')
     ctx.body = { "docId": `${docId}` }
 })
 
@@ -119,7 +120,7 @@ router.post('/api/convert', (ctx) => {
     } else {
         AIRecognize=false
     }
-    let src_pdf_path = path.join(__dirname, 'static/fileUploads/' + getDateDirName() + '/') + `${docId}.pdf`
+    let src_pdf_path = path.join(__dirname, 'static/fileUploads/', `${docId}.pdf`)
     console.log(src_pdf_path)
     let output = path.join(__dirname, 'static/fileOutput/' + getDateDirName() + '/')
     console.log(output)
