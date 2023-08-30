@@ -6,7 +6,7 @@
     "main": "./lib/UIExtension.full.js",
     "types": "./lib/UIExtension.d.ts",
     "scripts": {
-        "preinstall": "npm i -S @foxitsoftware/foxit-pdf-sdk-for-web-library-full@9.0.0",
+        "preinstall": "npm i -S @foxitsoftware/foxit-pdf-sdk-for-web-library-full@9.1.0",
         "move-sdk-assets": "cp-cli ./node_modules/@foxitsoftware/foxit-pdf-sdk-for-web-library-full/lib ./dist/lib",
         "start": "concurrently --kill-others \"npm run start:webpack\" \"npm run start:snapshot-server\"",
         "start:webpack": "webpack serve --config ./build/webpack.config.js --mode development",
@@ -88,7 +88,7 @@
     },
     "dependencies": {
         "@foxitsoftware/collab-db": "^1.2.0",
-        "@foxitsoftware/foxit-pdf-sdk-for-web-library-full": "^9.0.0",
+        "@foxitsoftware/foxit-pdf-sdk-for-web-library-full": "^9.1.0",
         "@foxitsoftware/web-collab-client": "^1.2.0",
         "@foxitsoftware/web-collab-server": "^1.2.0",
         "@types/react-router-dom": "^5.1.7",
