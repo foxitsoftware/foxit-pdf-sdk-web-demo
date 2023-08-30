@@ -6,6 +6,7 @@ import { PUBLIC_PATH, licenseSN, licenseKey } from '../../config';
 import { message, notification } from 'antd';
 import { lang } from '../../locales';
 import { useIsLoading } from '../../context/isLoading';
+import { initSignatureHandlers } from '../../../../common/signature';
 import {
   collabToolbarConfiguration,
   fragmentsConfiguration,
@@ -66,7 +67,7 @@ export default (props: IProps) => {
     );
   };
   const initPDFUI = async () => {
-    const libPath = PUBLIC_PATH + 'lib/';
+    const libPath = '/lib/';
     const PDFUI = UIExtension.PDFUI;
     // eventEm
     const pdfui = new PDFUI({
@@ -100,6 +101,7 @@ export default (props: IProps) => {
     });
     await collabToolbarConfiguration(pdfui, UIExtension);
     await addUIEventListener(pdfui);
+    initSignatureHandlers(pdfui);
     setPdfui(pdfui);
   };
   return <div id="pdf-ui"></div>;

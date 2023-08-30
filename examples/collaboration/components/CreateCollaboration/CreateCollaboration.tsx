@@ -19,7 +19,7 @@ export default (props) => {
   },[props.openDocFailed])
 
   const createShare=()=>{
-    if (!pdfDocPermission.isPortfolioDoc) {
+    if (!pdfDocPermission.isPortfolio) {
       if (openDocFailed) {
         message.error(lang.collabOpenFailed)
       }else if(pdfDocPermission.hasAnnotFormPermission){

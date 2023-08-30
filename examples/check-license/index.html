@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta http-equiv=X-UA-Compatible content="IE=edge,chrome=1">
+    <meta name="renderer" content="webkit">
+    <title>Verify license for Foxit PDF SDK for Web</title>
+
+    <style>
+        input[type="file"] {
+            height: 50px;
+            width: 250px;
+            border: 1px dashed;
+        }
+        textarea {
+            height: 50px;
+            width: 252px;
+            box-sizing: border-box;
+        }
+        .error {
+            color: red;
+            font-weight: bold;
+        }
+        .hide {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+<div style="margin-bottom: 20px;">
+    Verify license for Foxit PDF SDK for Web. Please open this tool in Chrome. 
+</div>
+<div style="clear:both; height: 150px;">
+    <label style="float: left;">
+        SN：<br>
+        <input type="file" id="file_sn"><br>
+        <textarea id="sn_text" placeholder="sn text"></textarea>
+    </label>
+    <label style="float: left; margin-left: 20px;">
+        KEY：<br>
+        <input type="file" id="file_key"><br>
+        <textarea id="key_text" placeholder="key text"></textarea>
+    </label>
+</div>
+<div>
+    <button type="button" id="verify_7_x">Check License</button>
+    <a download="license-key.js" id="download" class="hide">download license-key.js</a>
+</div>
+<div id="verify_7_x_result"></div>
+<script src="<%=htmlWebpackPlugin.options.info.GSDKJS%>"></script>
+</body>
+</html>

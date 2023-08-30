@@ -5,6 +5,7 @@ import App from './App';
 const elm = document.createElement("div");
 elm.id = "root";
 elm.classList.add("fv__catalog-pdfui-wrapper");
+elm.setAttribute('id', 'pdf-ui');
 document.body.appendChild(elm);
 
 ReactDOM.render(

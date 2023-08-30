@@ -6,7 +6,7 @@ import { Switch, Route, HashRouter, useLocation } from "react-router-dom";
 import { examples } from "./foundation/examples";
 import { Tooltip } from "./components/tooltip/Tooltip";
 import { AdvancedTooltip } from "./components/advancedTooltip/AdvancedTooltip";
-import "@foxitsoftware/foxit-pdf-sdk-for-web-library-full/lib/UIExtension.vw.css";
+// import "@foxitsoftware/foxit-pdf-sdk-for-web-library-full/lib/UIExtension.vw.css";
 
 import {
   hello,
@@ -36,7 +36,7 @@ const App = () => {
   const [locationTooltipX, setLocationTooltipX] = useState<string>("");
   const [locationTooltipY, setLocationTooltipY] = useState<string>("");
   const [isReloadToolTip, setIsReloadToolTip] = useState<boolean>(false);
-  const [isTurn, setIsTurn] = useState(localStorage.getItem(TURN_ON_OFF_STORE_KEY) ?? true);
+  const [isTurn, setIsTurn] = useState(JSON.parse(localStorage.getItem(TURN_ON_OFF_STORE_KEY) ?? 'true'));
   const getMessage = (event: any) => {
     let Data;
     try {
@@ -75,7 +75,7 @@ const App = () => {
         currentScene.elementClassName
       )
     }else{
-      element = iframeRef.current.contentDocument.getElementsByName(
+      element = iframeRef.current?.contentDocument.getElementsByName(
         currentScene.elementName
       )
     }
@@ -236,7 +236,7 @@ const App = () => {
         updateCurrentElement(current);
       }
     );
-  }, [pdfui])
+  }, [pdfui, isTurn])
 
 
   useEffect(() => {
@@ -247,7 +247,7 @@ const App = () => {
       return;
     }
     setTimeout(function wait() {
-      pdfui = win.pdfui;
+      pdfui = win?.pdfui;
       if(!pdfui) {
         setTimeout(wait, 100);
       } else {

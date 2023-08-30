@@ -10,6 +10,7 @@ const isMobile = UIExtension.PDFViewCtrl.DeviceInfo.isMobile;
 const libPath = "/lib/";
 const wrapperElement = document.createElement("div");
 wrapperElement.classList.add("fv__catalog-pdfui-wrapper");
+wrapperElement.setAttribute('id', 'pdf-ui');
 document.body.appendChild(wrapperElement);
 
 const pdfui = new PDFUI({

@@ -102,12 +102,12 @@ export default (props) => {
     let onlineMembers = props.onlineMembers.filter((member) => {
       return member.id !== currentUser!.id;
     });
-    if (onlineMembers.length <= 6) {
+    if (onlineMembers.length <= 3) {
       setFrontOnlineMember(onlineMembers);
       setRemainOnlineMembers([]);
     } else {
-      setFrontOnlineMember(onlineMembers.slice(0, 6));
-      setRemainOnlineMembers(onlineMembers.slice(6, onlineMembers.length));
+      setFrontOnlineMember(onlineMembers.slice(0, 3));
+      setRemainOnlineMembers(onlineMembers.slice(3, onlineMembers.length));
     }
     if (leader) {
       let leaderIsOnline = props.onlineMembers.filter((user) => {
@@ -240,6 +240,9 @@ export default (props) => {
         notification.destroy()
         setIsWaitInvited(false)
       }
+      // for testing purpose only
+      //@ts-ignore
+      window.app.state.screenSync = screenSync;
     } catch (error) {
       message.error(lang.createScreenSyncFailed);
     }
@@ -303,7 +306,7 @@ export default (props) => {
                 </div>
                 <Button
                   type="primary"
-                  style={{ fontWeight: '600', padding: '0 28px' }}
+                  style={{ fontWeight: 600, padding: '0 28px' }}
                   disabled={leader && member.id === leader.id}
                   onClick={() => switchFollowerFn(member)}
                 >
@@ -311,7 +314,7 @@ export default (props) => {
                 </Button>
               </div>
             }
-            trigger="click"
+            trigger="hover"
           >
             <div
               className="portrait"
@@ -324,7 +327,7 @@ export default (props) => {
       })}
       {remainOnlineMembers.length > 0 && (
         <Popover
-          placement={'bottomRight'}
+          placement={'bottom'}
           title={null}
           content={remainOnlineMembers.map((item: any) => {
             return (
@@ -333,7 +336,7 @@ export default (props) => {
                 <div>
                   <Button
                     type="primary"
-                    style={{ fontWeight: '600', padding: '0 28px' }}
+                    style={{ fontWeight: 600, padding: '0 28px' }}
                     disabled={leader && item.id === leader.id}
                     onClick={() => switchFollowerFn(item)}
                   >
@@ -343,7 +346,7 @@ export default (props) => {
               </div>
             );
           })}
-          trigger="click"
+          trigger="hover"
         >
           <div
             className="portrait"
@@ -373,7 +376,7 @@ export default (props) => {
             {
               <Button
                 type="primary"
-                style={{ fontWeight: '600', padding: '0 28px' }}
+                style={{ fontWeight: 600, padding: '0 28px' }}
                 onClick={spotlightMe}
                 disabled={spotLight && leader}
               >
@@ -382,7 +385,7 @@ export default (props) => {
             }
           </div>
         }
-        trigger="click"
+        trigger="hover"
       >
         <div
           className="portrait"

@@ -54,40 +54,41 @@ export default (props) => {
   const [collaborationEndedPopup, setCollaborationEndedPopup] = useState(false);
   const [collaborationMembers, setCollaborationMembers] = useState<any>([]);
 
-  useEffect(() => {
-    (async () => {
-      let collaborationId: string | null = getQueryVariable('collaborationId')||storageGetItem(sessionStorage,'collaborationId');
-      if (collaborationId && collabClient) {
-        try {
-          let collaboration = await collabClient.getCollaboration(
-            collaborationId,
-          );
-          beginCollaboration(collaboration);
-          if (isParticipantView()) {
-            getParticipantPermission(collaboration);
-            let participantName = storageGetItem(
-              localStorage,
-              'participantName',
-            );
-            if (!participantName) {
-              setIsShowLogin(true);
-            }
-          }
-        } catch (error: any) {
-          setIsLoading(false);
-          //Whether the collaboration cannot be found
-          if (error.ret === 404) {
-            setCollaborationEndedPopup(true);
-            return;
-          }
-          //If access is not available, show the login interface
-          if (error.ret === 403) {
-            setShowNoPermissionPopup(true);
-            return;
-          }
+  async function getCollaboration() {
+    let collaborationId: string | null = getQueryVariable('collaborationId')||storageGetItem(sessionStorage,'collaborationId');
+    let collaboration;
+    if (collaborationId && collabClient) {
+      try {
+        collaboration = await collabClient.getCollaboration(collaborationId);
+      } catch (error: any) {
+        setIsLoading(false);
+        //Whether the collaboration cannot be found
+        if (error.ret === 404) {
+          setCollaborationEndedPopup(true);
+          return;
+        }
+        //If access is not available, show the login interface
+        if (error.ret === 403) {
+          setShowNoPermissionPopup(true);
+          return;
         }
       }
-    })();
+    }
+    return collaboration;
+  }
+
+  useEffect(() => {
+    getCollaboration().then((collaboration) => {
+      if(collaboration){
+        beginCollaboration(collaboration);
+      }
+      if (isParticipantView()) {
+        let participantName = storageGetItem(localStorage, 'participantName');
+        if (!participantName) {
+          setIsShowLogin(true);
+        }
+      }
+    });
   }, []);
 
   //get participant comment permission from the collaboration.
@@ -137,7 +138,7 @@ export default (props) => {
       }
     } catch (errorResponse: any) {
       setIsLoading(false);
-      if (errorResponse.error === 3) {
+      if (errorResponse?.error === 3) {
         setPasswordPopupVisible(true);
         setOpenFailedDocInfo(errorResponse.pdfDoc);
       } else {
@@ -199,7 +200,9 @@ export default (props) => {
   const openCollaboration = async (collaborationId: string) => {
     setIsLoading(true);
     let collaboration = await collabClient!.getCollaboration(collaborationId);
-    beginCollaboration(collaboration);
+    if(collaboration){
+      beginCollaboration(collaboration);
+    }
   };
   //begin Collaboration
   const beginCollaboration = async (collaboration: Collaboration) => {
@@ -207,7 +210,9 @@ export default (props) => {
     props.pdfViewer && props.pdfViewer.close();
     //begin collaboration and Subscription notification event
     setCollaboration(collaboration);
-    await subscribeCollaborationEvent(collaboration);
+    if(collaboration){
+      await subscribeCollaborationEvent(collaboration);
+    }
     try {
       let isBeginSuccess;
       if (password) {
@@ -235,8 +240,14 @@ export default (props) => {
         try {
           await collaboration.begin({ password: passwordValue });
           beginCollaborationSuccess(collaboration);
-        } catch (error) {
-          message.error(lang.passwordError);
+        } catch (error: any) {
+          if(error.message === "Permission error"){
+            message.error("please use a owner password to join the collaboration");
+            props.pdfViewer && props.pdfViewer.close();
+            error.error = 3;
+          }else {
+            message.error(lang.passwordError);
+          }
           encryptedDocumentHandle(error, collaboration);
         }
       }
@@ -253,6 +264,12 @@ export default (props) => {
     setIsCollaborationBegin(false);
     setOpenFailedDocInfo(null);
     setPassword('');
+    if (isParticipantView()) {
+      // get collaboration again to check if collaboration has been deleted by owner
+      await getCollaboration();
+      await getParticipantPermission(collaboration);
+      // startDriver(collabParticipantSteps)
+    }
     if (!isParticipantView()) {
       storageSetItem(sessionStorage, 'collaborationId', collaboration.id);
     }
@@ -285,11 +302,11 @@ export default (props) => {
             return;
           }
         }
-        if (action === 'online' || action === 'offline') {
+        if (action === 'member-online' || action === 'member-offline') {
           let members = await collaboration!.getOnlineMembers();
           setOnlineMembers(members!);
         }
-        if (!isParticipantView() && action === 'offline') {
+        if (!isParticipantView(history) && action === 'member-offline') {
           if (actionData.length > 0) {
             if (actionData[0].userName.includes('tourist')) {
               collaboration.removeMembers(actionData);
@@ -302,6 +319,16 @@ export default (props) => {
         }
         if (action === 'edit-members') {
           setPermissionChangeVisible(true);
+          return;
+        }
+
+        if (action === 'network-connection-down') {
+          message.error('Lost connection with the server.');
+          return;
+        }
+
+        if (action === 'network-connection-up') {
+          message.success('Re-established connection with the server.');
           return;
         }
         getCollaborationMembers(collaboration);
