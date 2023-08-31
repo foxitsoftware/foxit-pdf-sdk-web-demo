@@ -41,7 +41,7 @@
     </script>
     <script>
         (function(){
-            var LICENSE_KEY_PATH = '<%=htmlWebpackPlugin.options.licensePath%>?' + Date.now().toString(16);
+            var LICENSE_KEY_PATH = (window.location.host.indexOf('foxit.com') > -1 ? '<%=htmlWebpackPlugin.options.licensePathForProd%>?':'<%=htmlWebpackPlugin.options.licensePath%>?') + Date.now().toString(16);
             document.write('<script src="'+LICENSE_KEY_PATH+'"><\/script>');
         })()
     </script>

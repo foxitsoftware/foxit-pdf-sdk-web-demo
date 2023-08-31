@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Foxit PDF SDK For Web - examples</title>
+    <style>
+        html {
+            height: 100%;
+            padding: 0;
+            margin: 0;
+        }
+        body {
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            padding: 0;
+            margin: 0;
+            width: 100%;
+            height: 100%;
+        }
+        .header-toolbars {
+            padding: 8px 8px 0px 8px;
+        }
+        .main-selection {
+            overflow: auto;
+            flex-grow: 1;
+        }
+        .fv__viewer-single-view-mode .fv__pdf-view-mode-item {
+            --facing-margin: 0;
+        }
+        .continuous-view-mode .fv__pdf-view-mode-item.fv__pdf-view-mode-item.fv__pdf-view-mode-item {
+            --facing-margin: auto;
+            margin-top: 8px;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="header-toolbars">
+        <input type="file" name="file" id="file" accept=".pdf" multiple="multiple">
+        <button type="button" id="plus">Zoom In</button>
+        <button type="button" id="sub">Zoom Out</button>
+        <hr>
+    </div>
+    <div class="main-selection">
+        <div id="pdf-viewer"></div>
+    </div>
+    <script>
+        (function(){
+            var LICENSE_KEY_PATH = '<%=htmlWebpackPlugin.options.licensePath%>?' + Date.now().toString(16);
+            document.write('<script src="'+LICENSE_KEY_PATH+'"><\/script>');
+        })()
+    </script>
+    <script src="<%=htmlWebpackPlugin.options.PDFViewCtrlLib%>"></script>
+</body>
+</html>

@@ -1,0 +1,16 @@
+.fx_oc-floating-toolbar-button {
+    width: 32px;
+    height: 32px;
+    vertical-align: middle;
+    border: none;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    &, &:active {
+        background-color: transparent;
+    }
+    &[disabled] {
+        opacity: 0.6;
+    }
+}

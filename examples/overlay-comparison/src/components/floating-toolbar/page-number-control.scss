@@ -1,0 +1,70 @@
+$page-number-height: 22px;
+
+.fx_oc-page-number {
+    height: $page-number-height;
+    width: 93px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid #EDEDED;
+    border-radius: 3px;
+    overflow: hidden;
+    
+    .fx_oc-floating-toolbar-button {
+        background-color: white;
+        width: 16px;
+        height: $page-number-height;
+        border: 1px solid #EDEDED;
+    }
+    
+    .fx_oc-page-number-input-group {
+        flex: 1;
+        height: 100%;
+        position: relative;
+        > * {
+            position: absolute;
+        }
+    }
+    
+    .ant-select {
+        width: 100%;
+        height: 100%;
+        line-height: $page-number-height;
+    }
+    .ant-select-selection-item {
+        color: transparent;
+        text-align: center;
+    }
+    .ant-select:not(.ant-select-customize-input) .ant-select-selector {
+        border: none;
+    }
+    
+    .ant-select-open + .fx_oc-page-number-text {
+        display: none;
+    }
+    
+    .fx_oc-page-number-text {
+        top: 1px;
+        left: 1px;
+        right: 20px;
+        bottom: 1px;
+        line-height: $page-number-height - 2px;
+        
+        display: block;
+        
+        pointer-events: none;
+        
+        text-align: center;
+        background: white;
+    }
+    &.fx_ic-page-number-disabled {
+        .fx_oc-page-number-text {
+            color: transparent;
+        }
+        .ant-select-arrow {
+            display: none;
+        }
+    }
+    
+}

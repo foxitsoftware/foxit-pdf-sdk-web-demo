@@ -54,15 +54,10 @@ const libPath = path.resolve(libraryModulePath, 'lib');
 module.exports = function (env, argv) {
     const mode = argv.mode;
     const isDev = mode === 'development';
-
-    function getLicensePath(){
-        if(process.env['LICENSE_PATH']){
-            return process.env['LICENSE_PATH']
-        }else {
-            return isDev? 'https://cdn-sdk.foxitsoftware.com/pdf-sdk/download/foxit-pdf-sdk-for-web/pcmobile/license-key.js' : 'https://cdn-sdk.foxitsoftware.com/pdf-sdk/download/foxit-pdf-sdk-for-web/license-key.js'
-        }
-    }
-
+    // use in dev and test env
+    const licensePath = 'https://cdn-sdk.foxitsoftware.com/pdf-sdk/download/foxit-pdf-sdk-for-web/pcmobile/license-key.js';
+    // use in prod env
+    const licensePathForProd = 'https://cdn-sdk.foxitsoftware.com/pdf-sdk/download/foxit-pdf-sdk-for-web/license-key.js';
     return [
         createWebpackConfig(
             entries.reduce((entries, entry) => {
@@ -80,7 +75,8 @@ module.exports = function (env, argv) {
                     filename: path.resolve(distPath, entry.dir, 'index.html'),
                     chunks: entry.htmlchunks,
                     info: entry.info,
-                    licensePath: getLicensePath(),
+                    licensePath,
+                    licensePathForProd, // which license path to use is determined in runtime
                     UIExtensionLib: '/lib/UIExtension.full.js',
                     PDFViewCtrlLib: '/lib/PDFViewCtrl.full.js'
                 });
@@ -209,6 +205,20 @@ function createWebpackConfig(entry, morePlugins, output, env, argv, devServer) {
                             },
                         },
                     ],
+                },
+                {
+                    test: /\.scss$/,
+                    use: [
+                        MiniCssExtractPlugin.loader,
+                        'css-loader',
+                        {
+                            loader: 'sass-loader',
+                        },
+                    ],
+                },
+                {
+                    test: /\.svg$/,
+                    use: ['@svgr/webpack'],
                 },
                 {
                     test: /\.art$/,

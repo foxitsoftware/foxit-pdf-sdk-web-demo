@@ -6,7 +6,7 @@
     "main": "./lib/UIExtension.full.js",
     "types": "./lib/UIExtension.d.ts",
     "scripts": {
-        "preinstall": "npm i -S @foxitsoftware/foxit-pdf-sdk-for-web-library-full@9.0.0",
+        "preinstall": "npm i -S @foxitsoftware/foxit-pdf-sdk-for-web-library-full@9.1.0",
         "move-sdk-assets": "cp-cli ./node_modules/@foxitsoftware/foxit-pdf-sdk-for-web-library-full/lib ./dist/lib",
         "start": "concurrently --kill-others \"npm run start:webpack\" \"npm run start:snapshot-server\"",
         "start:webpack": "webpack serve --config ./build/webpack.config.js --mode development",
@@ -27,6 +27,7 @@
         "@babel/preset-react": "^7.12.13",
         "@babel/preset-typescript": "^7.13.0",
         "@babel/runtime": "^7.13.10",
+        "@svgr/webpack": "^8.0.1",
         "@types/react": "^17.0.3",
         "@types/react-dom": "^17.0.2",
         "@types/react-router": "^5.1.12",
@@ -61,11 +62,13 @@
         "raw-body": "^2.3.3",
         "require-dir": "^1.0.0",
         "rimraf": "^3.0.2",
+        "sass": "^1.62.1",
+        "sass-loader": "^13.2.2",
         "serve-handler": "^6.0.2",
         "sockjs-client": "^1.6.1",
         "style-loader": "^2.0.0",
         "url-loader": "^4.1.1",
-        "webpack": "^5.9.0",
+        "webpack": "~5.84.1",
         "webpack-cli": "^4.2.0",
         "webpack-dev-server": "^3.11.0"
     },
@@ -84,10 +87,10 @@
         }
     },
     "dependencies": {
-        "@foxitsoftware/collab-db": "^1.1.0",
-        "@foxitsoftware/foxit-pdf-sdk-for-web-library-full": "^9.0.0",
-        "@foxitsoftware/web-collab-client": "^1.1.0",
-        "@foxitsoftware/web-collab-server": "^1.1.0",
+        "@foxitsoftware/collab-db": "^1.2.0",
+        "@foxitsoftware/foxit-pdf-sdk-for-web-library-full": "^9.1.0",
+        "@foxitsoftware/web-collab-client": "^1.2.0",
+        "@foxitsoftware/web-collab-server": "^1.2.0",
         "@types/react-router-dom": "^5.1.7",
         "antd": "^4.14.0",
         "axios": "^0.19.0",
@@ -97,6 +100,7 @@
         "react": "^17.0.1",
         "react-dom": "^17.0.1",
         "react-router": "^5.2.0",
-        "react-router-dom": "^5.2.0"
+        "react-router-dom": "^5.2.0",
+        "web-vitals": "^2.1.4"
     }
 }

@@ -1,0 +1,21 @@
+.fx_oc-toolbar-button {
+    width: 56px;
+    height: 62px;
+    padding: 0;
+    font-size: 12px;
+    line-height: 15px;
+    
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
+    .anticon {
+        vertical-align: 0;
+    }
+    
+    &.ant-btn > .anticon + span.fx_oc-button-text {
+        display: block;
+        margin-left: 0;
+        height: 15px;
+    }
+}
