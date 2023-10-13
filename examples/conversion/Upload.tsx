@@ -47,6 +47,10 @@ const download = (url, fileName) => {
   };
   x.send();
 };
+
+// limit file size to 40MB
+const UPLOAD_FILE_SIZE_LIMIT_MB = 40;
+
 class Uploader extends React.Component {
   constructor(props) {
     super(props);
@@ -283,14 +287,14 @@ class Uploader extends React.Component {
                 iconRender={() => <img alt="pdf" src={icon_pdf_48} />}
                 action={`${baseUrl}/api/upload`}
                 accept=".pdf"
-                beforeUpload={(file: RcFile) => {                                    
-                const is_size_error = file.size / 1024 / 1024 < 200;
-
-                if (!is_size_error) {
-                        message.error('PDF files should be smaller than 200MB.');
-                        file.status = 'error';
-                    }
-                    return is_size_error;
+                beforeUpload={(file: RcFile) => {
+                const exceededSizeLimit = file.size / 1024 / 1024 > UPLOAD_FILE_SIZE_LIMIT_MB;
+                  if (exceededSizeLimit) {
+                    message.error(`For this demo, PDF files should be smaller than ${UPLOAD_FILE_SIZE_LIMIT_MB}MB.`);
+                    file.status = 'error';
+                    return false;
+                  }
+                    return true;
                 }}
                 onChange={(info) => {
                   // console.log(info);
