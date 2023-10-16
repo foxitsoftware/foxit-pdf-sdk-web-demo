@@ -27,13 +27,6 @@ import dark_icon_save_26 from "assets/icon/dark_save_26.svg";
 
 const { Meta } = Card;
 const baseUrl = serverUrl;
-function getDateDirName() {
-  const date = new Date();
-  let month = Number.parseInt(date.getMonth()) + 1;
-  month = month.toString().length > 1 ? month : `0${month}`;
-  const dir = `${date.getFullYear()}${month}${date.getDate()}`;
-  return dir;
-}
 const download = (url, fileName) => {
   const x = new window.XMLHttpRequest();
   x.open("GET", url, true);
@@ -103,7 +96,7 @@ class Uploader extends React.Component {
             downloadUrl: response.data.data.url,
           });
         } else {
-          if (response.data.code === 406) {
+          if (response.data.msg === 'Invalid password.') {
             if (password == "") {
               this.setState({
                 passwordVisible: true,
@@ -153,9 +146,9 @@ class Uploader extends React.Component {
     } else if (this.state.convertType === 202) {
       suffix = "pptx";
     }
-    let date = getDateDirName();
-    let saved_file_path = `fileOutput/${date}/${this.state.downloadUrl}.${suffix}`;
-    let url = `${serverUrl}/${saved_file_path}`;
+    // let date = getDateDirName();
+    // let saved_file_path = `fileOutput/${date}/${this.state.downloadUrl}.${suffix}`;
+    let url = `${serverUrl}/${this.state.downloadUrl}`;
     let c = /(.*)\.\w+/;
     let fileName = c.exec(this.state.filename)[1] + `.${suffix}`;
     await download(url, fileName);
@@ -243,7 +236,6 @@ class Uploader extends React.Component {
                       <Col key={cIndex} span={8}>
                         <Card
                           className={cardClassName}
-                          style={{ backgroud: "red" }}
                           size="small"
                           hoverable
                           onClick={() => {
