@@ -3,6 +3,8 @@ let {
   State,
   Library,
   PDF2OfficeSettingData,
+  PDF2WordSettingData,
+  Range,
   ConvertCallback,
   PDF2Office } = require("@foxitsoftware/foxit-pdf-conversion-sdk-node");
 const axios = require("axios");
@@ -15,7 +17,7 @@ class CustomConvertCallback extends ConvertCallback {
 
   }
 }
-const initConversionSdk = async () => {  
+const initConversionSdk = async () => {
   const licenseSN = "";
   const licenseKey= "";
   var error_code = Library.Initialize(licenseSN, licenseKey);
@@ -33,6 +35,8 @@ module.exports = {
   initConversionSdk,
   PDF2Office,
   PDF2OfficeSettingData,
+  PDF2WordSettingData,
+  Range,
   custom_callback,
   State,
   ErrorCode

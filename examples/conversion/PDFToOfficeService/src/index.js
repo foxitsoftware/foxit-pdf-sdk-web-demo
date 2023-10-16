@@ -10,6 +10,8 @@ const {
     PDF2Office,
     PDF2OfficeSettingData,
     custom_callback,
+    PDF2WordSettingData,
+    Range,
     State, ErrorCode
 } = require('./conversionSdk/pdfToOffice.js');
 
@@ -127,7 +129,10 @@ router.post('/api/convert', (ctx) => {
     if (!fs.existsSync(output)) {
         fs.mkdirSync(output);
     }
-    let setting_data = new PDF2OfficeSettingData(path.join(__dirname, 'metrics_data'), AIRecognize);
+
+    let word_setting_data = new PDF2WordSettingData(true);
+    var range = new Range();
+    let setting_data = new PDF2OfficeSettingData(path.join(__dirname, 'metrics_data'), AIRecognize, range, true, word_setting_data);
     let saved_file_path;
     let save_doc_id;
 
