@@ -43,7 +43,11 @@ function getFileRelativePath(absoluteFilePath) {
 }
 
 function getStaticFileRoot() {
-  return path.join(__dirname, 'static');
+  const staticDir = path.join(__dirname, 'static');
+  if (!fs.existsSync(staticDir)) {
+    fs.mkdirSync(staticDir);
+  }
+  return staticDir;
 }
 
 function getUploadDir() {
