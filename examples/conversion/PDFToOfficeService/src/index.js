@@ -5,6 +5,8 @@ const Router = require('koa-router');
 const cors = require('koa2-cors');
 const router = new Router();
 const app = new koa();
+const { fork } = require('child_process');
+const path = require('path');
 const {
   saveFile,
   getStaticFileRoot,
@@ -60,17 +62,30 @@ router.post('/api/convert', async (ctx) => {
     console.log(
       `start convert ${srcFileRelativePath} to ${outputFileRelativePath},  UseAIRecognize: ${UseAIRecognize}`,
     );
-    const abortFn = await convert(
-      srcFilePath,
-      outputFilePath,
-      password,
-      convertType,
-      UseAIRecognize,
-    );
-    ctx.req.on('close', () => {
-      console.log('request closed, abort conversion of file: ', srcFileRelativePath);
-      abortFn();
+
+    // run conversion in a child process to avoid blocking the main thread
+    const child = fork(path.join(__dirname, 'conversion-worker.js'), [
+      JSON.stringify({
+        srcFilePath,
+        outputFilePath,
+        password,
+        convertType,
+        UseAIRecognize,
+      }),
+    ]);
+    const conversionPromise = new Promise((resolve, reject) => {
+      child.on('message', (message) => {
+        if (message === 'conversionFinished') {
+          resolve(message);
+        } else {
+          reject(new Error(message));
+        }
+      });
     });
+
+    // wait for conversion to finish
+    await conversionPromise;
+
     ctx.body = {
       code: 200,
       data: { url: outputFileRelativePath },
@@ -84,5 +99,5 @@ app.use(router.routes());
 
 const serverPort = process.env['SERVER_PORT'] ? +process.env['SERVER_PORT'] : 8080;
 app.listen(serverPort, () => {
-  console.log(`Started server on port: ${serverPort}`);
+  console.log(`Started server on port: ${serverPort} on process: ${process.pid}`);
 });
