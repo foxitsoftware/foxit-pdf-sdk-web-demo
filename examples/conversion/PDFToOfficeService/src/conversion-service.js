@@ -93,7 +93,7 @@ async function convert(
     throw new Error(`convert types ${convertType} are not supported.`);
   }
 
-  const enable_retain_page_layout = true;
+  const enable_retain_page_layout = false;
   const word_setting_data = new PDF2WordSettingData(enable_retain_page_layout);
   const range = new Range();
   const metrics_data_folder_path = path.join(__dirname, 'metrics_data');
