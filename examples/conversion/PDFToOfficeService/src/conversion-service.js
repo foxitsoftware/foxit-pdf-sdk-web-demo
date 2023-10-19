@@ -16,10 +16,18 @@ class CustomConvertCallback extends ConvertCallback {
     return true;
   }
 
-  ProgressNotify(converted_count, total_count) {}
+  ProgressNotify(converted_count, total_count) {
+    console.log(`progress notify: ${converted_count}/${total_count}`);
+    // send progress to parent process
+    process.send(
+      JSON.stringify({
+        status: 'running',
+        progress: `${converted_count}/${total_count}`,
+        percentage: (converted_count / total_count) * 100,
+      }),
+    );
+  }
 }
-
-let custom_callback = new CustomConvertCallback();
 
 const initConversionSdk = async () => {
   const { licenseSN, licenseKey } = await getLicense();
@@ -93,6 +101,7 @@ async function convert(
     throw new Error(`convert types ${convertType} are not supported.`);
   }
 
+  const custom_callback = new CustomConvertCallback();
   const enable_retain_page_layout = false;
   const word_setting_data = new PDF2WordSettingData(enable_retain_page_layout);
   const range = new Range();

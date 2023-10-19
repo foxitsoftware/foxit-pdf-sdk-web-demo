@@ -5,8 +5,6 @@ const Router = require('koa-router');
 const cors = require('koa2-cors');
 const router = new Router();
 const app = new koa();
-const { fork } = require('child_process');
-const path = require('path');
 const {
   saveFile,
   getStaticFileRoot,
@@ -16,6 +14,7 @@ const {
   getFileRelativePath,
 } = require('./file-service');
 const { convert, getFileExtensionByConvertType } = require('./conversion-service');
+const { getTaskInfo, startTask, updateTaskAccessTimestamp } = require('./task');
 
 app.use(
   cors({
@@ -58,41 +57,32 @@ router.post('/api/convert', async (ctx) => {
   let srcFilePath = getSrcFileAbsolutePath(srcFileRelativePath);
   let outputFilePath = getOutputFileAbsolutePath(getFileExtensionByConvertType(convertType));
   let outputFileRelativePath = getFileRelativePath(outputFilePath);
-  try {
-    console.log(
-      `start convert ${srcFileRelativePath} to ${outputFileRelativePath},  UseAIRecognize: ${UseAIRecognize}`,
-    );
+  console.log(
+    `start convert ${srcFileRelativePath} to ${outputFileRelativePath},  UseAIRecognize: ${UseAIRecognize}`,
+  );
 
-    // run conversion in a child process to avoid blocking the main thread
-    const child = fork(path.join(__dirname, 'conversion-worker.js'), [
-      JSON.stringify({
-        srcFilePath,
-        outputFilePath,
-        password,
-        convertType,
-        UseAIRecognize,
-      }),
-    ]);
-    const conversionPromise = new Promise((resolve, reject) => {
-      child.on('message', (message) => {
-        if (message === 'conversionFinished') {
-          resolve(message);
-        } else {
-          reject(new Error(message));
-        }
-      });
-    });
+  const taskId = startTask(outputFileRelativePath, {
+    srcFilePath,
+    outputFilePath,
+    password,
+    convertType,
+    UseAIRecognize,
+  });
 
-    // wait for conversion to finish
-    await conversionPromise;
+  ctx.body = {
+    code: 200,
+    data: { url: taskId },
+  };
+});
 
-    ctx.body = {
-      code: 200,
-      data: { url: outputFileRelativePath },
-    };
-  } catch (e) {
-    ctx.body = { code: 400, msg: e.message };
-  }
+router.post('/api/convert/status', async (ctx) => {
+  const { taskId } = ctx.request.body;
+  const taskInfo = getTaskInfo(taskId);
+  updateTaskAccessTimestamp(taskId);
+  ctx.body = {
+    code: 200,
+    data: taskInfo,
+  };
 });
 
 app.use(router.routes());

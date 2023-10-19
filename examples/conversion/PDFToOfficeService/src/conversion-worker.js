@@ -12,12 +12,21 @@ async function startConversion() {
 startConversion()
   .then(() => {
     console.log('conversion finished on process: ', process.pid);
-    process.send('conversionFinished');
+    process.send(
+      JSON.stringify({
+        status: 'finished',
+      }),
+    );
     process.exit(0);
   })
   .catch((e) => {
     console.log('conversion failed on process: ', process.pid, e.message);
-    process.send(e.message);
+    process.send(
+      JSON.stringify({
+        status: 'error',
+        error: e.message,
+      }),
+    );
     process.exit(1);
   });
 
