@@ -68,7 +68,7 @@ const conversionTypeMap = {
 const errorMsgMap = {
   [ErrorCode.e_ErrUnsupported]: 'Some types are not supported.',
   [ErrorCode.e_ErrPassword]: 'Invalid password.',
-  [ErrorCode.e_ErrCertificate]: 'Certificate error.',
+  [ErrorCode.e_ErrCertificate]: 'The demo does not support PDF encrypted with certificate.',
   [ErrorCode.e_ErrOutOfMemory]: 'Out-of-memory error occurs.',
   [ErrorCode.e_ErrParam]: 'Parameter error.',
 };
