@@ -84,6 +84,8 @@ function updateTaskAccessTimestamp(taskId) {
   }
 }
 
+// check task status periodically, and clean up the task based on certain conditions
+// current condition: if the task is not accessed for 30 seconds, clean up the task
 setInterval(() => {
   console.log('== tasks report ==');
   Object.keys(tasks).forEach((taskId) => {
@@ -97,7 +99,7 @@ setInterval(() => {
       console.log(`task ${taskId} is cleaned up`);
     }
   });
-}, 5000);
+}, 15000);
 
 module.exports = {
   startTask,
