@@ -82,13 +82,6 @@ export function createPDFUI(options) {
     });
   });
 
-  pdfui.addViewerEventListener(Events.startConvert, startLoading);
-  pdfui.addViewerEventListener(Events.finishConvert, function () {
-    loadingComponentPromise.then(function (component) {
-      component.close();
-    });
-  });
-
   window.addEventListener(
     "resize",
     () => {
