@@ -11,7 +11,7 @@ const dotenv_1 = __importDefault(require("dotenv"));
 dotenv_1.default.config();
 exports.serverPort = process.env['SERVER_PORT'] ? +process.env['SERVER_PORT'] : 8080;
 const databaseConfig = {
-    type: 'postgres',
+    type: process.env['DB_TYPE'] || 'postgres',
     host: process.env['DB_HOST'] || 'localhost',
     port: process.env['DB_PORT'] ? +process.env['DB_PORT'] : 5432,
     database: process.env['DB_DATABASE'] || 'collab-db',

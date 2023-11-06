@@ -1,5 +1,5 @@
 import React, { useMemo, useState } from 'react';
-type UserId=number
+import { UserId } from '../types';
 type User = {
   id: UserId;
   [key: string]: any;
