@@ -25,11 +25,11 @@ export default (props) => {
   const [switchVisible, setSwitchVisible] = useState(false);
   const [isInScreenSync, setIsInScreenSync] = useState(false);
   const [popoverVisible, setPopoverVisible] = useState(false);
-  const [showPopover, setShowPopover] = useState<number>(-1);
+  const [showPopover, setShowPopover] = useState<string|null>(null);
   const [spotLight, setSpotLight] = useState(false);
   const [isWaitInvited, setIsWaitInvited] = useState(false);
   const [cancelScreenSyncVisible, setCancelScreenSyncVisible] = useState(false);
-  const [sessionCreatorId, setSessionCreatorId] = useState<number>(0);
+  const [sessionCreatorId, setSessionCreatorId] = useState<string|null>(null);
   const [screenSyncSession, setScreenSyncSession] = useState<any>(null);
   const [currentFollowersNum, setCurrentFollowersNum] = useState<number>(0);
   const [leader, setLeader] = useState<any>(null);
@@ -195,7 +195,7 @@ export default (props) => {
     setLeader(null);
     setSpotLight(false);
     setCurrentFollowersNum(0);
-    setSessionCreatorId(0);
+    setSessionCreatorId(null);
     setScreenSyncTip('Waiting for followers...');
     setIsInScreenSync(false);
     storageRemoveItem(localStorage, 'screenSyncId');
@@ -285,7 +285,7 @@ export default (props) => {
     if (visible) {
       setShowPopover(member.id);
     } else {
-      setShowPopover(-1);
+      setShowPopover(null);
     }
     setPopoverVisible(visible);
   };
