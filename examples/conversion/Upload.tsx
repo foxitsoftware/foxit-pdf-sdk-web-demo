@@ -27,13 +27,6 @@ import dark_icon_save_26 from "assets/icon/dark_save_26.svg";
 
 const { Meta } = Card;
 const baseUrl = serverUrl;
-function getDateDirName() {
-  const date = new Date();
-  let month = Number.parseInt(date.getMonth()) + 1;
-  month = month.toString().length > 1 ? month : `0${month}`;
-  const dir = `${date.getFullYear()}${month}${date.getDate()}`;
-  return dir;
-}
 const download = (url, fileName) => {
   const x = new window.XMLHttpRequest();
   x.open("GET", url, true);
@@ -63,22 +56,72 @@ class Uploader extends React.Component {
       convertedFilename: null,
       convertType: 200,
       docidUpload: null,
-      taskid: null,
-      percentage: 0,
       downloadUrl: null,
       downloadLoading: false,
       AITableChecked: false,
-      isStopConvertProcessTimmerId: false,
       convertloadLoading: false,
       passwordVisible: false,
+      progress: null, // progress of conversion 
       password: "",
     };
     this.onConvert = this.onConvert.bind(this);
     this.onDownload = this.onDownload.bind(this);
   }
 
+  getTaskStatus = (taskId) => {
+    axios.post(`${baseUrl}/api/convert/status`, {
+      taskId
+    }).then((response) => {
+        if(response.data.code === 200){
+          const taskInfo = response.data.data;
+          if(taskInfo.status === 'running'){
+            this.setState({
+              progress: taskInfo.progress,
+            })
+            return;
+          }
+          if(taskInfo.status === 'error'){
+            if (taskInfo.error === 'Invalid password.') {
+              if (password == "") {
+                this.setState({
+                  passwordVisible: true,
+                });
+              } else {
+                message.error("Password error");
+              }
+            } else {
+              message.error(taskInfo.error);
+            }
+          }
+          if(taskInfo.status === 'finished'){
+            this.setState({
+              downloadUrl: taskId,
+            });
+          }
+          this.setState({
+            convertloadLoading: false,
+            isConvertLoading: false,
+          });
+          this.stopPollingForTaskStatus();
+        }
+      }
+  )}
+  
+  pollForTaskStatus = (taskId) => {
+    this.interval = setInterval(() => {
+      this.getTaskStatus(taskId);
+    }, 3000);
+  }
+  
+  stopPollingForTaskStatus = () => {
+    if(this.interval){
+      clearInterval(this.interval);
+    }
+  }
+
   onConvert() {
     this.setState({
+      progress: null,
       convertloadLoading: true,
       isConvertLoading: true,
       downloadLoading: false,
@@ -99,26 +142,8 @@ class Uploader extends React.Component {
       .post(url, data)
       .then((response) => {
         if (response.data.code === 200) {
-          this.setState({
-            downloadUrl: response.data.data.url,
-          });
-        } else {
-          if (response.data.code === 406) {
-            if (password == "") {
-              this.setState({
-                passwordVisible: true,
-              });
-            } else {
-              message.error("Password error");
-            }
-          } else {
-            message.error(response.data.msg);
-          }
+          this.pollForTaskStatus(response.data.data.url);
         }
-        this.setState({
-          convertloadLoading: false,
-          isConvertLoading: false,
-        });
       })
       .catch(() => {
         message.error("Convert failed");
@@ -127,7 +152,6 @@ class Uploader extends React.Component {
           isConvertLoading: false,
         });
       });
-
     let c = /(.*)\.\w+/;
     let last =
       [11, 200].indexOf(this.state.convertType) !== -1
@@ -136,7 +160,6 @@ class Uploader extends React.Component {
         ? ".xlsx"
         : ".pptx";
     this.setState({
-      //isStopConvertProcessTimmerId: false,
       convertedFilename: c.exec(this.state.filename)[1] + last,
     });
   }
@@ -153,9 +176,9 @@ class Uploader extends React.Component {
     } else if (this.state.convertType === 202) {
       suffix = "pptx";
     }
-    let date = getDateDirName();
-    let saved_file_path = `fileOutput/${date}/${this.state.downloadUrl}.${suffix}`;
-    let url = `${serverUrl}/${saved_file_path}`;
+    // let date = getDateDirName();
+    // let saved_file_path = `fileOutput/${date}/${this.state.downloadUrl}.${suffix}`;
+    let url = `${serverUrl}/${this.state.downloadUrl}`;
     let c = /(.*)\.\w+/;
     let fileName = c.exec(this.state.filename)[1] + `.${suffix}`;
     await download(url, fileName);
@@ -196,8 +219,8 @@ class Uploader extends React.Component {
   };
 
   onRemoveIcon = () => {
+    this.stopPollingForTaskStatus();
     this.setState({
-      isStopConvertProcessTimmerId: true,
       clickedCard: "",
       convertType: 200,
     });
@@ -225,10 +248,10 @@ class Uploader extends React.Component {
   }
   render() {
     const convertist = this.getConvertist();
-    const { clickedCard, AITableChecked, isConvertLoading } = this.state;
+    const { clickedCard, AITableChecked, isConvertLoading, progress } = this.state;
     return (
       <>
-        <Spin tip="Converting..." spinning={isConvertLoading} size={"large"}>
+        <Spin tip={`Converting... ${progress || ''}`} spinning={isConvertLoading} size={"large"}>
           <Space direction="vertical">
             {convertist.map((row, rIndex) => {
               return (
@@ -243,17 +266,14 @@ class Uploader extends React.Component {
                       <Col key={cIndex} span={8}>
                         <Card
                           className={cardClassName}
-                          style={{ backgroud: "red" }}
                           size="small"
                           hoverable
                           onClick={() => {
+                            this.stopPollingForTaskStatus();
                             this.setState({
                               convertType: col.convertType,
-                              taskid: null,
-                              percentage: 0,
                               downloadUrl: null,
                               clickedCard: currentCard,
-                              isStopConvertProcessTimmerId: true,
                             });
                           }}
                         >

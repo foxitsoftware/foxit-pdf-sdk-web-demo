@@ -82,6 +82,11 @@
                 "target": "https://webviewer-examples.foxit.com",
                 "changeOrigin": true,
                 "ws": true
+            },
+            "/conversion-server": {
+                "target": "http://127.0.0.1:19113",
+                "changeOrigin": true,
+                "pathRewrite": { "^/conversion-server": "" }
             }
         }
     },
