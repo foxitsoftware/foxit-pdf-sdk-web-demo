@@ -1,6 +1,7 @@
 import { message } from 'antd';
 import { lang } from '../locales';
 import collaborationToolbar from '../components/PDFViewer/CollabToobar/CollaborationToolbar.art';
+import {UserId} from "../types";
 import { getQueryVariable, randomHexColor, storageGetItem, storageRemoveItem, storageSetItem } from './utils';
 export let localDocList = [
   {
@@ -76,9 +77,9 @@ export function setFollowingStyle(elementId, targetRect) {
 
 export function onFollowingStatus(
   isInScreenSyncMode: boolean,
-  userId?: number,
+  userId?: UserId,
 ) {
-  let borderColor = randomHexColor(userId) || '#923094';
+  let borderColor = randomHexColor(userId || '923094');
   let pdfViewerEle = document.querySelector('#pdf-ui');
   let screenSyncRange = document.querySelector('.fv__ui-pdfviewer');
   let pdfViewerEleRect = pdfViewerEle!.getBoundingClientRect();
@@ -313,6 +314,7 @@ export function setAnnotPermissionByCanView(pdfViewer) {
       });
     }
   );
+  pdfViewer.getAnnotAuthorityManager().updateAll();
 }
 export const toStartLocation = () => {
   window.location.href = `${window.location.origin}${window.location.pathname}`

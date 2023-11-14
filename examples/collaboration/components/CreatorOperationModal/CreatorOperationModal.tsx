@@ -52,13 +52,16 @@ export default (props) => {
       setVisible(false)
       setShowStopCollabPopup(false)
       toStartLocation();
+    }).catch((error) => {
+      message.error(error.message);
+      setIsLoading(false);
     })
   }
   const setPublicPermissionFn=async(key: string) =>{
     let isDocPublic = key === 'Anyone'
     if (collaboration) {
       let isUpdatePermissionSuccess=await collaboration.updatePermission({ isDocPublic }).catch((result: string) => {
-        message.error(lang.CollabAuthor.permissionSetError);
+        return false;
       })
       if(isUpdatePermissionSuccess){
         setIsPublic(key)
@@ -71,7 +74,7 @@ export default (props) => {
     let isDocComment = key === 'Comment'
     if (collaboration) {
       let isUpdatePermissionSuccess=await collaboration.updatePermission({ isAllowComment: isDocComment }).catch((result: string) => {
-        message.error(lang.CollabAuthor.permissionSetError);
+        return false;
       })
       if(isUpdatePermissionSuccess){
         setIsComment(key)

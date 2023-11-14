@@ -192,8 +192,8 @@ export default (props) => {
       if (collaboration) {
         beginCollaboration(collaboration);
       }
-    } catch (err) {
-      message.error(lang.collabOpenFailed);
+    } catch (err: any) {
+      message.error(err.message || lang.collabOpenFailed);
       setIsLoading(false);
     }
   };
@@ -206,8 +206,7 @@ export default (props) => {
   };
   //begin Collaboration
   const beginCollaboration = async (collaboration: Collaboration) => {
-    //debugger
-    props.pdfViewer && props.pdfViewer.close();
+    props.pdfViewer && await props.pdfViewer.close();
     //begin collaboration and Subscription notification event
     setCollaboration(collaboration);
     if(collaboration){

@@ -6,7 +6,7 @@ import { PUBLIC_PATH, licenseSN, licenseKey } from '../../config';
 import { message, notification } from 'antd';
 import { lang } from '../../locales';
 import { useIsLoading } from '../../context/isLoading';
-import { initSignatureHandlers } from '../../../../common/signature';
+import { initSignatureHandlers } from '../../common/signature';
 import {
   collabToolbarConfiguration,
   fragmentsConfiguration,
@@ -39,6 +39,7 @@ export default (props: IProps) => {
       const root = await pdfui.getRootComponent();
       root.querySelector('fv--contextmenu-item-rotate-left').hide();
       root.querySelector('fv--contextmenu-item-rotate-right').hide();
+      root.querySelector('contextmenu-form-designer')?.remove();
       root.querySelectorAll('fv--text-selection-tooltip > *').forEach((it) => {
         if (it.name === 'fv--text-selection-tooltip-create-bookmark') {
           it.hide();

@@ -1,4 +1,4 @@
-export type UserId = number;
+export type UserId = string;
 export enum UserType {
   ANONYMOUS = 'ANONYMOUS',
   STANDARD = 'STANDARD',

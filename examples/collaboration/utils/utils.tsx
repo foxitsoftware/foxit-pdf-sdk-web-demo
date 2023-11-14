@@ -29,13 +29,22 @@ export function storageSetItem(storage: any, key: string, value: string) {
   storage && key && storage.setItem(key, value);
 }
 
-//Randomly generate hex color
-export function randomHexColor(userId) {
-  var hex = Math.floor(userId * 123).toString(16);
-  while (hex.length < 6) {
-    hex = '0' + hex;
+export function randomHexColor(inputString: string): string {
+  // Use a hash function (e.g., DJB2) to generate a numeric hash from the input string
+  let hash = 5381;
+  for (let i = 0; i < inputString.length; i++) {
+    hash = (hash * 33) ^ inputString.charCodeAt(i);
   }
-  return '#' + hex;
+
+  // Use the hash value to determine the dark RGB components
+  const red = ((hash & 0xFF) % 128).toString(16).padStart(2, '0');
+  const green = (((hash >> 8) & 0xFF) % 128).toString(16).padStart(2, '0');
+  const blue = (((hash >> 16) & 0xFF) % 128).toString(16).padStart(2, '0');
+
+  // Construct the hex color string
+  const hexColor = `#${red}${green}${blue}`;
+
+  return hexColor;
 }
 
 export function formatTime(timestamp) {
