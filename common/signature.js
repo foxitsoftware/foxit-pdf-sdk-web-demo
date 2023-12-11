@@ -2,7 +2,7 @@ function getBaseURL(){
     if(window.location.hostname.indexOf('-azk8s') > -1 || window.location.hostname.indexOf('-stg') > -1){
         return window.location.origin;
     }
-    return 'https://webviewer-demo.foxitsoftware.com';
+    return 'https://webviewer-demo.foxit.com';
 }
 
 function requestData(type, url, responseType, body){
