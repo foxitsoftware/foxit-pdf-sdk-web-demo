@@ -21,13 +21,14 @@ import { useCurrentUser } from '../../context/user';
 import TopNav from '../../components/TopNav/TopNav';
 
 export default () => {
-  const { t } = useTranslation('translation');
+  const { t, i18n } = useTranslation('translation');
   const { isLoading, setIsLoading } = useIsLoading();
   const { collabClient, setCollabClient } = useCurrentCollabClient();
   const { currentUser, setCurrentUser } = useCurrentUser();
   const [pdfDocPermission, setPdfDocPermission] = useState<any>(null);
   const [pdfViewer, setPdfViewer] = useState<any>(null);
   const [pdfui, setPdfui] = useState<any>(null);
+  console.log(i18n.language)
   const initCollabclient = async (curPdfviewer) => {
     let isParticipant = isParticipantView();
     let nickName;
@@ -81,9 +82,10 @@ export default () => {
 
   return (
     <>
-      <Spin tip={`${t('Loading')}...`} spinning={isLoading} size={'large'}>
+      <Spin tip={t('Loading...')} spinning={isLoading} size={'large'}>
         {pdfViewer && collabClient && currentUser &&(
           <TopNav
+            lang={i18n.language}
             pdfViewer={pdfViewer}
             pdfDocPermission={pdfDocPermission}
             setPermissionByParticipant={(isAllowComment) => {

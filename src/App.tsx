@@ -50,9 +50,12 @@ const App = () => {
       setIsTurn(Data.isTurn);
     }
     if (Data.hasOwnProperty("language")){
+      let language = Data.language;
+      i18n?.changeLanguage(language);
+      const childI18n = iframeRef.current.contentWindow.i18n;
+      childI18n?.changeLanguage(language);
       const pdfui = iframeRef.current.contentWindow.pdfui;
-      i18n?.changeLanguage(Data.language);
-      pdfui?.changeLanguage(Data.language);
+      pdfui?.changeLanguage(language);
     }
   };
 
@@ -269,7 +272,6 @@ const App = () => {
       updateCurrentElement(current);
     }
   }, [isReloadToolTip]);
-
   return (
     <HashRouter>
         <Layout className="fv__catalog-app-body">

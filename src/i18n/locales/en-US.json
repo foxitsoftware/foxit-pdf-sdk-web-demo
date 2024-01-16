@@ -60,7 +60,7 @@
   "Protect your PDF description": "Set a password on your document",
   "Search PDF text": "Search PDF text",
   "Search PDF text description": "Enter a word or phrase to find all instances within the PDF.",
-  "Loading": "Loading",
+  "Loading...": "Loading...",
   "Collaboration": {
     "dialogTitle": "Web Collaboration",
     "Component": {

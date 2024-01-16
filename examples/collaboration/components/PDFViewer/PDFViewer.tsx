@@ -19,7 +19,7 @@ interface IProps {
   getDocumentPermission: Function;
 }
 export default (props: IProps) => {
-  const { t } = useTranslation('translation', {keyPrefix: 'Collaboration'});
+  const { t,i18n } = useTranslation('translation', {keyPrefix: 'Collaboration'});
   const [pdfui, setPdfui] = useState<any>(null);
   const { setIsLoading } = useIsLoading();
   useEffect(() => {
@@ -103,6 +103,7 @@ export default (props: IProps) => {
         : libPath + 'uix-addons/allInOne.js',
     });
     await collabToolbarConfiguration(pdfui, UIExtension);
+    console.log(i18n.language)
     await addUIEventListener(pdfui);
     initSignatureHandlers(pdfui);
     setPdfui(pdfui);
