@@ -1,4 +1,5 @@
 import React, { PureComponent } from 'react';
+import { useTranslation } from "react-i18next";
 import './CollabSettingPopup.less'
 import { Modal } from 'antd';
 import DropByIsPublicPermission from '../DropByIsPublicPermission/DropByIsPublicPermission';
@@ -28,9 +29,10 @@ class CollabSettingPopup extends PureComponent<IProps, IState> {
     this.props.editAnnotPermissionByUser(key,item)
   }
   render() {
+    const { t } = useTranslation('translation', {keyPrefix: 'Collaboration'});
     const { visible } = this.props;
     return (
-      <Modal title={"Share files"} visible={visible} footer={null} closable={true} width={500} centered onCancel={() => this.props.closeCollabSettingPopup()}>
+      <Modal title={t("Share files")} visible={visible} footer={null} closable={true} width={500} centered onCancel={() => this.props.closeCollabSettingPopup()}>
         <div className="collab-set-wrap">
           <div className="drop-wrap">
             <div className="permission-wrap">
@@ -46,11 +48,11 @@ class CollabSettingPopup extends PureComponent<IProps, IState> {
               setUserPermission={this.setUserPermission.bind(this)}
             />
             <div className="invite" onClick={() => this.props.inviteMemberPopup()}>
-            <img src={InviteIcon} />Invite</div>
+            <img src={InviteIcon} />{t("Invite")}</div>
           </div>
           <div className="footor-wrap">
-            <div className="stop-collab" onClick={() => this.props.stopShare()}>Stop share</div>
-            <div className="copy-link" onClick={() => this.props.copyLink()}>Copy link<img src={copyLink} /></div>
+            <div className="stop-collab" onClick={() => this.props.stopShare()}>{t("Stop share")}</div>
+            <div className="copy-link" onClick={() => this.props.copyLink()}>{t("Copy link")}<img src={copyLink} /></div>
           </div>
         </div>
       </Modal>

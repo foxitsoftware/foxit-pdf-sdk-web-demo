@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Spin } from 'antd';
+import { useTranslation } from "react-i18next";
 import PDFViewer from '../../components/PDFViewer/PDFViewer';
 import { useIsLoading } from '../../context/isLoading';
 import { PUBLIC_PATH, serverUrl } from '../../config';
@@ -20,6 +21,7 @@ import { useCurrentUser } from '../../context/user';
 import TopNav from '../../components/TopNav/TopNav';
 
 export default () => {
+  const { t } = useTranslation('translation');
   const { isLoading, setIsLoading } = useIsLoading();
   const { collabClient, setCollabClient } = useCurrentCollabClient();
   const { currentUser, setCurrentUser } = useCurrentUser();
@@ -79,8 +81,8 @@ export default () => {
 
   return (
     <>
-      <Spin tip="Loading..." spinning={isLoading} size={'large'}>
-        {pdfViewer && collabClient && currentUser && (
+      <Spin tip={`${t('Loading')}...`} spinning={isLoading} size={'large'}>
+        {pdfViewer && collabClient && currentUser &&(
           <TopNav
             pdfViewer={pdfViewer}
             pdfDocPermission={pdfDocPermission}

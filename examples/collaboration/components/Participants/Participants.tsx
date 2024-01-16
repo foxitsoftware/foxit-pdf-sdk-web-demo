@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useTranslation } from "react-i18next";
 import './Participants.less';
 import { message } from 'antd';
 import { lang } from '../../locales';
@@ -8,6 +9,7 @@ import { randomHexColor } from '../../utils/utils';
 import SetCommentPermission from '../SetCommentPermission/SetCommentPermission';
 
 export default (props) => {
+  const { t } = useTranslation('translation', {keyPrefix: 'Collaboration'});
   const { collaboration } = useCurrentCollaboration();
   const [collabMembers, setcollabMembers] = useState<any>([]);
   const { currentUser } = useCurrentUser();
@@ -26,7 +28,7 @@ export default (props) => {
         setcollabMembers(collabMembers);
       })
       .catch(() => {
-        message.error(lang.getMembersError);
+        message.error(t("getMembersError"));
       });
   };
   const setAnnotPermission = async (key: string, item: any) => {
@@ -42,16 +44,16 @@ export default (props) => {
         if (isUpdated) {
           getDocMembers();
         } else {
-          message.error(lang.CollabAuthor.permissionSetError);
+          message.error(t("CollabAuthor.permissionSetError"));
         }
       } catch {
-        message.error(lang.CollabAuthor.permissionSetError);
+        message.error(t("CollabAuthor.permissionSetError"));
       }
     }
   };
   return (
     <div className="participants-wrap">
-      <div className="title">Participants</div>
+      <div className="title">{t("Participants")}</div>
       <div className="participant-list-wrap">
         {collabMembers &&
           collabMembers.map((item: any) => {
@@ -79,9 +81,9 @@ export default (props) => {
                   {item.userName}
                 </div>
                 {item!.id === collaboration?.authorId ? (
-                  <div className="comment owner-des">[Owner]</div>
+                  <div className="comment owner-des">[{t("Owner")}]</div>
                 ) : currentUser!.id === item.id ? (
-                  <div className="comment owner-des">[You]</div>
+                  <div className="comment owner-des">[{t("You")}]</div>
                 ) : props.isShowPermissionDrop ? (
                   <div className="comment-wrap">
                     <SetCommentPermission
@@ -94,7 +96,7 @@ export default (props) => {
                   </div>
                 ) : (
                   <div className="comment owner-des">
-                    {item.isAllowComment ? 'Can Comment' : 'Can View'}
+                    {item.isAllowComment ? t('Can Comment') : t('Can View')}
                   </div>
                 )}
               </div>

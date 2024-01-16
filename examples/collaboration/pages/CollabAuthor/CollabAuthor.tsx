@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import './CollabAuthor.css'
 import { Modal, Button, message, Col, Row, Tooltip, Checkbox } from 'antd'
+import { useTranslation } from "react-i18next";
 import { Collaboration } from '@foxitsoftware/web-collab-client'
 import { Member } from "../../types/index";
 import copy from 'copy-to-clipboard';
@@ -41,6 +42,7 @@ interface IState {
 }
 class CollabAuthor extends Component<any, IState> {
   state: IState
+  t: any;
   constructor(props: any) {
     super(props);
     this.state = {
@@ -64,6 +66,8 @@ class CollabAuthor extends Component<any, IState> {
       linkUrl: "",
       collabLists: [],
     };
+    const { t } = useTranslation('translation',{keyPrefix: "Collaboration"});
+    this.t = t;
   }
   async openFile(item: any) {
     const { curCollaboration, isCollabMode, isFirstVisit} = this.state;
@@ -100,7 +104,7 @@ class CollabAuthor extends Component<any, IState> {
     }
     //Get whether the collaboration has comment permission
     let permission = await collaboration.getPermission().catch(()=>{
-      message.error(lang.getPermissionError)
+      message.error(this.t("getPermissionError"))
       return;
     })
     let isAllowComment = await permission!.isAllowComment();
@@ -135,7 +139,7 @@ class CollabAuthor extends Component<any, IState> {
           collabMembers
         })
       }).catch(()=>{
-        message.error(lang.getMembersError);
+        message.error(this.t("getMembersError"));
       });
     }
   }
@@ -166,7 +170,7 @@ class CollabAuthor extends Component<any, IState> {
   }
   copyLink() {
     copy(this.state.linkUrl)
-    message.info(lang.copySuccess);
+    message.info(this.t("copySuccess"));
   }
   hideModal() {
     this.setState({
@@ -180,14 +184,14 @@ class CollabAuthor extends Component<any, IState> {
     const { curCollaboration } = this.state;
     if (curCollaboration) {
       let isUpdatePermissionSuccess=await curCollaboration.updatePermission({ isDocPublic }).catch((result: string) => {
-        message.error(lang.CollabAuthor.permissionSetError);
+        message.error(this.t("CollabAuthor.permissionSetError"));
       })
       if(isUpdatePermissionSuccess){
         this.setState({
           isPublic: isDocPublic
         })
       }else{
-        message.error(lang.CollabAuthor.permissionSetError);
+        message.error(this.t("CollabAuthor.permissionSetError"));
       }
     }
   }
@@ -196,14 +200,14 @@ class CollabAuthor extends Component<any, IState> {
     const { curCollaboration } = this.state;
     if (curCollaboration) {
       let isUpdatePermissionSuccess=await curCollaboration.updatePermission({ isAllowComment: isDocComment }).catch((result: string) => {
-        message.error(lang.CollabAuthor.permissionSetError);
+        message.error(this.t("CollabAuthor.permissionSetError"));
       })
       if(isUpdatePermissionSuccess){
         this.setState({
           isDocComment
         })
       }else{
-        message.error(lang.CollabAuthor.permissionSetError);
+        message.error(this.t("CollabAuthor.permissionSetError"));
       }
     }
   }
@@ -218,12 +222,12 @@ class CollabAuthor extends Component<any, IState> {
     ]
     if (curCollaboration) {
       let isUpdated=await curCollaboration.updateMemberPermission(members).catch((result: string) => {
-        message.error(lang.CollabAuthor.permissionSetError);
+        message.error(this.t("CollabAuthor.permissionSetError"));
       })
       if(isUpdated){
         this.getDocMembers()
       }else{
-        message.error(lang.CollabAuthor.permissionSetError);
+        message.error(this.t("CollabAuthor.permissionSetError"));
       }
     }
 
@@ -275,10 +279,10 @@ class CollabAuthor extends Component<any, IState> {
       if (this.props && this.props.checkAnnotFormPermission) {
         this.setState({ isCreateCollab: true })
       } else {
-        message.error(lang.CollabAuthor.noCommentPermission)
+        message.error(this.t("CollabAuthor.noCommentPermission"))
       }
     } else {
-      message.error(lang.CollabAuthor.portfolioTip)
+      message.error(this.t("CollabAuthor.portfolioTip"))
     }
 
   }
@@ -296,11 +300,11 @@ class CollabAuthor extends Component<any, IState> {
         if (result.ret === 400) {
           message.error(result.message);
         } else {
-          message.error(lang.CollabAuthor.inviteFailed);
+          message.error(this.t("CollabAuthor.inviteFailed"));
         }
       })
       if (isInvited) {
-        message.info(lang.CollabAuthor.inviteSuccess);
+        message.info(this.t("CollabAuthor.inviteSuccess"));
         this.closePopup()
         this.getDocMembers()
       }
@@ -349,12 +353,13 @@ class CollabAuthor extends Component<any, IState> {
       isDocComment,
       isCheckPrivacy
     } = this.state;
+    const t = this.t;
     return (
       <Fragment>
         <div className="initiator-wrap">
           <Row justify="space-between">
             <Col>
-              <PopoverTip direction={"right"} content={"File List"} title={null}>
+              <PopoverTip direction={"right"} content={t("File List")} title={null}>
                 <img src={moreIcon} className="more-option" onClick={this.openFileListPopup.bind(this)} />
               </PopoverTip>
             </Col>
@@ -371,16 +376,16 @@ class CollabAuthor extends Component<any, IState> {
                     <OnlineMembers onlineMembers={onlineMembers} user={currentUser} />
                     <div className="create-share-btn" onClick={() => { this.setState({ isSetCollabPopup: true }) }}>
                       <img src={shareMembers} className="create-share" />
-                      Share
+                      {t("Share")}
                     </div>
                   </>
                 }
                 {
                   chooseFileInfo && !isCollabMode ?
-                    <PopoverTip direction={"bottom"} content={"Create Share"} title={null}>
+                    <PopoverTip direction={"bottom"} content={t("Create Share")} title={null}>
                       <div className="share-btn" onClick={this.createSharePopup.bind(this)}>
                         <img src={createShare} className="create-share" />
-                        Share
+                        {t("Share")}
                       </div>
                     </PopoverTip>
                     : null
@@ -396,32 +401,32 @@ class CollabAuthor extends Component<any, IState> {
           </Row>
         </div>
         <Modal
-          title={"Start Collaboration"}
+          title={t("Start Collaboration")}
           visible={isCreateCollab}
           onCancel={this.hideModal.bind(this)}
           footer={null}
           centered>
           <div className="create-collab-wrap">
-            <div className="createDes">{lang.ModalDes.getSharedLink}</div>
+            <div className="createDes">{t("ModalDes.getSharedLink")}</div>
             <div className="create-footor-wrap">
               <div className="privacy-wrap">
-                <Checkbox onChange={this.checkBoxChange.bind(this)}><a href={privacyPolicy} target="_blank">Foxit Privacy Policy</a></Checkbox>
+                <Checkbox onChange={this.checkBoxChange.bind(this)}><a href={privacyPolicy} target="_blank">{t("Foxit Privacy Policy")}</a></Checkbox>
               </div>
-              <Button type="primary" className="create-collab-btn" key={'create-collab-btn'} disabled={!isCheckPrivacy} onClick={this.createCollab.bind(this)}>Create</Button>
+              <Button type="primary" className="create-collab-btn" key={'create-collab-btn'} disabled={!isCheckPrivacy} onClick={this.createCollab.bind(this)}>{("Create")}</Button>
             </div>
 
           </div>
         </Modal>
         <Modal
-          title={lang.dialogTitle}
+          title={t("dialogTitle")}
           visible={isShowStopCollabPopup}
           onCancel={this.hideModal.bind(this)}
           footer={[
-            <Button type="primary" className="stop-collab-continue" onClick={() => this.stopShare()} key={"continue"}>Continue</Button>
+            <Button type="primary" className="stop-collab-continue" onClick={() => this.stopShare()} key={"continue"}>{t("Continue")}</Button>
           ]}
           centered>
           <div className="create-collab-wrap">
-            <div className="createDes">{lang.ModalDes.endCollabTip}</div>
+            <div className="createDes">{t("ModalDes.endCollabTip")}</div>
           </div>
         </Modal>
         <SharesAndFilesPopup

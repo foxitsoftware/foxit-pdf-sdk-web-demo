@@ -101,8 +101,10 @@
         "copy-to-clipboard": "^3.3.1",
         "core-js": "^3.9.1",
         "driver.js": "^0.9.8",
+        "i18next": "^23.7.16",
         "react": "^17.0.1",
         "react-dom": "^17.0.1",
+        "react-i18next": "^14.0.0",
         "react-router": "^5.2.0",
         "react-router-dom": "^5.2.0",
         "web-vitals": "^2.1.4"

@@ -1,5 +1,6 @@
 import React from "react";
 import "./advancedTooltip.css";
+import { useTranslation } from "react-i18next";
 
 interface Props {
   positionY: string;
@@ -18,6 +19,7 @@ export const AdvancedTooltip: React.FC<Props> = React.memo(
     description,
     exportInf
   }) => {
+    const { t } = useTranslation('translation');
     return (
       <div
         className={"wrapBlock"}
@@ -26,7 +28,7 @@ export const AdvancedTooltip: React.FC<Props> = React.memo(
         <div className="modalWindow">
           <h1 className="header">{header}</h1>
           <span className="description">{description}</span>
-            <button onClick = {() => exportInf()} className="downloadBtn">Download form data</button>
+            <button onClick = {() => exportInf()} className="downloadBtn">{t('Download form data')}</button>
         </div>
       </div>
     );

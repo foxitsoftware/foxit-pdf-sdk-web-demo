@@ -1,4 +1,5 @@
 import React, {useState } from 'react';
+import { useTranslation } from "react-i18next";
 import './ParticipantOperationPopover.less'
 import { Modal, Button, message, Popover } from 'antd';
 import {lang} from '../../locales';
@@ -10,6 +11,7 @@ import copy from 'copy-to-clipboard';
 import { useIsLoading } from '../../context/isLoading';
 
 export default  (props) => {
+  const { t } = useTranslation('translation', {keyPrefix: 'Collaboration'});
   const [isShowRemovePopup, setIsShowRemovePopup] = useState<boolean>(false);
   const [settingPopoverVisible, setSettingPopoverVisible] = useState<boolean>(false);
   const { setIsLoading } = useIsLoading();
@@ -21,12 +23,12 @@ export default  (props) => {
       try {
         let result = await collaboration.quit();
         if (result === false) {
-          message.error(lang.CollabParticipant.removeError);
+          message.error(t("CollabParticipant.removeError"));
         }
         setIsLoading(false)
       } catch {
         setIsLoading(false)
-        message.error(lang.CollabParticipant.removeError);
+        message.error(t("CollabParticipant.removeError"));
       }
     }
   }
@@ -35,9 +37,9 @@ export default  (props) => {
     if (docId) {
       let linkValue = `${window.location.origin}${window.location.pathname}?participant=true&collaborationId=${docId}`;
       copy(linkValue);
-      message.info(lang.copySuccess);
+      message.info(t("copySuccess"));
     } else {
-      message.error(lang.CollabParticipant.noExistCollabId);
+      message.error(t("CollabParticipant.noExistCollabId"));
     }
   }
   const content = (
@@ -47,8 +49,8 @@ export default  (props) => {
           <Participants collaborationMembers={props.collaborationMembers}/>
         </div>
         <div className="footor-wrap">
-          <div className="stop-collab" onClick={()=>setIsShowRemovePopup(true)}>Remove Me</div>
-          <div className="copy-link" onClick={copyLink}>Copy link<img src={copyLinkIcon} /></div>
+          <div className="stop-collab" onClick={()=>setIsShowRemovePopup(true)}>{t("Remove Me")}</div>
+          <div className="copy-link" onClick={copyLink}>{t("Copy link")}<img src={copyLinkIcon} /></div>
         </div>
       </div>
     </div>
@@ -59,16 +61,16 @@ export default  (props) => {
       {props.children}
     </Popover>
     <Modal
-      title={lang.dialogTitle}
+      title={t("dialogTitle")}
       visible={isShowRemovePopup}
       zIndex={1300}
       onCancel={()=>setIsShowRemovePopup(false)}
       footer={[
-        <Button type="primary" key={"continue remove"} onClick={removeMe}>Continue</Button>
+        <Button type="primary" key={"continue remove"} onClick={removeMe}>{t("Continue")}</Button>
       ]}
       centered>
       <div className="collab-modal-wrap">
-        {lang.ModalDes.RemoveMe}
+        {t("ModalDes.RemoveMe")}
       </div>
     </Modal>
     </>

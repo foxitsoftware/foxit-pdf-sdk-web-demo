@@ -1,4 +1,5 @@
 import React, { PureComponent,Fragment } from 'react';
+import { useTranslation } from "react-i18next";
 import './DropByIsPublicPermission.less';
 import { Menu, Dropdown } from 'antd';
 import bottomArrow from 'assets/icon/bottom-arrow.svg';
@@ -23,6 +24,7 @@ class DropByIsPublicPermission extends PureComponent<any, IState> {
     this.context.editIsPublic(key)
   }
   render() {
+    const { t } = useTranslation('translation', {keyPrefix: 'Collaboration'});
     let isPublic=this.context.isPublic?"Anyone" : "NoAnyone";
     const menu = (
       <Menu
@@ -32,7 +34,7 @@ class DropByIsPublicPermission extends PureComponent<any, IState> {
             key: 'NoAnyone',
             label: (
               <div className="drop-title drop-item">
-                Only people invited to this file
+                {t("Only people invited to this file")}
                 <img className="permission-icon" src={lockIcon} />
                 {
                   isPublic === "NoAnyone" && <img className="arrow-icon" src={checkIcon} />
@@ -45,7 +47,7 @@ class DropByIsPublicPermission extends PureComponent<any, IState> {
             key: 'Anyone',
             label: (
               <div className="drop-title drop-item">
-                Anyone with the link
+                {t("Anyone with the link")}
                 <img className="permission-icon" src={unlockIcon} />
                 {
                   isPublic === "Anyone" && <img className="arrow-icon" src={checkIcon} />
@@ -61,7 +63,7 @@ class DropByIsPublicPermission extends PureComponent<any, IState> {
         <Dropdown overlay={menu} placement="bottom" trigger={['click']}>
           <div className="drop-wrap">
             <div className="drop-title">
-              {isPublic === 'Anyone' ? "Anyone with the link" : "Only people invited to this file"}
+              {isPublic === 'Anyone' ? t("Anyone with the link") : t("Only people invited to this file")}
               <img className="permission-icon" src={isPublic === 'Anyone' ? unlockIcon : lockIcon} />
               <img className="arrow-icon" src={bottomArrow} />
             </div>

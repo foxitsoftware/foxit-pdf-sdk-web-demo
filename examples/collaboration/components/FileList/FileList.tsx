@@ -1,5 +1,6 @@
 import { Button, List, message, Modal,Tabs, Upload } from 'antd';
 import React, { useEffect, useState } from 'react';
+import { useTranslation } from "react-i18next";
 import {lang} from '../../locales';
 import { useIsLoading } from '../../context/isLoading';
 import { serverUrl } from '../../config';
@@ -23,6 +24,7 @@ interface IProps {
 
 export default (props: IProps) => {
 
+  const { t } = useTranslation('translation', {keyPrefix: 'Collaboration'});
   const {setIsLoading}=useIsLoading()
   const [collaborationId,setCollaborationId]=useState<string>('')
   const {currentUser}=useCurrentUser()
@@ -76,7 +78,7 @@ export default (props: IProps) => {
   const getList = async () => {
     let files=[...localDocList];
     let result=await getLocalDocList(currentUser?.userName || 'anon_user').catch(()=>{
-      message.error(lang.Component.getFileFailed);
+      message.error(t("Component.getFileFailed"));
     })
     if(result){
       files=[...localDocList,...result]
@@ -91,7 +93,7 @@ export default (props: IProps) => {
     })
     const isLt50M = file.size / 1024 / 1024 < 50
     if (!isLt50M) {
-      message.error(lang.Component.fileMoreThen50M);
+      message.error(t("Component.fileMoreThen50M"));
       return false
     } else {
       if(uploadedfiles.indexOf(file.name)!==-1){
@@ -119,10 +121,10 @@ export default (props: IProps) => {
     if (info.file.status && info.file.status === 'done') {
       setIsLoading(false)
       getList();
-      message.success(lang.Component.uploadedSuccess);
+      message.success(t("Component.uploadedSuccess"));
     } else if (info.file.status && info.file.status === 'error') {
       setIsLoading(false);
-      message.error(lang.Component.fileuploadFailed);
+      message.error(t("Component.fileuploadFailed"));
     }
   }
   const cancelTipPopup=()=>{
@@ -149,7 +151,7 @@ export default (props: IProps) => {
       <img src={moreIcon} className="more-option" onClick={()=>setVisible(true)} />
     </PopoverTip>
     <Modal
-      title={lang.dialogTitle}
+      title={t("dialogTitle")}
       visible={visible}
       footer={null}
       closable={true}
@@ -165,7 +167,7 @@ export default (props: IProps) => {
           defaultActiveKey={tabKey}
         >
           <TabPane
-            tab={<div className="shareList-tab">Share list</div>}
+            tab={<div className="shareList-tab">{("Share list")}</div>}
             key="ShareList"
           >
             <div className="share-list-wrap">
@@ -174,8 +176,8 @@ export default (props: IProps) => {
                 size="small"
                 header={
                   <div className='share-header'>
-                    <div className='share-header-name'>Name</div>
-                    <div>Create time</div>
+                    <div className='share-header-name'>{t("Name")}</div>
+                    <div>{t("Create time")}</div>
                   </div>
                 }
                 dataSource={collabList}
@@ -209,11 +211,11 @@ export default (props: IProps) => {
                             setVisible(false)
                           }}
                         >
-                          Start collaboration
+                          {t("Start collaboration")}
                         </Button>
                       ) : (
                         <div className="tab-item-active">
-                          Current Collaboration
+                          {t("Current Collaboration")}
                         </div>
                       )}
                     </div>
@@ -223,7 +225,7 @@ export default (props: IProps) => {
             </div>
           </TabPane>
           <TabPane
-            tab={<div className="shareList-tab">File list</div>}
+            tab={<div className="shareList-tab">{t("File list")}</div>}
             key="fileList"
           >
             <div className="share-list-wrap">
@@ -247,7 +249,7 @@ export default (props: IProps) => {
                       <Button
                         onClick={() =>openLocalFile(item)}
                       >
-                        Open
+                        {("Open")}
                       </Button>
                     </div>
                   </List.Item>
@@ -262,7 +264,7 @@ export default (props: IProps) => {
               {...uploadProps}
               onChange={(info: any) =>handleChange(info)}
             >
-              <div className="upload-btn">Upload file</div>
+              <div className="upload-btn">{t("Upload file")}</div>
             </Upload>
           )}
         </div>
@@ -270,7 +272,7 @@ export default (props: IProps) => {
     </Modal>
     <Modal
       zIndex={10000}
-      title={lang.dialogTitle}
+      title={t("dialogTitle")}
       visible={sameFileVisible}
       footer={null}
       closable={false}
@@ -282,13 +284,13 @@ export default (props: IProps) => {
         <div>{lang.Component.fileExistTip}</div>
         <div className="bottom-btn password-footor">
           <div className="to-login" onClick={sureBtn}>
-            OK
+            {t("OK")}
           </div>
           <div
             className="cancel-btn"
             onClick={cancelTipPopup}
           >
-            Cancel
+            {t("Cancel")}
           </div>
         </div>
       </div>

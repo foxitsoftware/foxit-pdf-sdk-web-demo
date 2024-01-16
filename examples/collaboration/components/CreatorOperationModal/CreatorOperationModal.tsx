@@ -1,5 +1,6 @@
 import { Button, message, Modal} from 'antd';
 import React, { useEffect, useState } from 'react';
+import { useTranslation } from "react-i18next";
 import {lang} from '../../locales';
 import { useIsLoading } from '../../context/isLoading';
 import InviteIcon from 'assets/icon/invite-icon.svg';
@@ -16,6 +17,7 @@ import { toStartLocation } from '../../utils/collab-utils';
 import { storageRemoveItem } from '../../utils/utils';
 
 export default (props) => {
+  const { t } = useTranslation('translation', {keyPrefix: 'Collaboration'});
   const {setIsLoading}=useIsLoading()
   const {collaboration}=useCurrentCollaboration()
   const [visible,setVisible]=useState(true)
@@ -40,7 +42,7 @@ export default (props) => {
     let collabLink =`${window.location.origin}${window.location.pathname}?participant=true&collaborationId=${collaboration!.id}`;
     //let collabLink = `${window.location.origin}${PUBLIC_PATH}collabParticipant?collaborationId=${collaboration!.id}`;
     copy(collabLink)
-    message.info(lang.copySuccess);
+    message.info(t("copySuccess"));
   }
   const stopShare=()=>{
     const stopShareFn = async () => {
@@ -66,7 +68,7 @@ export default (props) => {
       if(isUpdatePermissionSuccess){
         setIsPublic(key)
       }else{
-        message.error(lang.CollabAuthor.permissionSetError);
+        message.error(t("CollabAuthor.permissionSetError"));
       }
     }
   }
@@ -79,7 +81,7 @@ export default (props) => {
       if(isUpdatePermissionSuccess){
         setIsComment(key)
       }else{
-        message.error(lang.CollabAuthor.permissionSetError);
+        message.error(t("CollabAuthor.permissionSetError"));
       }
     }
   }
@@ -93,9 +95,9 @@ export default (props) => {
    <>
     <div className="collab-share" onClick={() => { setVisible(true) }}>
         <img src={shareMembers} className="create-share" />
-        Share
+        {t("Share")}
     </div>
-    <Modal title={"Share files"} visible={visible} footer={null} closable={true} width={500} centered onCancel={() => setVisible(false)}>
+    <Modal title={t("Share files")} visible={visible} footer={null} closable={true} width={500} centered onCancel={() => setVisible(false)}>
       <div className="creator-operation-wrap">
         <div className="drop-wrap">
           <div className="permission-wrap">
@@ -111,24 +113,24 @@ export default (props) => {
               collaborationMembers={props.collaborationMembers}
           />
           <div className="invite" onClick={() => setInvitePopup(true)}>
-          <img src={InviteIcon} />Invite</div>
+          <img src={InviteIcon} />{t("Invite")}</div>
         </div>
         <div className="creator-operation-footor">
-          <div className="stop-collab" onClick={()=>setShowStopCollabPopup(true)}>Stop share</div>
-          <div className="copy-link" onClick={copyLink}>Copy link<img src={copyLinkIcon} /></div>
+          <div className="stop-collab" onClick={()=>setShowStopCollabPopup(true)}>{t("Stop share")}</div>
+          <div className="copy-link" onClick={copyLink}>{t("Copy link")}<img src={copyLinkIcon} /></div>
         </div>
       </div>
     </Modal>
     <Modal
-      title={lang.dialogTitle}
+      title={t("dialogTitle")}
       visible={isShowStopCollabPopup}
       onCancel={()=>setShowStopCollabPopup(false)}
       footer={[
-        <Button type="primary" className="stop-collab-continue" onClick={stopShare} key={"continue"}>Continue</Button>
+        <Button type="primary" className="stop-collab-continue" onClick={stopShare} key={"continue"}>{t("Continue")}</Button>
       ]}
       centered>
       <div className="collab-modal-wrap">
-        {lang.ModalDes.endCollabTip}
+        {t("ModalDes.endCollabTip")}
       </div>
       </Modal>
       {isInvitePopup&&<InviteUser

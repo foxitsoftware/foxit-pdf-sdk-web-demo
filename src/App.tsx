@@ -3,6 +3,7 @@ import "antd/dist/antd.less";
 import "./app.less";
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import { Switch, Route, HashRouter, useLocation } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import { examples } from "./foundation/examples";
 import { Tooltip } from "./components/tooltip/Tooltip";
 import { AdvancedTooltip } from "./components/advancedTooltip/AdvancedTooltip";
@@ -26,6 +27,7 @@ const screenSize = new URL(location.href).searchParams.get('screen-size') || (is
 const TURN_ON_OFF_STORE_KEY = '__foxit_websdk_turn_on_off_tooltip__';
 
 const App = () => {
+  const { t, i18n } = useTranslation('translation');
   const iframeRef = useRef<any>(null);
   const locationDom = useLocation();
   const [isShow, setIsShow] = useState(false);
@@ -46,6 +48,11 @@ const App = () => {
     }
     if (Data.hasOwnProperty("isTurn")) {
       setIsTurn(Data.isTurn);
+    }
+    if (Data.hasOwnProperty("language")){
+      const pdfui = iframeRef.current.contentWindow.pdfui;
+      i18n?.changeLanguage(Data.language);
+      pdfui?.changeLanguage(Data.language);
     }
   };
 
@@ -304,8 +311,8 @@ const App = () => {
                         isShow &&
                         screenSize === "desktop" && (
                           <AdvancedTooltip
-                            header="Save your form data"
-                            description="Download your partially-filled form data as HTML to save your place, and pick it up again later."
+                            header={t("Save your form data")}
+                            description={t("Save your form data description")}
                             positionY="0px"
                             positionX="70px"
                             exportInf={exportInf}

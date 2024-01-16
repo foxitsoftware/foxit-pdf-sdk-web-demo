@@ -1,4 +1,5 @@
 import React, { PureComponent } from 'react';
+import { useTranslation } from "react-i18next";
 import './SharesAndFilesPopup.less'
 import { Modal, Tabs, List, Upload, message } from 'antd';
 import { localDocList } from '../../utils';
@@ -27,6 +28,7 @@ interface IProps {
   showLoading:Function
 }
 class SharesAndFilesPopup extends PureComponent<IProps, any> {
+  t: any;
   constructor(props: IProps) {
     super(props);
     this.state = {
@@ -34,6 +36,8 @@ class SharesAndFilesPopup extends PureComponent<IProps, any> {
       fileList:[],
       isSameFileTip:false
     }
+    const { t } = useTranslation('translation', {keyPrefix: 'Collaboration'});
+    this.t = t;
   }
   openCollabDocument(item: any) {
     this.props.openCollabDocument(item);
@@ -66,7 +70,7 @@ class SharesAndFilesPopup extends PureComponent<IProps, any> {
   async getList(){
     let files=[...localDocList];
     let result=await getLocalDocList(this.props.currentUser?.userName || 'anon_user').catch(()=>{
-      message.error(lang.Component.getFileFailed);
+      message.error(this.t("Component.getFileFailed"));
     })
     if(result){
       files=[...localDocList,...result]
@@ -83,10 +87,10 @@ class SharesAndFilesPopup extends PureComponent<IProps, any> {
     if (info.file.status && info.file.status === 'done') {
       this.props.showLoading(false)
       this.getList();
-      message.success(lang.Component.uploadedSuccess);
+      message.success(this.t("Component.uploadedSuccess"));
     } else if (info.file.status && info.file.status === 'error') {
       this.props.showLoading(false);
-      message.error(lang.Component.fileuploadFailed);
+      message.error(this.t("Component.fileuploadFailed"));
     }
   }
  beforeUploadFile=async (file: any)=> {
@@ -96,7 +100,7 @@ class SharesAndFilesPopup extends PureComponent<IProps, any> {
     })
     const isLt50M = file.size / 1024 / 1024 < 50
     if (!isLt50M) {
-      message.error(lang.Component.fileMoreThen50M);
+      message.error(this.t("Component.fileMoreThen50M"));
       return false
     } else {
       if(uploadedfiles.indexOf(file.name)!==-1){
@@ -134,9 +138,10 @@ class SharesAndFilesPopup extends PureComponent<IProps, any> {
       accept:".pdf",
       beforeUpload:this.beforeUploadFile.bind(this)
     };
+    const t = this.t;
     return (
       <>
-      <Modal title={"File list"} visible={visible} footer={null} closable={true} width={840} centered onCancel={() => this.props.closeFilePopup()}>
+      <Modal title={t("File list")} visible={visible} footer={null} closable={true} width={840} centered onCancel={() => this.props.closeFilePopup()}>
         <div className="files-wrap">
           <Tabs tabPosition={'left'} onTabClick={(key) => this.props.onTabDocListClick(key)}>
             {/* <TabPane tab={<div className="shareList-tab">Share list</div>} key="ShareList">
@@ -160,14 +165,14 @@ class SharesAndFilesPopup extends PureComponent<IProps, any> {
           </Tabs>
           <div className="upload-wrap">
             <Upload {...uploadProps} onChange={(info:any)=>this.handleChange(info)}>
-              <div className="upload-btn">Upload file</div>
+              <div className="upload-btn">{t("Upload file")}</div>
             </Upload>
           </div>
         </div>
       </Modal>
        <Modal
         zIndex={10000}
-        title={lang.dialogTitle}
+        title={t("dialogTitle")}
         visible={isSameFileTip}
         footer={null}
         closable={false}
@@ -175,10 +180,10 @@ class SharesAndFilesPopup extends PureComponent<IProps, any> {
         width={360}
         centered>
         <div className="login-password-wrap">
-          <div>{lang.Component.fileExistTip}</div>
+          <div>{t("Component.fileExistTip")}</div>
           <div className='bottom-btn'>
-            <div className="to-login" onClick={this.sureBtn.bind(this)}>OK</div>
-            <div className="cancel-btn" onClick={this.cancelTipPopup.bind(this)}>Cancel</div>
+            <div className="to-login" onClick={this.sureBtn.bind(this)}>{t("OK")}</div>
+            <div className="cancel-btn" onClick={this.cancelTipPopup.bind(this)}>{t("Cancel")}</div>
           </div>
         </div>
      </Modal>

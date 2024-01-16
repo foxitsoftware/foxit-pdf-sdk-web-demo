@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import './CollabParticipant.less'
 import { Modal, Input, message, Row, Col, Tooltip, Button } from 'antd';
+import { useTranslation } from "react-i18next";
 import { Collaboration } from '@foxitsoftware/web-collab-client'
 import { Member } from "../../types/index";
 import shareMembers from 'assets/icon/share-members.svg';
@@ -11,7 +12,6 @@ import { PUBLIC_PATH } from "../../config";
 import OnlineMembers from '../../components/OnlineMembers/OnlineMembers';
 import ParticipantSettingPopover from '../../components/ParticipantSettingPopover/ParticipantSettingPopover';
 import { MemberContext, UserContext } from '../../context';
-import {lang} from '../../locales';
 interface IState {
   onlineMembers: any[];
   collabMembers: any[] | undefined
@@ -29,6 +29,7 @@ interface IState {
 }
 class CollabParticipant extends Component<any, IState> {
   state: IState
+  t: any;
   constructor(props: any) {
     super(props);
     this.state = {
@@ -46,6 +47,8 @@ class CollabParticipant extends Component<any, IState> {
       curCollaboration: null,
       currentUser: null
     };
+    const { t } = useTranslation('translation',{keyPrefix: "Collaboration"});
+    this.t = t;
   }
   //Open Collaboration
   async openCollabDocument(collaboration: Collaboration) {
@@ -78,7 +81,7 @@ class CollabParticipant extends Component<any, IState> {
         collabMembers
       })
     }).catch(()=>{
-      message.error(lang.getMembersError);
+      message.error(this.t("getMembersError"));
     });
   }
 
@@ -87,9 +90,9 @@ class CollabParticipant extends Component<any, IState> {
     if (docId) {
       let linkValue = `${window.location.origin}${PUBLIC_PATH}collabParticipant?docId=${docId}`
       copy(linkValue)
-      message.info(lang.copySuccess);
+      message.info(this.t("copySuccess"));
     } else {
-      message.error(lang.CollabParticipant.noExistCollabId);
+      message.error(this.t("CollabParticipant.noExistCollabId"));
     }
 
   }
@@ -103,7 +106,7 @@ class CollabParticipant extends Component<any, IState> {
         //Close Collaboration
         this.signOutShare()
       } else {
-        message.error(lang.CollabParticipant.removeError);
+        message.error(this.t("CollabParticipant.removeError"));
       }
     }
   }
@@ -116,7 +119,7 @@ class CollabParticipant extends Component<any, IState> {
   async loginSubmit() {
     const { emailValue } = this.state;
     if (emailValue === '') {
-      message.error(lang.submitEmailTip);
+      message.error(this.t("submitEmailTip"));
       return;
     }
     if (emailValue.match(/^\w+@\w+\.\w+$/i)) {
@@ -125,10 +128,10 @@ class CollabParticipant extends Component<any, IState> {
       if(result){
         window.location.reload();
       }else{
-        message.error(lang.CollabParticipant.noPermissionAccess)
+        message.error(this.t("CollabParticipant.noPermissionAccess"))
       }
     } else {
-      message.error(lang.emailFormatError);
+      message.error(this.t("emailFormatError"));
     }
   }
   //Enable the boot function
@@ -201,7 +204,7 @@ class CollabParticipant extends Component<any, IState> {
         if (collaboration) {
           //Get whether the document has the argument permission
           let permissionApi = await collaboration.getPermission().catch(()=>{
-            message.error(lang.getPermissionError)
+            message.error(this.t("getPermissionError"))
             return;
           })
           let isAllowComment = await permissionApi!.isAllowComment();
@@ -216,7 +219,7 @@ class CollabParticipant extends Component<any, IState> {
           return Promise.resolve(true)
         }
       } else {
-        message.error(lang.CollabParticipant.noExistCollabId);
+        message.error(this.t("CollabParticipant.noExistCollabId"));
       }
     }
   }
@@ -257,6 +260,7 @@ class CollabParticipant extends Component<any, IState> {
       reEnterSharePopup,
       stopShareTipPopup
     } = this.state;
+    const t = this.t;
     return (
       <Fragment>
         <div className='participant-wrap'>
@@ -266,7 +270,7 @@ class CollabParticipant extends Component<any, IState> {
               curCollaboration && <Col>
                 <div className="fileName-wrap">
                   <div className="participant-fileName">{curCollaboration.docName}</div>
-                  <div className="participant-permission">{isAllowComment ? "(Can Comment)" : "(Can View)"}</div>
+                  <div className="participant-permission">{isAllowComment ? t("(Can Comment)") : t("(Can View)")}</div>
                 </div>
               </Col>
             }
@@ -284,7 +288,7 @@ class CollabParticipant extends Component<any, IState> {
                           >
                             <div className="share-popover">
                               <img src={shareMembers} className="create-share" />
-                              Share
+                              {t("Share")}
                             </div>
                           </ParticipantSettingPopover>
                         </MemberContext.Provider>
@@ -292,7 +296,7 @@ class CollabParticipant extends Component<any, IState> {
                     </> : null
                 }
                 {
-                  isShowLogin ? <div className="login-btn" onClick={this.toLogin.bind(this)}>Login</div> :
+                  isShowLogin ? <div className="login-btn" onClick={this.toLogin.bind(this)}>{t("Login")}</div> :
                     currentUser && <Tooltip placement="topLeft" title={currentUser.userName}>
                       <div className="user">{currentUser?.userName.charAt(0).toUpperCase()}</div>
                     </Tooltip>
@@ -303,33 +307,33 @@ class CollabParticipant extends Component<any, IState> {
         </div>
         <Modal
           width={400}
-          title={lang.dialogTitle}
+          title={t("dialogTitle")}
           visible={stopShareTipPopup}
           closable={false}
           footer={[
-            <Button type="primary" className="create-collab-btn" key={'signOutShare'} onClick={() => this.signOutShare()}>Sure</Button>
+            <Button type="primary" className="create-collab-btn" key={'signOutShare'} onClick={() => this.signOutShare()}>{t("Sure")}</Button>
           ]}
           centered>
           <div className="create-collab-wrap">
-            <div className="createDes">{lang.ModalDes.collabHasEndedTip}</div>
+            <div className="createDes">{t("ModalDes.collabHasEndedTip")}</div>
           </div>
         </Modal>
         <Modal
           width={400}
-          title={lang.dialogTitle}
+          title={t("dialogTitle")}
           visible={reEnterSharePopup}
           closable={false}
           footer={[
-            <Button type="primary" className="create-collab-btn" key={'Sure'} onClick={() => this.reEnterShare()}>Sure</Button>
+            <Button type="primary" className="create-collab-btn" key={'Sure'} onClick={() => this.reEnterShare()}>{t("Sure")}</Button>
           ]}
           centered>
           <div className="create-collab-wrap">
-            <div className="createDes">{lang.ModalDes.permissionChangeTip}</div>
+            <div className="createDes">{t("ModalDes.permissionChangeTip")}</div>
           </div>
         </Modal>
         <Modal
           zIndex={10000}
-          title={"Login"}
+          title={t("Login")}
           visible={this.state.loginPopupVisible}
           onCancel={this.hideModal.bind(this)}
           footer={null}
@@ -344,22 +348,22 @@ class CollabParticipant extends Component<any, IState> {
               defaultValue={emailValue}
               onBlur={this.handleChange.bind(this)}
             />
-            <div className="to-login" onClick={this.loginSubmit.bind(this)}>Login</div>
+            <div className="to-login" onClick={this.loginSubmit.bind(this)}>{t("Login")}</div>
           </div>
         </Modal>
         {
           isShowLogin &&
           <>
-            <div className='login-tip'>Welcome to Foxit PDF Web Collaboration! <span onClick={this.toLogin.bind(this)}>Log in</span> to collaborate on this file.</div>
+            <div className='login-tip'>{t("Welcome to Foxit PDF Web Collaboration!")} <span onClick={this.toLogin.bind(this)}>{t("Log in")}</span> {t("to collaborate on this file.")}</div>
           </>
         }
         {
           isShowNoPermissionPopup &&
           <div className="no-permission-wrap">
             <img src={lockPermission} className="lockPermission-img" />
-            <div className="lock-des">Permission is required to view this file,<br />
-              Please log in to verify your permissions</div>
-            <div className="lock-login-btn" onClick={this.toLogin.bind(this)}>Login</div>
+            <div className="lock-des">{t("Permission is required to view this file,")}<br />
+              {t("Please log in to verify your permissions")}</div>
+            <div className="lock-login-btn" onClick={this.toLogin.bind(this)}>{t("Login")}</div>
           </div>
         }
 

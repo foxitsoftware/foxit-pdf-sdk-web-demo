@@ -1,5 +1,6 @@
 import { Button, Checkbox, message, Modal } from 'antd';
 import React, { useEffect, useState } from 'react';
+import { useTranslation } from "react-i18next";
 import {lang} from '../../locales';
 import createShareIcon from 'assets/icon/create-share.svg'
 import PopoverTip from '../PopoverTip/PopoverTip';
@@ -7,6 +8,7 @@ import {privacyPolicy } from '../../utils/collab-utils';
 import './CreateCollaboration.less';
 
 export default (props) => {
+  const { t } = useTranslation('translation', {keyPrefix: 'Collaboration'});
   const [isCheckPrivacy,setIsCheckPrivacy]=useState(false)
   const [isCreateCollab,setIsCreateCollab]=useState(false)
   const [pdfDocPermission,setPdfDocPermission]=useState<any>(null)
@@ -21,14 +23,14 @@ export default (props) => {
   const createShare=()=>{
     if (!pdfDocPermission.isPortfolio) {
       if (openDocFailed) {
-        message.error(lang.collabOpenFailed)
+        message.error(t("collabOpenFailed"))
       }else if(pdfDocPermission.hasAnnotFormPermission){
         setIsCreateCollab(true)
       }else {
-        message.error(lang.CollabAuthor.noCommentPermission)
+        message.error(t("CollabAuthor.noCommentPermission"))
       }
     }else {
-      message.error(lang.CollabAuthor.portfolioTip)
+      message.error(t("CollabAuthor.portfolioTip"))
     }
   }
   const checkBoxChange=(e)=>{
@@ -40,25 +42,25 @@ export default (props) => {
   }
   return (
    <>
-    <PopoverTip direction={"bottom"} content={"Create Share"} title={null}>
+    <PopoverTip direction={"bottom"} content={t("Create Share")} title={null}>
       <div className="share-btn" onClick={createShare}>
         <img src={createShareIcon} className="create-share" />
-        Share
+        {("Share")}
       </div>
     </PopoverTip>
     <Modal
-      title={"Start Collaboration"}
+      title={t("Start Collaboration")}
       visible={isCreateCollab}
       onCancel={()=>setIsCreateCollab(false)}
       footer={null}
       centered>
       <div className="collab-modal-wrap">
-        <div>{lang.ModalDes.getSharedLink}</div>
+        <div>{t("ModalDes.getSharedLink")}</div>
         <div className="create-footor-wrap">
           <div className="privacy-wrap">
-            <Checkbox onChange={checkBoxChange}><a href={privacyPolicy} target="_blank">Foxit Privacy Policy</a></Checkbox>
+            <Checkbox onChange={checkBoxChange}><a href={privacyPolicy} target="_blank">{t("Foxit Privacy Policy")}</a></Checkbox>
           </div>
-          <Button type="primary" key={'create-collab-btn'} disabled={!isCheckPrivacy} onClick={createCollab}>Create</Button>
+          <Button type="primary" key={'create-collab-btn'} disabled={!isCheckPrivacy} onClick={createCollab}>{t("Create")}</Button>
         </div>
 
       </div>

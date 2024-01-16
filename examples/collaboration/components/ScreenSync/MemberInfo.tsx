@@ -1,8 +1,10 @@
 import React from 'react';
 import { randomHexColor } from '../../utils/utils';
 import './ScreenSync.less';
+import { useTranslation } from "react-i18next";
 
 export default (props) => {
+  const { t } = useTranslation('translation', {keyPrefix: 'Collaboration'});
   const { member } = props;
   return (
     <>
@@ -18,10 +20,10 @@ export default (props) => {
         </div>
         {typeof member.isAllowComment === 'boolean' ? (
           <div className="comment">
-            {member.isAllowComment ? 'Can Comment' : 'Can View'}
+            {member.isAllowComment ? t('Can Comment') : t('Can View')}
           </div>
         ) : (
-          <div className="currentName">[YOU]</div>
+          <div className="currentName">[{t("YOU")}]</div>
         )}
       </div>
     </>

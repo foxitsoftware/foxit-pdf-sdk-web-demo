@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useTranslation } from "react-i18next";
 import './CollaborationModal.less'
 import { Button, Input, message, Modal } from 'antd';
 import showPasswordIcon from 'assets/icon/show-pwd.svg'
@@ -7,6 +8,7 @@ import {lang} from '../../locales';
 import { toStartLocation } from '../../utils/collab-utils';
 import { storageRemoveItem } from '../../utils/utils';
 export default (props) => {
+  const { t } = useTranslation('translation', {keyPrefix: 'Collaboration'});
   const [email, setEmail] = useState('')
   const [isHidePassword, setIsHidePassword] = useState(true)
 
@@ -15,7 +17,7 @@ export default (props) => {
   }
   const  submitPassword=async() => {
     if (email === '') {
-      message.error(lang.Component.enterPwdTip);
+      message.error(t("Component.enterPwdTip"));
       return;
     }
     props.submitPassword(email).then(()=>{
@@ -29,7 +31,7 @@ export default (props) => {
     <>
       <Modal
         zIndex={10000}
-        title={"Password"}
+        title={t("Password")}
         visible={props.passwordVisible}
         footer={null}
         className={"passwordPopup"}
@@ -37,7 +39,7 @@ export default (props) => {
         onCancel={props.closePasswordPopup}
         centered>
         <div className="login-password-wrap">
-          <div className="password-label">{lang.ModalDes.pwdTitle}</div>
+          <div className="password-label">{t("ModalDes.pwdTitle")}</div>
           <div className="input-password-wrap">
             <Input
               type={isHidePassword?"password":"text"}
@@ -48,15 +50,15 @@ export default (props) => {
             <img src={isHidePassword?showPasswordIcon:hidePasswordIcon} onClick={setPasswordVisible}/>
           </div>
           <div className='password-footor'>
-            <div className="to-login" onClick={submitPassword}>OK</div>
-            <div className="cancel-btn" onClick={props.closePasswordPopup}>Cancel</div>
+            <div className="to-login" onClick={submitPassword}>{t("OK")}</div>
+            <div className="cancel-btn" onClick={props.closePasswordPopup}>{t("Cancel")}</div>
           </div>
 
         </div>
       </Modal>
       <Modal
         width={400}
-        title={lang.dialogTitle}
+        title={t("dialogTitle")}
         visible={props.collaborationEndedPopup}
         zIndex={1022}
         closable={false}
@@ -69,13 +71,13 @@ export default (props) => {
               toStartLocation()
             }}
           >
-            Sure
+            {t("Sure")}
           </Button>,
         ]}
         centered
       >
         <div className="collab-modal-wrap">
-          {lang.ModalDes.collabHasEndedTip}
+          {t("ModalDes.collabHasEndedTip")}
         </div>
       </Modal>
     </>

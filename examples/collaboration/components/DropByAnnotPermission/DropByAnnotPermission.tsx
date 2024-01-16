@@ -1,4 +1,5 @@
 import React, { PureComponent,Fragment } from 'react';
+import { useTranslation } from "react-i18next";
 import './DropByAnnotPermission.less';
 import { Menu, Dropdown } from 'antd';
 import bottomArrow from 'assets/icon/bottom-arrow.svg';
@@ -26,6 +27,7 @@ class DropByAnnotPermission extends PureComponent<any, IState> {
     }
   }
   render() {
+    const { t } = useTranslation('translation', {keyPrefix: 'Collaboration'});
     const {isParticipantsUse } = this.props;
     let isComment=this.props.isComment
     let dropDisabled = isParticipantsUse ? false : this.context.isPublic ? false : true
@@ -40,7 +42,7 @@ class DropByAnnotPermission extends PureComponent<any, IState> {
             key: 'Comment',
             label: (
               <div className={isParticipantsUse?"annot-drop-title drop-item annot-participants-drop-title":"annot-drop-title drop-item"}>
-                Can Comment
+                {t("Can Comment")}
                 {
                   isComment === "Comment" && <img className={isParticipantsUse?"annot-arrow-icon annot-participants-check-icon":"annot-arrow-icon"} src={checkIcon} />
                 }
@@ -52,7 +54,7 @@ class DropByAnnotPermission extends PureComponent<any, IState> {
             key: 'View',
             label: (
               <div className={isParticipantsUse?"annot-drop-title drop-item annot-participants-drop-title":"annot-drop-title drop-item"}>
-                Can View
+                {t("Can View")}
                 {
                   isComment === "View" && <img className={isParticipantsUse?"annot-arrow-icon annot-participants-check-icon":"annot-arrow-icon"} src={checkIcon} />
                 }
@@ -67,7 +69,7 @@ class DropByAnnotPermission extends PureComponent<any, IState> {
         <Dropdown overlay={menu} placement="bottom" trigger={['click']} disabled={dropDisabled}>
           <div className="annot-drop-wrap" style={{ opacity: dropDisabled ? "0.6" : "1" }}>
             <div className={isParticipantsUse?"annot-drop-title annot-participants-drop-title":"annot-drop-title"}>
-              {isComment === 'Comment' ? "Can Comment" : "Can View"}
+              {isComment === 'Comment' ? t("Can Comment") : t("Can View")}
               <img className={isParticipantsUse?"annot-arrow-icon annot-participants-arrow-icon":"annot-arrow-icon"} src={bottomArrow} />
             </div>
           </div>

@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useTranslation } from "react-i18next";
 // @ts-ignore
 import * as UIExtension from 'UIExtension';
 import "@foxitsoftware/foxit-pdf-sdk-for-web-library-full/lib/UIExtension.vw.css";
@@ -18,6 +19,7 @@ interface IProps {
   getDocumentPermission: Function;
 }
 export default (props: IProps) => {
+  const { t } = useTranslation('translation', {keyPrefix: 'Collaboration'});
   const [pdfui, setPdfui] = useState<any>(null);
   const { setIsLoading } = useIsLoading();
   useEffect(() => {
@@ -87,7 +89,7 @@ export default (props: IProps) => {
               return;
             }
             if (file.size > 1024 * 1024 * 10) {
-              message.error(lang.Component.sizeTip);
+              message.error(t("Component.sizeTip"));
               return true;
             }
           },

@@ -16,8 +16,7 @@ const hello = [
     elementName: "snapshot-button",
     sideTriangle: "top",
     header: "Create & edit",
-    description:
-      "The toolbar has everything you need. Print, protect, edit, comment, and much more.",
+    description: "Create & edit description",
     func: (ref: any) => closeSidebar(ref.current.contentWindow.pdfui),
   },
   {
@@ -26,8 +25,7 @@ const hello = [
     elementName: "sidebar-bookmark",
     sideTriangle: "left",
     header: "Navigate the PDF",
-    description:
-      "Use the sidebar to see bookmarks, pages, annotations, form information, attachments and layers. ",
+    description: "Navigate the PDF description",
     func: (ref: any) =>
       openSidebar(ref.current.contentWindow.pdfui, "sidebar-bookmark"),
   },
@@ -37,7 +35,7 @@ const hello = [
     elementName: "open-file-button-list",
     sideTriangle: "top",
     header: "Test with your own PDF",
-    description: "Upload a file and test our capabilities.",
+    description: "Test with your own PDF description",
     func: (ref: any) => closeSidebar(ref.current.contentWindow.pdfui),
   },
   {
@@ -46,7 +44,7 @@ const hello = [
     elementName:"print-button",
     sideTriangle: "top",
     header: "Print your PDF",
-    description: "Easily export and print to your specification.",
+    description: "Print your PDF description",
     func: (ref: any) => closeSidebar(ref.current.contentWindow.pdfui),
   },
 ];
@@ -58,8 +56,7 @@ const editPdf = [
     sideTriangle: "top-custom",
     elementName: "edit-object-ribbon-dropdown",
     header: "Directly edit PDF content",
-    description:
-      "Select the Edit tool to move or modify text, images, and shapes within the PDF.",
+    description: "Directly edit PDF content description",
     func: (ref: any) => closeSidebar(ref.current.contentWindow.pdfui),
   },
   {
@@ -67,7 +64,7 @@ const editPdf = [
     positionY: "280px",
     sideTriangle: "left",
     header: "Rotate pages",
-    description: "Right-click the page thumbnail to fix the page.",
+    description: "Rotate pages description",
     func: (ref: any) =>
       openSidebar(
         ref.current.contentWindow.pdfui,
@@ -81,8 +78,7 @@ const editPdf = [
     positionY: "300px",
     sideTriangle: "left",
     header: "Reorder pages",
-    description:
-      "Click & drag pages to put pages in the right order in the Thumbnail sidebar.",
+    description: "Reorder pages description",
     func: (ref: any) => {
       ref.current.contentWindow.__example__.movePage( 1, 0)
       ref.current.contentWindow.__example__.switchToHandStateHandler()
@@ -93,8 +89,7 @@ const editPdf = [
     positionY: "500px",
     sideTriangle: "left",
     header: "Crop pages",
-    description:
-      "Drag a rectangle on the page you want to crop.",
+    description: "Crop pages description",
     func: (ref: any) => {
       ref.current.contentWindow.__example__.cropPage();
     },
@@ -108,8 +103,7 @@ const annotation = [
     elementName: "create-text",
     sideTriangle: "top",
     header: "Add a note",
-    description:
-      "The ‘Note’ tool adds a note annotation to the top-left of the PDF page. You can drag-and-drop it to your desired location.",
+    description: "Add a note description",
     func: (ref: any) => {
       closeSidebarRightTab(ref.current.contentWindow.pdfui);
       closeSidebar(ref.current.contentWindow.pdfui);
@@ -123,7 +117,7 @@ const annotation = [
     elementClassName:"fv__pdf-page-note-annot-container",
     elementIndex:1,
     header: "Leave your note",
-    description: "Select note tool, click directly in the PDF to leave a note in context.",
+    description: "Leave your note description",
     func: (ref: any) => {
       openSidebar(ref.current.contentWindow.pdfui,"comment-list-sidebar-panel");
       openSidebarRightTab(ref.current.contentWindow.pdfui, 'edit-properties-panel',9);
@@ -136,7 +130,7 @@ const annotation = [
     sideTriangle: "right",
     elementName:"sidebar-right-tabs",
     header: "Format your note",
-    description: "Change appearance of the selected note(s) and arrange their positions in the page.",
+    description: "Format your note description",
     func: (ref: any) => {
       closeSidebar(ref.current.contentWindow.pdfui);
       openSidebarRightTab(ref.current.contentWindow.pdfui, 'edit-properties-panel',9);
@@ -148,8 +142,7 @@ const annotation = [
     elementName: "freetext-callout",
     sideTriangle: "top",
     header: "Create a callout",
-    description:
-      "Add a callout annotation to the page to highlight a detail or part of the document. You can freely move, resize or add text to the annotation after that.",
+    description: "Create a callout description",
     func: (ref: any) => {
       openSidebar(
         ref.current.contentWindow.pdfui,
@@ -168,7 +161,7 @@ const annotation = [
     elementName: "stamp-drop-down-ui",
     sideTriangle: "top",
     header: "Stamp",
-    description: "Let's create your own stamp to easily mark your pages.",
+    description: "Stamp description",
     func: () => {},
   },
   {
@@ -177,8 +170,7 @@ const annotation = [
     elementName: "create-stamp-button-list",
     sideTriangle: "right",
     header: "Create a stamp",
-    description:
-      "You can create you own custom stamps using the Create button. Click on any of the stamps to add on the page.",
+    description: "Create a stamp description",
     func: (ref: any) => openStampDropdown(ref.current.contentWindow.pdfui),
   },
 ];
@@ -190,8 +182,7 @@ const measurement = [
     elementName: "create-measurement-button-list",
     sideTriangle: "top",
     header: "Measurement",
-    description:
-      "Use the measuring tools to measure distances and areas of objects in PDF documents",
+    description: "Measurement list description",
     func: (ref:any) => {
       closeSidebarRightTab(ref.current.contentWindow.pdfui);
       closeDropdown(ref.current.contentWindow.pdfui,"create-measurement-button-list");
@@ -203,8 +194,7 @@ const measurement = [
     elementName: "create-perimeter-btn",
     sideTriangle: "right",
     header: "Measurement",
-    description:
-      "When you use a measuring tool, the measurement info panel shows information about the measurement, and the right side panel for settings.",
+    description: "Measurement description",
     func: (ref:any) => {
       openSidebarRightTab(ref.current.contentWindow.pdfui,'edit-properties-panel',7);
       openDropdown(ref.current.contentWindow.pdfui,"create-measurement-button-list");
@@ -219,8 +209,7 @@ const redaction = [
     elementName: "create-redaction-controllers",
     sideTriangle: "top",
     header: "Select what to redact",
-    description:
-      "Select Mark for Redaction to begin selecting text, an area, or a whole page to redact.",
+    description: "Select what to redact description",
     func: () => {},
   },
   {
@@ -229,7 +218,7 @@ const redaction = [
     elementName: "redaction-apply",
     sideTriangle: "top",
     header: "Apply the redaction",
-    description: "Ready to redact what you selected? Click “Apply”.",
+    description: "Apply the redaction description",
     func: () => {},
   },
   {
@@ -238,8 +227,7 @@ const redaction = [
     elementName: "redaction-search",
     sideTriangle: "top",
     header: "Search & Redact",
-    description:
-      "Search for terms in the whole PDF, and choose which to redact.",
+    description: "Search & Redact description",
     func: (ref:any) => {
       ref.current.contentWindow.__example__.closeSidebarRight();
       ref.current.contentWindow.__example__.unActiveAnnot();
@@ -251,8 +239,7 @@ const redaction = [
     elementName: "advanced-search",
     sideTriangle: "right-bottom",
     header: "Search for terms",
-    description:
-      `Ready to redact what you searched? Hover your mouse over and Click “Mark Checked Result for Redaction and "Apply Redactions"`,
+    description: "Search for terms description",
     func: (ref: any) => {
       ref.current.contentWindow.__example__.redactionSearch();
     },
@@ -268,8 +255,7 @@ const form = [
     elementName: "fv--form-designer-create-text-btn",
     sideTriangle: "top",
     header: "Form builder",
-    description:
-      "Let’s create this form! Select the Create Text Field tool and place one in the document.",
+    description: "Form builder description",
     func: (ref: any) => closeSidebar(ref.current.contentWindow.pdfui),
   },
   {
@@ -280,8 +266,7 @@ const form = [
     elementName: "fv--form-designer-create-sign-btn",
     sideTriangle: "top",
     header: "Create a signature field",
-    description:
-      "Create a desginated space for a signature. Select the tool, then click & drag.",
+    description: "Create a signature field description",
     func: (ref: any) =>
       openSidebar(ref.current.contentWindow.pdfui, "sidebar-field"),
   },
@@ -293,8 +278,7 @@ const form = [
     sideTriangle: "top",
     elementName: "fv--form-designer-create-list-box-btn",
     header: "Add more form fields",
-    description:
-      "Test out more types of fields! Checkboxes, radio input, dropdowns, and more await you in the toolbar.",
+    description: "Add more form fields description",
     func: () => {},
   },
 ];
@@ -306,8 +290,7 @@ const digital_signature = [
     elementName: "protect-tab-group-sign",
     sideTriangle: "top",
     header: "Create a signature",
-    description:
-      "Select the PDF Sign tool to create your custom signature. Signatures can be saved for easy reuse from this menu.",
+    description: "Create a signature description",
     func: (ref: any) => closeSidebar(ref.current.contentWindow.pdfui),
   },
   {
@@ -315,8 +298,7 @@ const digital_signature = [
     positionY: "70%",
     sideTriangle: "left",
     header: "Insert your signature",
-    description:
-      "Place your signature in the field (or anywhere else in the PDF)!",
+    description: "Insert your signature description",
     func: (ref: any) =>
       openSidebar(ref.current.contentWindow.pdfui, "sidebar-field")
       .then(() => {
@@ -336,7 +318,7 @@ const digital_signature = [
     sideTriangle: "top-custom",
     elementName: "password-protect-btn",
     header: "Protect your PDF",
-    description: "Set a password on your document",
+    description: "Protect your PDF description",
     func: (ref: any) => {
       openProtectDropdown(ref.current.contentWindow.pdfui);
     },
@@ -350,7 +332,7 @@ const search = [
     elementName: "advanced-search",
     sideTriangle: "right-custom",
     header: "Search PDF text",
-    description: "Enter a word or phrase to find all instances within the PDF.",
+    description: "Search PDF text description",
     func: () => {},
   }
 ];

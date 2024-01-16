@@ -1,4 +1,5 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 import { Dot } from "./../dot/Dot";
 import "./tooltip.css";
 
@@ -35,6 +36,7 @@ export const Tooltip: React.FC<Props> = React.memo(
     handlePrev,
     handleThisFunc,
   }) => {
+    const { t } = useTranslation('translation');
     return (
       <div
         className={sideTriangle === "left" ? "wrapBlock-flex" : "wrapBlock"}
@@ -45,15 +47,15 @@ export const Tooltip: React.FC<Props> = React.memo(
         </div>
         <div className={`triangle ${sideTriangle}`} />
         <div className="modalWindow">
-          <h1 className="header">{header}</h1>
-          <span className="description">{description}</span>
+          <h1 className="header">{t(header)}</h1>
+          <span className="description">{t(description)}</span>
           <div>
             {isRotate && (
               <button
                 className="buttonFunc"
                 onClick={() => handleThisFunc()}
               >
-                Rotate
+                {t("Rotate")}
               </button>
             )}
             {isMove && (
@@ -61,7 +63,7 @@ export const Tooltip: React.FC<Props> = React.memo(
                 className="buttonFunc"
                 onClick={() => handleThisFunc()}
               >
-                Reorder Page
+                {t("Reorder Page")}
               </button>
             )}
           </div>
@@ -69,17 +71,17 @@ export const Tooltip: React.FC<Props> = React.memo(
             <div>
               {isFirst && (
                 <button onClick={() => handlePrev()} className="btn btnPrev">
-                  Previous
+                  {t("Previous")}
                 </button>
               )}
             </div>
             {isLast ? (
               <button onClick={() => handleDone()} className="btn btnNext">
-                Done
+                {t("Done")}
               </button>
             ) : (
               <button onClick={() => handleNext()} className="btn btnNext">
-                Next
+                {t("Next")}
               </button>
             )}
           </div>

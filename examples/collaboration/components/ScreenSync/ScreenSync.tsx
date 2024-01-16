@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Button, message, Modal, notification, Popover } from 'antd';
+import { useTranslation } from "react-i18next";
 import './ScreenSync.less';
 import { lang } from '../../locales';
 import {
@@ -17,6 +18,7 @@ import InviteNotify from './InviteNotify';
 import { useCurrentUser } from '../../context/user';
 
 export default (props) => {
+  const { t } = useTranslation('translation', {keyPrefix: 'Collaboration'});
   const { currentUser } = useCurrentUser()
   const [ collaboration, setCollaboration ] = useState<any>(null);
   const [frontOnlineMembers, setFrontOnlineMember] = useState([]);
@@ -34,7 +36,7 @@ export default (props) => {
   const [currentFollowersNum, setCurrentFollowersNum] = useState<number>(0);
   const [leader, setLeader] = useState<any>(null);
   const [screenSyncTip, setScreenSyncTip] = useState<any>(
-    'Waiting for followers...',
+    t('Waiting for followers...'),
   );
   useEffect(() => {
     (async () => {
@@ -180,9 +182,9 @@ export default (props) => {
     if (leaderInfo[0].id === currentUser!.id) {
       setCurrentFollowersNum(members.length);
       if (members.length > 0) {
-        setScreenSyncTip(`${members.length} followers`);
+        setScreenSyncTip(`${members.length} ${t("followers")}`);
       } else {
-        setScreenSyncTip('Waiting for followers...');
+        setScreenSyncTip(t('Waiting for followers...'));
       }
     } else {
       onFollowingStatus(true, leaderInfo[0].id);
@@ -196,7 +198,7 @@ export default (props) => {
     setSpotLight(false);
     setCurrentFollowersNum(0);
     setSessionCreatorId(null);
-    setScreenSyncTip('Waiting for followers...');
+    setScreenSyncTip(t('Waiting for followers...'));
     setIsInScreenSync(false);
     storageRemoveItem(localStorage, 'screenSyncId');
   };
@@ -209,7 +211,7 @@ export default (props) => {
       setSessionCreatorId(currentUser!.id)
       setSwitchVisible(false)
       setIsInScreenSync(true)
-      setScreenSyncTip(`Following ${user.userName}  ...`)
+      setScreenSyncTip(`${t("Following")} ${user.userName}  ...`)
       storageSetItem(localStorage, 'screenSyncId', screenSyncInfo.id)
       setPopoverVisible(false)
       if(isWaitInvited){
@@ -218,9 +220,9 @@ export default (props) => {
       }
     } catch (error: any) {
       if (error.ret === 403) {
-        message.error(lang.followEachOthor);
+        message.error(t("followEachOthor"));
       } else {
-        message.error(lang.followScreenSyncFailed);
+        message.error(t("followScreenSyncFailed"));
       }
     }
   };
@@ -231,7 +233,7 @@ export default (props) => {
       setScreenSyncSession(screenSync);
       setLeader(currentUser);
       setSwitchVisible(false);
-      setScreenSyncTip('Waiting for followers...');
+      setScreenSyncTip(t('Waiting for followers...'));
       setIsInScreenSync(true);
       setPopoverVisible(false);
       setSpotLight(true);
@@ -244,7 +246,7 @@ export default (props) => {
       //@ts-ignore
       window.app.state.screenSync = screenSync;
     } catch (error) {
-      message.error(lang.createScreenSyncFailed);
+      message.error(t("createScreenSyncFailed"));
     }
   };
   const spotlightMe = () => {
@@ -310,7 +312,7 @@ export default (props) => {
                   disabled={leader && member.id === leader.id}
                   onClick={() => switchFollowerFn(member)}
                 >
-                  {leader && member.id === leader.id ? 'following' : 'Follow'}
+                  {leader && member.id === leader.id ? t('following') : t('Follow')}
                 </Button>
               </div>
             }
@@ -340,7 +342,7 @@ export default (props) => {
                     disabled={leader && item.id === leader.id}
                     onClick={() => switchFollowerFn(item)}
                   >
-                    {leader && item.id === leader.id ? 'following' : 'Follow'}
+                    {leader && item.id === leader.id ? t('following') : t('Follow')}
                   </Button>
                 </div>
               </div>
@@ -370,7 +372,7 @@ export default (props) => {
               leader &&
               sessionCreatorId === currentUser!.id && (
                 <div className="follower-num" title={currentUser!.userName}>
-                  {currentFollowersNum}followers
+                  {currentFollowersNum}{t("followers")}
                 </div>
               )}
             {
@@ -380,7 +382,7 @@ export default (props) => {
                 onClick={spotlightMe}
                 disabled={spotLight && leader}
               >
-                Spotlight me
+                {t("Spotlight me")}
               </Button>
             }
           </div>
@@ -414,17 +416,17 @@ export default (props) => {
               className="event-btn"
               onClick={() => setCancelScreenSyncVisible(true)}
             >
-              Cancel
+              {("Cancel")}
             </div>
           ) : (
             <div className="event-btn" onClick={leaveScreenSyncSession}>
-              Stop
+              {("Stop")}
             </div>
           )}
         </div>
       ) : null}
       <Modal
-        title={lang.dialogTitle}
+        title={t("dialogTitle")}
         visible={switchVisible}
         onCancel={() => {
           setSwitchVisible(false);
@@ -437,7 +439,7 @@ export default (props) => {
             key={'Continue'}
             onClick={switchContinue}
           >
-            Continue
+            {t("Continue")}
           </Button>,
         ]}
         centered
@@ -446,18 +448,18 @@ export default (props) => {
           <div>
             {leader &&
               (leader.id === currentUser!.id
-                ? 'You are currently spotLight'
-                : `You are currently following  ${leader.userName}`)}
-            , do you want to switch to{' '}
+                ? t('You are currently spotLight')
+                : `${t("You are currently following")}  ${leader.userName}`)}
+            , {t("do you want to switch to")}{' '}
             {!spotLight
-              ? switchFollower && `follow ${switchFollower.userName}`
-              : 'Spotlight me'}
+              ? switchFollower && `${t("follow")} ${switchFollower.userName}`
+              : t('Spotlight me')}
             ?
           </div>
         </div>
       </Modal>
       <Modal
-        title={lang.cancelScreenSync}
+        title={t("cancelScreenSync")}
         visible={cancelScreenSyncVisible}
         onCancel={() => {
           setCancelScreenSyncVisible(false);
@@ -472,7 +474,7 @@ export default (props) => {
               leaveScreenSyncSession();
             }}
           >
-            Ok
+            {t("Ok")}
           </Button>,
         ]}
         centered

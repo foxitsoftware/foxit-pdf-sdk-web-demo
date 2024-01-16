@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useTranslation } from "react-i18next";
 import './InviteUser.less'
 import { Modal, Input, Button, message } from 'antd';
 import clearIcon from 'assets/icon/clear.svg';
@@ -7,6 +8,7 @@ import { useCurrentCollaboration } from '../../context/collaboration';
 import SetCommentPermission from '../SetCommentPermission/SetCommentPermission';
 
 export default  (props) => {
+  const { t } = useTranslation('translation', {keyPrefix: 'Collaboration'});
   const [email,setEmail]=useState<string>('');
   const {collaboration}=useCurrentCollaboration()
   const [inviteList,setInviteList]=useState<any>([])
@@ -15,7 +17,7 @@ export default  (props) => {
   }
   const addEmail=() =>{
     if (email === '') {
-      message.error(lang.submitEmailTip);
+      message.error(t("submitEmailTip"));
       return;
     }
     if (email.match(/^\w+@\w+\.\w+$/i)) {
@@ -24,7 +26,7 @@ export default  (props) => {
         return item.email;
       })
       if (emailArr.indexOf(email) !== -1) {
-        message.error(lang.Component.emailAlreadyExist);
+        message.error(t("Component.emailAlreadyExist"));
         return;
       }
       emailLists.push({
@@ -34,7 +36,7 @@ export default  (props) => {
       setEmail("")
       setInviteList(emailLists)
     } else {
-      message.error(lang.emailFormatError);
+      message.error(t("emailFormatError"));
     }
   }
   const sendInvite=async()=> {
@@ -42,7 +44,7 @@ export default  (props) => {
     try{
       let isInvited = await collaboration?.addMembers(inviteList);
       if (isInvited) {
-        message.info(lang.CollabAuthor.inviteSuccess);
+        message.info(t("CollabAuthor.inviteSuccess"));
       //  setEmail('');
       //  setInviteList([]);
         props.onExit(isInvited);
@@ -51,7 +53,7 @@ export default  (props) => {
       if (error.ret === 400) {
         message.error(error.message);
       } else {
-        message.error(lang.CollabAuthor.inviteFailed);
+        message.error(t("CollabAuthor.inviteFailed"));
       }
     }
 
@@ -75,10 +77,10 @@ export default  (props) => {
   }
   return (
     <Modal
-      title={<span onClick={() => props.onExit()}>Back</span>}
+      title={<span onClick={() => props.onExit()}>{t("Back")}</span>}
       visible={true}
       footer={[
-        <Button type="primary" className="send-invite" disabled={inviteList.length === 0} key={"sendInvite"} onClick={sendInvite}>Send invitation</Button>
+        <Button type="primary" className="send-invite" disabled={inviteList.length === 0} key={"sendInvite"} onClick={sendInvite}>{t("Send invitation")}</Button>
       ]}
       closable={true}
       width={500}
@@ -86,13 +88,13 @@ export default  (props) => {
       onCancel={() => props.onExit()}>
       <div className="invite-wrap">
         <div className="email-wrap">
-          <Input placeholder="Email ,command Enter to add " className='email-input' key={"email"} value={email} onChange={handleChange} />
-          <Button type="primary" onClick={addEmail} className='email-btn'>Add</Button>
+          <Input placeholder={t("Email ,command Enter to add ")} className='email-input' key={"email"} value={email} onChange={handleChange} />
+          <Button type="primary" onClick={addEmail} className='email-btn'>{t("Add")}</Button>
         </div>
         {
           inviteList.length > 0 &&
           <div className="email-list">
-            <div className="title">Added people</div>
+            <div className="title">{t("Added people")}</div>
             {
               inviteList.map((item, index) => {
                 return (<div className="participant-list" key={index}>

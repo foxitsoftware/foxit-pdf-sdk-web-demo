@@ -1,4 +1,5 @@
 import React, { PureComponent } from 'react';
+import { useTranslation } from "react-i18next";
 import './PasswordPopup.less'
 import { Input, message, Modal } from 'antd';
 import showPwd from 'assets/icon/show_pwd.svg'
@@ -14,12 +15,15 @@ interface IState {
   hidePwdFlag:boolean
 }
 class PasswordPopup extends PureComponent<IProps, IState> {
+  t: any;
   constructor(props: IProps) {
     super(props);
     this.state = {
       emailValue:"",
       hidePwdFlag:true
     }
+    const { t } = useTranslation('translation', {keyPrefix: 'Collaboration'});
+    this.t = t;
   }
   handleChange(e: any) {
     this.setState({
@@ -29,7 +33,7 @@ class PasswordPopup extends PureComponent<IProps, IState> {
   async loginSubmit() {
     const { emailValue } = this.state;
     if (emailValue === '') {
-      message.error(lang.Component.enterPwdTip);
+      message.error(this.t("Component.enterPwdTip"));
       return;
     }
     this.props.onSubmit(emailValue).then(()=>{
@@ -46,10 +50,11 @@ class PasswordPopup extends PureComponent<IProps, IState> {
   render() {
     const { visible } = this.props;
     const {emailValue,hidePwdFlag}=this.state;
+    const t = this.t;
     return (
       <Modal
         zIndex={10000}
-        title={"Password"}
+        title={t("Password")}
         visible={visible}
         footer={null}
         className={"passwordPopup"}
@@ -57,7 +62,7 @@ class PasswordPopup extends PureComponent<IProps, IState> {
         onCancel={this.props.closePopup}
         centered>
         <div className="login-password-wrap">
-          <div className="label-Password">{lang.ModalDes.pwdTitle}</div>
+          <div className="label-Password">{t("ModalDes.pwdTitle")}</div>
           <div className="input-pwd-wrap">
             <Input
               type={hidePwdFlag?"password":"text"}
@@ -74,8 +79,8 @@ class PasswordPopup extends PureComponent<IProps, IState> {
 
           </div>
           <div className='bottom-btn'>
-            <div className="to-login" onClick={this.loginSubmit.bind(this)}>OK</div>
-            <div className="cancel-btn" onClick={this.props.closePopup}>Cancel</div>
+            <div className="to-login" onClick={this.loginSubmit.bind(this)}>{t("OK")}</div>
+            <div className="cancel-btn" onClick={this.props.closePopup}>{t("Cancel")}</div>
           </div>
 
         </div>

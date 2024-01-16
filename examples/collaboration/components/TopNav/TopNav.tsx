@@ -1,5 +1,6 @@
 import { Col, message, Row } from 'antd';
 import React, { useEffect, useState } from 'react';
+import { useTranslation } from "react-i18next";
 import { lang } from '../../locales';
 import { useIsLoading } from '../../context/isLoading';
 import shareMembersIcon from 'assets/icon/share-members.svg';
@@ -31,6 +32,7 @@ import { DocEvent } from '../../types';
 let passwordDefered = createDeferred();
 
 export default (props) => {
+  const { t } = useTranslation('translation', {keyPrefix: 'Collaboration'});
   //const [stepDriver] = useState(new Driver(stepOption));
   const { setIsLoading } = useIsLoading();
   const [isFirstVisit, setIsFirstVisit] = useState(true);
@@ -94,7 +96,7 @@ export default (props) => {
   //get participant comment permission from the collaboration.
   const getParticipantPermission = async (collaboration) => {
     let permissionApi = await collaboration.getPermission().catch(() => {
-      message.error(lang.getPermissionError);
+      message.error(t("getPermissionError"));
       return;
     });
     let isAllowComment = await permissionApi!.isAllowComment();
@@ -142,7 +144,7 @@ export default (props) => {
         setPasswordPopupVisible(true);
         setOpenFailedDocInfo(errorResponse.pdfDoc);
       } else {
-        message.error(lang.openFailed);
+        message.error(t("openFailed"));
         setOpenDocFailed(true);
       }
     }
@@ -173,7 +175,7 @@ export default (props) => {
         setOpenFailedDocInfo(null);
       })
       .catch(() => {
-        message.error(lang.passwordError);
+        message.error(t("passwordError"));
       });
   };
   //Create Collaboration
@@ -193,7 +195,7 @@ export default (props) => {
         beginCollaboration(collaboration);
       }
     } catch (err: any) {
-      message.error(err.message || lang.collabOpenFailed);
+      message.error(err.message || t("collabOpenFailed"));
       setIsLoading(false);
     }
   };
@@ -241,17 +243,17 @@ export default (props) => {
           beginCollaborationSuccess(collaboration);
         } catch (error: any) {
           if(error.message === "Permission error"){
-            message.error("please use a owner password to join the collaboration");
+            message.error(t("please use a owner password to join the collaboration"));
             props.pdfViewer && props.pdfViewer.close();
             error.error = 3;
           }else {
-            message.error(lang.passwordError);
+            message.error(t("passwordError"));
           }
           encryptedDocumentHandle(error, collaboration);
         }
       }
     } else {
-      message.error(lang.collabOpenFailed);
+      message.error(t("collabOpenFailed"));
       passwordDefered.resolve(false);
     }
   };
@@ -322,12 +324,12 @@ export default (props) => {
         }
 
         if (action === 'network-connection-down') {
-          message.error('Lost connection with the server.');
+          message.error(t('Lost connection with the server.'));
           return;
         }
 
         if (action === 'network-connection-up') {
-          message.success('Re-established connection with the server.');
+          message.success(t('Re-established connection with the server.'));
           return;
         }
         getCollaborationMembers(collaboration);
@@ -344,7 +346,7 @@ export default (props) => {
         let collabMembers = await collaborationInstance.getMembers();
         setCollaborationMembers(collabMembers);
       } catch {
-        message.error(lang.getMembersError);
+        message.error(t("getMembersError"));
       }
     }
   };
@@ -373,7 +375,7 @@ export default (props) => {
                 </div>
                 {isParticipantView() && (
                   <div className="participant-permission">
-                    {canComment ? '(Can Comment)' : '(Can View)'}
+                    {canComment ? t('(Can Comment)') : t('(Can View)')}
                   </div>
                 )}
               </div>
@@ -401,7 +403,7 @@ export default (props) => {
                     >
                       <div className="share-popover">
                         <img src={shareMembersIcon}/>
-                        Share
+                        {t("Share")}
                       </div>
                     </ParticipantOperationPopover>
                   )}

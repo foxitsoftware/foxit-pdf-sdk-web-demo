@@ -1,6 +1,7 @@
 import React from 'react';
 import './StartPage.less'
 import { Button, Tooltip } from 'antd';
+import { useTranslation } from "react-i18next";
 import bgL from 'assets/icon/background-l.svg';
 import bgS from 'assets/icon/background-s.svg';
 import logo from 'assets/icon/logo.svg';
@@ -26,17 +27,19 @@ export default() => {
     //   throw new Error('Login failed')
     // }
   }
+  const { t } = useTranslation('translation', {keyPrefix: 'Collaboration'});
+
   return (
     <>
       <div className="start-box">
         <img src={bgL} className="start-bg-l" />
         <img src={bgS} className="start-bg-s" />
         <div>
-          <div className="start-title">Foxit Web Collaboration Demo</div>
-          <Button type="primary" shape="round" className="go-to-btn" style={{ backgroundColor: "#923094", border: 0 }} onClick={login}>Go to  Demo</Button>
+          <div className="start-title">{t("Foxit Web Collaboration Demo")}</div>
+          <Button type="primary" shape="round" className="go-to-btn" style={{ backgroundColor: "#923094", border: 0 }} onClick={login}>{t("Go to Demo")}</Button>
         </div>
         <div className="start-footer">
-          ©️Copyright belongs to foxit
+        {t("©️Copyright belongs to foxit")}
           <Tooltip placement="topRight" title={null}>
             <img src={logo} className="start-logo" />
           </Tooltip>

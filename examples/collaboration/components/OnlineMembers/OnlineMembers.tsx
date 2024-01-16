@@ -1,4 +1,5 @@
 import React, { PureComponent } from 'react';
+import { useTranslation } from "react-i18next";
 import './OnlineMembers.less'
 import { Dropdown, Menu } from 'antd';
 import { randomHexColor } from '../../utils';
@@ -11,6 +12,7 @@ class OnlineMembers extends PureComponent<any, any> {
     }
   }
   render() {
+    const { t } = useTranslation('translation', {keyPrefix: 'Collaboration'});
     const { onlineMembers,user } = this.props;
     const menu = (
       <Menu
@@ -27,7 +29,7 @@ class OnlineMembers extends PureComponent<any, any> {
                           <div className="portrait" style={ item.id===user.id ? {background: "#9C35EE"} : { background: randomHexColor(item.id)} }>{item.userName.charAt(0).toUpperCase()}</div>
                           <div className="nickName" title={item.userName}>{item.userName}</div>
                         </div>
-                        <div className="comment">{item.isAllowComment?"Can Comment":"Can View"}</div>
+                        <div className="comment">{item.isAllowComment?t("Can Comment"):t("Can View")}</div>
                       </div>)
                   })
                 }
