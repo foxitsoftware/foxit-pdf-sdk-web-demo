@@ -103,7 +103,6 @@ export default (props: IProps) => {
         : libPath + 'uix-addons/allInOne.js',
     });
     await collabToolbarConfiguration(pdfui, UIExtension);
-    console.log(i18n.language)
     await addUIEventListener(pdfui);
     initSignatureHandlers(pdfui);
     setPdfui(pdfui);

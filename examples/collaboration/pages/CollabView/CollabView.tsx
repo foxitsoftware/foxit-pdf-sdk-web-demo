@@ -28,7 +28,6 @@ export default () => {
   const [pdfDocPermission, setPdfDocPermission] = useState<any>(null);
   const [pdfViewer, setPdfViewer] = useState<any>(null);
   const [pdfui, setPdfui] = useState<any>(null);
-  console.log(i18n.language)
   const initCollabclient = async (curPdfviewer) => {
     let isParticipant = isParticipantView();
     let nickName;
