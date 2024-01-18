@@ -19,7 +19,7 @@ interface IProps {
   getDocumentPermission: Function;
 }
 export default (props: IProps) => {
-  const { t,i18n } = useTranslation('translation', {keyPrefix: 'Collaboration'});
+  const { t } = useTranslation('translation', {keyPrefix: 'Collaboration'});
   const [pdfui, setPdfui] = useState<any>(null);
   const { setIsLoading } = useIsLoading();
   useEffect(() => {

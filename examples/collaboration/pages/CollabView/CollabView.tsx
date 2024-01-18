@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Spin } from 'antd';
 import { useTranslation } from "react-i18next";
 import PDFViewer from '../../components/PDFViewer/PDFViewer';
@@ -79,12 +79,15 @@ export default () => {
     setIsLoading(false);
   };
 
+  useEffect(() => {
+    pdfui && pdfui?.changeLanguage(i18n.language);
+  },[i18n.language])
+
   return (
     <>
       <Spin tip={t('Loading...')} spinning={isLoading} size={'large'}>
         {pdfViewer && collabClient && currentUser &&(
           <TopNav
-            lang={i18n.language}
             pdfViewer={pdfViewer}
             pdfDocPermission={pdfDocPermission}
             setPermissionByParticipant={(isAllowComment) => {
