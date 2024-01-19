@@ -4,6 +4,7 @@ import { useContextRef } from "../../common/useContextRef";
 import { ViewerOperationDataContext } from "../../contexts/ViewerOperationDataContext";
 import { MinusCircleIcon, PlusCircleIcon } from "../icons/index";
 import { ToolbarButton } from "./ToolbarButton";
+import { useTranslation } from "react-i18next";
 
 export enum ZoomOperationType {
     ZOOMIN,
@@ -14,6 +15,7 @@ export function ZoomButton(props: {
     type: ZoomOperationType,
     disabled: boolean
 }) {
+    const { t } = useTranslation('translation', {keyPrefix: 'OverlayComparison'});
     const viewerOperationDataRef = useContextRef(ViewerOperationDataContext);
     
     
@@ -22,13 +24,13 @@ export function ZoomButton(props: {
             return {
                 step: 0.1,
                 icon: <PlusCircleIcon></PlusCircleIcon>,
-                text: 'Zoom In'
+                text: t('Zoom In')
             };
         } else {
             return {
                 step: -0.1,
                 icon: <MinusCircleIcon></MinusCircleIcon>,
-                text: 'Zoom Out'
+                text: t('Zoom Out')
             };
         }
     })();

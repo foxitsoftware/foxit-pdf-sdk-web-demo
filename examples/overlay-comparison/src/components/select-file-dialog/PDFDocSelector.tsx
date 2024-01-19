@@ -11,6 +11,7 @@ import { PasswordDialog } from "../dialogs/PasswordDialog";
 import { PDFDocDataItem } from "./PDFDocDataItem";
 import { PDFDocPreviewer } from "./PDFDocPreviewer";
 import { SelectFileDropdown } from "./SelectFileDropdown";
+import { useTranslation } from "react-i18next";
 
 const Error_Code = PDFViewCtrl.PDF.constant.Error_Code;
 
@@ -21,6 +22,7 @@ export function PDFDocSelector(props: {
         doc: PDFDoc | undefined
     ) => void;
 }) {
+    const { t } = useTranslation('translation', {keyPrefix: 'OverlayComparison'});
     const { dispatch } = useContext(
         SelectedPDFDocListContext
     ) as PDFDocListContextDataType;
@@ -73,8 +75,8 @@ export function PDFDocSelector(props: {
                     }
                 } else if(error && error.code === Error_Code.format) {
                     Modal.warning({
-                        title: 'Foxit PDF SDK for Web',
-                        content: 'The file format may be incorrect or corrupted!',
+                        title: t('Foxit PDF SDK for Web'),
+                        content: t('The file format may be incorrect or corrupted!'),
                     });
                     return;
                 }

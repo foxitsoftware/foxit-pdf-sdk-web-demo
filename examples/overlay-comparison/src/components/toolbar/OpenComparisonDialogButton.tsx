@@ -5,8 +5,10 @@ import { ToolbarButton } from "./ToolbarButton";
 import { useSliceDoc } from '../../common/useSliceDoc';
 import { CompareDialogResult } from "../select-file-dialog/CompareDialogResult";
 import { SelectedPDFDocContext } from "../../contexts/SelectedPDFDocContext";
+import { useTranslation } from "react-i18next";
 
 export function OpenComparisonDialogButton() {
+    const { t } = useTranslation('translation', {keyPrefix: 'OverlayComparison'});
     const [showDialog, setShowDialog] = useState(false);
     const [data, setData] = useState<Partial<CompareDialogResult>>({});
     const [srcDocPromise, targetDocPromise] = useSliceDoc(data);
@@ -28,7 +30,7 @@ export function OpenComparisonDialogButton() {
         <>
             <ToolbarButton
                 icon={<CompareIcon></CompareIcon>}
-                text="Compare"
+                text={t("Compare")}
                 separate={false}
                 onClick={() => {
                     setShowDialog(true);

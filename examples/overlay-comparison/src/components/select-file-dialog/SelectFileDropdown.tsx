@@ -6,11 +6,13 @@ import { PDFDocListContextDataType, SelectedPDFDocListContext } from "../../cont
 import { PDFDoc } from "../../foxit-sdk";
 import { PDFDocDataItem } from "./PDFDocDataItem";
 import "./select-file-dropdown.scss";
+import { useTranslation } from "react-i18next";
 
 export function SelectFileDropdown(props: {
     value: PDFDocDataItem | undefined;
     onChange?: (value: PDFDocDataItem | undefined) => Promise<PDFDoc | void>;
 }) {
+    const { t } = useTranslation('translation');
     const inputRef = useRef<HTMLInputElement | null>(null); 
     
     const { data: pdfDocList, dispatch } = useContext(SelectedPDFDocListContext) as PDFDocListContextDataType;
@@ -80,7 +82,7 @@ export function SelectFileDropdown(props: {
                             selectPDFDocData(data);
                         }}
                     ></input>
-                    Choose
+                    {t("Choose")}
                 </Button>
         </div>
     );

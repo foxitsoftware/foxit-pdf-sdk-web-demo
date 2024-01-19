@@ -1,5 +1,8 @@
 import * as PDFViewCtrl from "PDFViewCtrl";
 import "@foxitsoftware/foxit-pdf-sdk-for-web-library-full/lib/PDFViewCtrl.css";
+import enUS from "../../src/i18n/locales/en-US.json";
+import zhCN from"../../src/i18n/locales/zh-CN.json";
+import zhTW from "../../src/i18n/locales/zh-TW.json";
 
 const libPath = "/lib/";
 const viewerOptions = {
@@ -87,3 +90,41 @@ var pdfViewer1 = createPDFViewer('pdf-app-1', {
     },
     { fileName: "PDFViewer_Multiple_Instances.pdf" }
 )
+
+const translations = {
+    'en-US': enUS,
+    'zh-CN': zhCN,
+    'zh-TW': zhTW,
+};
+
+let currentLanguage = 'en-US';
+
+function replaceI18nStrings(language = currentLanguage) {  
+    const elements = document.querySelectorAll('[data-i18n]');  
+    elements.forEach((element) => {  
+      const key = element.getAttribute('data-i18n');  
+      element.textContent = translations[language]["MultipleCase"][key];  
+    });  
+}
+
+const getMessage = (event) => {
+    let Data;
+    try {
+      Data = JSON.parse(event.data);
+    } catch (error) {
+      return;
+    }
+    if (Data.hasOwnProperty("language")){
+      let language = Data.language;
+      if(currentLanguage !== language ){
+        currentLanguage = language;
+        replaceI18nStrings(language);
+      }
+    }
+};
+
+window.addEventListener('DOMContentLoaded', e => replaceI18nStrings());
+window.addEventListener("message", getMessage, false);
+window.top?.postMessage('ready', {
+    targetOrigin: '*'
+});

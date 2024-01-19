@@ -26,26 +26,54 @@ import {
 import { UnionContextProvider } from "./common/UnionContextProvider";
 import { useFileOpen } from "./common/useFileOpen";
 import { ResultDocContext, resultDocContextReducer } from "./contexts/ResultDocContext";
+import { useTranslation } from "react-i18next";
 
 function App() {
+    const { t, i18n } = useTranslation('translation', {keyPrefix: "OverlayComparison"});
     const sourceViewerRef = useRef() as React.RefObject<PDFViewer>;
     const targetViewerRef = useRef() as React.RefObject<PDFViewer>;
     const resultViewerRef = useRef() as React.RefObject<PDFViewer>;
 
     const [sourceTitle, setSourceTitle] = useState("");
     const [targetTitle, setTargetTitle] = useState("");
+
+    useEffect(() => {
+        let currentLanguage = 'en-US';
+        const getMessage = (event) => {
+            let Data;
+            try {
+              Data = JSON.parse(event.data);
+            } catch (error) {
+              return;
+            }
+            if (Data.hasOwnProperty("language")){
+              let language = Data.language;
+              if(currentLanguage !== language ){
+                currentLanguage = language;
+                i18n.changeLanguage(language);
+              }
+            }
+        };
+        window.addEventListener("message", getMessage, false);
+        window.top?.postMessage('ready', {
+          targetOrigin: '*'
+        });
+        return () => {
+          window.addEventListener("message", getMessage, false);
+        };
+    }, [location.hash]);
     
     useFileOpen((pdfViewer, doc) => {
         const fileName = (doc as any).getFileName();        
         setSourceTitle(
-            fileName || "Source PDF"
+            fileName || t("Source PDF")
         );
     }, sourceViewerRef);
     
     useFileOpen((pdfViewer, doc) => {
         const fileName = (doc as any).getFileName();        
         setTargetTitle(
-            fileName || "Target PDF"
+            fileName || t("Target PDF")
         );
     }, targetViewerRef)
 
@@ -104,7 +132,7 @@ function App() {
     return (
         <div className="fx_oc-layout">
             <header className="fx_oc-top-header">
-                <h1>Overlay Comparison</h1>
+                <h1>{t("Overlay Comparison")}</h1>
             </header>
             <UnionContextProvider
                 contexts={contexts}
@@ -115,7 +143,7 @@ function App() {
                         <PDFViewerComponent ref={sourceViewerRef}></PDFViewerComponent>
                     </ComparisonViewer>
                     <ComparisonViewer
-                        title="Compare Results"
+                        title={t("Compare Results")}
                         floatingBar={
                             <FloatingToolbar></FloatingToolbar>
                         }

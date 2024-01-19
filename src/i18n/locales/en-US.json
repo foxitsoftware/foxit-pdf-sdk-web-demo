@@ -171,5 +171,53 @@
     "Share files": "Share files",
     "Invite": "Invite",
     "Stop share": "Stop share"
+  },
+  "OverlayComparison":{
+    "Overlay Comparison": "Overlay Comparison",
+    "Source PDF": "Source PDF",
+    "Target PDF": "Target PDF",
+    "Compare Results": "Compare Results",
+    "Password": "Password",
+    "Please input password": "Please input password",
+    "Opacity": "Opacity",
+    "The file format may be incorrect or corrupted!": "The file format may be incorrect or corrupted!",
+    "Compare PDF Files": "Compare PDF Files",
+    "Compare Files": "Compare Files",
+    "Old File": "Old File",
+    "New File": "New File",
+    "Compare Page Range": "Compare Page Range",
+    "Compare": "Compare",
+    "Zoom In": "Zoom In",
+    "Zoom Out": "Zoom Out"
+  },
+  "Foxit PDF SDK for Web": "Foxit PDF SDK for Web",
+  "Choose": "Choose",
+  "MultipleCase": {
+    "Browse...": "Browse...",
+    "Demo description": "This demo demonstrates the use of two PDF viewer instances to display PDFs on two separate DIVs instead of using Iframes."
+  },
+  "Conversion": {
+    "PDF To Office": "PDF To Office",
+    "Password error": "Password error",
+    "Use AI to recognize borderless tables": "Use AI to recognize borderless tables",
+    "Upload": "Upload",
+    "Convert to Word": "Convert to Word",
+    "Convert to Excel": "Convert to Excel",
+    "Convert to PPT": "Convert to PPT",
+    "Download": "Download",
+    "Password": "Password",
+    "Please input password":"Please input password",
+    "OK": "OK",
+    "Cancel": "Cancel",
+    "Converting...": "Converting...",
+    "uploadFileSizeLimit": "For this demo, PDF files should be smaller than {{UPLOAD_FILE_SIZE_LIMIT_MB}}MB.",
+    "Please enter password": "Please enter password",
+    "PDF To Word": "PDF To Word",
+    "Convert PDF to Word documents": "Convert PDF to Word documents",
+    "PDF To Excel": "PDF To Excel",
+    "Convert PDF to Excel documents": "Convert PDF to Excel documents",
+    "PDF To PowerPoint": "PDF To PowerPoint",
+    "Convert PDF to PowerPoint": "Convert PDF to PowerPoint",
+    "Convert failed": "Convert failed"
   }
 }

@@ -45,7 +45,7 @@ export default (props) => {
     <PopoverTip direction={"bottom"} content={t("Create Share")} title={null}>
       <div className="share-btn" onClick={createShare}>
         <img src={createShareIcon} className="create-share" />
-        {("Share")}
+        {t("Share")}
       </div>
     </PopoverTip>
     <Modal

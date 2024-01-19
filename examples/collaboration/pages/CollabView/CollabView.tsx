@@ -83,6 +83,10 @@ export default () => {
     pdfui && pdfui?.changeLanguage(i18n.language);
   },[i18n.language])
 
+  useEffect(() => {
+    pdfui && pdfui?.changeLanguage(i18n.language);
+  }, [pdfui]);
+
   return (
     <>
       <Spin tip={t('Loading...')} spinning={isLoading} size={'large'}>

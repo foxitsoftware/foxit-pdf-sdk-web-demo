@@ -7,8 +7,10 @@ import { useContext, useEffect, useState } from "react";
 import { useDocState } from "../../common/useDocState";
 import { ResultPDFViewerInstanceContext } from "../../contexts/PDFViewerContexts";
 import { useFileOpen } from "../../common/useFileOpen";
+import { useTranslation } from "react-i18next";
 
 export function OpacityController() {
+    const { t } = useTranslation('translation', {keyPrefix: 'OverlayComparison'});
     const [opacity, setOpacity] = useState(0);
     const disabled = useDocState();
     
@@ -37,7 +39,7 @@ export function OpacityController() {
 
     return (
         <div className={"fx_oc-opacity-controller " + (disabled? 'disabled' : '')}>
-            <span className="fx_oc-opacity-controller-label" >Opacity</span>
+            <span className="fx_oc-opacity-controller-label" >{t("Opacity")}</span>
             <FloatingToolbarButton
                 onClick={() => {
                     setOpacity(Math.max(-100, opacity - 10));

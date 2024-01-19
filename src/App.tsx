@@ -52,10 +52,13 @@ const App = () => {
     if (Data.hasOwnProperty("language")){
       let language = Data.language;
       i18n?.changeLanguage(language);
-      const childI18n = iframeRef.current.contentWindow.i18n;
-      childI18n?.changeLanguage(language);
       const pdfui = iframeRef.current.contentWindow.pdfui;
       pdfui?.changeLanguage(language);
+      console.log(App)
+      iframeRef.current?.contentWindow?.postMessage(
+        JSON.stringify({ language: i18n.language }),
+        "*"
+      );
     }
   };
 

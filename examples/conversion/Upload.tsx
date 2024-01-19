@@ -12,8 +12,9 @@ import {
   Modal,
   Input,
 } from "antd";
-import React from "react";
+import React, { useState } from "react";
 import axios from "axios";
+import { useTranslation } from "react-i18next";
 import { serverUrl } from "./config";
 import dark_icon_open_26 from "assets/icon/dark_open_26.svg";
 import icon_pdf_48 from "assets/icon/file_pdf_32.svg";
@@ -44,93 +45,79 @@ const download = (url, fileName) => {
 // limit file size to 40MB
 const UPLOAD_FILE_SIZE_LIMIT_MB = 40;
 
-class Uploader extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      isConvertLoading: false,
-      upload: true,
-      filename: null,
-      convert: false,
-      download: false,
-      convertedFilename: null,
-      convertType: 200,
-      docidUpload: null,
-      downloadUrl: null,
-      downloadLoading: false,
-      AITableChecked: false,
-      convertloadLoading: false,
-      passwordVisible: false,
-      progress: null, // progress of conversion 
-      password: "",
-    };
-    this.onConvert = this.onConvert.bind(this);
-    this.onDownload = this.onDownload.bind(this);
-  }
+export default () => {
+  const { t } = useTranslation("translation", { keyPrefix: "Conversion" });
+  const [isConvertLoading, setIsConvertLoading] = useState(false);
+  const [upload, setUpload] = useState(true);
+  const [filename, setFilename] = useState(null);
+  const [convert, setConvert] = useState(false);
+  const [convertedFilename, setConvertedFilename] = useState(null);
+  const [convertType, setConvertType] = useState(200);
+  const [docidUpload, setDocidUpload] = useState(null);
+  const [downloadUrl, setDownloadUrl] = useState(null);
+  const [downloadLoading, setDownloadLoading] = useState(false);
+  const [AITableChecked, setAITableChecked] = useState(false);
+  const [convertloadLoading, setConvertloadLoading] = useState(false);
+  const [passwordVisible, setPasswordVisible] = useState(false);
+  const [progress, setProgress] = useState(null);
+  const [password, setPassword] = useState("");
+  const [clickedCard, setClickedCard] = useState("");
 
-  getTaskStatus = (taskId) => {
-    axios.post(`${baseUrl}/api/convert/status`, {
-      taskId
-    }).then((response) => {
-        if(response.data.code === 200){
+  const getTaskStatus = (taskId) => {
+    axios
+      .post(`${baseUrl}/api/convert/status`, {
+        taskId,
+      })
+      .then((response) => {
+        if (response.data.code === 200) {
           const taskInfo = response.data.data;
-          if(taskInfo.status === 'running'){
-            this.setState({
-              progress: taskInfo.progress,
-            })
+          if (taskInfo.status === "running") {
+            setProgress(taskInfo.progress);
             return;
           }
-          if(taskInfo.status === 'error'){
-            if (taskInfo.error === 'Invalid password.') {
+          if (taskInfo.status === "error") {
+            if (taskInfo.error === "Invalid password.") {
               if (password == "") {
-                this.setState({
-                  passwordVisible: true,
-                });
+                setPasswordVisible(true);
               } else {
-                message.error("Password error");
+                message.error(t("Password error"));
               }
             } else {
               message.error(taskInfo.error);
             }
           }
-          if(taskInfo.status === 'finished'){
-            this.setState({
-              downloadUrl: taskId,
-            });
+          if (taskInfo.status === "finished") {
+            setDownloadUrl(taskId);
           }
-          this.setState({
-            convertloadLoading: false,
-            isConvertLoading: false,
-          });
-          this.stopPollingForTaskStatus();
+          setConvertloadLoading(false);
+          setIsConvertLoading(false);
+          stopPollingForTaskStatus();
         }
-      }
-  )}
-  
-  pollForTaskStatus = (taskId) => {
-    this.interval = setInterval(() => {
-      this.getTaskStatus(taskId);
-    }, 3000);
-  }
-  
-  stopPollingForTaskStatus = () => {
-    if(this.interval){
-      clearInterval(this.interval);
-    }
-  }
+      });
+  };
 
-  onConvert() {
-    this.setState({
-      progress: null,
-      convertloadLoading: true,
-      isConvertLoading: true,
-      downloadLoading: false,
-    });
-    const { AITableChecked, password } = this.state;
+  let interval = null;
+  const pollForTaskStatus = (taskId) => {
+    interval = setInterval(() => {
+      getTaskStatus(taskId);
+    }, 3000);
+  };
+
+  const stopPollingForTaskStatus = () => {
+    if (interval) {
+      clearInterval(interval);
+    }
+  };
+
+  const onConvert = () => {
+    setProgress(null);
+    setConvertloadLoading(true);
+    setIsConvertLoading(true);
+    setDownloadLoading(false);
     let data;
     data = {
-      docId: this.state.docidUpload,
-      type: this.state.convertType,
+      docId: docidUpload,
+      type: convertType,
       password,
     };
     if (AITableChecked === true) {
@@ -142,321 +129,284 @@ class Uploader extends React.Component {
       .post(url, data)
       .then((response) => {
         if (response.data.code === 200) {
-          this.pollForTaskStatus(response.data.data.url);
+          pollForTaskStatus(response.data.data.url);
         }
       })
       .catch(() => {
-        message.error("Convert failed");
-        this.setState({
-          convertloadLoading: false,
-          isConvertLoading: false,
-        });
+        message.error(t("Convert failed"));
+        setConvertloadLoading(false);
+        setIsConvertLoading(false);
       });
     let c = /(.*)\.\w+/;
     let last =
-      [11, 200].indexOf(this.state.convertType) !== -1
+      [11, 200].indexOf(convertType) !== -1
         ? ".docx"
-        : [14, 201].indexOf(this.state.convertType) !== -1
+        : [14, 201].indexOf(convertType) !== -1
         ? ".xlsx"
         : ".pptx";
-    this.setState({
-      convertedFilename: c.exec(this.state.filename)[1] + last,
-    });
-  }
+    setConvertedFilename(c.exec(filename)[1] + last);
+  };
 
-  async onDownload() {
-    this.setState({
-      downloadLoading: true,
-    });
+  async function onDownload() {
+    setDownloadLoading(true);
     let suffix;
-    if (this.state.convertType === 200) {
+    if (convertType === 200) {
       suffix = "docx";
-    } else if (this.state.convertType === 201) {
+    } else if (convertType === 201) {
       suffix = "xlsx";
-    } else if (this.state.convertType === 202) {
+    } else if (convertType === 202) {
       suffix = "pptx";
     }
     // let date = getDateDirName();
-    // let saved_file_path = `fileOutput/${date}/${this.state.downloadUrl}.${suffix}`;
-    let url = `${serverUrl}/${this.state.downloadUrl}`;
+    // let saved_file_path = `fileOutput/${date}/${downloadUrl}.${suffix}`;
+    let url = `${serverUrl}/${downloadUrl}`;
     let c = /(.*)\.\w+/;
-    let fileName = c.exec(this.state.filename)[1] + `.${suffix}`;
+    let fileName = c.exec(filename)[1] + `.${suffix}`;
     await download(url, fileName);
     setTimeout(() => {
-      this.setState({
-        downloadLoading: false,
-      });
+      setDownloadLoading(false);
     }, 3000);
   }
 
-  getConvertist() {
-    return [
-      [
-        {
-          title: "PDF To Word",
-          description: "Convert PDF to Word documents",
-          convertType: 200,
-        },
-        {
-          title: "PDF To Excel",
-          description: "Convert PDF to Excel documents",
-          convertType: 201,
-        },
-        {
-          title: "PDF To PowerPoint",
-          description: "Convert PDF to PowerPoint",
-          convertType: 202,
-        },
-      ],
-    ];
-  }
-
-  onChangeAITable = (e) => {
-    this.setState({
-      AITableChecked: e.target.checked,
-      downloadUrl: null,
-    });
+  const onChangeAITable = (e) => {
+    setAITableChecked(e.target.checked);
+    setDownloadUrl(null);
   };
 
-  onRemoveIcon = () => {
-    this.stopPollingForTaskStatus();
-    this.setState({
-      clickedCard: "",
-      convertType: 200,
-    });
+  const onRemoveIcon = () => {
+    stopPollingForTaskStatus();
+    setClickedCard("");
+    setConvertType(200);
   };
-  submitPassword() {
-    if (this.state.password === "") {
-      message.error("Please enter password");
+  const submitPassword = () => {
+    if (password === "") {
+      message.error(t("Please enter password"));
       return;
     }
-    this.onConvert();
-    this.setState({
-      passwordVisible: false,
-      password: "",
-    });
-  }
-  cancel() {
-    this.setState({
-      passwordVisible: false,
-    });
-  }
-  handleChange(e) {
-    this.setState({
-      password: e.target.value,
-    });
-  }
-  render() {
-    const convertist = this.getConvertist();
-    const { clickedCard, AITableChecked, isConvertLoading, progress } = this.state;
-    return (
-      <>
-        <Spin tip={`Converting... ${progress || ''}`} spinning={isConvertLoading} size={"large"}>
-          <Space direction="vertical">
-            {convertist.map((row, rIndex) => {
-              return (
-                <Row key={rIndex} gutter={16}>
-                  {row.map((col, cIndex) => {
-                    let cardClassName = "";
-                    let currentCard = rIndex + "_" + cIndex;
-                    if (clickedCard === currentCard) {
-                      cardClassName = "clicked";
-                    }
-                    return (
-                      <Col key={cIndex} span={8}>
-                        <Card
-                          className={cardClassName}
-                          size="small"
-                          hoverable
-                          onClick={() => {
-                            this.stopPollingForTaskStatus();
-                            this.setState({
-                              convertType: col.convertType,
-                              downloadUrl: null,
-                              clickedCard: currentCard,
-                            });
-                          }}
-                        >
-                          <Meta
-                            title={col.title}
-                            description={col.description}
-                          />
-                        </Card>
-                      </Col>
-                    );
-                  })}
-                </Row>
-              );
-            })}
-            <div style={{ textAlign: "right" }}>
-              <div
-                className="ai-table-checked-box"
-                style={{ display: "inline-block" }}
-              >
-                <Checkbox
-                  checked={AITableChecked}
-                  onChange={this.onChangeAITable}
-                >
-                  Use AI to recognize borderless tables
-                </Checkbox>
-              </div>
-            </div>
-            <Space direction="vertical" className="tools-main-content-content">
-              <Upload
-                listType="picture"
-                iconRender={() => <img alt="pdf" src={icon_pdf_48} />}
-                action={`${baseUrl}/api/upload`}
-                accept=".pdf"
-                beforeUpload={(file: RcFile) => {
-                const exceededSizeLimit = file.size / 1024 / 1024 > UPLOAD_FILE_SIZE_LIMIT_MB;
-                  if (exceededSizeLimit) {
-                    message.error(`For this demo, PDF files should be smaller than ${UPLOAD_FILE_SIZE_LIMIT_MB}MB.`);
-                    file.status = 'error';
-                    return false;
+    onConvert();
+    setPasswordVisible(false);
+    setPassword("");
+  };
+  const cancel = () => {
+    setPasswordVisible(false);
+  };
+  const handleChange = (e) => {
+    setPassword(e.target.value);
+  };
+  const convertist = [
+    [
+      {
+        title: t("PDF To Word"),
+        description: t("Convert PDF to Word documents"),
+        convertType: 200,
+      },
+      {
+        title: t("PDF To Excel"),
+        description: t("Convert PDF to Excel documents"),
+        convertType: 201,
+      },
+      {
+        title: t("PDF To PowerPoint"),
+        description: t("Convert PDF to PowerPoint"),
+        convertType: 202,
+      },
+    ],
+  ];
+  return (
+    <>
+      <Spin
+        tip={`${t("Converting...")} ${progress || ""}`}
+        spinning={isConvertLoading}
+        size={"large"}
+      >
+        <Space direction="vertical">
+          {convertist.map((row, rIndex) => {
+            return (
+              <Row key={rIndex} gutter={16}>
+                {row.map((col, cIndex) => {
+                  let cardClassName = "";
+                  let currentCard = rIndex + "_" + cIndex;
+                  if (clickedCard === currentCard) {
+                    cardClassName = "clicked";
                   }
-                    return true;
-                }}
-                onChange={(info) => {
-                  // console.log(info);
-                  if (info.file.status === "done") {
-                    this.setState({
-                      upload: false,
-                      filename: info.file.name,
-                      convert: true,
-                      docidUpload: info.file.response.docId,
-                    });
-                    if (!clickedCard) {
-                      this.setState({
-                        clickedCard: "0_0",
-                      });
-                    }
-                  }
-                  if (info.fileList.length === 0) {
-                    this.setState({
-                      upload: true,
-                      convert: false,
-                      docidUpload: null,
-                      taskid: null,
-                      downloadUrl: null,
-                    });
-                  }
-                }}
-                maxCount={1}
-                progress={{
-                  strokeColor: {
-                    "0%": "#108ee9",
-                    "100%": "#87d068",
-                  },
-                  strokeWidth: 5,
-                  format: (percent) => `${parseFloat(percent.toFixed(2))}%`,
-                }}
-                onRemove={this.onRemoveIcon}
-              >
-                {this.state.upload ? (
-                  <Button
-                    size="large"
-                    shape="round"
-                    icon={<img src={dark_icon_open_26} alt="open" />}
-                    type="primary"
-                  >
-                    Upload
-                  </Button>
-                ) : null}
-              </Upload>
-              {this.state.convert && !this.state.downloadUrl ? (
-                <Button
-                  size="large"
-                  shape="round"
-                  type="primary"
-                  onClick={this.onConvert}
-                  loading={this.state.convertloadLoading}
-                  disabled={this.state.convertloadLoading}
-                >
-                  {[11, 200].indexOf(this.state.convertType) !== -1 ? (
-                    <>
-                      <img alt="word" src={dark_icon_word_26} />
-                      Convert to Word
-                    </>
-                  ) : [14, 201].indexOf(this.state.convertType) !== -1 ? (
-                    <>
-                      <img alt="excel" src={dark_icon_excel_26} />
-                      Convert to Excel
-                    </>
-                  ) : (
-                    <>
-                      <img alt="ppt" src={dark_icon_ppt_26} />
-                      Convert to PPT
-                    </>
-                  )}
-                </Button>
-              ) : null}
-              {!this.state.convertloadLoading && this.state.downloadUrl ? (
-                <Upload
-                  iconRender={() =>
-                    this.state.convertType === 11 ? (
-                      <img alt="word" src={icon_word_32} />
-                    ) : this.state.convertType === 14 ? (
-                      <img alt="excel" src={icon_excel_32} />
-                    ) : (
-                      <img alt="ppt" src={icon_ppt_32} />
-                    )
-                  }
-                  listType="picture"
-                  fileList={[{ name: this.state.convertedFilename }]}
-                  showUploadList={{ showRemoveIcon: false }}
-                />
-              ) : null}
-              {!this.state.convertloadLoading && this.state.downloadUrl ? (
-                <Button
-                  size="large"
-                  shape="round"
-                  type="primary"
-                  onClick={this.onDownload}
-                  icon={<img alt="save" src={dark_icon_save_26} />}
-                  loading={this.state.downloadLoading}
-                >
-                  Download
-                </Button>
-              ) : null}
-            </Space>
-          </Space>
-        </Spin>
-        <Modal
-          zIndex={10000}
-          title={"Password"}
-          open={this.state.passwordVisible}
-          footer={null}
-          className={"passwordPopup"}
-          width={360}
-          onCancel={this.cancel.bind(this)}
-          centered
-        >
-          <div className="login-password-wrap">
-            <div className="password-label">Please input password:</div>
-            <div className="input-password-wrap">
-              <Input
-                type="password"
-                key={this.state.password}
-                defaultValue={this.state.password}
-                onBlur={this.handleChange.bind(this)}
-              />
-            </div>
-            <div className="password-footor">
-              <div
-                className="to-login"
-                onClick={this.submitPassword.bind(this)}
-              >
-                OK
-              </div>
-              <div className="cancel-btn" onClick={this.cancel.bind(this)}>
-                Cancel
-              </div>
+                  return (
+                    <Col key={cIndex} span={8}>
+                      <Card
+                        className={cardClassName}
+                        size="small"
+                        hoverable
+                        onClick={() => {
+                          stopPollingForTaskStatus();
+                          setConvertType(col.convertType);
+                          setDownloadUrl(null);
+                          setClickedCard(currentCard);
+                        }}
+                      >
+                        <Meta title={col.title} description={col.description} />
+                      </Card>
+                    </Col>
+                  );
+                })}
+              </Row>
+            );
+          })}
+          <div style={{ textAlign: "right" }}>
+            <div
+              className="ai-table-checked-box"
+              style={{ display: "inline-block" }}
+            >
+              <Checkbox checked={AITableChecked} onChange={onChangeAITable}>
+                {t("Use AI to recognize borderless tables")}
+              </Checkbox>
             </div>
           </div>
-        </Modal>
-      </>
-    );
-  }
-}
-
-export default Uploader;
+          <Space direction="vertical" className="tools-main-content-content">
+            <Upload
+              listType="picture"
+              iconRender={() => <img alt="pdf" src={icon_pdf_48} />}
+              action={`${baseUrl}/api/upload`}
+              accept=".pdf"
+              beforeUpload={(file: RcFile) => {
+                const exceededSizeLimit =
+                  file.size / 1024 / 1024 > UPLOAD_FILE_SIZE_LIMIT_MB;
+                if (exceededSizeLimit) {
+                  message.error(
+                    t("uploadFileSizeLimit", { UPLOAD_FILE_SIZE_LIMIT_MB })
+                  );
+                  file.status = "error";
+                  return false;
+                }
+                return true;
+              }}
+              onChange={(info) => {
+                // console.log(info);
+                if (info.file.status === "done") {
+                  setUpload(false);
+                  setFilename(info.file.name);
+                  setConvert(true);
+                  setDocidUpload(info.file.response.docId);
+                  if (!clickedCard) {
+                    setClickedCard("0_0");
+                  }
+                }
+                if (info.fileList.length === 0) {
+                  setUpload(true);
+                  setConvert(false);
+                  setDocidUpload(null);
+                  setTaskid(null);
+                  setDownloadUrl(null);
+                }
+              }}
+              maxCount={1}
+              progress={{
+                strokeColor: {
+                  "0%": "#108ee9",
+                  "100%": "#87d068",
+                },
+                strokeWidth: 5,
+                format: (percent) => `${parseFloat(percent.toFixed(2))}%`,
+              }}
+              onRemove={onRemoveIcon}
+            >
+              {upload ? (
+                <Button
+                  size="large"
+                  shape="round"
+                  icon={<img src={dark_icon_open_26} alt="open" />}
+                  type="primary"
+                >
+                  {t("Upload")}
+                </Button>
+              ) : null}
+            </Upload>
+            {convert && !downloadUrl ? (
+              <Button
+                size="large"
+                shape="round"
+                type="primary"
+                onClick={onConvert}
+                loading={convertloadLoading}
+                disabled={convertloadLoading}
+              >
+                {[11, 200].indexOf(convertType) !== -1 ? (
+                  <>
+                    <img alt="word" src={dark_icon_word_26} />
+                    {t("Convert to Word")}
+                  </>
+                ) : [14, 201].indexOf(convertType) !== -1 ? (
+                  <>
+                    <img alt="excel" src={dark_icon_excel_26} />
+                    {t("Convert to Excel")}
+                  </>
+                ) : (
+                  <>
+                    <img alt="ppt" src={dark_icon_ppt_26} />
+                    {t("Convert to PPT")}
+                  </>
+                )}
+              </Button>
+            ) : null}
+            {!convertloadLoading && downloadUrl ? (
+              <Upload
+                iconRender={() =>
+                  convertType === 11 ? (
+                    <img alt="word" src={icon_word_32} />
+                  ) : convertType === 14 ? (
+                    <img alt="excel" src={icon_excel_32} />
+                  ) : (
+                    <img alt="ppt" src={icon_ppt_32} />
+                  )
+                }
+                listType="picture"
+                fileList={[{ name: convertedFilename }]}
+                showUploadList={{ showRemoveIcon: false }}
+              />
+            ) : null}
+            {!convertloadLoading && downloadUrl ? (
+              <Button
+                size="large"
+                shape="round"
+                type="primary"
+                onClick={onDownload}
+                icon={<img alt="save" src={dark_icon_save_26} />}
+                loading={downloadLoading}
+              >
+                {t("Download")}
+              </Button>
+            ) : null}
+          </Space>
+        </Space>
+      </Spin>
+      <Modal
+        zIndex={10000}
+        title={t("Password")}
+        open={passwordVisible}
+        footer={null}
+        className={"passwordPopup"}
+        width={360}
+        onCancel={cancel.bind(this)}
+        centered
+      >
+        <div className="login-password-wrap">
+          <div className="password-label">{t("Please input password")}:</div>
+          <div className="input-password-wrap">
+            <Input
+              type="password"
+              key={password}
+              defaultValue={password}
+              onBlur={handleChange.bind(this)}
+            />
+          </div>
+          <div className="password-footor">
+            <div className="to-login" onClick={submitPassword.bind(this)}>
+              {t("OK")}
+            </div>
+            <div className="cancel-btn" onClick={cancel.bind(this)}>
+              {t("Cancel")}
+            </div>
+          </div>
+        </div>
+      </Modal>
+    </>
+  );
+};

@@ -167,7 +167,7 @@ export default (props: IProps) => {
           defaultActiveKey={tabKey}
         >
           <TabPane
-            tab={<div className="shareList-tab">{("Share list")}</div>}
+            tab={<div className="shareList-tab">{t("Share list")}</div>}
             key="ShareList"
           >
             <div className="share-list-wrap">

@@ -8,12 +8,14 @@ import { PDFDocSelector } from "./PDFDocSelector";
 import { CompareDialogResult } from './CompareDialogResult';
 import { PDFDocDataItem } from "./PDFDocDataItem";
 import { TransferButton } from "./TransferButton";
+import { useTranslation } from "react-i18next";
 
 export function SelectFileDialog(props: {
     open: boolean;
     onOk: (result: Partial<CompareDialogResult>) => void;
     onCancel: () => void
 }) {
+    const { t } = useTranslation('translation', {keyPrefix: 'OverlayComparison'});
     const [srcDocData, setSrcDocData] = useState<PDFDocDataItem>();
     const [targetDocData, setTargetDocData] = useState<PDFDocDataItem>();
     
@@ -27,7 +29,7 @@ export function SelectFileDialog(props: {
 
     return (
         <Modal
-            title="Compare PDF Files"
+            title={t("Compare PDF Files")}
             className="fx_oc-modal fx_oc-compare-select-file-dialog"
             width={640}
             open={props.open}
@@ -49,10 +51,10 @@ export function SelectFileDialog(props: {
             >
                 <article>
                     <fieldset className="fx_oc-compare-fieldset">
-                        <legend>Compare Files</legend>
+                        <legend>{t("Compare Files")}</legend>
                         <div className="fx_oc-compare-fieldset-content fx_oc-doc-selector-container">
                             <fieldset className="fx_oc-compare-fieldset">
-                                <legend>Old File</legend>
+                                <legend>{t("Old File")}</legend>
                                 <PDFDocSelector
                                     value={srcDocData}
                                     onChange={(data, doc) => {
@@ -79,7 +81,7 @@ export function SelectFileDialog(props: {
                                 setOldFilePageCount(_srcPageCount);
                             }}></TransferButton>
                             <fieldset className="fx_oc-compare-fieldset">
-                                <legend>New File</legend>
+                                <legend>{t("New File")}</legend>
                                 <PDFDocSelector
                                     value={targetDocData}
                                     onChange={(data, doc) => {
@@ -97,7 +99,7 @@ export function SelectFileDialog(props: {
                         </div>
                     </fieldset>
                     <fieldset className="fx_oc-compare-fieldset fx_oc-compare-page-range-fieldset">
-                        <legend>Compare Page Range</legend>
+                        <legend>{t("Compare Page Range")}</legend>
                         <div className="fx_oc-compare-fieldset-content">
                             <ComparePageRange
                                 label="Old File"
