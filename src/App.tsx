@@ -54,7 +54,6 @@ const App = () => {
       i18n?.changeLanguage(language);
       const pdfui = iframeRef.current.contentWindow.pdfui;
       pdfui?.changeLanguage(language);
-      console.log(App)
       iframeRef.current?.contentWindow?.postMessage(
         JSON.stringify({ language: i18n.language }),
         "*"

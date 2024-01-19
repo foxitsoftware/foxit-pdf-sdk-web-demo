@@ -16,7 +16,6 @@ export default() => {
           return;
         }
         if (Data.hasOwnProperty("language")){
-          console.log(Data.language)
           let language = Data.language;
           if(currentLanguage !== language ){
             currentLanguage = language;
