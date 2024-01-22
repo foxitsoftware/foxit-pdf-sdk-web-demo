@@ -171,5 +171,53 @@
     "Share files": "共享文件",
     "Invite": "邀请",
     "Stop share": "停止共享"
+  },
+  "OverlayComparison": {
+    "Overlay Comparison": "叠加比较",
+    "Source PDF": "源PDF",
+    "Target PDF": "目标PDF",
+    "Compare Results": "比较结果",
+    "Password": "密码",
+    "Please input password": "请输入密码",
+    "Opacity": "不透明度",
+    "The file format may be incorrect or corrupted!": "文件格式可能不正确或损坏！",
+    "Compare PDF Files": "比较PDF文件",
+    "Compare Files": "比较文件",
+    "Old File": "旧文件",
+    "New File": "新文件",
+    "Compare Page Range": "比较页面范围",
+    "Compare": "比较",
+    "Zoom In": "放大",
+    "Zoom Out": "缩小"
+  },
+  "Foxit PDF SDK for Web": "福昕PDF SDK网页版",
+  "Choose": "选择",
+  "MultipleCase": {
+    "Browse...": "浏览...",
+    "Demo description": "本演示展示了使用两个PDF查看器实例来在两个独立的DIV上显示PDF而不是使用IFrame的方法。"
+  },
+  "Conversion": {
+    "PDF To Office": "PDF转Office",
+    "Password error": "密码错误",
+    "Use AI to recognize borderless tables": "使用AI识别无边框表格",
+    "Upload": "上传",
+    "Convert to Word": "转换为Word",
+    "Convert to Excel": "转换为Excel",
+    "Convert to PPT": "转换为PPT",
+    "Download": "下载",
+    "Password": "密码",
+    "Please input password": "请输入密码",
+    "OK": "确定",
+    "Cancel": "取消",
+    "Converting...": "正在转换...",
+    "uploadFileSizeLimit": "对于此演示，PDF文件应小于{{UPLOAD_FILE_SIZE_LIMIT_MB}}MB。",
+    "Please enter password": "请输入密码",
+    "PDF To Word": "PDF转Word",
+    "Convert PDF to Word documents": "将PDF文件转换为Word文档",
+    "PDF To Excel": "PDF转Excel",
+    "Convert PDF to Excel documents": "将PDF转换为Excel文档",
+    "PDF To PowerPoint": "PDF转PowerPoint",
+    "Convert PDF to PowerPoint": "将PDF转换为PowerPoint",
+    "Convert failed": "转换失败"
   }
 }

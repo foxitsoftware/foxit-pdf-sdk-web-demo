@@ -171,5 +171,53 @@
     "Share files": "共享檔案",
     "Invite": "邀請",
     "Stop share": "停止共享"
+  },
+  "OverlayComparison": {
+    "Overlay Comparison": "疊加比較",
+    "Source PDF": "來源 PDF",
+    "Target PDF": "目標 PDF",
+    "Compare Results": "比較結果",
+    "Password": "密碼",
+    "Please input password": "請輸入密碼",
+    "Opacity": "不透明度",
+    "The file format may be incorrect or corrupted!": "檔案格式可能不正確或損壞！",
+    "Compare PDF Files": "比較 PDF 檔案",
+    "Compare Files": "比較檔案",
+    "Old File": "舊檔案",
+    "New File": "新檔案",
+    "Compare Page Range": "比較頁面範圍",
+    "Compare": "比較",
+    "Zoom In": "放大",
+    "Zoom Out": "縮小"
+  },
+  "Foxit PDF SDK for Web": "Foxit PDF SDK 的網頁版",
+  "Choose": "選擇",
+  "MultipleCase": {
+    "Browse...": "瀏覽...",
+    "Demo description": "此示範演示了使用兩個 PDF 閱讀器實例在兩個獨立的 DIV 中顯示 PDF，而不使用 Iframes。"
+  },
+  "Conversion": {
+    "PDF To Office": "PDF轉換為Office",
+    "Password error": "密碼錯誤",
+    "Use AI to recognize borderless tables": "使用人工智慧來識別無邊框的表格",
+    "Upload": "上傳",
+    "Convert to Word": "轉換為 Word",
+    "Convert to Excel": "轉換為 Excel",
+    "Convert to PPT": "轉換為PPT",
+    "Download": "下載",
+    "Password": "密碼",
+    "Please input password": "請輸入密碼",
+    "OK": "確定",
+    "Cancel": "取消",
+    "Converting...": "轉換中...",
+    "uploadFileSizeLimit": "對於這個示範，PDF 檔案應該小於 {{UPLOAD_FILE_SIZE_LIMIT_MB}}MB。",
+    "Please enter password": "請輸入密碼",
+    "PDF To Word": "PDF 轉 Word",
+    "Convert PDF to Word documents": "將PDF轉換為Word文件",
+    "PDF To Excel": "PDF 轉 Excel",
+    "Convert PDF to Excel documents": "將 PDF 轉換為 Excel 文件",
+    "PDF To PowerPoint": "PDF轉換為PowerPoint",
+    "Convert PDF to PowerPoint": "將PDF轉換為PowerPoint",
+    "Convert failed": "轉換失敗"
   }
 }
