@@ -102,7 +102,7 @@ export function SelectFileDialog(props: {
                         <legend>{t("Compare Page Range")}</legend>
                         <div className="fx_oc-compare-fieldset-content">
                             <ComparePageRange
-                                label="Old File"
+                                label={t("Old File")}
                                 pageCount={oldFilePageCount}
                                 docData={srcDocData}
                                 onChange={(from, to) => {
@@ -110,7 +110,7 @@ export function SelectFileDialog(props: {
                                 }}
                             ></ComparePageRange>
                             <ComparePageRange
-                                label="New File"
+                                label={t("New File")}
                                 pageCount={newFilePageCount}
                                 docData={targetDocData}
                                 onChange={(from, to) => {
