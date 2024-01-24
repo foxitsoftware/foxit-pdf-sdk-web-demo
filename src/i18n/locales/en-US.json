@@ -189,7 +189,9 @@
     "Compare": "Compare",
     "Zoom In": "Zoom In",
     "Zoom Out": "Zoom Out",
-    "To":"To"
+    "To":"To",
+    "OK": "OK",
+    "Cancel": "Cancel"
   },
   "Foxit PDF SDK for Web": "Foxit PDF SDK for Web",
   "Choose": "Choose",
