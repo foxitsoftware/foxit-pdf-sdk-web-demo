@@ -416,11 +416,11 @@ export default (props) => {
               className="event-btn"
               onClick={() => setCancelScreenSyncVisible(true)}
             >
-              {("Cancel")}
+              {t("Cancel")}
             </div>
           ) : (
             <div className="event-btn" onClick={leaveScreenSyncSession}>
-              {("Stop")}
+              {t("Stop")}
             </div>
           )}
         </div>
@@ -474,13 +474,13 @@ export default (props) => {
               leaveScreenSyncSession();
             }}
           >
-            {t("Ok")}
+            {t("OK")}
           </Button>,
         ]}
         centered
       >
         <div className="collab-modal-wrap">
-          {lang.stopSpotlighting}
+          {t('stopSpotlighting')}
         </div>
       </Modal>
     </div>

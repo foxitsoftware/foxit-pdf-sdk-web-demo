@@ -147,7 +147,7 @@ export default (props: IProps) => {
   }
   return (
     <>
-    <PopoverTip direction={"right"} content={"File List"} title={null}>
+    <PopoverTip direction={"right"} content={t("File List")} title={null}>
       <img src={moreIcon} className="more-option" onClick={()=>setVisible(true)} />
     </PopoverTip>
     <Modal
@@ -249,7 +249,7 @@ export default (props: IProps) => {
                       <Button
                         onClick={() =>openLocalFile(item)}
                       >
-                        {("Open")}
+                        {t("Open")}
                       </Button>
                     </div>
                   </List.Item>
