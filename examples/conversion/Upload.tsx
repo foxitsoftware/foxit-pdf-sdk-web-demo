@@ -293,7 +293,6 @@ export default () => {
                   setUpload(true);
                   setConvert(false);
                   setDocidUpload(null);
-                  setTaskid(null);
                   setDownloadUrl(null);
                 }
               }}

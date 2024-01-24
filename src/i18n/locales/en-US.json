@@ -220,5 +220,11 @@
     "PDF To PowerPoint": "PDF To PowerPoint",
     "Convert PDF to PowerPoint": "Convert PDF to PowerPoint",
     "Convert failed": "Convert failed"
+  },
+  "editPDF":{
+    "Current Page": "Current Page",
+    "Cancel": "Cancel",
+    "Apply": "Apply",
+    "All Pages": "All Pages"
   }
 }

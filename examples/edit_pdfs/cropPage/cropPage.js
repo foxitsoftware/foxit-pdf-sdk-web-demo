@@ -3,6 +3,25 @@ import {
     getClientX,
     getClientY
 } from "../../../common/util"
+import enUS from "../../../src/i18n/locales/en-US.json";
+import zhCN from"../../../src/i18n/locales/zh-CN.json";
+import zhTW from "../../../src/i18n/locales/zh-TW.json";
+
+const translations = {
+    'en-US': enUS,
+    'zh-CN': zhCN,
+    'zh-TW': zhTW,
+};
+
+let currentLanguage = 'en-US';
+
+function replaceI18nStrings(language = currentLanguage) {  
+    const elements = document.querySelectorAll('[data-i18n]');  
+    elements.forEach((element) => {  
+      const key = element.getAttribute('data-i18n');  
+      element.textContent = translations[language]["editPDF"][key];  
+    });  
+}
 
 const {
     PDFViewCtrl: {
@@ -46,19 +65,19 @@ CropPagesStateHandler.prototype.pageHandler = function (pageRender) {
                 <div class="control">
                     <div class="operate_bg active">
                         <img class="operate" action-type="content" src="${location.origin + "/assets/cropContent.png"}"/>
-                        <span class="tip">Current Page</span>
+                        <span class="tip" data-i18n="Current Page">Current Page</span>
                     </div>
                     <div class="operate_bg">
                         <img class="operate" action-type="pages" src="${location.origin + "/assets/cropPages.png"}"/>
-                        <span class="tip">All Pages</span>
+                        <span class="tip" data-i18n="All Pages">All Pages</span>
                     </div>
                     <div class="operate_bg">
                         <img class="operate" action-type="close" src="${location.origin + "/assets/close.png"}"/>
-                        <span class="tip">Cancel</span>
+                        <span class="tip" data-i18n="Cancel">Cancel</span>
                     </div>
                     <div class="operate_bg">
                         <img class="operate" action-type="marked" src="${location.origin + "/assets/marked.png"}"/>
-                        <span class="tip">Apply</span>
+                        <span class="tip" data-i18n="Apply">Apply</span>
                     </div>
                 </div>
             </div>
@@ -67,6 +86,11 @@ CropPagesStateHandler.prototype.pageHandler = function (pageRender) {
     this.bindHammerEvent();
     this.bindClickEvent();
     this.operateType = operateType.content;
+    replaceI18nStrings(this.pdfViewer.getCurrentLanguage());
+    this.pdfViewer.addEventListener('change-language-success', (lang) => {
+        console.log(lang)
+        replaceI18nStrings(lang);
+    })
 }
 
 CropPagesStateHandler.prototype.destroyPageHandler = function () {
