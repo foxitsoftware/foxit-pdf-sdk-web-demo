@@ -156,7 +156,7 @@ export default (props) => {
         }
       }
       screenSync.join();
-      setScreenSyncTip(`Spotlighting on ${actionData.leader.user_name}...`)
+      setScreenSyncTip(`${t("Spotlighting on")} ${actionData.leader.user_name}...`)
       storageSetItem(localStorage, 'screenSyncId', actionData.screenSyncId);
       setScreenSyncSession(screenSync);
       setIsInScreenSync(true);
