@@ -189,7 +189,9 @@
     "Compare": "比較",
     "Zoom In": "放大",
     "Zoom Out": "縮小",
-    "To": "至"
+    "To": "至",
+    "OK": "確定",
+    "Cancel": "取消"
   },
   "Foxit PDF SDK for Web": "Foxit PDF SDK 的網頁版",
   "Choose": "選擇",
@@ -220,5 +222,11 @@
     "PDF To PowerPoint": "PDF轉換為PowerPoint",
     "Convert PDF to PowerPoint": "將PDF轉換為PowerPoint",
     "Convert failed": "轉換失敗"
+  },
+  "editPDF": {
+    "Current Page": "目前頁面",
+    "Cancel": "取消",
+    "Apply": "套用",
+    "All Pages": "所有頁面"
   }
 }
