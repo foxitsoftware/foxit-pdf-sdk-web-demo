@@ -11,7 +11,8 @@ export default() => {
   const { i18n } = useTranslation('translation');
   
   useEffect(() => {
-    let currentLanguage = 'en-US';
+    let language = navigator.language || 'en-US';
+    i18n.changeLanguage(language);
     const getMessage = (event) => {
         let Data;
         try {
@@ -20,10 +21,8 @@ export default() => {
           return;
         }
         if (Data.hasOwnProperty("language")){
-          let language = Data.language;
-          if(currentLanguage !== language ){
-            currentLanguage = language;
-            i18n.changeLanguage(language);
+          if(language !== Data.language ){
+            i18n.changeLanguage(Data.language);
           }
         }
     };
