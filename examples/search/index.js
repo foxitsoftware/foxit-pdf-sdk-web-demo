@@ -1,26 +1,8 @@
-import * as UIExtension from 'UIExtension';
 import "@foxitsoftware/foxit-pdf-sdk-for-web-library-full/lib/UIExtension.vw.css";
-import { createPDFUI, isMobile } from '../../common/pdfui';
+import { createPDFUI, isDesktop } from '../../common/pdfui';
 import { openSidebar, openSidebarRightTab } from "../../src/snippets"
 
-const {
-  PDFViewCtrl: {
-    ViewerEvents
-  }
-} = UIExtension;
-
 const pdfui = createPDFUI({})
-
-pdfui.addViewerEventListener(ViewerEvents.openFileSuccess, () => {
-  if(isMobile){
-    openSidebar(pdfui, "sidebar-search");
-    return
-  }
-  pdfui.getRootComponent().then((root) => {
-    root.querySelector('@sidebar-tabs');
-    openSidebarRightTab(pdfui,'right-search-panel','',0);
-  });
-});
 
 // Search text on the first three pages.
 export function searchTexts(){
@@ -39,4 +21,13 @@ pdfui.openPDFByHttpRangeRequest(
     },
   },
   { fileName: "Feature-example_search-annotation.pdf" }
-);
+).then(doc=>{
+  if(!isDesktop){
+    openSidebar(pdfui, "sidebar-search");
+    return
+  }
+  pdfui.getRootComponent().then((root) => {
+    root.querySelector('@sidebar-tabs');
+    openSidebarRightTab(pdfui,'right-search-panel','',0);
+  });
+});

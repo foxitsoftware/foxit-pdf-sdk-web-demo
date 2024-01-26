@@ -12,6 +12,7 @@ const { Events } = PDFViewCtrl;
 const appearance = AdaptiveAppearance;
 
 export const isMobile = PDFViewCtrl.DeviceInfo.isMobile;
+export const isDesktop = PDFViewCtrl.DeviceInfo.isDesktop;
 
 export function createPDFUI(options) {
   const elm = document.createElement("div");
