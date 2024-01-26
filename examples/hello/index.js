@@ -42,7 +42,7 @@ pdfui.openPDFByHttpRangeRequest(
 
 if(!isMobile){
   pdfui.getComponentByName("home-tab-group-io").then((group) => {
-    group.setRetainCount(100);
+    group&&group.setRetainCount(100);
   });
 }
 
