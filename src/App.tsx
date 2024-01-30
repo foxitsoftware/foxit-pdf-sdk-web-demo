@@ -52,8 +52,6 @@ const App = () => {
     if (Data.hasOwnProperty("language")){
       let language = Data.language;
       i18n?.changeLanguage(language);
-      const pdfui = iframeRef.current.contentWindow.pdfui;
-      pdfui?.changeLanguage(language);
       iframeRef.current?.contentWindow?.postMessage(
         JSON.stringify({ language: i18n.language }),
         "*"

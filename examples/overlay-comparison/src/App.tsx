@@ -38,7 +38,7 @@ function App() {
     const [targetTitle, setTargetTitle] = useState("");
 
     useEffect(() => {
-        let currentLanguage = 'en-US';
+        let currentLanguage = navigator.language || 'en-US';
         const getMessage = (event) => {
             let Data;
             try {

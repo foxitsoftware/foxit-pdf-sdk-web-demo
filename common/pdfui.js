@@ -4,6 +4,27 @@ import "./pdfui.less";
 import { initSignatureHandlers } from './signature';
 import {deepCloneAssign} from './util';
 
+let currentLanguage = navigator.language || 'en-US';
+const getMessage = (event) => {
+    let Data;
+    try {
+      Data = JSON.parse(event.data);
+    } catch (error) {
+      return;
+    }
+    if (Data.hasOwnProperty("language")){
+      let language = Data.language;
+      if(currentLanguage !== language ){
+        currentLanguage = language;
+        window.pdfui && window.pdfui.changeLanguage(currentLanguage);
+      }
+    }
+};
+window.addEventListener("message", getMessage, false);
+window.top?.postMessage('ready', {
+  targetOrigin: '*'
+});
+
 export const UIExtension = U;
 
 const libPath = "/lib/";
@@ -20,6 +41,9 @@ export function createPDFUI(options) {
   elm.setAttribute('id', 'pdf-ui');
   document.body.appendChild(elm);
   const defaultOptions = {
+    i18n: {
+      lng: currentLanguage,
+    },
     viewerOptions: {
       libPath: libPath,
       jr: {
@@ -153,3 +177,4 @@ export function initMobileTab(pdfui,tabName){
       tabs.controller.currentTab.active();
     })
 }
+

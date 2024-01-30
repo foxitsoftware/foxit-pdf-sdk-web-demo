@@ -3,6 +3,27 @@ import "@foxitsoftware/foxit-pdf-sdk-for-web-library-full/lib/UIExtension.vw.css
 import '../../common/pdfui.less';
 import { initSignatureHandlers } from '../../common/signature';
 
+let currentLanguage = navigator.language || 'en-US';
+const getMessage = (event) => {
+    let Data;
+    try {
+      Data = JSON.parse(event.data);
+    } catch (error) {
+      return;
+    }
+    if (Data.hasOwnProperty("language")){
+      let language = Data.language;
+      if(currentLanguage !== language ){
+        currentLanguage = language;
+        window.pdfui && window.pdfui.changeLanguage(currentLanguage);
+      }
+    }
+};
+window.addEventListener("message", getMessage, false);
+window.top?.postMessage('ready', {
+  targetOrigin: '*'
+});
+
 const { PDFUI, appearances:{AdaptiveAppearance}  } = UIExtension;
 const appearance = AdaptiveAppearance;
 const isMobile = UIExtension.PDFViewCtrl.DeviceInfo.isMobile;
@@ -14,6 +35,9 @@ wrapperElement.setAttribute('id', 'pdf-ui');
 document.body.appendChild(wrapperElement);
 
 const pdfui = new PDFUI({
+  i18n: {
+    lng: currentLanguage,
+  },
   viewerOptions: {
     libPath: libPath,
     jr: {

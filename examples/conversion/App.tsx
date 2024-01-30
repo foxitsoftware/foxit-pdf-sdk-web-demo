@@ -7,7 +7,7 @@ import { useTranslation } from "react-i18next";
 export default() => {
   const { i18n } = useTranslation('translation', {keyPrefix: "Conversion"});
   useEffect(() => {
-    let currentLanguage = 'en-US';
+    let currentLanguage = navigator.language || 'en-US';
     const getMessage = (event) => {
         let Data;
         try {
