@@ -200,13 +200,16 @@
     "Demo description": "此示範演示了使用兩個 PDF 閱讀器實例在兩個獨立的 DIV 中顯示 PDF，而不使用 Iframes。"
   },
   "Conversion": {
-    "PDF To Office": "PDF轉換為Office",
+    "PDF Conversion": "PDF轉換",
     "Password error": "密碼錯誤",
     "Use AI to recognize borderless tables": "使用人工智慧來識別無邊框的表格",
     "Upload": "上傳",
     "Convert to Word": "轉換為 Word",
     "Convert to Excel": "轉換為 Excel",
     "Convert to PPT": "轉換為PPT",
+    "Convert Word to PDF": "Word轉換為PDF",
+    "Convert PowerPoint to PDF": "PowerPoint轉換為PDF",
+    "Convert Excel to PDF": "Excel轉換為PDF",
     "Download": "下載",
     "Password": "密碼",
     "Please input password": "請輸入密碼",
@@ -221,6 +224,12 @@
     "Convert PDF to Excel documents": "將 PDF 轉換為 Excel 文件",
     "PDF To PowerPoint": "PDF轉換為PowerPoint",
     "Convert PDF to PowerPoint": "將PDF轉換為PowerPoint",
+    "Word To PDF": "Word 轉 PDF",
+    "Convert Word to PDF documents": "將Word轉換為PDF文件",
+    "PowerPoint To PDF": "PowerPoint 轉 PDF",
+    "Convert PowerPoint to PDF documents": "將PowerPoint轉換為PDF文件",
+    "Excel To PDF": "Excel 轉 PDF",
+    "Convert Excel to PDF documents": "將Excel轉換為PDF文件",
     "Convert failed": "轉換失敗"
   },
   "editPDF": {

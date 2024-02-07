@@ -11,6 +11,7 @@ import {
   message,
   Modal,
   Input,
+  Divider,
 } from "antd";
 import React, { useState } from "react";
 import axios from "axios";
@@ -62,6 +63,7 @@ export default () => {
   const [progress, setProgress] = useState(null);
   const [password, setPassword] = useState("");
   const [clickedCard, setClickedCard] = useState("");
+  const [showUpload, setshowUpload] = useState(true);
 
   const getTaskStatus = (taskId) => {
     axios
@@ -143,7 +145,9 @@ export default () => {
         ? ".docx"
         : [14, 201].indexOf(convertType) !== -1
         ? ".xlsx"
-        : ".pptx";
+        : [16, 202].indexOf(convertType) !== -1
+        ? ".pptx"
+        : ".pdf";
     setConvertedFilename(c.exec(filename)[1] + last);
   };
 
@@ -156,6 +160,8 @@ export default () => {
       suffix = "xlsx";
     } else if (convertType === 202) {
       suffix = "pptx";
+    } else if (convertType === 203 || convertType === 204 || convertType === 205) {
+      suffix = "pdf";
     }
     // let date = getDateDirName();
     // let saved_file_path = `fileOutput/${date}/${downloadUrl}.${suffix}`;
@@ -193,7 +199,7 @@ export default () => {
   const handleChange = (e) => {
     setPassword(e.target.value);
   };
-  const convertist = [
+  const convertistPDF2Office = [
     [
       {
         title: t("PDF To Word"),
@@ -212,6 +218,25 @@ export default () => {
       },
     ],
   ];
+  const convertistOffice2PDF = [
+    [
+      {
+        title: t("Word To PDF"),
+        description: t("Convert Word to PDF documents"),
+        convertType: 203,
+      },
+      {
+        title: t("Excel To PDF"),
+        description: t("Convert Excel to PDF documents"),
+        convertType: 204,
+      },
+      {
+        title: t("PowerPoint To PDF"),
+        description: t("Convert PowerPoint to PDF documents"),
+        convertType: 205,
+      },
+    ],
+  ];
   return (
     <>
       <Spin
@@ -220,7 +245,8 @@ export default () => {
         size={"large"}
       >
         <Space direction="vertical">
-          {convertist.map((row, rIndex) => {
+          <Divider style={{ textAlign: 'center', fontSize: '23px', fontWeight: 'bold', marginTop: '0' }}>PDF to Office</Divider>
+          {convertistPDF2Office.map((row, rIndex) => {
             return (
               <Row key={rIndex} gutter={16}>
                 {row.map((col, cIndex) => {
@@ -228,6 +254,8 @@ export default () => {
                   let currentCard = rIndex + "_" + cIndex;
                   if (clickedCard === currentCard) {
                     cardClassName = "clicked";
+                  } else {
+                    
                   }
                   return (
                     <Col key={cIndex} span={8}>
@@ -236,6 +264,10 @@ export default () => {
                         size="small"
                         hoverable
                         onClick={() => {
+                          setshowUpload(false);
+                          setUpload(true);
+                          setConvert(false);
+                          setDocidUpload(null);
                           stopPollingForTaskStatus();
                           setConvertType(col.convertType);
                           setDownloadUrl(null);
@@ -260,12 +292,48 @@ export default () => {
               </Checkbox>
             </div>
           </div>
+
+          <Divider style={{ textAlign: 'center', fontSize: '23px', fontWeight: 'bold', marginTop: '0' }}>Office to PDF</Divider>
+          {convertistOffice2PDF.map((row, rIndex) => {
+            return (
+              <Row key={rIndex} gutter={16}>
+                {row.map((col, cIndex) => {
+                  let cardClassName = "";
+                  let currentCard = rIndex + 1 + "_" + cIndex;
+                  if (clickedCard === currentCard) {
+                    cardClassName = "clicked";
+                  }
+                  return (
+                    <Col key={cIndex} span={8}>
+                      <Card
+                        className={cardClassName}
+                        size="small"
+                        hoverable
+                        onClick={() => {
+                          setshowUpload(false);
+                          setUpload(true);
+                          setConvert(false);
+                          setDocidUpload(null);
+                          stopPollingForTaskStatus();
+                          setConvertType(col.convertType);
+                          setDownloadUrl(null);
+                          setClickedCard(currentCard);
+                        }}
+                      >
+                      <Meta title={col.title} description={col.description} />
+                      </Card>
+                    </Col>
+                  );
+                })}
+              </Row>
+            );
+          })}
           <Space direction="vertical" className="tools-main-content-content">
             <Upload
               listType="picture"
               iconRender={() => <img alt="pdf" src={icon_pdf_48} />}
               action={`${baseUrl}/api/upload`}
-              accept=".pdf"
+              accept= {clickedCard === "1_0" ? ".docx" : clickedCard === "1_1" ? ".xlsx" : clickedCard === "1_2" ? ".pptx" : ".pdf"}
               beforeUpload={(file: RcFile) => {
                 const exceededSizeLimit =
                   file.size / 1024 / 1024 > UPLOAD_FILE_SIZE_LIMIT_MB;
@@ -280,6 +348,7 @@ export default () => {
               }}
               onChange={(info) => {
                 // console.log(info);
+                setshowUpload(true);
                 if (info.file.status === "done") {
                   setUpload(false);
                   setFilename(info.file.name);
@@ -305,6 +374,7 @@ export default () => {
                 strokeWidth: 5,
                 format: (percent) => `${parseFloat(percent.toFixed(2))}%`,
               }}
+              showUploadList = {showUpload}
               onRemove={onRemoveIcon}
             >
               {upload ? (
@@ -337,20 +407,35 @@ export default () => {
                     <img alt="excel" src={dark_icon_excel_26} />
                     {t("Convert to Excel")}
                   </>
-                ) : (
+                ) : [16, 202].indexOf(convertType) !== -1 ? (
                   <>
                     <img alt="ppt" src={dark_icon_ppt_26} />
                     {t("Convert to PPT")}
                   </>
-                )}
+                ) : [17, 203].indexOf(convertType) !== -1 ? (
+                  <>
+                    <img alt="pdf" src={icon_pdf_48} />
+                    {t("Convert Word to PDF")}
+                  </>
+                ) : [18, 204].indexOf(convertType) !== -1 ? (
+                  <>
+                    <img alt="pdf" src={icon_pdf_48} />
+                    {t("Convert Excel to PDF")}
+                  </>
+                  ) : (
+                    <>
+                    <img alt="pdf" src={icon_pdf_48} />
+                    {t("Convert PowerPoint to PDF")}
+                  </>
+                  )}
               </Button>
             ) : null}
             {!convertloadLoading && downloadUrl ? (
               <Upload
                 iconRender={() =>
-                  convertType === 11 ? (
+                  convertType === 200 ? (
                     <img alt="word" src={icon_word_32} />
-                  ) : convertType === 14 ? (
+                  ) : convertType === 201 ? (
                     <img alt="excel" src={icon_excel_32} />
                   ) : (
                     <img alt="ppt" src={icon_ppt_32} />

@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<border>
+    <location>OfficeOpenXML-WordprocessingMLArtBorders</location>
+    <pictures>
+        <picture name="apples" left="left" top="top" right="right" bottom="bottom" topLeft="topLeft" topRight="topRight" bottomLeft="bottomLeft" bottomRight="bottomRight" />
+        <picture name="archedScallops" left="left" top="top" right="right" bottom="bottom" topLeft="topLeft" topRight="topRight" bottomLeft="bottomLeft" bottomRight="bottomRight" />
+        <picture name="babyPacifier" left="left" top="top" right="right" bottom="bottom" topLeft="topLeft" topRight="topRight" bottomLeft="bottomLeft" bottomRight="bottomRight" />
+        <picture name="babyRattle" left="left" top="top" right="right" bottom="bottom" topLeft="topLeft" topRight="topRight" bottomLeft="bottomLeft" bottomRight="bottomRight" />
+        <picture name="balloons3Colors" left="left" top="top" right="right" bottom="bottom" topLeft="topLeft" topRight="topRight" bottomLeft="bottomLeft" bottomRight="bottomRight" />
+        <picture name="balloonsHotAir" left="left" top="top" right="right" bottom="bottom" topLeft="topLeft" topRight="topRight" bottomLeft="bottomLeft" bottomRight="bottomRight" />
+        <picture name="basicBlackDashes" left="left" top="top" right="right" bottom="bottom" topLeft="topLeft" topRight="topRight" bottomLeft="bottomLeft" bottomRight="bottomRight" />
+        <picture name="basicBlackDots" left="left" top="top" right="right" bottom="bottom" topLeft="topLeft" topRight="topRight" bottomLeft="bottomLeft" bottomRight="bottomRight" />
+        <picture name="basicBlackSquares" left="left" top="top" right="right" bottom="bottom" topLeft="topLeft" topRight="topRight" bottomLeft="bottomLeft" bottomRight="bottomRight" />
+        <picture name="basicThinLines" left="left" top="top" right="right" bottom="bottom" topLeft="topLeft" topRight="topRight" bottomLeft="bottomLeft" bottomRight="bottomRight" />
+        <picture name="basicWhiteDashes" left="left" top="top" right="right" bottom="bottom" topLeft="topLeft" topRight="topRight" bottomLeft="bottomLeft" bottomRight="bottomRight" />
+        <picture name="basicWhiteDots" left="left" top="top" right="right" bottom="bottom" topLeft="topLeft" topRight="topRight" bottomLeft="bottomLeft" bottomRight="bottomRight" />
+        <picture name="basicWhiteSquares" left="left" top="top" right="right" bottom="bottom" topLeft="topLeft" topRight="topRight" bottomLeft="bottomLeft" bottomRight="bottomRight" />
+        <picture name="basicWideInline" left="left" top="top" right="right" bottom="bottom" topLeft="topLeft" topRight="topRight" bottomLeft="bottomLeft" bottomRight="bottomRight" />
+        <picture name="basicWideMidline" left="left" top="top" right="right" bottom="bottom" topLeft="topLeft" topRight="topRight" bottomLeft="bottomLeft" bottomRight="bottomRight" />
+        <picture name="basicWideOutline" left="left" top="top" right="right" bottom="bottom" topLeft="topLeft" topRight="topRight" bottomLeft="bottomLeft" bottomRight="bottomRight" />
+        <picture name="bats" left="left" top="top" right="right" bottom="bottom" topLeft="topLeft" topRight="topRight" bottomLeft="bottomLeft" bottomRight="bottomRight" />
+        <picture name="birds" left="left" top="top" right="right" bottom="bottom" topLeft="topLeft" topRight="topRight" bottomLeft="bottomLeft" bottomRight="bottomRight" />
+        <picture name="birdsFlight" left="left" top="top" right="right" bottom="bottom" topLeft="topLeft" topRight="topRight" bottomLeft="bottomLeft" bottomRight="bottomRight" />
+        <picture name="cabins" left="left" top="top" right="right" bottom="bottom" topLeft="topLeft" topRight="topRight" bottomLeft="bottomLeft" bottomRight="bottomRight" />
+        <picture name="cakeSlice" left="left" top="top" right="right" bottom="bottom" topLeft="topLeft" topRight="topRight" bottomLeft="bottomLeft" bottomRight="bottomRight" />
+        <picture name="candyCorn" left="left" top="top" right="right" bottom="bottom" topLeft="topLeft" topRight="topRight" bottomLeft="bottomLeft" bottomRight="bottomRight" />
+        <picture name="celticKnotwork" left="left" top="top" right="right" bottom="bottom" topLeft="topLeft" topRight="topRight" bottomLeft="bottomLeft" bottomRight="bottomRight" />
+        <picture name="certificateBanner" left="left" top="top" right="right" bottom="bottom" topLeft="topLeft" topRight="topRight" bottomLeft="bottomLeft" bottomRight="bottomRight" />
+        <picture name="chainLink" left="left" top="top" right="right" bottom="bottom" topLeft="topLeft" topRight="topRight" bottomLeft="bottomLeft" bottomRight="bottomRight" />
+        <picture name="champagneBottle" left="left" top="top" right="right" bottom="bottom" topLeft="topLeft" topRight="topRight" bottomLeft="bottomLeft" bottomRight="bottomRight" />
+        <picture name="checkedBarBlack" left="left" top="top" right="right" bottom="bottom" topLeft="topLeft" topRight="topRight" bottomLeft="bottomLeft" bottomRight="bottomRight" />
+        <picture name="checkedBarColor" left="left" top="top" right="right" bottom="bottom" topLeft="topLeft" topRight="topRight" bottomLeft="bottomLeft" bottomRight="bottomRight" />
+        <picture name="checkered" left="left" top="top" right="right" bottom="bottom" topLeft="topLeft" topRight="topRight" bottomLeft="bottomLeft" bottomRight="bottomRight" />
+        <picture name="christmasTree" left="left" top="top" right="right" bottom="bottom" topLeft="topLeft" topRight="topRight" bottomLeft="bottomLeft" bottomRight="bottomRight" />
+        <picture name="circlesLines" left="left" top="top" right="right" bottom="bottom" topLeft="topLeft" topRight="topRight" bottomLeft="bottomLeft" bottomRight="bottomRight" />
+        <picture name="circlesRectangles" left="left" top="top" right="right" bottom="bottom" topLeft="topLeft" topRight="topRight" bottomLeft="bottomLeft" bottomRight="bottomRight" />
+        <picture name="classicalWave" left="left" top="top" right="right" bottom="bottom" topLeft="topLeft" topRight="topRight" bottomLeft="bottomLeft" bottomRight="bottomRight" />
+        <picture name="clocks" left="left" top="top" right="right" bottom="bottom" topLeft="topLeft" topRight="topRight" bottomLeft="bottomLeft" bottomRight="bottomRight" />
+        <picture name="compass" left="left" top="top" right="right" bottom="bottom" topLeft="topLeft" topRight="topRight" bottomLeft="bottomLeft" bottomRight="bottomRight" />
+        <picture name="confetti" left="left" top="top" right="right" bottom="bottom" topLeft="topLeft" topRight="topRight" bottomLeft="bottomLeft" bottomRight="bottomRight" />
+        <picture name="confettiGrays" left="left" top="top" right="right" bottom="bottom" topLeft="topLeft" topRight="topRight" bottomLeft="bottomLeft" bottomRight="bottomRight" />
+        <picture name="confettiOutline" left="left" top="top" right="right" bottom="bottom" topLeft="topLeft" topRight="topRight" bottomLeft="bottomLeft" bottomRight="bottomRight" />
+        <picture name="confettiStreamers" left="left" top="top" right="right" bottom="bottom" topLeft="topLeft" topRight="topRight" bottomLeft="bottomLeft" bottomRight="bottomRight" />
+        <picture name="confettiWhite" left="left" top="top" right="right" bottom="bottom" topLeft="topLeft" topRight="topRight" bottomLeft="bottomLeft" bottomRight="bottomRight" />
+        <picture name="cornerTriangles" left="left" top="top" right="right" bottom="bottom" topLeft="topLeft" topRight="topRight" bottomLeft="bottomLeft" bottomRight="bottomRight" />
+        <picture name="couponCutoutDashes" left="left" top="top" right="right" bottom="bottom" topLeft="topLeft" topRight="topRight" bottomLeft="bottomLeft" bottomRight="bottomRight" />
+        <picture name="couponCutoutDots" left="left" top="top" right="right" bottom="bottom" topLeft="topLeft" topRight="topRight" bottomLeft="bottomLeft" bottomRight="bottomRight" />
+        <picture name="crazyMaze" left="left" top="top" right="right" bottom="bottom" topLeft="topLeft" topRight="topRight" bottomLeft="bottomLeft" bottomRight="bottomRight" />
+        <picture name="creaturesButterfly" left="left" top="top" right="right" bottom="bottom" topLeft="topLeft" topRight="topRight" bottomLeft="bottomLeft" bottomRight="bottomRight" />
+        <picture name="creaturesFish" left="left" top="top" right="right" bottom="bottom" topLeft="topLeft" topRight="topRight" bottomLeft="bottomLeft" bottomRight="bottomRight" />
+        <picture name="creaturesInsects" left="left" top="top" right="right" bottom="bottom" topLeft="topLeft" topRight="topRight" bottomLeft="bottomLeft" bottomRight="bottomRight" />
+        <picture name="creaturesLadyBug" left="left" top="top" right="right" bottom="bottom" topLeft="topLeft" topRight="topRight" bottomLeft="bottomLeft" bottomRight="bottomRight" />
+        <picture name="crossStitch" left="left" top="top" right="right" bottom="bottom" topLeft="topLeft" topRight="topRight" bottomLeft="bottomLeft" bottomRight="bottomRight" />
+        <picture name="cup" left="left" top="top" right="right" bottom="bottom" topLeft="topLeft" topRight="topRight" bottomLeft="bottomLeft" bottomRight="bottomRight" />
+        <picture name="decoArch" left="left" top="top" right="right" bottom="bottom" topLeft="topLeft" topRight="topRight" bottomLeft="bottomLeft" bottomRight="bottomRight" />
+        <picture name="decoArchColor" left="left" top="top" right="right" bottom="bottom" topLeft="topLeft" topRight="topRight" bottomLeft="bottomLeft" bottomRight="bottomRight" />
+        <picture name="decoBlocks" left="left" top="top" right="right" bottom="bottom" topLeft="topLeft" topRight="topRight" bottomLeft="bottomLeft" bottomRight="bottomRight" />
+        <picture name="diamondsGray" left="left" top="top" right="right" bottom="bottom" topLeft="topLeft" topRight="topRight" bottomLeft="bottomLeft" bottomRight="bottomRight" />
+        <picture name="doubleD" left="left" top="top" right="right" bottom="bottom" topLeft="topLeft" topRight="topRight" bottomLeft="bottomLeft" bottomRight="bottomRight" />
+        <picture name="doubleDiamonds" left="left" top="top" right="right" bottom="bottom" topLeft="topLeft" topRight="topRight" bottomLeft="bottomLeft" bottomRight="bottomRight" />
+        <picture name="earth1" left="left" top="top" right="right" bottom="bottom" topLeft="topLeft" topRight="topRight" bottomLeft="bottomLeft" bottomRight="bottomRight" />
+        <picture name="earth2" left="left" top="top" right="right" bottom="bottom" topLeft="topLeft" topRight="topRight" bottomLeft="bottomLeft" bottomRight="bottomRight" />
+        <picture name="earth3" left="left" top="top" right="right" bottom="bottom" topLeft="topLeft" topRight="topRight" bottomLeft="bottomLeft" bottomRight="bottomRight" />
+        <picture name="eclipsingSquares1" left="left" top="top" right="right" bottom="bottom" topLeft="topLeft" topRight="topRight" bottomLeft="bottomLeft" bottomRight="bottomRight" />
+        <picture name="eclipsingSquares2" left="left" top="top" right="right" bottom="bottom" topLeft="topLeft" topRight="topRight" bottomLeft="bottomLeft" bottomRight="bottomRight" />
+        <picture name="eggsBlack" left="left" top="top" right="right" bottom="bottom" topLeft="topLeft" topRight="topRight" bottomLeft="bottomLeft" bottomRight="bottomRight" />
+        <picture name="fans" left="left" top="top" right="right" bottom="bottom" topLeft="topLeft" topRight="topRight" bottomLeft="bottomLeft" bottomRight="bottomRight" />
+        <picture name="film" left="left" top="top" right="right" bottom="bottom" topLeft="topLeft" topRight="topRight" bottomLeft="bottomLeft" bottomRight="bottomRight" />
+        <picture name="firecrackers" left="left" top="top" right="right" bottom="bottom" topLeft="topLeft" topRight="topRight" bottomLeft="bottomLeft" bottomRight="bottomRight" />
+        <picture name="flowersBlockPrint" left="left" top="top" right="right" bottom="bottom" topLeft="topLeft" topRight="topRight" bottomLeft="bottomLeft" bottomRight="bottomRight" />
+        <picture name="flowersDaisies" left="left" top="top" right="right" bottom="bottom" topLeft="topLeft" topRight="topRight" bottomLeft="bottomLeft" bottomRight="bottomRight" />
+        <picture name="flowersModern1" left="left" top="top" right="right" bottom="bottom" topLeft="topLeft" topRight="topRight" bottomLeft="bottomLeft" bottomRight="bottomRight" />
+        <picture name="flowersModern2" left="left" top="top" right="right" bottom="bottom" topLeft="topLeft" topRight="topRight" bottomLeft="bottomLeft" bottomRight="bottomRight" />
+        <picture name="flowersPansy" left="left" top="top" right="right" bottom="bottom" topLeft="topLeft" topRight="topRight" bottomLeft="bottomLeft" bottomRight="bottomRight" />
+        <picture name="flowersRedRose" left="left" top="top" right="right" bottom="bottom" topLeft="topLeft" topRight="topRight" bottomLeft="bottomLeft" bottomRight="bottomRight" />
+        <picture name="flowersRoses" left="left" top="top" right="right" bottom="bottom" topLeft="topLeft" topRight="topRight" bottomLeft="bottomLeft" bottomRight="bottomRight" />
+        <picture name="flowersTeacup" left="left" top="top" right="right" bottom="bottom" topLeft="topLeft" topRight="topRight" bottomLeft="bottomLeft" bottomRight="bottomRight" />
+        <picture name="flowersTiny" left="left" top="top" right="right" bottom="bottom" topLeft="topLeft" topRight="topRight" bottomLeft="bottomLeft" bottomRight="bottomRight" />
+        <picture name="gems" left="left" top="top" right="right" bottom="bottom" topLeft="topLeft" topRight="topRight" bottomLeft="bottomLeft" bottomRight="bottomRight" />
+        <picture name="gingerbreadMan" left="left" top="top" right="right" bottom="bottom" topLeft="topLeft" topRight="topRight" bottomLeft="bottomLeft" bottomRight="bottomRight" />
+        <picture name="gradient" left="left" top="top" right="right" bottom="bottom" topLeft="topLeft" topRight="topRight" bottomLeft="bottomLeft" bottomRight="bottomRight" />
+        <picture name="handmade1" left="left" top="top" right="right" bottom="bottom" topLeft="topLeft" topRight="topRight" bottomLeft="bottomLeft" bottomRight="bottomRight" />
+        <picture name="handmade2" left="left" top="top" right="right" bottom="bottom" topLeft="topLeft" topRight="topRight" bottomLeft="bottomLeft" bottomRight="bottomRight" />
+        <picture name="heartBalloon" left="left" top="top" right="right" bottom="bottom" topLeft="topLeft" topRight="topRight" bottomLeft="bottomLeft" bottomRight="bottomRight" />
+        <picture name="heartGray" left="left" top="top" right="right" bottom="bottom" topLeft="topLeft" topRight="topRight" bottomLeft="bottomLeft" bottomRight="bottomRight" />
+        <picture name="hearts" left="left" top="top" right="right" bottom="bottom" topLeft="topLeft" topRight="topRight" bottomLeft="bottomLeft" bottomRight="bottomRight" />
+        <picture name="heebieJeebies" left="left" top="top" right="right" bottom="bottom" topLeft="topLeft" topRight="topRight" bottomLeft="bottomLeft" bottomRight="bottomRight" />
+        <picture name="holly" left="left" top="top" right="right" bottom="bottom" topLeft="topLeft" topRight="topRight" bottomLeft="bottomLeft" bottomRight="bottomRight" />
+        <picture name="houseFunky" left="left" top="top" right="right" bottom="bottom" topLeft="topLeft" topRight="topRight" bottomLeft="bottomLeft" bottomRight="bottomRight" />
+        <picture name="hypnotic" left="left" top="top" right="right" bottom="bottom" topLeft="topLeft" topRight="topRight" bottomLeft="bottomLeft" bottomRight="bottomRight" />
+        <picture name="iceCreamCones" left="left" top="top" right="right" bottom="bottom" topLeft="topLeft" topRight="topRight" bottomLeft="bottomLeft" bottomRight="bottomRight" />
+        <picture name="lightBulb" left="left" top="top" right="right" bottom="bottom" topLeft="topLeft" topRight="topRight" bottomLeft="bottomLeft" bottomRight="bottomRight" />
+        <picture name="lightning1" left="left" top="top" right="right" bottom="bottom" topLeft="topLeft" topRight="topRight" bottomLeft="bottomLeft" bottomRight="bottomRight" />
+        <picture name="lightning2" left="left" top="top" right="right" bottom="bottom" topLeft="topLeft" topRight="topRight" bottomLeft="bottomLeft" bottomRight="bottomRight" />
+        <picture name="mapPins" left="left" top="top" right="right" bottom="bottom" topLeft="topLeft" topRight="topRight" bottomLeft="bottomLeft" bottomRight="bottomRight" />
+        <picture name="mapleLeaf" left="left" top="top" right="right" bottom="bottom" topLeft="topLeft" topRight="topRight" bottomLeft="bottomLeft" bottomRight="bottomRight" />
+        <picture name="mapleMuffins" left="left" top="top" right="right" bottom="bottom" topLeft="topLeft" topRight="topRight" bottomLeft="bottomLeft" bottomRight="bottomRight" />
+        <picture name="marquee" left="left" top="top" right="right" bottom="bottom" topLeft="topLeft" topRight="topRight" bottomLeft="bottomLeft" bottomRight="bottomRight" />
+        <picture name="marqueeToothed" left="left" top="top" right="right" bottom="bottom" topLeft="topLeft" topRight="topRight" bottomLeft="bottomLeft" bottomRight="bottomRight" />
+        <picture name="moons" left="left" top="top" right="right" bottom="bottom" topLeft="topLeft" topRight="topRight" bottomLeft="bottomLeft" bottomRight="bottomRight" />
+        <picture name="mosaic" left="left" top="top" right="right" bottom="bottom" topLeft="topLeft" topRight="topRight" bottomLeft="bottomLeft" bottomRight="bottomRight" />
+        <picture name="musicNotes" left="left" top="top" right="right" bottom="bottom" topLeft="topLeft" topRight="topRight" bottomLeft="bottomLeft" bottomRight="bottomRight" />
+        <picture name="northwest" left="left" top="top" right="right" bottom="bottom" topLeft="topLeft" topRight="topRight" bottomLeft="bottomLeft" bottomRight="bottomRight" />
+        <picture name="ovals" left="left" top="top" right="right" bottom="bottom" topLeft="topLeft" topRight="topRight" bottomLeft="bottomLeft" bottomRight="bottomRight" />
+        <picture name="packages" left="left" top="top" right="right" bottom="bottom" topLeft="topLeft" topRight="topRight" bottomLeft="bottomLeft" bottomRight="bottomRight" />
+        <picture name="palmsBlack" left="left" top="top" right="right" bottom="bottom" topLeft="topLeft" topRight="topRight" bottomLeft="bottomLeft" bottomRight="bottomRight" />
+        <picture name="palmsColor" left="left" top="top" right="right" bottom="bottom" topLeft="topLeft" topRight="topRight" bottomLeft="bottomLeft" bottomRight="bottomRight" />
+        <picture name="paperClips" left="left" top="top" right="right" bottom="bottom" topLeft="topLeft" topRight="topRight" bottomLeft="bottomLeft" bottomRight="bottomRight" />
+        <picture name="papyrus" left="left" top="top" right="right" bottom="bottom" topLeft="topLeft" topRight="topRight" bottomLeft="bottomLeft" bottomRight="bottomRight" />
+        <picture name="partyFavor" left="left" top="top" right="right" bottom="bottom" topLeft="topLeft" topRight="topRight" bottomLeft="bottomLeft" bottomRight="bottomRight" />
+        <picture name="partyGlass" left="left" top="top" right="right" bottom="bottom" topLeft="topLeft" topRight="topRight" bottomLeft="bottomLeft" bottomRight="bottomRight" />
+        <picture name="pencils" left="left" top="top" right="right" bottom="bottom" topLeft="topLeft" topRight="topRight" bottomLeft="bottomLeft" bottomRight="bottomRight" />
+        <picture name="people" left="left" top="top" right="right" bottom="bottom" topLeft="topLeft" topRight="topRight" bottomLeft="bottomLeft" bottomRight="bottomRight" />
+        <picture name="peopleHats" left="left" top="top" right="right" bottom="bottom" topLeft="topLeft" topRight="topRight" bottomLeft="bottomLeft" bottomRight="bottomRight" />
+        <picture name="peopleWaving" left="left" top="top" right="right" bottom="bottom" topLeft="topLeft" topRight="topRight" bottomLeft="bottomLeft" bottomRight="bottomRight" />
+        <picture name="poinsettias" left="left" top="top" right="right" bottom="bottom" topLeft="topLeft" topRight="topRight" bottomLeft="bottomLeft" bottomRight="bottomRight" />
+        <picture name="postageStamp" left="left" top="top" right="right" bottom="bottom" topLeft="topLeft" topRight="topRight" bottomLeft="bottomLeft" bottomRight="bottomRight" />
+        <picture name="pumpkin1" left="left" top="top" right="right" bottom="bottom" topLeft="topLeft" topRight="topRight" bottomLeft="bottomLeft" bottomRight="bottomRight" />
+        <picture name="pushPinNote1" left="left" top="top" right="right" bottom="bottom" topLeft="topLeft" topRight="topRight" bottomLeft="bottomLeft" bottomRight="bottomRight" />
+        <picture name="pushPinNote2" left="left" top="top" right="right" bottom="bottom" topLeft="topLeft" topRight="topRight" bottomLeft="bottomLeft" bottomRight="bottomRight" />
+        <picture name="pyramids" left="left" top="top" right="right" bottom="bottom" topLeft="topLeft" topRight="topRight" bottomLeft="bottomLeft" bottomRight="bottomRight" />
+        <picture name="pyramidsAbove" left="left" top="top" right="right" bottom="bottom" topLeft="topLeft" topRight="topRight" bottomLeft="bottomLeft" bottomRight="bottomRight" />
+        <picture name="quadrants" left="left" top="top" right="right" bottom="bottom" topLeft="topLeft" topRight="topRight" bottomLeft="bottomLeft" bottomRight="bottomRight" />
+        <picture name="rings" left="left" top="top" right="right" bottom="bottom" topLeft="topLeft" topRight="topRight" bottomLeft="bottomLeft" bottomRight="bottomRight" />
+        <picture name="safari" left="left" top="top" right="right" bottom="bottom" topLeft="topLeft" topRight="topRight" bottomLeft="bottomLeft" bottomRight="bottomRight" />
+        <picture name="sawtooth" left="left" top="top" right="right" bottom="bottom" topLeft="topLeft" topRight="topRight" bottomLeft="bottomLeft" bottomRight="bottomRight" />
+        <picture name="sawtoothGray" left="left" top="top" right="right" bottom="bottom" topLeft="topLeft" topRight="topRight" bottomLeft="bottomLeft" bottomRight="bottomRight" />
+        <picture name="scaredCat" left="left" top="top" right="right" bottom="bottom" topLeft="topLeft" topRight="topRight" bottomLeft="bottomLeft" bottomRight="bottomRight" />
+        <picture name="seattle" left="left" top="top" right="right" bottom="bottom" topLeft="topLeft" topRight="topRight" bottomLeft="bottomLeft" bottomRight="bottomRight" />
+        <picture name="shadowedSquares" left="left" top="top" right="right" bottom="bottom" topLeft="topLeft" topRight="topRight" bottomLeft="bottomLeft" bottomRight="bottomRight" />
+        <picture name="shapes1" left="left" top="top" right="right" bottom="bottom" topLeft="topLeft" topRight="topRight" bottomLeft="bottomLeft" bottomRight="bottomRight" />
+        <picture name="shapes2" left="left" top="top" right="right" bottom="bottom" topLeft="topLeft" topRight="topRight" bottomLeft="bottomLeft" bottomRight="bottomRight" />
+        <picture name="sharksTeeth" left="left" top="top" right="right" bottom="bottom" topLeft="topLeft" topRight="topRight" bottomLeft="bottomLeft" bottomRight="bottomRight" />
+        <picture name="shorebirdTracks" left="left" top="top" right="right" bottom="bottom" topLeft="topLeft" topRight="topRight" bottomLeft="bottomLeft" bottomRight="bottomRight" />
+        <picture name="skyrocket" left="left" top="top" right="right" bottom="bottom" topLeft="topLeft" topRight="topRight" bottomLeft="bottomLeft" bottomRight="bottomRight" />
+        <picture name="snowflakeFancy" left="left" top="top" right="right" bottom="bottom" topLeft="topLeft" topRight="topRight" bottomLeft="bottomLeft" bottomRight="bottomRight" />
+        <picture name="snowflakes" left="left" top="top" right="right" bottom="bottom" topLeft="topLeft" topRight="topRight" bottomLeft="bottomLeft" bottomRight="bottomRight" />
+        <picture name="sombrero" left="left" top="top" right="right" bottom="bottom" topLeft="topLeft" topRight="topRight" bottomLeft="bottomLeft" bottomRight="bottomRight" />
+        <picture name="southwest" left="left" top="top" right="right" bottom="bottom" topLeft="topLeft" topRight="topRight" bottomLeft="bottomLeft" bottomRight="bottomRight" />
+        <picture name="stars" left="left" top="top" right="right" bottom="bottom" topLeft="topLeft" topRight="topRight" bottomLeft="bottomLeft" bottomRight="bottomRight" />
+        <picture name="stars3d" left="left" top="top" right="right" bottom="bottom" topLeft="topLeft" topRight="topRight" bottomLeft="bottomLeft" bottomRight="bottomRight" />
+        <picture name="starsBlack" left="left" top="top" right="right" bottom="bottom" topLeft="topLeft" topRight="topRight" bottomLeft="bottomLeft" bottomRight="bottomRight" />
+        <picture name="starsShadowed" left="left" top="top" right="right" bottom="bottom" topLeft="topLeft" topRight="topRight" bottomLeft="bottomLeft" bottomRight="bottomRight" />
+        <picture name="starsTop" left="left" top="top" right="right" bottom="bottom" topLeft="topLeft" topRight="topRight" bottomLeft="bottomLeft" bottomRight="bottomRight" />
+        <picture name="sun" left="left" top="top" right="right" bottom="bottom" topLeft="topLeft" topRight="topRight" bottomLeft="bottomLeft" bottomRight="bottomRight" />
+        <picture name="swirligig" left="left" top="top" right="right" bottom="bottom" topLeft="topLeft" topRight="topRight" bottomLeft="bottomLeft" bottomRight="bottomRight" />
+        <picture name="tornPaper" left="left" top="top" right="right" bottom="bottom" topLeft="topLeft" topRight="topRight" bottomLeft="bottomLeft" bottomRight="bottomRight" />
+        <picture name="tornPaperBlack" left="left" top="top" right="right" bottom="bottom" topLeft="topLeft" topRight="topRight" bottomLeft="bottomLeft" bottomRight="bottomRight" />
+        <picture name="trees" left="left" top="top" right="right" bottom="bottom" topLeft="topLeft" topRight="topRight" bottomLeft="bottomLeft" bottomRight="bottomRight" />
+        <picture name="triangle1" left="left" top="top" right="right" bottom="bottom" topLeft="topLeft" topRight="topRight" bottomLeft="bottomLeft" bottomRight="bottomRight" />
+        <picture name="triangle2" left="left" top="top" right="right" bottom="bottom" topLeft="topLeft" topRight="topRight" bottomLeft="bottomLeft" bottomRight="bottomRight" />
+        <picture name="triangleCircle1" left="left" top="top" right="right" bottom="bottom" topLeft="topLeft" topRight="topRight" bottomLeft="bottomLeft" bottomRight="bottomRight" />
+        <picture name="triangleCircle2" left="left" top="top" right="right" bottom="bottom" topLeft="topLeft" topRight="topRight" bottomLeft="bottomLeft" bottomRight="bottomRight" />
+        <picture name="triangleParty" left="left" top="top" right="right" bottom="bottom" topLeft="topLeft" topRight="topRight" bottomLeft="bottomLeft" bottomRight="bottomRight" />
+        <picture name="triangles" left="left" top="top" right="right" bottom="bottom" topLeft="topLeft" topRight="topRight" bottomLeft="bottomLeft" bottomRight="bottomRight" />
+        <picture name="twistedLines1" left="left" top="top" right="right" bottom="bottom" topLeft="topLeft" topRight="topRight" bottomLeft="bottomLeft" bottomRight="bottomRight" />
+        <picture name="twistedLines2" left="left" top="top" right="right" bottom="bottom" topLeft="topLeft" topRight="topRight" bottomLeft="bottomLeft" bottomRight="bottomRight" />
+        <picture name="vine" left="left" top="top" right="right" bottom="bottom" topLeft="topLeft" topRight="topRight" bottomLeft="bottomLeft" bottomRight="bottomRight" />
+        <picture name="waveLine" left="left" top="top" right="right" bottom="bottom" topLeft="topLeft" topRight="topRight" bottomLeft="bottomLeft" bottomRight="bottomRight" />
+        <picture name="weavingAngles" left="left" top="top" right="right" bottom="bottom" topLeft="topLeft" topRight="topRight" bottomLeft="bottomLeft" bottomRight="bottomRight" />
+        <picture name="weavingBraid" left="left" top="top" right="right" bottom="bottom" topLeft="topLeft" topRight="topRight" bottomLeft="bottomLeft" bottomRight="bottomRight" />
+        <picture name="weavingRibbon" left="left" top="top" right="right" bottom="bottom" topLeft="topLeft" topRight="topRight" bottomLeft="bottomLeft" bottomRight="bottomRight" />
+        <picture name="weavingStrips" left="left" top="top" right="right" bottom="bottom" topLeft="topLeft" topRight="topRight" bottomLeft="bottomLeft" bottomRight="bottomRight" />
+        <picture name="whiteFlowers" left="left" top="top" right="right" bottom="bottom" topLeft="topLeft" topRight="topRight" bottomLeft="bottomLeft" bottomRight="bottomRight" />
+        <picture name="woodwork" left="left" top="top" right="right" bottom="bottom" topLeft="topLeft" topRight="topRight" bottomLeft="bottomLeft" bottomRight="bottomRight" />
+        <picture name="xIllusions" left="left" top="top" right="right" bottom="bottom" topLeft="topLeft" topRight="topRight" bottomLeft="bottomLeft" bottomRight="bottomRight" />
+        <picture name="zanyTriangles" left="left" top="top" right="right" bottom="bottom" topLeft="topLeft" topRight="topRight" bottomLeft="bottomLeft" bottomRight="bottomRight" />
+        <picture name="zigZag" left="left" top="top" right="right" bottom="bottom" topLeft="topLeft" topRight="topRight" bottomLeft="bottomLeft" bottomRight="bottomRight" />
+        <picture name="zigZagStitch" left="left" top="top" right="right" bottom="bottom" topLeft="topLeft" topRight="topRight" bottomLeft="bottomLeft" bottomRight="bottomRight" />
+    </pictures>
+    <lines>
+        <line>
+            <name>single</name>
+            <value></value>
+        </line>
+        <line>
+            <name>thick</name>
+            <value></value>
+        </line>
+        <line>
+            <name>heavy</name>
+            <value></value>
+        </line>
+        <line>
+            <name>dashed</name>
+            <value>4,4</value>
+        </line>
+        <line>
+            <name>dotDash</name>
+            <value>3,1,1,1</value>
+        </line>
+        <line>
+            <name>dotDotDash</name>
+            <value>3,1,1,1,1,1</value>
+        </line>
+        <line>
+            <name>dash</name>
+            <value>4,3</value>
+        </line>
+        <line>
+            <name>dashSmallGap</name>
+            <value>4,1</value>
+        </line>
+        <line>
+            <name>dashDot</name>
+            <value>3,1,1,1</value>
+        </line>
+        <line>
+            <name>dotted</name>
+            <value>1,1</value>
+        </line>
+        <line>
+            <name>dottedHeavy</name>
+            <value>1,1</value>
+        </line>
+        <line>
+            <name>dot</name>
+            <value>1,3</value>
+        </line>
+        <line>
+            <name>lgDash</name>
+            <value>4,3</value>
+        </line>
+        <line>
+            <name>lgDashDot</name>
+            <value>8,3</value>
+        </line>
+        <line>
+            <name>lgDashDotDot</name>
+            <value>8,3,1,3</value>
+        </line>
+        <line>
+            <name>sysDash</name>
+            <value>3,1</value>
+        </line>
+        <line>
+            <name>sysDashDot</name>
+            <value>3,1,1,1</value>
+        </line>
+        <line>
+            <name>sysDashDotDot</name>
+            <value>3,1,1,1,1,1</value>
+        </line>
+        <line>
+            <name>sysDot</name>
+            <value>1,1</value>
+        </line>
+    </lines>
+</border>

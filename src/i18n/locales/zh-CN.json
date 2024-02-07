@@ -203,13 +203,16 @@
     "Demo description": "本演示展示了使用两个PDF查看器实例来在两个独立的DIV上显示PDF而不是使用IFrame的方法。"
   },
   "Conversion": {
-    "PDF To Office": "PDF转Office",
+    "PDF Conversion": "PDF转换",
     "Password error": "密码错误",
     "Use AI to recognize borderless tables": "使用AI识别无边框表格",
     "Upload": "上传",
     "Convert to Word": "转换为Word",
     "Convert to Excel": "转换为Excel",
     "Convert to PPT": "转换为PPT",
+    "Convert Word to PDF": "Word转换为PDF",
+    "Convert PowerPoint to PDF": "PowerPoint转换为PDF",
+    "Convert Excel to PDF": "Excel转换为PDF",
     "Download": "下载",
     "Password": "密码",
     "Please input password": "请输入密码",
@@ -224,6 +227,12 @@
     "Convert PDF to Excel documents": "将PDF转换为Excel文档",
     "PDF To PowerPoint": "PDF转PowerPoint",
     "Convert PDF to PowerPoint": "将PDF转换为PowerPoint",
+    "Word To PDF": "Word转PDF",
+    "Convert Word to PDF documents": "将Word文件转换为PDF文档",
+    "PowerPoint To PDF": "PowerPoint转PDF",
+    "Convert PowerPoint to PDF documents": "将PowerPoint文件转换为PDF文档",
+    "Excel To PDF": "Excel转PDF",
+    "Convert Excel to PDF documents": "将Excel文件转换为PDF文档",
     "Convert failed": "转换失败"
   },
   "editPDF": {

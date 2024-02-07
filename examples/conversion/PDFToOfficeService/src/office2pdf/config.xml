@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<FoxitOfficeToPDF>
+	<EXCEL></EXCEL>
+	<WORD></WORD>
+	<PPT></PPT>
+	<PUBLIC>
+		<Preferences>
+			<LanguageResources>
+				<PreferredEditingLanguage>zh-CN</PreferredEditingLanguage>
+				<UILanguage>zh-CN</UILanguage>
+			</LanguageResources>
+		</Preferences>
+	</PUBLIC>
+</FoxitOfficeToPDF>
