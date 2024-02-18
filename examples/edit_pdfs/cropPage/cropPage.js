@@ -221,7 +221,7 @@ CropPagesStateHandler.prototype.bindHammerEvent = function () {
                 };
             }
             style && $rectangleControl.css(style);
-            this.$rectangleControl.find(".control").show();
+            resizeControlDom();
         }
 
         startPoint = null;
@@ -229,6 +229,31 @@ CropPagesStateHandler.prototype.bindHammerEvent = function () {
         endPoint = null;
         actionType = null;
     };
+    function resizeControlDom(){
+        const controlWidth = 169, controlHeight = 34;
+        const recordControlBound = $rectangleControl[0].getBoundingClientRect();
+        const {
+            top: handlerT,
+            bottom: handlerB,
+            left: handlerL,
+        } = eHandler.getBoundingClientRect();
+        const style = {};
+        if(recordControlBound.right - handlerL < controlWidth){
+            style.left = 0;
+            style.right = 'initial';
+        }else{
+            style.right = 0;
+            style.left = 'initial';
+        }
+        if(handlerB - recordControlBound.bottom < controlHeight){
+            style.top = recordControlBound.top - handlerT < controlHeight ? 0 : (- controlHeight - 6);
+            style.bottom = 'initial';
+        }else{
+            style.bottom = 'initial';
+            style.top = 'initial';
+        }
+        $rectangleControl.find(".control").css(style).show();
+    }
 
     $handler.on('mousedown touchstart', startHandler)
         .on('mousemove touchmove', moveHandler)
