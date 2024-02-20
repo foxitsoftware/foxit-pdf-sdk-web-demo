@@ -354,8 +354,20 @@ export default () => {
                   setFilename(info.file.name);
                   setConvert(true);
                   setDocidUpload(info.file.response.docId);
+                  // if (!clickedCard) {
+                  //   setClickedCard("0_0");
+                  // }
+                  const file_extension = info.file.name.split('.').pop().toLowerCase();
                   if (!clickedCard) {
-                    setClickedCard("0_0");
+                    if (file_extension === 'pdf') {
+                      setClickedCard("0_0");
+                    } else if (file_extension === 'docx') {
+                      setClickedCard("1_0");
+                    } else if (file_extension === 'xlsx') {
+                      setClickedCard("1_1");
+                    } else if (file_extension === 'pptx') {
+                      setClickedCard("1_2");
+                    }
                   }
                 }
                 if (info.fileList.length === 0) {
