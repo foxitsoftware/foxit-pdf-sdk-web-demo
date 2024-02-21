@@ -93,6 +93,7 @@ const errorMsgMap = {
   [ErrorCode.e_ErrCertificate]: 'The demo does not support PDF encrypted with certificate.',
   [ErrorCode.e_ErrOutOfMemory]: 'Out-of-memory error occurs.',
   [ErrorCode.e_ErrParam]: 'Parameter error.',
+  [ErrorCode.e_ErrFile]: 'The file is damaged or some types are not supported.',
 };
 
 function getErrorMsg(e) {

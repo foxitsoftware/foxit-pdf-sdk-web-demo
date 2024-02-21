@@ -56,7 +56,7 @@ function startTask(taskId, { srcFilePath, outputFilePath, password, convertType,
   });
   child.on('exit', (code, signal) => {
     //stopTask(taskId);
-    if (code !== 0) {
+    if (code !== 0 && task.status === 'running') {
       task.status = 'error';
       task.error = "Unknown conversion error.";
     }
