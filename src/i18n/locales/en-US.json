@@ -220,6 +220,8 @@
     "Cancel": "Cancel",
     "Converting...": "Converting...",
     "uploadFileSizeLimit": "For this demo, PDF files should be smaller than {{UPLOAD_FILE_SIZE_LIMIT_MB}}MB.",
+    "uploadFileFormatError": "For this demo, only pdf, docx, xlsx and pptx files are supported.",
+    "uploadTypeError": "Please select a convert option first.",
     "Please enter password": "Please enter password",
     "PDF To Word": "PDF To Word",
     "Convert PDF to Word documents": "Convert PDF to Word documents",

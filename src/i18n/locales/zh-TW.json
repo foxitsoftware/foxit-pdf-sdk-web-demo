@@ -217,6 +217,8 @@
     "Cancel": "取消",
     "Converting...": "轉換中...",
     "uploadFileSizeLimit": "對於這個示範，PDF 檔案應該小於 {{UPLOAD_FILE_SIZE_LIMIT_MB}}MB。",
+    "uploadFileFormatError": "對於這個示範，只有pdf， docx， xlsx 和 pptx 文件是支援的。",
+    "uploadTypeError": "請先選擇一個轉換選項。",
     "Please enter password": "請輸入密碼",
     "PDF To Word": "PDF 轉 Word",
     "Convert PDF to Word documents": "將PDF轉換為Word文件",

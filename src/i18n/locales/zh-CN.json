@@ -220,6 +220,8 @@
     "Cancel": "取消",
     "Converting...": "正在转换...",
     "uploadFileSizeLimit": "对于此演示，PDF文件应小于{{UPLOAD_FILE_SIZE_LIMIT_MB}}MB。",
+    "uploadFileFormatError": "对于此演示，只有pdf，docx，xlsx 和 pptx文件是支持的。",
+    "uploadTypeError": "请先选择一个转换类型。",
     "Please enter password": "请输入密码",
     "PDF To Word": "PDF转Word",
     "Convert PDF to Word documents": "将PDF文件转换为Word文档",
