@@ -54,6 +54,14 @@ function startTask(taskId, { srcFilePath, outputFilePath, password, convertType,
         break;
     }
   });
+  child.on('exit', (code, signal) => {
+    //stopTask(taskId);
+    if (code !== 0 && task.status === 'running') {
+      task.status = 'error';
+      task.error = "Unknown conversion error.";
+    }
+    console.log(`task ${taskId} exited with code ${code}`);
+  });
   return taskId;
 }
 

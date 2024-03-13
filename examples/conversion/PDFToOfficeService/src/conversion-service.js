@@ -4,9 +4,13 @@ const {
   Library,
   PDF2OfficeSettingData,
   PDF2WordSettingData,
+  PDF2PowerPointSettingData,
+  PDF2ExcelSettingData,
   Range,
   ConvertCallback,
   PDF2Office,
+  Office2PDFSettingData,
+  Office2PDF,
 } = require('@foxitsoftware/foxit-pdf-conversion-sdk-node');
 const path = require('path');
 const { getLicense } = require('./license-service');
@@ -63,14 +67,34 @@ const conversionTypeMap = {
     fileType: 'PPT',
     method: 'StartConvertToPowerPointWithPath',
   },
+  203: {
+    type: 203,
+    fileExtension: 'pdf',
+    fileType: 'PDF',
+    method: 'ConvertFromWordWithPath',
+  },
+  204: {
+    type: 204,
+    fileExtension: 'pdf',
+    fileType: 'PDF',
+    method: 'ConvertFromExcelWithPath',
+  },
+  205: {
+    type: 205,
+    fileExtension: 'pdf',
+    fileType: 'PDF',
+    method: 'ConvertFromPowerPointWithPath',
+  },
 };
 
 const errorMsgMap = {
   [ErrorCode.e_ErrUnsupported]: 'Some types are not supported.',
+  [ErrorCode.e_ErrSecurityHandler]: 'Some types are not supported.',
   [ErrorCode.e_ErrPassword]: 'Invalid password.',
   [ErrorCode.e_ErrCertificate]: 'The demo does not support PDF encrypted with certificate.',
   [ErrorCode.e_ErrOutOfMemory]: 'Out-of-memory error occurs.',
   [ErrorCode.e_ErrParam]: 'Parameter error.',
+  [ErrorCode.e_ErrFile]: 'The file is damaged or some types are not supported.',
 };
 
 function getErrorMsg(e) {
@@ -101,39 +125,63 @@ async function convert(
     throw new Error(`convert types ${convertType} are not supported.`);
   }
 
-  const custom_callback = new CustomConvertCallback();
-  const enable_retain_page_layout = false;
-  const word_setting_data = new PDF2WordSettingData(enable_retain_page_layout);
-  const range = new Range();
-  const metrics_data_folder_path = path.join(__dirname, 'metrics_data');
-  const include_pdf_comments = true;
+  if (convertType === 200 || convertType === 201 || convertType === 202) {
+    const custom_callback = new CustomConvertCallback();
+    const enable_retain_page_layout = false;
+    const enable_generate_headers_and_footers = false;
+    const enable_generate_footnotes_and_endnotes = false;
+    const word_setting_data = new PDF2WordSettingData(enable_retain_page_layout, enable_generate_headers_and_footers, enable_generate_footnotes_and_endnotes);
+    const enable_aggressively_split_sections = false;
+    const powerpoint_setting_data = new PDF2PowerPointSettingData(enable_aggressively_split_sections);
+    const decimal_symbol = "";
+    const thousands_separator = "";
+    const excel_setting_data = new PDF2ExcelSettingData(decimal_symbol, thousands_separator);
+    const range = new Range();
+    const metrics_data_folder_path = path.join(__dirname, 'metrics_data');
+    const include_pdf_comments = true;
 
-  const setting_data = new PDF2OfficeSettingData(
-    metrics_data_folder_path,
-    enable_ml_recognition,
-    range,
-    include_pdf_comments,
-    word_setting_data,
-  );
-  console.log('conversion setting data', setting_data);
-  try {
-    let progressive = PDF2Office[convertConfig.method](
-      src_pdf_path,
-      password,
-      saved_file_path,
-      setting_data,
-      custom_callback,
+    const setting_data = new PDF2OfficeSettingData(
+      metrics_data_folder_path,
+      enable_ml_recognition,
+      range,
+      include_pdf_comments,
+      word_setting_data,
+      powerpoint_setting_data,
+      excel_setting_data
     );
+    console.log('conversion setting data', setting_data);
+    try {
+      let progressive = PDF2Office[convertConfig.method](
+        src_pdf_path,
+        password,
+        saved_file_path,
+        setting_data,
+        custom_callback,
+      );
 
-    if (progressive.GetRateOfProgress() !== 100) {
-      let state = State.e_ToBeContinued;
-      while (State.e_ToBeContinued === state) {
-        state = progressive.Continue();
+      if (progressive.GetRateOfProgress() !== 100) {
+        let state = State.e_ToBeContinued;
+        while (State.e_ToBeContinued === state) {
+          state = progressive.Continue();
+        }
       }
+    } catch (e) {
+      console.log(e);
+      throw new Error(getErrorMsg(e));
     }
-  } catch (e) {
-    console.log(e);
-    throw new Error(getErrorMsg(e));
+  } else if (convertType === 203 || convertType === 204 || convertType === 205) {
+    try {
+      const resource_data_folder_path = path.join(__dirname, 'office2pdf');
+      const is_embed_font = false;
+      const setting_data = new Office2PDFSettingData(resource_data_folder_path, is_embed_font);
+      var ret = Office2PDF[convertConfig.method](src_pdf_path, password, saved_file_path, setting_data);
+      if (!ret) {
+        throw new Error('Convert from office to PDF failed.');
+      }
+    } catch (e) {
+      console.log(e);
+      throw new Error(getErrorMsg(e));
+    }
   }
 }
 

@@ -17,7 +17,7 @@ export default (props)=> {
           <div className="header-logo-container">
             <img className="logo-img" src={foxitLogo} alt=""></img>
           </div>
-          <span>{t("PDF To Office")}</span>
+          <span>{t("PDF Conversion")}</span>
           <span className="header-version">{supportVersion}</span>
         </Header>
         <Content

@@ -1,3 +1,6 @@
+[info]
+Schema=1
+
 [Override]
 [Override."CourierNewPS"]
 Normal="cour.cfg"
@@ -109,13 +112,16 @@ Normal="mspgothic.cfg"
 Normal="webdings.cfg"
 
 [Fonts."Wingdings"]
-Normal="wingding.cfg"
+Normal="wingdings.cfg"
 
 [Fonts."Wingdings 2"]
 Normal="wingdings2.cfg"
 
 [Fonts."Wingdings 3"]
 Normal="wingdings3.cfg"
+
+[Fonts."Symbol"]
+Normal="symbol.cfg"
 
 [Fonts."Malgun Gothic"]
 Normal="malgun.cfg"
@@ -175,6 +181,25 @@ Italic="seguili.cfg"
 
 [Fonts."Perpetua Titling MT"]
 Normal="pertili.cfg"
+
+[Fonts."DengXian"]
+Normal="deng.cfg"
+Bold="dengb.cfg"
+
+[Fonts."STKaiti"]
+Normal="stkaiti.cfg"
+
+[Fonts."KaiTi"]
+Normal="simkai.cfg"
+
+[Fonts."STHupo"]
+Normal="sthupo.cfg"
+
+[Fonts."STSong"]
+Normal="stsong.cfg"
+
+[Fonts."FangSong"]
+Normal="simfang.cfg"
 
 [Fallback]
 Fallback="arialuni.cfg"
