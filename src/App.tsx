@@ -38,7 +38,7 @@ const App = () => {
   const [locationTooltipX, setLocationTooltipX] = useState<string>("");
   const [locationTooltipY, setLocationTooltipY] = useState<string>("");
   const [isReloadToolTip, setIsReloadToolTip] = useState<boolean>(false);
-  const [isTurn, setIsTurn] = useState(JSON.parse(localStorage.getItem(TURN_ON_OFF_STORE_KEY) ?? 'true'));
+  const [isTurn, setIsTurn] = useState(JSON.parse(localStorage.getItem(TURN_ON_OFF_STORE_KEY) ?? 'false'));
   const getMessage = (event: any) => {
     let Data;
     try {
