@@ -2,7 +2,7 @@
 import React from "react";
 import { Layout } from "antd";
 import { supportVersion } from './config'
-import foxitLogo from 'assets/icon/foxit.svg';
+import foxitLogo from 'assets/icon/foxit-logo.svg';
 import { useTranslation } from "react-i18next";
 
 const { Header, Content } = Layout;

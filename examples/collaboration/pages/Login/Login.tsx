@@ -5,7 +5,7 @@ import { useTranslation } from "react-i18next";
 import { randomMockName, storageSetItem } from '../../utils';
 import bgL from 'assets/icon/bgL.svg';
 import bgS from 'assets/icon/bgS.svg';
-import logo from 'assets/icon/logo.svg';
+import logo from 'assets/icon/foxit-logo-small.svg';
 
 
 class Login extends Component<any, any> {

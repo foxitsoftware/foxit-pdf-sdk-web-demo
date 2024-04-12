@@ -4,7 +4,7 @@ import { Button, Tooltip } from 'antd';
 import { useTranslation } from "react-i18next";
 import bgL from 'assets/icon/background-l.svg';
 import bgS from 'assets/icon/background-s.svg';
-import logo from 'assets/icon/logo.svg';
+import logo from 'assets/icon/foxit-logo-small.svg';
 import { storageRemoveItem } from '../../utils/utils';
 
 export default() => {

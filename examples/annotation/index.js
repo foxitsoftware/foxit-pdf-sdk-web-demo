@@ -339,7 +339,7 @@ pdfui
     {
       range: {
         //Default PDF file path
-        url: "/assets/3-feature-example_annotations.pdf",
+        url: `/assets/3-feature-example_annotations.pdf?rnd=${Math.random()}`,
       },
     },
     { fileName: "3-feature-example_annotations.pdf" }
