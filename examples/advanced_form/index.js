@@ -21,7 +21,7 @@ export function exportData() {
 pdfui.openPDFByHttpRangeRequest(
   {
     range: {
-      url: `/assets/Advanced_form.pdf?rnd=${Math.random()}`,
+      url: "/assets/Advanced_form.pdf?",
     },
   },
   { fileName: "Advanced_form.pdf" }
