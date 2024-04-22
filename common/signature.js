@@ -1,8 +1,12 @@
+import {envConfig} from './util.js';
+
+const envList = Object.values(envConfig).map(item=>Object.values(item)).flat();
+
 function getBaseURL(){
-    if(window.location.hostname.indexOf('-azk8s') > -1 || window.location.hostname.indexOf('-stg') > -1){
+    if(envList.includes(window.location.origin)){
         return window.location.origin;
     }
-    return 'https://webviewer-demo.foxit.com';
+    return envConfig.international.pro;
 }
 
 function requestData(type, url, responseType, body){
