@@ -53,6 +53,11 @@ export function createPDFUI(options) {
         licenseSN: licenseSN,
         licenseKey: licenseKey,
       },
+      messageSyncServiceWorker: {
+          options:{
+              scope: libPath
+          }
+      }
     },
     renderTo: elm,
     appearance,
