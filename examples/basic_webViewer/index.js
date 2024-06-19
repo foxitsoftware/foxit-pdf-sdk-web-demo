@@ -14,6 +14,11 @@ const viewerOptions = {
     customs: {
         ScrollWrap: PDFViewCtrl.CustomScrollWrap,
     },
+    messageSyncServiceWorker: {
+        options:{
+            scope: libPath
+        }
+    }
 };
 const pdfViewer = new PDFViewCtrl.PDFViewer(
     viewerOptions

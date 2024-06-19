@@ -18,6 +18,11 @@ export function createPDFViewer (options) {
             licenseSN: licenseSN,
             licenseKey: licenseKey,
         },
+        messageSyncServiceWorker: {
+            options:{
+                scope: libPath
+            }
+        }
     };
     const viewerOptions = deepCloneAssign({},defaultOptions, options || {});
     const pdfViewer = new PDFViewCtrl.PDFViewer(

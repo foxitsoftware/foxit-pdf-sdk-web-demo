@@ -32,6 +32,11 @@ function PDFViewerRender(props: Record<string, any>, ref: ForwardedRef<PDFViewer
                 enginePath: libPath + '/jr-engine/gsdk',
                 fontPath: fontPath,
             },
+            messageSyncServiceWorker: {
+                options:{
+                    scope: libPath
+                }
+            },
             Viewmodes: [
                 OverlayComparisonViewMode
             ],
