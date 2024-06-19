@@ -22,12 +22,12 @@ const hello = [
   {
     positionX: "250px",
     positionY: "120px",
-    elementName: "sidebar-bookmark",
+    elementName: "sidebar-bookmark-v2",
     sideTriangle: "left",
     header: "Navigate the PDF",
     description: "Navigate the PDF description",
     func: (ref: any) =>
-      openSidebar(ref.current.contentWindow.pdfui, "sidebar-bookmark"),
+      openSidebar(ref.current.contentWindow.pdfui, "sidebar-bookmark-v2"),
   },
   {
     positionX: "125px",
