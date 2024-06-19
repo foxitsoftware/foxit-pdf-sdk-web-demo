@@ -47,6 +47,11 @@ const pdfui = new PDFUI({
       licenseSN: licenseSN,
       licenseKey: licenseKey,
     },
+    messageSyncServiceWorker: {
+        options:{
+            scope: libPath
+        }
+    }
   },
   renderTo: wrapperElement,
   appearance,

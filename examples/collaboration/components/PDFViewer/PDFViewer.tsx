@@ -94,6 +94,11 @@ export default (props: IProps) => {
             }
           },
         },
+        messageSyncServiceWorker: {
+            options:{
+                scope: libPath
+            }
+        }
       },
       renderTo: '#pdf-ui',
       appearance: UIExtension.appearances.adaptive,
