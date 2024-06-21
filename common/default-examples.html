@@ -41,7 +41,6 @@
             const isTablet = !isAliAppBrowser && /(ipad|tablet|(android(?!.*mobile))|(windows(?!.*phone)(.*touch))|kindle|playbook|silk|(puffin(?!.*(IP|AP|WP))))/.test(userAgentLowerCase);
             const isMobile = (!isTablet || isTeamsAndroid) && (/mobile/.test(userAgentLowerCase) || isIOS || isAndroid || isBlackBerry || isWebOS || isKindle);
             const isDesktop = !isMobile && !isTablet && !isAndroid && !isIPHONE && !isIPAD && !isIPOD && !isKindle && !isWebOS;
-            alert(userAgentLowerCase)
             Object.defineProperty(navigator, 'userAgent', {
                 value: (function() {
                     // ios平台浏览器，userAgent都只有safari字段，不含chrome相关字段。不需要重写userAgent
