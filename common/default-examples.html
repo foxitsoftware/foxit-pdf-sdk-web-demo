@@ -27,8 +27,32 @@
         (function() {
             _device_type_ = new URL(window.parent.location.href).searchParams.get('screen-size');
             var userAgent = navigator.userAgent;
+            var userAgentLowerCase = userAgent.toLowerCase();
+            const isIOS = /ipad|iphone|ipod/.test(userAgentLowerCase);
+            const isIPHONE = /iphone/.test(userAgentLowerCase);
+            const isIPAD = /ipad/.test(userAgentLowerCase);
+            const isIPOD = /ipod/.test(userAgentLowerCase);
+            const isAndroid = /android/.test(userAgentLowerCase);
+            const isBlackBerry = /blackberry/.test(userAgentLowerCase);
+            const isWebOS = /webos/.test(userAgentLowerCase);
+            const isKindle = /silk|kindle/.test(userAgentLowerCase);
+            const isAliAppBrowser = /aliapp/.test(userAgentLowerCase);
+            const isTeamsAndroid = /teamsmobile-android/.test(userAgentLowerCase);
+            const isTablet = !isAliAppBrowser && /(ipad|tablet|(android(?!.*mobile))|(windows(?!.*phone)(.*touch))|kindle|playbook|silk|(puffin(?!.*(IP|AP|WP))))/.test(userAgentLowerCase);
+            const isMobile = (!isTablet || isTeamsAndroid) && (/mobile/.test(userAgentLowerCase) || isIOS || isAndroid || isBlackBerry || isWebOS || isKindle);
+            const isDesktop = !isMobile && !isTablet && !isAndroid && !isIPHONE && !isIPAD && !isIPOD && !isKindle && !isWebOS;
+            alert(userAgentLowerCase)
             Object.defineProperty(navigator, 'userAgent', {
                 value: (function() {
+                    // ios平台浏览器，userAgent都只有safari字段，不含chrome相关字段。不需要重写userAgent
+                    if(isIOS) {
+                        switch(_device_type_) {
+                            case 'mobile':
+                                return userAgent;
+                            default:
+                                break;
+                        }
+                    }
                     switch(_device_type_) {
                         case 'mobile':
                             return 'Mozilla/5.0 (Linux; Android 11; Pixel 5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.91 Mobile Safari/537.36';
