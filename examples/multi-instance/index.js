@@ -16,11 +16,6 @@ const viewerOptions = {
     },
     customs: {
         ScrollWrap: PDFViewCtrl.CustomScrollWrap,
-    },
-    messageSyncServiceWorker: {
-        options:{
-            scope: libPath
-        }
     }
 };
 function createPDFViewer(containerId, open, openOptions) {

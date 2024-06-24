@@ -93,11 +93,6 @@ export default (props: IProps) => {
               return true;
             }
           },
-        },
-        messageSyncServiceWorker: {
-            options:{
-                scope: libPath
-            }
         }
       },
       renderTo: '#pdf-ui',

@@ -17,11 +17,6 @@ export function createPDFViewer (options) {
             fontPath: "https://webpdf.foxitsoftware.com/webfonts/",
             licenseSN: licenseSN,
             licenseKey: licenseKey,
-        },
-        messageSyncServiceWorker: {
-            options:{
-                scope: libPath
-            }
         }
     };
     const viewerOptions = deepCloneAssign({},defaultOptions, options || {});

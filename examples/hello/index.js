@@ -46,11 +46,6 @@ const pdfui = new PDFUI({
       fontPath: "https://webpdf.foxitsoftware.com/webfonts/",
       licenseSN: licenseSN,
       licenseKey: licenseKey,
-    },
-    messageSyncServiceWorker: {
-        options:{
-            scope: libPath
-        }
     }
   },
   renderTo: wrapperElement,

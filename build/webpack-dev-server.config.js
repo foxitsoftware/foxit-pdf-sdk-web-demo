@@ -19,5 +19,8 @@ module.exports = {
     proxy: pkg.serve.proxy,
     watchOptions: {
         ignored: /node_modules/
+    },
+    headers: {
+        'Service-Worker-Allowed': '/'
     }
 }
