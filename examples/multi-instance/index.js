@@ -1,5 +1,5 @@
 import * as PDFViewCtrl from "PDFViewCtrl";
-import "@foxitsoftware/foxit-pdf-sdk-for-web-library-full/lib/PDFViewCtrl.css";
+import "@foxitsoftware/foxit-pdf-sdk-for-web-library/lib/PDFViewCtrl.css";
 import enUS from "../../src/i18n/locales/en-US.json";
 import zhCN from"../../src/i18n/locales/zh-CN.json";
 import zhTW from "../../src/i18n/locales/zh-TW.json";

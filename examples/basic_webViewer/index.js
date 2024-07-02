@@ -1,5 +1,5 @@
 import * as PDFViewCtrl from "PDFViewCtrl";
-import "@foxitsoftware/foxit-pdf-sdk-for-web-library-full/lib/PDFViewCtrl.css";
+import "@foxitsoftware/foxit-pdf-sdk-for-web-library/lib/PDFViewCtrl.css";
 
 const libPath = "/lib/";
 const viewerOptions = {

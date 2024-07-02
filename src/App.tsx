@@ -7,7 +7,7 @@ import { useTranslation } from "react-i18next";
 import { examples } from "./foundation/examples";
 import { Tooltip } from "./components/tooltip/Tooltip";
 import { AdvancedTooltip } from "./components/advancedTooltip/AdvancedTooltip";
-// import "@foxitsoftware/foxit-pdf-sdk-for-web-library-full/lib/UIExtension.vw.css";
+// import "@foxitsoftware/foxit-pdf-sdk-for-web-library/lib/UIExtension.vw.css";
 
 import {
   hello,

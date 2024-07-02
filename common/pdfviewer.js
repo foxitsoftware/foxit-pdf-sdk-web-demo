@@ -1,5 +1,5 @@
 import * as P from "PDFViewCtrl";
-import "@foxitsoftware/foxit-pdf-sdk-for-web-library-full/lib/PDFViewCtrl.css";
+import "@foxitsoftware/foxit-pdf-sdk-for-web-library/lib/PDFViewCtrl.css";
 import {deepCloneAssign} from './util';
 
 export const PDFViewCtrl = P;

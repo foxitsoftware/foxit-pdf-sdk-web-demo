@@ -1,6 +1,6 @@
 // @ts-ignore0
-import * as PDFViewCtrl from '@foxitsoftware/foxit-pdf-sdk-for-web-library-full/lib/PDFViewCtrl.full';
-import '@foxitsoftware/foxit-pdf-sdk-for-web-library-full/lib/PDFViewCtrl.css';
+import * as PDFViewCtrl from '@foxitsoftware/foxit-pdf-sdk-for-web-library/lib/PDFViewCtrl.full';
+import '@foxitsoftware/foxit-pdf-sdk-for-web-library/lib/PDFViewCtrl.css';
 
 
 export { PDFViewCtrl };

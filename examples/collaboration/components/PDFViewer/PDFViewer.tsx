@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useTranslation } from "react-i18next";
 // @ts-ignore
 import * as UIExtension from 'UIExtension';
-import "@foxitsoftware/foxit-pdf-sdk-for-web-library-full/lib/UIExtension.vw.css";
+import "@foxitsoftware/foxit-pdf-sdk-for-web-library/lib/UIExtension.vw.css";
 import { PUBLIC_PATH, licenseSN, licenseKey } from '../../config';
 import { message, notification } from 'antd';
 import { lang } from '../../locales';
