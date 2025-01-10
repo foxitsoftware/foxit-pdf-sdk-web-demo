@@ -149,9 +149,7 @@ export default (props) => {
           await leaveScreenSyncSession();
         } catch (ex:any) {
           if (ex && (ex.ret === 404)) {
-            // WEBPDFRD-10107
-            // 如果受邀跟随的用户B跟随了C，之前有跟随A。刚好A也跟随了C。
-            // 这时候A会先取消自己发出的跟随，导致B取消A的跟随的时候404了。
+            
           }
         }
       }
