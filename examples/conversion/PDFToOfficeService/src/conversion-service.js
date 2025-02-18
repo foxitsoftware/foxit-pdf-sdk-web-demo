@@ -6,9 +6,12 @@ const {
   PDF2WordSettingData,
   PDF2PowerPointSettingData,
   PDF2ExcelSettingData,
+  WorkbookSettings,
   Range,
   ConvertCallback,
   PDF2Office,
+  Word2PDFSettingData,
+  Excel2PDFSettingData,
   Office2PDFSettingData,
   Office2PDF,
 } = require('@foxitsoftware/foxit-pdf-conversion-sdk-node');
@@ -130,15 +133,18 @@ async function convert(
     const enable_retain_page_layout = false;
     const enable_generate_headers_and_footers = false;
     const enable_generate_footnotes_and_endnotes = false;
-    const word_setting_data = new PDF2WordSettingData(enable_retain_page_layout, enable_generate_headers_and_footers, enable_generate_footnotes_and_endnotes);
+    const enable_generate_page_rendered_break = false;
+    const word_setting_data = new PDF2WordSettingData(enable_retain_page_layout, enable_generate_headers_and_footers, enable_generate_footnotes_and_endnotes, enable_generate_page_rendered_break);
     const enable_aggressively_split_sections = false;
     const powerpoint_setting_data = new PDF2PowerPointSettingData(enable_aggressively_split_sections);
     const decimal_symbol = "";
     const thousands_separator = "";
-    const excel_setting_data = new PDF2ExcelSettingData(decimal_symbol, thousands_separator);
+    const excel_setting_data = new PDF2ExcelSettingData(decimal_symbol, thousands_separator, WorkbookSettings.e_WorkbookSettingsEachPage);
     const range = new Range();
     const metrics_data_folder_path = path.join(__dirname, 'metrics_data');
     const include_pdf_comments = true;
+    const enable_trailing_space = true;
+    const include_images = true;
 
     const setting_data = new PDF2OfficeSettingData(
       metrics_data_folder_path,
@@ -147,7 +153,9 @@ async function convert(
       include_pdf_comments,
       word_setting_data,
       powerpoint_setting_data,
-      excel_setting_data
+      excel_setting_data, 
+      enable_trailing_space, 
+      include_images
     );
     console.log('conversion setting data', setting_data);
     try {
@@ -173,7 +181,9 @@ async function convert(
     try {
       const resource_data_folder_path = path.join(__dirname, 'office2pdf');
       const is_embed_font = false;
-      const setting_data = new Office2PDFSettingData(resource_data_folder_path, is_embed_font);
+      const word_setting_data = new Word2PDFSettingData(false);
+      const excel_setting_data = new Excel2PDFSettingData(false, false, null);
+      const setting_data = new Office2PDFSettingData(resource_data_folder_path, is_embed_font, word_setting_data, excel_setting_data);
       var ret = Office2PDF[convertConfig.method](src_pdf_path, password, saved_file_path, setting_data);
       if (!ret) {
         throw new Error('Convert from office to PDF failed.');
