@@ -52,6 +52,16 @@ router.post('/api/convert', async (ctx) => {
     docId: srcFileRelativePath,
     type: convertType,
     UseAIRecognize = false,
+    page_range = '',
+    include_pdf_comments = true,
+    include_images = true,
+    enable_retain_page_layout = false,
+    workbook_settings = 2, // 0: SeparateWorkbook 1: EachTable, 2: EachPage,  
+    is_embed_font = false,
+    is_generate_bookmark = false,
+    is_separate_workbook = false,
+    is_output_hidden_worksheets = false,
+    worksheet_names = '',
     password = '',
   } = ctx.request.body;
   let srcFilePath = getSrcFileAbsolutePath(srcFileRelativePath);
@@ -61,12 +71,38 @@ router.post('/api/convert', async (ctx) => {
     `start convert ${srcFileRelativePath} to ${outputFileRelativePath},  UseAIRecognize: ${UseAIRecognize}`,
   );
 
+  const params = {
+    pdf2office: {
+      enable_ml_recognition : UseAIRecognize,
+      page_range : page_range,
+      include_pdf_comments : include_pdf_comments,
+      include_images : include_images,
+      pdf2word: {
+        enable_retain_page_layout: enable_retain_page_layout,
+      },
+      pdf2excel: {
+        workbook_settings : workbook_settings,
+      },
+    },
+    office2pdf: {
+      is_embed_font  : is_embed_font,
+      word2pdf: {
+        is_generate_bookmark : is_generate_bookmark,
+      },
+      excel2pdf: {
+        is_separate_workbook : is_separate_workbook,
+        is_output_hidden_worksheets : is_output_hidden_worksheets,
+        worksheet_names  : worksheet_names,
+      },
+    }
+  };
+
   const taskId = startTask(outputFileRelativePath, {
     srcFilePath,
     outputFilePath,
     password,
     convertType,
-    UseAIRecognize,
+    params,
   });
 
   ctx.body = {

@@ -13,7 +13,7 @@ const path = require('path');
 // a map of conversion tasks, indexed by task id (the output file path is used as the task id here)
 const tasks = {};
 
-function startTask(taskId, { srcFilePath, outputFilePath, password, convertType, UseAIRecognize }) {
+function startTask(taskId, { srcFilePath, outputFilePath, password, convertType, params }) {
   // run conversion in a child process to avoid blocking the main thread
   const workerPath = path.join(__dirname, 'conversion-worker.js');
   const child = fork(workerPath, [
@@ -22,7 +22,7 @@ function startTask(taskId, { srcFilePath, outputFilePath, password, convertType,
       outputFilePath,
       password,
       convertType,
-      UseAIRecognize,
+      params,
     }),
   ]);
 
