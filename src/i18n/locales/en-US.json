@@ -235,7 +235,22 @@
     "Convert PowerPoint to PDF documents": "Convert PowerPoint to PDF documents",
     "Excel To PDF": "Excel To PDF",
     "Convert Excel to PDF documents": "Convert Excel to PDF documents",
-    "Convert failed": "Convert failed"
+    "Convert failed": "Convert failed",
+    "General Settings": "General Settings",
+    "Enable AI Recognition": "Enable AI Recognition",
+    "Retain PDF Comments": "Retain PDF Comments",
+    "Retain PDF Images": "Retain PDF Images",
+    "Page Range": "Page Range",
+    "Retain PDF Page Layout": "Retain PDF Page Layout",
+    "Workbook Structure Settings": "Workbook Structure Settings",
+    "Single Worksheet": "Single Worksheet",
+    "Each Table Worksheet": "Each Table Worksheet",
+    "Each Page Worksheet": "Each Page Worksheet",
+    "Embed Fonts in PDF": "Embed Fonts in PDF",
+    "Generate PDF Bookmarks": "Generate PDF Bookmarks",
+    "Separate Workbook PDF": "Separate Workbook PDF",
+    "Include Hidden Worksheets": "Include Hidden Worksheets",
+    "Specific Worksheet Names": "Specific Worksheet Names"
   },
   "editPDF":{
     "Current Page": "Current Page",

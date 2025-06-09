@@ -235,7 +235,22 @@
     "Convert PowerPoint to PDF documents": "将PowerPoint文件转换为PDF文档",
     "Excel To PDF": "Excel转PDF",
     "Convert Excel to PDF documents": "将Excel文件转换为PDF文档",
-    "Convert failed": "转换失败"
+    "Convert failed": "转换失败",
+    "General Settings": "通用设置",
+    "Enable AI Recognition": "是否启用机器学习识别无边框表格（自动添加边框）",
+    "Retain PDF Comments": "是否保留 PDF 注释",
+    "Retain PDF Images": "是否保留 PDF 图像（当前仅支持 Word）",
+    "Page Range": "转换的页面范围（默认转换所有页）",
+    "Retain PDF Page Layout": "是否保留 PDF 页面布局",
+    "Workbook Structure Settings": "工作簿结构设置",
+    "Single Worksheet": "单工作表",
+    "Each Table Worksheet": "每个表格一个工作表",
+    "Each Page Worksheet": "每个 PDF 页一个工作表",
+    "Embed Fonts in PDF": "是否嵌入字体到 PDF",
+    "Generate PDF Bookmarks": "是否生成 PDF 书签",
+    "Separate Workbook PDF": "是否按工作表拆分生成独立 PDF",
+    "Include Hidden Worksheets": "是否包含隐藏工作表",
+    "Specific Worksheet Names": "需转换的特定工作表名称列表"
   },
   "editPDF": {
     "Current Page": "当前页面",

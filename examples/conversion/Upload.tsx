@@ -261,24 +261,24 @@ export default () => {
         <Space direction="vertical">
           <Divider className="title">PDF to Office</Divider>
           <div className="settings-common">
-            <div>通用设置：</div>
+            <div>{t("General Settings")}：</div>
             <Checkbox
               checked={settings.UseAIRecognize}
               onChange={e => setSettings({ ...settings, UseAIRecognize: e.target.checked })}
-            >是否启用机器学习识别无边框表格（自动添加边框）</Checkbox>
+            >{t("Enable AI Recognition")}</Checkbox>
             <Checkbox
               checked={settings.include_pdf_comments}
               onChange={e => setSettings({ ...settings, include_pdf_comments: e.target.checked })}
-            >是否保留 PDF 注释</Checkbox>
+            >{t("Retain PDF Comments")}</Checkbox>
             <Checkbox
               checked={settings.include_images}
               onChange={e => setSettings({ ...settings, include_images: e.target.checked })}
-            >是否保留 PDF 图像（当前仅支持 Word）</Checkbox>
+            >{t("Retain PDF Images")}</Checkbox>
             <div>
-              <span>转换的页面范围（默认转换所有页）：</span>
+              <span>{t("Page Range")}：</span>
               <Input
                 style={{ width: "200px" }}
-                placeholder={"例如：1-3,5,7-10"}
+                placeholder={t("e.g., 1-3,5,7-10")}
                 value={settings.page_range}
                 onChange={e => setSettings({ ...settings, page_range: e.target.value })}
                 size="small"
@@ -310,18 +310,18 @@ export default () => {
                         <Checkbox
                           checked={settings.enable_retain_page_layout}
                           onChange={e => setSettings({ ...settings, enable_retain_page_layout: e.target.checked })}
-                        >是否保留 PDF 页面布局</Checkbox>
+                        >{t("Retain PDF Page Layout")}</Checkbox>
                       </> : null}
                       {it.convertType === 201 ? <>
-                        <div>工作簿结构设置：</div>
+                        <div>{t("Workbook Structure Settings")}：</div>
                         <Radio.Group
                           value={settings.workbook_settings}
                           onChange={e => setSettings({ ...settings, workbook_settings: e.target.value })}
                         >
                           <Space direction="vertical" align="start">
-                            <Radio value={0}>单工作表</Radio>
-                            <Radio value={1}>每个表格一个工作表</Radio>
-                            <Radio value={2}>每个 PDF 页一个工作表</Radio>
+                            <Radio value={0}>{t("Single Worksheet")}</Radio>
+                            <Radio value={1}>{t("Each Table Worksheet")}</Radio>
+                            <Radio value={2}>{t("Each Page Worksheet")}</Radio>
                           </Space>
                         </Radio.Group>
                       </> : null}
@@ -334,11 +334,11 @@ export default () => {
 
           <Divider className="title">Office to PDF</Divider>
           <div className="settings-common">
-            <div>通用设置：</div>
+            <div>{t("General Settings")}：</div>
             <Checkbox
               checked={settings.is_embed_font}
               onChange={e => setSettings({ ...settings, is_embed_font: e.target.checked })}
-            >是否嵌入字体到 PDF</Checkbox>
+            >{t("Embed Fonts in PDF")}</Checkbox>
           </div>
           <Row gutter={16}>
             {office2PDFCards.map((it, index) => {
@@ -365,21 +365,21 @@ export default () => {
                         <Checkbox
                           checked={settings.is_generate_bookmark}
                           onChange={e => setSettings({ ...settings, is_generate_bookmark: e.target.checked })}
-                        >是否生成 PDF 书签</Checkbox>
+                        >{t("Generate PDF Bookmarks")}</Checkbox>
                       </> : null}
                       {it.convertType === 204 ? <>
                         <Space direction="vertical" align="start">
                           <Checkbox
                             checked={settings.is_separate_workbook}
                             onChange={e => setSettings({ ...settings, is_separate_workbook: e.target.checked })}
-                          >是否按工作表拆分生成独立 PDF</Checkbox>
+                          >{t("Separate Workbook PDF")}</Checkbox>
                           <Checkbox
                             checked={settings.is_output_hidden_worksheets}
                             onChange={e => setSettings({ ...settings, is_output_hidden_worksheets: e.target.checked })}
-                          >是否包含隐藏工作表</Checkbox>
+                          >{t("Include Hidden Worksheets")}</Checkbox>
                           <Input
                             style={{ width: "295px" }}
-                            placeholder="需转换的特定工作表名称列表"
+                            placeholder={t("Specific Worksheet Names")}
                             value={settings.worksheet_names}
                             onChange={e => setSettings({ ...settings, worksheet_names: e.target.value })}
                             size="small"
