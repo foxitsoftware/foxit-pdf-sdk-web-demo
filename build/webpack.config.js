@@ -12,6 +12,9 @@ const entries = [];
 const libraryModulePath = path.resolve('node_modules/@foxitsoftware/foxit-pdf-sdk-for-web-library');
 
 fs.readdirSync(examplesDir).forEach((exampleName) => {
+    if (exampleName === '.DS_Store') {
+        return; // Skip macOS system files
+    }
     const entryName = 'examples/' + exampleName + '/index';
     const chunks = [entryName];
     const infoPath = path.resolve(examplesDir, exampleName, 'info.json');
