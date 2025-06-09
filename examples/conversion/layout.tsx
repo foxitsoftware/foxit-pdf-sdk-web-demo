@@ -22,7 +22,6 @@ export default (props)=> {
         </Header>
         <Content
           className="tools-main-layout-content"
-          style={{ margin: "24px 16px 0" }}
         >
           {props.children}
         </Content>

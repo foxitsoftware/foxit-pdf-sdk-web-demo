@@ -10,6 +10,12 @@ body {
   overflow: hidden;
 }
 
+.fv__catalog-pdfui-wrapper {
+  height: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
 .main {
   min-width: 1024px;
   position: relative;
@@ -50,7 +56,7 @@ body {
 .tools-main-layout-content {
   width: 100%;
   min-width: 1000px;
-  margin: 0 auto;
+  margin: 0;
   text-align: center;
   padding: 20px;
   min-height: calc(100vh - 151px);
@@ -68,7 +74,7 @@ body {
   padding: 24px;
   background: hsla(0, 0%, 92.9%, 0.5);
   height: 360px;
-  margin: 0 auto;
+  margin: 40px auto;
   border-radius: 8px;
   position: relative;
 }
@@ -77,12 +83,48 @@ body {
 	width: 90%;    
 }
 
-.ant-card-hoverable.clicked {
-  border-color: transparent;
-  box-shadow: 0 1px 2px -2px rgb(0 0 0 / 16%), 0 3px 6px 0 rgb(0 0 0 / 12%), 0 5px 12px 4px rgb(0 0 0 / 9%);
+.ant-card {
+  height: 250px;;
+
+  &.clicked {
+      border-color: transparent;
+      box-shadow: 0 1px 2px -2px rgb(0 0 0 / 16%), 0 3px 6px 0 rgb(0 0 0 / 12%), 0 5px 12px 4px rgb(0 0 0 / 9%); 
+    }
+  .title {
+    margin-bottom: 8px;
+    font-size: 16px;
+    font-weight: 500;
+    color: rgba(0, 0, 0, .85);
+  }
 }
-.ant-card-meta{
-  display: block;
+
+.title {
+  text-align: center;
+  font-size: 23px !important;
+  font-weight: bold;
+  margin-top: 0;
+  line-height: 52px;
+}
+
+.settings-common {
+  display: flex;
+  flex-direction: column;
+  align-items: self-start;
+  gap: 8px;
+  margin-bottom: 16px;
+  .ant-checkbox-wrapper+.ant-checkbox-wrapper {
+    margin: 0;
+  }
+}
+
+.settings-warp {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  padding-top: 8px;
+  border-top: 1px solid #f0f0f0;
+  margin-top: 16px;
 }
 
 .login-password-wrap{
