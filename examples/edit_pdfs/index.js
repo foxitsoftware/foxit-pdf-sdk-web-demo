@@ -56,7 +56,7 @@ export function setCustomFont() {
     glyphs: [{
       bold: -1,
       flags: -1,
-      url: '/assets/RAGE.TTF'
+      url: `${location.origin}/assets/RAGE.TTF`
     }],
     charsets: [0]
   }]
