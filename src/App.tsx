@@ -143,6 +143,7 @@ const App = () => {
         setLocationTooltipY(`200%`);
         return
       }
+      if(!el[elementIndex].checkVisibility()){return;}
       const {left,top,bottom} = el[elementIndex].getBoundingClientRect();
       switch (sideTriangle) {
         case 'right':

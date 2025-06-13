@@ -210,7 +210,9 @@ const redaction = [
     sideTriangle: "top",
     header: "Select what to redact",
     description: "Select what to redact description",
-    func: () => {},
+    func: (ref:any) => {
+      closeDropdown(ref.current.contentWindow.pdfui,"create-redaction-controllers");
+    },
   },
   {
     positionX: "475px",
@@ -219,7 +221,7 @@ const redaction = [
     sideTriangle: "top",
     header: "Apply the redaction",
     description: "Apply the redaction description",
-    func: () => {},
+    func: (ref:any) => openDropdown(ref.current.contentWindow.pdfui,"create-redaction-controllers"),
   },
   {
     positionX: "565px",
@@ -231,6 +233,7 @@ const redaction = [
     func: (ref:any) => {
       ref.current.contentWindow.__example__.closeSidebarRight();
       ref.current.contentWindow.__example__.unActiveAnnot();
+      openDropdown(ref.current.contentWindow.pdfui,"create-redaction-controllers")
     },
   },
   {
@@ -241,6 +244,7 @@ const redaction = [
     header: "Search for terms",
     description: "Search for terms description",
     func: (ref: any) => {
+      closeDropdown(ref.current.contentWindow.pdfui,"create-redaction-controllers")
       ref.current.contentWindow.__example__.redactionSearch();
     },
   },
