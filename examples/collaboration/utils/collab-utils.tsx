@@ -213,18 +213,13 @@ export const fragmentsConfiguration = [
     action: 'remove',
   },
   {
-    target: '@sidebar-field',
+    target: 'sidebar-field',
     action: 'remove',
   },
   {
-    target: '@bookmark-sidebar-panel',
+    target: 'sidebar-bookmark-v2',
     action: 'remove',
   },
-  {
-    target: '@search-sidebar-panel',
-    action: 'remove',
-  },
-
   {
     target: '@thumbnail:thumbnail-list',
     action: 'replace',
