@@ -41,28 +41,11 @@
             const isTablet = !isAliAppBrowser && /(ipad|tablet|(android(?!.*mobile))|(windows(?!.*phone)(.*touch))|kindle|playbook|silk|(puffin(?!.*(IP|AP|WP))))/.test(userAgentLowerCase);
             const isMobile = (!isTablet || isTeamsAndroid) && (/mobile/.test(userAgentLowerCase) || isIOS || isAndroid || isBlackBerry || isWebOS || isKindle);
             const isDesktop = !isMobile && !isTablet && !isAndroid && !isIPHONE && !isIPAD && !isIPOD && !isKindle && !isWebOS;
-            Object.defineProperty(navigator, 'userAgent', {
-                value: (function() {
-                    if(isIOS) {
-                        switch(_device_type_) {
-                            case 'mobile':
-                                return userAgent;
-                            default:
-                                break;
-                        }
-                    }
-                    switch(_device_type_) {
-                        case 'mobile':
-                            return 'Mozilla/5.0 (Linux; Android 11; Pixel 5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.91 Mobile Safari/537.36';
-                        case 'tablet':
-                            return 'Mozilla/5.0 (iPad; CPU OS 13_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/87.0.4280.77 Mobile/15E148 Safari/604.1'
-                        case 'desktop':
-                            return 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36';
-                        default:
-                    }
-                    return userAgent;
-                })()
-            });
+            if(isIOS && _device_type_ === 'mobile') {
+                return;
+            } else {
+                window.__FOXITWEBSDK_DEVICE_TYPE__ = _device_type_;
+            }
         })()
     </script>
     <script>
