@@ -8,6 +8,7 @@ const {
   PDF2ExcelSettingData,
   WorkbookSettings,
   Range,
+  WStringArray,
   ConvertCallback,
   PDF2Office,
   Word2PDFSettingData,
@@ -111,6 +112,29 @@ const getFileExtensionByConvertType = (convertType) => {
   return conversionTypeMap[convertType].fileExtension;
 };
 
+async function parsePageRange(rangeStr) {
+  const result = [];
+  const parts = rangeStr.split(',');
+
+  for (const part of parts) {
+    if (part.includes('-')) {
+      const [start, end] = part.split('-').map(Number);
+      if (!isNaN(start) && !isNaN(end) && start <= end) {
+        for (let i = start; i <= end; i++) {
+          result.push(i);
+        }
+      }
+    } else {
+      const num = Number(part);
+      if (!isNaN(num)) {
+        result.push(num);
+      }
+    }
+  }
+
+  return result;
+}
+
 async function convert(
   src_pdf_path,
   saved_file_path,
@@ -141,7 +165,11 @@ async function convert(
     const thousands_separator = "";
     const workbook_settings = params.pdf2office.pdf2excel.workbook_settings;
     const excel_setting_data = new PDF2ExcelSettingData(decimal_symbol, thousands_separator, workbook_settings);
+    const page_range = await parsePageRange(params.pdf2office.page_range)
     const range = new Range();
+    for (let i = 0; i < page_range.length; i++) {
+      range.AddSingle(page_range[i]);
+    }
     const metrics_data_folder_path = path.join(__dirname, 'metrics_data');
     const include_pdf_comments = params.pdf2office.include_pdf_comments;
     const enable_trailing_space = true;
@@ -187,7 +215,11 @@ async function convert(
       const word_setting_data = new Word2PDFSettingData(is_generate_bookmark);
       const is_separate_workbook  = params.office2pdf.excel2pdf.is_separate_workbook;
       const is_output_hidden_worksheets = params.office2pdf.excel2pdf.is_output_hidden_worksheets;
-      const worksheet_names = params.office2pdf.excel2pdf.worksheet_names;
+      const arr = params.office2pdf.excel2pdf.worksheet_names.split(',').map(s => s.trim());
+      const worksheet_names = new WStringArray();
+      for (let i = 0; i < arr.length; i++) {
+        worksheet_names.Add(arr[i]);
+      }
       const excel_setting_data = new Excel2PDFSettingData(is_separate_workbook, is_output_hidden_worksheets, worksheet_names);
       const setting_data = new Office2PDFSettingData(resource_data_folder_path, is_embed_font, word_setting_data, excel_setting_data);
       var ret = Office2PDF[convertConfig.method](src_pdf_path, password, saved_file_path, setting_data);
