@@ -23,7 +23,7 @@ export function openTab(pdfui: any, tab: string) {
   });
 }
 
-export function openSidebarRightTab(pdfui: any, tabName: string, type: number){
+export function openSidebarRightTab(pdfui: any, type: number){
   return pdfui.getComponentByName('sidebar-right')
   .then((rightPanel: any) => {
     rightPanel.showRightFormatPanel(type,'switchHandler')

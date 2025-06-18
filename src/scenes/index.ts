@@ -120,7 +120,7 @@ const annotation = [
     description: "Leave your note description",
     func: (ref: any) => {
       openSidebar(ref.current.contentWindow.pdfui,"comment-list-sidebar-panel");
-      openSidebarRightTab(ref.current.contentWindow.pdfui, 'edit-properties-panel',9);
+      openSidebarRightTab(ref.current.contentWindow.pdfui, 9);
       ref.current.contentWindow.__example__.createTextNoteAnnotationAt(30, 30);
     },
   },
@@ -133,7 +133,7 @@ const annotation = [
     description: "Format your note description",
     func: (ref: any) => {
       closeSidebar(ref.current.contentWindow.pdfui);
-      openSidebarRightTab(ref.current.contentWindow.pdfui, 'edit-properties-panel',9);
+      openSidebarRightTab(ref.current.contentWindow.pdfui ,9);
     },
   },
   {
@@ -196,7 +196,7 @@ const measurement = [
     header: "Measurement",
     description: "Measurement description",
     func: (ref:any) => {
-      openSidebarRightTab(ref.current.contentWindow.pdfui,'edit-properties-panel',7);
+      openSidebarRightTab(ref.current.contentWindow.pdfui,7);
       openDropdown(ref.current.contentWindow.pdfui,"create-measurement-button-list");
     }
   },
