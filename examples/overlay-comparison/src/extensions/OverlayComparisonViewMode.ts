@@ -37,11 +37,11 @@ export class OverlayComparisonViewMode extends PDFViewCtrl.viewMode.IViewMode {
     getVisibleIndexes(): number[] {
         return [this.currentPageIndex];
     }
-    into(pageContainer: HTMLElement, pageDOMs: Array<HTMLElement>): void {
+    into(pageContainer: HTMLElement, pageDOMs: Array<HTMLElement>, currentPageIndex = this.currentPageIndex): void {
         this.pageContainer = pageContainer;
         this.pageDOMs = pageDOMs;
         this.pageContainer.classList.add('fx_oc-single-page-view-mode')
-        
+        this.jumpToPage(currentPageIndex);
     }
     jumpToPage(
       index: number,
