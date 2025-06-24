@@ -239,7 +239,7 @@
     "General Settings": "General Settings",
     "Enable AI Recognition": "Enable AI Recognition",
     "Retain PDF Comments": "Retain PDF Comments",
-    "Retain PDF Images": "Retain PDF Images",
+    "Retain PDF Images": "Retain PDF Images(Currently only supports Word)",
     "Page Range": "Page Range",
     "Retain PDF Page Layout": "Retain PDF Page Layout",
     "Workbook Structure Settings": "Workbook Structure Settings",
