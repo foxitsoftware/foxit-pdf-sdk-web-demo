@@ -50,7 +50,9 @@
     </script>
     <script>
         (function(){
-            var LICENSE_KEY_PATH = (window.location.host.indexOf('foxit.com') > -1 ? '<%=htmlWebpackPlugin.options.licensePathForProd%>?':'<%=htmlWebpackPlugin.options.licensePath%>?') + Date.now().toString(16);
+            var host = window.location.host;
+            var isProd = host.indexOf('foxit.com') > -1 || host.indexOf('foxitsoftware.cn') > -1;
+            var LICENSE_KEY_PATH = (isProd ? '<%=htmlWebpackPlugin.options.licensePathForProd%>?':'<%=htmlWebpackPlugin.options.licensePath%>?') + Date.now().toString(16);
             document.write('<script src="'+LICENSE_KEY_PATH+'"><\/script>');
         })()
     </script>
