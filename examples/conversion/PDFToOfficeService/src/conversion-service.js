@@ -215,7 +215,7 @@ async function convert(
       const word_setting_data = new Word2PDFSettingData(is_generate_bookmark);
       const is_separate_workbook  = params.office2pdf.excel2pdf.is_separate_workbook;
       const is_output_hidden_worksheets = params.office2pdf.excel2pdf.is_output_hidden_worksheets;
-      const arr = params.office2pdf.excel2pdf.worksheet_names.split(',').map(s => s.trim());
+      const arr = params.office2pdf.excel2pdf.worksheet_names.split(',').map(s => s.trim()).filter(s => s.length > 0);
       const worksheet_names = new WStringArray();
       for (let i = 0; i < arr.length; i++) {
         worksheet_names.Add(arr[i]);
