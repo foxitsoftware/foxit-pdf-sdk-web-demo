@@ -58,8 +58,8 @@ module.exports = function (env, argv) {
     const mode = argv.mode;
     const isDev = mode === 'development';
     // use in dev and test env
-    // const licensePath = 'https://cdn-sdk.foxitsoftware.com/pdf-sdk/download/foxit-pdf-sdk-for-web/pcmobile/license-key.js';
-    const licensePath = 'https://websdk.cpdf.io/FoxitPDFSDKForWeb/release/11_0_0/FoxitPDFSDKForWeb_11_0_0/examples/license-key.js';
+    const licensePath = 'https://cdn-sdk.foxitsoftware.com/pdf-sdk/download/foxit-pdf-sdk-for-web/pcmobile/license-key.js';
+    // const licensePath = 'https://websdk.cpdf.io/FoxitPDFSDKForWeb/release/11_0_0/FoxitPDFSDKForWeb_11_0_0/examples/license-key.js';
     // use in prod env
     const licensePathForProd = 'https://cdn-sdk.foxitsoftware.com/pdf-sdk/download/foxit-pdf-sdk-for-web/license-key.js';
     return [
