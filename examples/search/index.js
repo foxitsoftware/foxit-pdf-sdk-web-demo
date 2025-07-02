@@ -28,6 +28,16 @@ pdfui.openPDFByHttpRangeRequest(
   }
   pdfui.getRootComponent().then((root) => {
     root.querySelector('@sidebar-tabs');
-    openSidebarRightTab(pdfui,0);
+    return pdfui.getComponentByName('sidebar-right')
+    .then((rightPanel) => {
+      rightPanel.show();
+      return pdfui.getComponentByName('sidebar-right-tabs');
+    }).then((tabs) => {
+      tabs.openTab('right-search-panel');
+      tabs.setActivetab('right-search-panel');
+      return pdfui.getComponentByName('advanced-search').then((searchComp)=>{
+        searchComp.setSearchType('normal');
+      });
+    })
   });
 });
