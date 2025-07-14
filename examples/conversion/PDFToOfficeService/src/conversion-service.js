@@ -119,19 +119,23 @@ async function parsePageRange(rangeStr) {
   for (const part of parts) {
     if (part.includes('-')) {
       const [start, end] = part.split('-').map(Number);
-      if (!isNaN(start) && !isNaN(end) && start <= end) {
-        for (let i = start; i <= end; i++) {
-          result.push(i);
-        }
+      if (isNaN(start) || isNaN(end) ||
+        !Number.isInteger(start) || !Number.isInteger(end) ||
+        start <= 0 || end <= 0 || start > end
+      ) {
+        throw new Error(`Invalid page range: "${part}"`);
+      }
+      for (let i = start; i <= end; i++) {
+        result.push(i-1);
       }
     } else {
       const num = Number(part);
-      if (!isNaN(num)) {
-        result.push(num);
+      if (isNaN(num) || !Number.isInteger(num) || num <= 1) {
+        throw new Error(`Invalid page number: "${part}"`);
       }
+      result.push(num-1);
     }
   }
-
   return result;
 }
 
