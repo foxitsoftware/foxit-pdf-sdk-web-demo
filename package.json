@@ -6,9 +6,9 @@
     "main": "./lib/UIExtension.full.js",
     "types": "./lib/UIExtension.d.ts",
     "scripts": {
-        "preinstall": "npm install -S @foxitsoftware/foxit-pdf-sdk-for-web-library @foxitsoftware/collab-db @foxitsoftware/web-collab-client @foxitsoftware/web-collab-server && cd ./examples/conversion/PDFToOfficeService && npm install && cd ../../../",
+        "preinstall": "npm install -S @foxitsoftware/foxit-pdf-sdk-for-web-library @foxitsoftware/collab-db @foxitsoftware/web-collab-client @foxitsoftware/web-collab-server",
         "move-sdk-assets": "cp-cli ./node_modules/@foxitsoftware/foxit-pdf-sdk-for-web-library/lib ./dist/lib",
-        "start": "concurrently --kill-others \"npm run start:webpack\" \"npm run start:snapshot-server\" \"npm run start:conversion-server\"",
+        "start": "concurrently --kill-others \"npm run start:webpack\" \"npm run start:snapshot-server\"",
         "start:webpack": "webpack serve --config ./build/webpack.config.js --mode development",
         "start:snapshot-server": "node ./node_modules/@foxitsoftware/foxit-pdf-sdk-for-web-library/server/snapshot/src/index -p 3003",
         "start:collaboration-server": "cross-env SERVER_PORT=19112 node ./examples/collaboration/sample-server/server.js",
@@ -94,6 +94,10 @@
         }
     },
     "dependencies": {
+        "@foxitsoftware/collab-db": "^1.4.0",
+        "@foxitsoftware/foxit-pdf-sdk-for-web-library": "^10.0.5",
+        "@foxitsoftware/web-collab-client": "^1.4.0",
+        "@foxitsoftware/web-collab-server": "^1.4.0",
         "@types/react-router-dom": "^5.1.7",
         "antd": "^4.14.0",
         "axios": "^0.19.0",

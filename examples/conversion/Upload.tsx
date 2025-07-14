@@ -369,10 +369,12 @@ export default () => {
                       </> : null}
                       {it.convertType === 204 ? <>
                         <Space direction="vertical" align="start">
+                          {/*
                           <Checkbox
                             checked={settings.is_separate_workbook}
                             onChange={e => setSettings({ ...settings, is_separate_workbook: e.target.checked })}
                           >{t("Separate Workbook PDF")}</Checkbox>
+                          */}
                           <Checkbox
                             checked={settings.is_output_hidden_worksheets}
                             onChange={e => setSettings({ ...settings, is_output_hidden_worksheets: e.target.checked })}
