@@ -114,8 +114,11 @@ const getFileExtensionByConvertType = (convertType) => {
 
 async function parsePageRange(rangeStr) {
   const result = [];
-  const parts = rangeStr.split(',');
 
+if (!rangeStr || rangeStr.trim() === '') {
+    return result; 
+  }
+  const parts = rangeStr.split(',');
   for (const part of parts) {
     if (part.includes('-')) {
       const [start, end] = part.split('-').map(Number);
