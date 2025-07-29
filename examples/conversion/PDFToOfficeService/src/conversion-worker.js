@@ -1,12 +1,12 @@
 const { convert } = require('./conversion-service');
 
 const [convertParams] = process.argv.slice(2);
-const { srcFilePath, outputFilePath, password, convertType, UseAIRecognize } =
+const { srcFilePath, outputFilePath, password, convertType, params } =
   JSON.parse(convertParams);
 
 async function startConversion() {
   console.log('conversion started on process: ', process.pid);
-  await convert(srcFilePath, outputFilePath, password, convertType, UseAIRecognize);
+  await convert(srcFilePath, outputFilePath, password, convertType, params);
 }
 
 startConversion()

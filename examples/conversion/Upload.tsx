@@ -12,8 +12,9 @@ import {
   Modal,
   Input,
   Divider,
+  Radio,
 } from "antd";
-import React, { useState } from "react";
+import React, { useEffect, useState, memo } from "react";
 import axios from "axios";
 import { useTranslation } from "react-i18next";
 import { serverUrl } from "./config";
@@ -53,17 +54,68 @@ export default () => {
   const [filename, setFilename] = useState(null);
   const [convert, setConvert] = useState(false);
   const [convertedFilename, setConvertedFilename] = useState(null);
-  const [convertType, setConvertType] = useState(200);
+  const [convertType, setConvertType] = useState();
   const [docidUpload, setDocidUpload] = useState(null);
   const [downloadUrl, setDownloadUrl] = useState(null);
   const [downloadLoading, setDownloadLoading] = useState(false);
-  const [AITableChecked, setAITableChecked] = useState(false);
   const [convertloadLoading, setConvertloadLoading] = useState(false);
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [progress, setProgress] = useState(null);
   const [password, setPassword] = useState("");
-  const [clickedCard, setClickedCard] = useState("");
   const [showUpload, setshowUpload] = useState(true);
+  const [settings, setSettings] = useState({
+    UseAIRecognize: false,
+    page_range: '',
+    include_pdf_comments: true,
+    include_images: true,
+    enable_retain_page_layout: false,
+    workbook_settings: 2, // 0: SeparateWorkbook 1: EachTable, 2: EachPage,  
+    is_embed_font: false,
+    is_generate_bookmark: false,
+    is_separate_workbook: false,
+    is_output_hidden_worksheets: false,
+    worksheet_names: '',
+  });
+
+  useEffect(() => {
+    console.log("settings changed", settings);
+  }, [settings]);
+
+  const pdf2OfficeCards = [
+    {
+      title: t("PDF To Word"),
+      description: t("Convert PDF to Word documents"),
+      convertType: 200,
+    },
+    {
+      title: t("PDF To Excel"),
+      description: t("Convert PDF to Excel documents"),
+      convertType: 201,
+    },
+    {
+      title: t("PDF To PowerPoint"),
+      description: t("Convert PDF to PowerPoint"),
+      convertType: 202,
+    },
+  ];
+
+  const office2PDFCards = [
+    {
+      title: t("Word To PDF"),
+      description: t("Convert Word to PDF documents"),
+      convertType: 203,
+    },
+    {
+      title: t("Excel To PDF"),
+      description: t("Convert Excel to PDF documents"),
+      convertType: 204,
+    },
+    {
+      title: t("PowerPoint To PDF"),
+      description: t("Convert PowerPoint to PDF documents"),
+      convertType: 205,
+    },
+  ];
 
   const getTaskStatus = (taskId) => {
     axios
@@ -116,15 +168,13 @@ export default () => {
     setConvertloadLoading(true);
     setIsConvertLoading(true);
     setDownloadLoading(false);
-    let data;
-    data = {
+
+    let data = {
       docId: docidUpload,
       type: convertType,
       password,
+      ...settings,
     };
-    if (AITableChecked === true) {
-      data["UseAIRecognize"] = true;
-    }
 
     let url = `${baseUrl}/api/convert`;
     axios
@@ -144,10 +194,10 @@ export default () => {
       [11, 200].indexOf(convertType) !== -1
         ? ".docx"
         : [14, 201].indexOf(convertType) !== -1
-        ? ".xlsx"
-        : [16, 202].indexOf(convertType) !== -1
-        ? ".pptx"
-        : ".pdf";
+          ? ".xlsx"
+          : [16, 202].indexOf(convertType) !== -1
+            ? ".pptx"
+            : ".pdf";
     setConvertedFilename(c.exec(filename)[1] + last);
   };
 
@@ -181,7 +231,6 @@ export default () => {
 
   const onRemoveIcon = () => {
     stopPollingForTaskStatus();
-    //setClickedCard("");
     //setConvertType(200);
   };
   const submitPassword = () => {
@@ -199,44 +248,9 @@ export default () => {
   const handleChange = (e) => {
     setPassword(e.target.value);
   };
-  const convertistPDF2Office = [
-    [
-      {
-        title: t("PDF To Word"),
-        description: t("Convert PDF to Word documents"),
-        convertType: 200,
-      },
-      {
-        title: t("PDF To Excel"),
-        description: t("Convert PDF to Excel documents"),
-        convertType: 201,
-      },
-      {
-        title: t("PDF To PowerPoint"),
-        description: t("Convert PDF to PowerPoint"),
-        convertType: 202,
-      },
-    ],
-  ];
-  const convertistOffice2PDF = [
-    [
-      {
-        title: t("Word To PDF"),
-        description: t("Convert Word to PDF documents"),
-        convertType: 203,
-      },
-      {
-        title: t("Excel To PDF"),
-        description: t("Convert Excel to PDF documents"),
-        convertType: 204,
-      },
-      {
-        title: t("PowerPoint To PDF"),
-        description: t("Convert PowerPoint to PDF documents"),
-        convertType: 205,
-      },
-    ],
-  ];
+
+
+
   return (
     <>
       <Spin
@@ -245,95 +259,147 @@ export default () => {
         size={"large"}
       >
         <Space direction="vertical">
-          <Divider style={{ textAlign: 'center', fontSize: '23px', fontWeight: 'bold', marginTop: '0' }}>PDF to Office</Divider>
-          {convertistPDF2Office.map((row, rIndex) => {
-            return (
-              <Row key={rIndex} gutter={16}>
-                {row.map((col, cIndex) => {
-                  let cardClassName = "";
-                  let currentCard = rIndex + "_" + cIndex;
-                  if (clickedCard === currentCard) {
-                    cardClassName = "clicked";
-                  } else {
-                    
-                  }
-                  return (
-                    <Col key={cIndex} span={8}>
-                      <Card
-                        className={cardClassName}
-                        size="small"
-                        hoverable
-                        onClick={() => {
-                          setshowUpload(false);
-                          setUpload(true);
-                          setConvert(false);
-                          setDocidUpload(null);
-                          stopPollingForTaskStatus();
-                          setConvertType(col.convertType);
-                          setDownloadUrl(null);
-                          setClickedCard(currentCard);
-                        }}
-                      >
-                        <Meta title={col.title} description={col.description} />
-                      </Card>
-                    </Col>
-                  );
-                })}
-              </Row>
-            );
-          })}
-          <div style={{ textAlign: "right" }}>
-            <div
-              className="ai-table-checked-box"
-              style={{ display: "inline-block" }}
-            >
-              <Checkbox checked={AITableChecked} onChange={onChangeAITable}>
-                {t("Use AI to recognize borderless tables")}
-              </Checkbox>
+          <Divider className="title">PDF to Office</Divider>
+          <div className="settings-common">
+            <div>{t("General Settings")}：</div>
+            <Checkbox
+              checked={settings.UseAIRecognize}
+              onChange={e => setSettings({ ...settings, UseAIRecognize: e.target.checked })}
+            >{t("Enable AI Recognition")}</Checkbox>
+            <Checkbox
+              checked={settings.include_pdf_comments}
+              onChange={e => setSettings({ ...settings, include_pdf_comments: e.target.checked })}
+            >{t("Retain PDF Comments")}</Checkbox>
+            <Checkbox
+              checked={settings.include_images}
+              onChange={e => setSettings({ ...settings, include_images: e.target.checked })}
+            >{t("Retain PDF Images")}</Checkbox>
+            <div>
+              <span>{t("Page Range")}：</span>
+              <Input
+                style={{ width: "200px" }}
+                placeholder={t("e.g., 1-3,5,7-10")}
+                value={settings.page_range}
+                onChange={e => setSettings({ ...settings, page_range: e.target.value })}
+                size="small"
+              />
             </div>
           </div>
+          <Row gutter={16}>
+            {pdf2OfficeCards.map((it, index) => {
+              return (
+                <Col key={index} span={8}>
+                  <Card
+                    className={convertType === it.convertType ? "clicked" : ""}
+                    size="small"
+                    hoverable
+                    onClick={() => {
+                      setshowUpload(false);
+                      setUpload(true);
+                      setConvert(false);
+                      setDocidUpload(null);
+                      stopPollingForTaskStatus();
+                      setConvertType(it.convertType);
+                      setDownloadUrl(null);
+                    }}
+                  >
+                    <div className="title">{it.title}</div>
+                    <div>{it.description}</div>
+                    <div className="settings-warp">
+                      {it.convertType === 200 ? <>
+                        <Checkbox
+                          checked={settings.enable_retain_page_layout}
+                          onChange={e => setSettings({ ...settings, enable_retain_page_layout: e.target.checked })}
+                        >{t("Retain PDF Page Layout")}</Checkbox>
+                      </> : null}
+                      {it.convertType === 201 ? <>
+                        <div>{t("Workbook Structure Settings")}：</div>
+                        <Radio.Group
+                          value={settings.workbook_settings}
+                          onChange={e => setSettings({ ...settings, workbook_settings: e.target.value })}
+                        >
+                          <Space direction="vertical" align="start">
+                            <Radio value={0}>{t("Single Worksheet")}</Radio>
+                            <Radio value={1}>{t("Each Table Worksheet")}</Radio>
+                            <Radio value={2}>{t("Each Page Worksheet")}</Radio>
+                          </Space>
+                        </Radio.Group>
+                      </> : null}
+                    </div>
+                  </Card>
+                </Col>
+              );
+            })}
+          </Row>
 
-          <Divider style={{ textAlign: 'center', fontSize: '23px', fontWeight: 'bold', marginTop: '0' }}>Office to PDF</Divider>
-          {convertistOffice2PDF.map((row, rIndex) => {
-            return (
-              <Row key={rIndex} gutter={16}>
-                {row.map((col, cIndex) => {
-                  let cardClassName = "";
-                  let currentCard = rIndex + 1 + "_" + cIndex;
-                  if (clickedCard === currentCard) {
-                    cardClassName = "clicked";
-                  }
-                  return (
-                    <Col key={cIndex} span={8}>
-                      <Card
-                        className={cardClassName}
-                        size="small"
-                        hoverable
-                        onClick={() => {
-                          setshowUpload(false);
-                          setUpload(true);
-                          setConvert(false);
-                          setDocidUpload(null);
-                          stopPollingForTaskStatus();
-                          setConvertType(col.convertType);
-                          setDownloadUrl(null);
-                          setClickedCard(currentCard);
-                        }}
-                      >
-                      <Meta title={col.title} description={col.description} />
-                      </Card>
-                    </Col>
-                  );
-                })}
-              </Row>
-            );
-          })}
+          <Divider className="title">Office to PDF</Divider>
+          <div className="settings-common">
+            <div>{t("General Settings")}：</div>
+            <Checkbox
+              checked={settings.is_embed_font}
+              onChange={e => setSettings({ ...settings, is_embed_font: e.target.checked })}
+            >{t("Embed Fonts in PDF")}</Checkbox>
+          </div>
+          <Row gutter={16}>
+            {office2PDFCards.map((it, index) => {
+              return (
+                <Col key={index} span={8}>
+                  <Card
+                    className={convertType === it.convertType ? "clicked" : ""}
+                    size="small"
+                    hoverable
+                    onClick={() => {
+                      setshowUpload(false);
+                      setUpload(true);
+                      setConvert(false);
+                      setDocidUpload(null);
+                      stopPollingForTaskStatus();
+                      setConvertType(it.convertType);
+                      setDownloadUrl(null);
+                    }}
+                  >
+                    <div className="title">{it.title}</div>
+                    <div>{it.description}</div>
+                    <div className="settings-warp">
+                      {it.convertType === 203 ? <>
+                        <Checkbox
+                          checked={settings.is_generate_bookmark}
+                          onChange={e => setSettings({ ...settings, is_generate_bookmark: e.target.checked })}
+                        >{t("Generate PDF Bookmarks")}</Checkbox>
+                      </> : null}
+                      {it.convertType === 204 ? <>
+                        <Space direction="vertical" align="start">
+                          {/*
+                          <Checkbox
+                            checked={settings.is_separate_workbook}
+                            onChange={e => setSettings({ ...settings, is_separate_workbook: e.target.checked })}
+                          >{t("Separate Workbook PDF")}</Checkbox>
+                          */}
+                          <Checkbox
+                            checked={settings.is_output_hidden_worksheets}
+                            onChange={e => setSettings({ ...settings, is_output_hidden_worksheets: e.target.checked })}
+                          >{t("Include Hidden Worksheets")}</Checkbox>
+                          <Input
+                            style={{ width: "295px" }}
+                            placeholder={t("Specific Worksheet Names")}
+                            value={settings.worksheet_names}
+                            onChange={e => setSettings({ ...settings, worksheet_names: e.target.value })}
+                            size="small"
+                          />
+                        </Space>
+                      </> : null}
+                    </div>
+                  </Card>
+                </Col>
+              );
+            })}
+          </Row>
           <Space direction="vertical" className="tools-main-content-content">
             <Upload
               listType="picture"
               iconRender={() => <img alt="pdf" src={icon_pdf_48} />}
               action={`${baseUrl}/api/upload`}
-              accept= {clickedCard === "1_0" ? ".docx" : clickedCard === "1_1" ? ".xlsx" : clickedCard === "1_2" ? ".pptx" : ".pdf"}
+              accept={convertType === 203 ? ".docx" : convertType === 204 ? ".xlsx" : convertType === 205 ? ".pptx" : ".pdf"}
               beforeUpload={(file: RcFile) => {
                 const exceededSizeLimit =
                   file.size / 1024 / 1024 > UPLOAD_FILE_SIZE_LIMIT_MB;
@@ -352,10 +418,8 @@ export default () => {
                   file.status = "error";
                   return false;
                 }
-                if (clickedCard === '') {
-                  message.error(
-                    t("uploadTypeError")
-                  );
+                if (!convertType) {
+                  message.error(t("uploadTypeError"));
                   file.status = "error";
                   return false;
                 }
@@ -386,7 +450,7 @@ export default () => {
                 strokeWidth: 5,
                 format: (percent) => `${parseFloat(percent.toFixed(2))}%`,
               }}
-              showUploadList = {showUpload}
+              showUploadList={showUpload}
               onRemove={onRemoveIcon}
             >
               {upload ? (
@@ -434,12 +498,12 @@ export default () => {
                     <img alt="pdf" src={icon_pdf_48} />
                     {t("Convert Excel to PDF")}
                   </>
-                  ) : (
-                    <>
+                ) : (
+                  <>
                     <img alt="pdf" src={icon_pdf_48} />
                     {t("Convert PowerPoint to PDF")}
                   </>
-                  )}
+                )}
               </Button>
             ) : null}
             {!convertloadLoading && downloadUrl ? (
