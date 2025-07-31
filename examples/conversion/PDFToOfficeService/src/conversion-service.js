@@ -133,7 +133,7 @@ if (!rangeStr || rangeStr.trim() === '') {
       }
     } else {
       const num = Number(part);
-      if (isNaN(num) || !Number.isInteger(num) || num <= 1) {
+      if (isNaN(num) || !Number.isInteger(num) || num <= 0) {
         throw new Error(`Invalid page number: "${part}"`);
       }
       result.push(num-1);
