@@ -62,6 +62,7 @@ module.exports = function (env, argv) {
     // const licensePath = 'https://websdk.cpdf.io/FoxitPDFSDKForWeb/release/11_0_0/FoxitPDFSDKForWeb_11_0_0/examples/license-key.js';
     // use in prod env
     const licensePathForProd = 'https://cdn-sdk.foxitsoftware.com/pdf-sdk/download/foxit-pdf-sdk-for-web/license-key.js';
+    const licensePathForChinaProd = 'https://cdn-sdk.foxitsoftware.cn/pdf-sdk/download/foxit-pdf-sdk-for-web/license-key.js '
     return [
         createWebpackConfig(
             entries.reduce((entries, entry) => {
@@ -81,6 +82,7 @@ module.exports = function (env, argv) {
                     info: entry.info,
                     licensePath,
                     licensePathForProd, // which license path to use is determined in runtime
+                    licensePathForChinaProd,
                     UIExtensionLib: '/lib/UIExtension.full.js',
                     PDFViewCtrlLib: '/lib/PDFViewCtrl.full.js'
                 });

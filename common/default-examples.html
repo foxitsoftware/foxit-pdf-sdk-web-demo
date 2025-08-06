@@ -51,8 +51,18 @@
     <script>
         (function(){
             var host = window.location.host;
-            var isProd = host.indexOf('foxit.com') > -1 || host.indexOf('foxitsoftware.cn') > -1;
-            var LICENSE_KEY_PATH = (isProd ? '<%=htmlWebpackPlugin.options.licensePathForProd%>?':'<%=htmlWebpackPlugin.options.licensePath%>?') + Date.now().toString(16);
+            var isChina = host.includes('foxitsoftware.cn');
+            var isInternational = host.includes('foxit.com');
+            var isProd = isChina || isInternational;
+            
+            var licenseKey;
+            if (isProd) {
+                licenseKey = isChina ? 'licensePathForChinaProd' : 'licensePathForProd';
+            } else {
+                licenseKey = 'licensePath';
+            }
+            
+            var LICENSE_KEY_PATH = '<%=htmlWebpackPlugin.options.' + licenseKey + '%>?' + Date.now().toString(16);
             document.write('<script src="'+LICENSE_KEY_PATH+'"><\/script>');
         })()
     </script>
