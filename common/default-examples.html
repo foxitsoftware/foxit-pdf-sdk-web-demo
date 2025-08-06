@@ -51,18 +51,10 @@
     <script>
         (function(){
             var host = window.location.host;
-            var isChina = host.includes('foxitsoftware.cn');
-            var isInternational = host.includes('foxit.com');
+            var isChina = host.indexOf('foxitsoftware.cn') > -1;
+            var isInternational = host.indexOf('foxit.com') > -1;
             var isProd = isChina || isInternational;
-            
-            var licenseKey;
-            if (isProd) {
-                licenseKey = isChina ? 'licensePathForChinaProd' : 'licensePathForProd';
-            } else {
-                licenseKey = 'licensePath';
-            }
-            
-            var LICENSE_KEY_PATH = '<%=htmlWebpackPlugin.options.' + licenseKey + '%>?' + Date.now().toString(16);
+            var LICENSE_KEY_PATH = (isProd ? (isInternational ? '<%=htmlWebpackPlugin.options.licensePathForProd%>?' : '<%=htmlWebpackPlugin.options.licensePathForChinaProd%>?') :'<%=htmlWebpackPlugin.options.licensePath%>?') + Date.now().toString(16);
             document.write('<script src="'+LICENSE_KEY_PATH+'"><\/script>');
         })()
     </script>
