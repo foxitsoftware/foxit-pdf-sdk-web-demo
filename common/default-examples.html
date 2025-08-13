@@ -51,7 +51,7 @@
     <script>
         (function(){
             var host = window.location.host;
-            var isChina = host.indexOf('foxitsoftware.cn') > -1;
+            var isChina = host.indexOf('fuxinsoft.cn') > -1;
             var isInternational = host.indexOf('foxit.com') > -1;
             var isProd = isChina || isInternational;
             var LICENSE_KEY_PATH = (isProd ? (isInternational ? '<%=htmlWebpackPlugin.options.licensePathForProd%>?' : '<%=htmlWebpackPlugin.options.licensePathForChinaProd%>?') :'<%=htmlWebpackPlugin.options.licensePath%>?') + Date.now().toString(16);
@@ -59,5 +59,5 @@
         })()
     </script>
     <script src="<%=htmlWebpackPlugin.options.UIExtensionLib%>"></script>
-</body>
+</body>n
 </html>
