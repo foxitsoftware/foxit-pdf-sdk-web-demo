@@ -95,7 +95,7 @@
     },
     "dependencies": {
         "@foxitsoftware/collab-db": "^1.4.0",
-        "@foxitsoftware/foxit-pdf-sdk-for-web-library": "^10.0.5",
+        "@foxitsoftware/foxit-pdf-sdk-for-web-library": "^11.0.3",
         "@foxitsoftware/web-collab-client": "^1.4.0",
         "@foxitsoftware/web-collab-server": "^1.4.0",
         "@types/react-router-dom": "^5.1.7",
