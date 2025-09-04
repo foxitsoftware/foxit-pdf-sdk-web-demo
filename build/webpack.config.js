@@ -55,7 +55,7 @@ const distPath = path.resolve(__dirname, '../dist');
 const libPath = path.resolve(libraryModulePath, 'lib');
 const licenseKeyMap = {
     cn:{
-        stg:'https://official-sdk-nonprod.oss-cn-zhangjiakou.aliyuncs.com/download/foxit-pdf-sdk-for-web/license-key.js',
+        stg:'https://cdn-sdk-test.fuxinsoft.cn/download/foxit-pdf-sdk-for-web/license-key.js',
         prod:'https://cdn-sdk.fuxinsoft.cn/download/foxit-pdf-sdk-for-web/license-key.js'
     },
     internal:{
