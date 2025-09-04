@@ -2,14 +2,17 @@
 <html lang="en">
 <head>
     <script>
-        var host = window.location.host;
-        var isInternational = host.indexOf('foxit.com') > -1;
-        var isInIFrame = window.self !== window.top;
+        const host = window.location.host;
+        const isInternalProd = host.indexOf('foxit.com') > -1;
+        const isCNProd = host.indexOf('fuxinsoft.cn') > -1;
+        const isCNStg = host.indexOf('stgcn.connectedpdf.com') > -1;
+        const isInternalStg = host.indexOf('stg.foxitcloud.com') > -1;
+        const isInIFrame = window.self !== window.top;
     </script>
     <!-- Google Tag Manager -->
     <script>
       (function (w, d, s, l, i) {
-        if(isInternational && !isInIFrame){
+        if(isInternalProd && !isInIFrame){
             w[l] = w[l] || [];
             w[l].push({ "gtm.start": new Date().getTime(), event: "gtm.js" });
             var f = d.getElementsByTagName(s)[0],
@@ -43,6 +46,10 @@
     </style>
 </head>
 <body>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-T7ZBJN"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) --> 
     <script>
         var _device_type_;
         (function() {
@@ -71,12 +78,24 @@
     </script>
     <script>
         (function(){
-            var isChina = host.indexOf('fuxinsoft.cn') > -1;
-            var isProd = isChina || isInternational;
-            var LICENSE_KEY_PATH = (isProd ? (isInternational ? '<%=htmlWebpackPlugin.options.licensePathForProd%>?' : '<%=htmlWebpackPlugin.options.licensePathForChinaProd%>?') :'<%=htmlWebpackPlugin.options.licensePath%>?') + Date.now().toString(16);
+            const licensePathForStg = '<%=htmlWebpackPlugin.options.licensePathForStg%>';
+            const licensePathForProd = '<%=htmlWebpackPlugin.options.licensePathForProd%>';
+            const licensePathForChinaStg = '<%=htmlWebpackPlugin.options.licensePathForChinaStg%>';
+            const licensePathForChinaProd = '<%=htmlWebpackPlugin.options.licensePathForChinaProd%>';
+            let licensePath = '';
+            if (isInternalProd) {
+                licensePath = licensePathForProd;
+            } else if (isInternalStg) {
+                licensePath = licensePathForStg;
+            } else if (isCNProd) {
+                licensePath = licensePathForChinaProd;
+            } else {
+                licensePath = licensePathForChinaStg;
+            }
+            const LICENSE_KEY_PATH = licensePath + '?' + Date.now().toString(16);
             document.write('<script src="'+LICENSE_KEY_PATH+'"><\/script>');
         })()
     </script>
     <script src="<%=htmlWebpackPlugin.options.UIExtensionLib%>"></script>
-</body>n
+</body>
 </html>
