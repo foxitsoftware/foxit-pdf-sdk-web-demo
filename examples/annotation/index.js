@@ -112,6 +112,7 @@ export function createCustomStamp(url) {
       fileType: ext,
       width: size.width,
       height: size.height,
+      annotType:'stamp'
     });
   });
 }

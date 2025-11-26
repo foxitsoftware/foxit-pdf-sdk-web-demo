@@ -1,6 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <script>
+        const host = window.location.host;
+        const isInternalProd = host.indexOf('foxit.com') > -1;
+        const isCNProd = host.indexOf('fuxinsoft.cn') > -1;
+        const isCNStg = host.indexOf('stgcn.connectedpdf.com') > -1;
+        const isInternalStg = host.indexOf('stg.foxitcloud.com') > -1;
+        const isInIFrame = window.self !== window.top;
+    </script>
+    <!-- Google Tag Manager -->
+    <script>
+      (function (w, d, s, l, i) {
+        if(isInternalProd && !isInIFrame){
+            w[l] = w[l] || [];
+            w[l].push({ "gtm.start": new Date().getTime(), event: "gtm.js" });
+            var f = d.getElementsByTagName(s)[0],
+              j = d.createElement(s),
+              dl = l != "dataLayer" ? "&l=" + l : "";
+            j.async = true;
+            j.src = "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
+            f.parentNode.insertBefore(j, f);
+        }
+      })(window, document, "script", "dataLayer", "GTM-T7ZBJN");
+    </script>
+    <!-- End Google Tag Manager -->
     <meta charset="UTF-8">
     <meta http-equiv="Expires" content="0">
     <meta http-equiv="Pragma" content="no-cache">
@@ -22,6 +46,10 @@
     </style>
 </head>
 <body>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-T7ZBJN"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) --> 
     <script>
         var _device_type_;
         (function() {
@@ -41,33 +69,30 @@
             const isTablet = !isAliAppBrowser && /(ipad|tablet|(android(?!.*mobile))|(windows(?!.*phone)(.*touch))|kindle|playbook|silk|(puffin(?!.*(IP|AP|WP))))/.test(userAgentLowerCase);
             const isMobile = (!isTablet || isTeamsAndroid) && (/mobile/.test(userAgentLowerCase) || isIOS || isAndroid || isBlackBerry || isWebOS || isKindle);
             const isDesktop = !isMobile && !isTablet && !isAndroid && !isIPHONE && !isIPAD && !isIPOD && !isKindle && !isWebOS;
-            Object.defineProperty(navigator, 'userAgent', {
-                value: (function() {
-                    if(isIOS) {
-                        switch(_device_type_) {
-                            case 'mobile':
-                                return userAgent;
-                            default:
-                                break;
-                        }
-                    }
-                    switch(_device_type_) {
-                        case 'mobile':
-                            return 'Mozilla/5.0 (Linux; Android 11; Pixel 5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.91 Mobile Safari/537.36';
-                        case 'tablet':
-                            return 'Mozilla/5.0 (iPad; CPU OS 13_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/87.0.4280.77 Mobile/15E148 Safari/604.1'
-                        case 'desktop':
-                            return 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36';
-                        default:
-                    }
-                    return userAgent;
-                })()
-            });
+            if(isIOS && _device_type_ === 'mobile') {
+                return;
+            } else {
+                window.__FOXITWEBSDK_DEVICE_TYPE__ = _device_type_;
+            }
         })()
     </script>
     <script>
         (function(){
-            var LICENSE_KEY_PATH = (window.location.host.indexOf('foxit.com') > -1 ? '<%=htmlWebpackPlugin.options.licensePathForProd%>?':'<%=htmlWebpackPlugin.options.licensePath%>?') + Date.now().toString(16);
+            const licensePathForStg = '<%=htmlWebpackPlugin.options.licensePathForStg%>';
+            const licensePathForProd = '<%=htmlWebpackPlugin.options.licensePathForProd%>';
+            const licensePathForChinaStg = '<%=htmlWebpackPlugin.options.licensePathForChinaStg%>';
+            const licensePathForChinaProd = '<%=htmlWebpackPlugin.options.licensePathForChinaProd%>';
+            let licensePath = '';
+            if (isInternalProd) {
+                licensePath = licensePathForProd;
+            } else if (isInternalStg) {
+                licensePath = licensePathForStg;
+            } else if (isCNProd) {
+                licensePath = licensePathForChinaProd;
+            } else {
+                licensePath = licensePathForChinaStg;
+            }
+            const LICENSE_KEY_PATH = licensePath + '?' + Date.now().toString(16);
             document.write('<script src="'+LICENSE_KEY_PATH+'"><\/script>');
         })()
     </script>

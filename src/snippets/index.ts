@@ -23,23 +23,10 @@ export function openTab(pdfui: any, tab: string) {
   });
 }
 
-export function openSidebarRightTab(pdfui: any, tabName: string, type?: number){
+export function openSidebarRightTab(pdfui: any, type: number){
   return pdfui.getComponentByName('sidebar-right')
   .then((rightPanel: any) => {
-    rightPanel.show();
-    return pdfui.getComponentByName('sidebar-right-tabs');
-  }).then((tabs: any) => {
-    tabs.openTab(tabName);
-    tabs.setActivetab(tabName);
-    if (tabName === 'edit-properties-panel') {
-      return pdfui.getComponentByName('edit-properties').then((component: any) => {
-          return component.setHost({}, type);
-      })
-    }else if(tabName === 'right-search-panel'){
-      return pdfui.getComponentByName('advanced-search').then((searchComp: any)=>{
-        searchComp.setSearchType('normal');
-      });
-    }
+    rightPanel.showRightFormatPanel(type,'switchHandler')
   })
 }
 
@@ -53,13 +40,7 @@ export function closeSidebarRightTab(pdfui: any){
 export function openDropdown(pdfui: any, dropdownName: string){
   return pdfui.getComponentByName(dropdownName)
     .then((dropdownContainer: any)=>{
-      dropdownContainer.eRibbonText.click();
-      setTimeout(()=>{
-        const dropdown = dropdownContainer.getDropdown();
-        if(!dropdown.isActive){
-          dropdown.active();
-        }
-      })
+      dropdownContainer.getDropdown().active()
     })
 }
 

@@ -1,0 +1,10 @@
+name: conversion-sdk-server
+
+services:
+  server:
+    container_name: server
+    build:
+      context: ../
+      dockerfile: PDFToOfficeServiceForDocker/Dockerfile
+    ports:
+      - "19113:19113"

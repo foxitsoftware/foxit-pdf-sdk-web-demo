@@ -232,7 +232,22 @@
     "Convert PowerPoint to PDF documents": "將PowerPoint轉換為PDF文件",
     "Excel To PDF": "Excel 轉 PDF",
     "Convert Excel to PDF documents": "將Excel轉換為PDF文件",
-    "Convert failed": "轉換失敗"
+    "Convert failed": "轉換失敗",
+    "General Settings": "通用設置",
+    "Enable AI Recognition": "是否啟用機器學習識別無邊框表格（自動添加邊框）",
+    "Retain PDF Comments": "是否保留 PDF 註釋",
+    "Retain PDF Images": "是否保留 PDF 圖像（當前僅支持 Word）",
+    "Page Range": "轉換的頁面範圍（默認轉換所有頁）",
+    "Retain PDF Page Layout": "保留 PDF 頁面佈局",
+    "Workbook Structure Settings": "工作簿結構設置",
+    "Single Worksheet": "單工作表",
+    "Each Table Worksheet": "每個表格一個工作表",
+    "Each Page Worksheet": "每個 PDF 頁一個工作表",
+    "Embed Fonts in PDF": "是否嵌入字體到 PDF",
+    "Generate PDF Bookmarks": "是否生成 PDF 書籤",
+    "Separate Workbook PDF": "是否按工作表拆分生成獨立 PDF",
+    "Include Hidden Worksheets": "是否包含隱藏工作表",
+    "Specific Worksheet Names": "需轉換的特定工作表名稱列表"
   },
   "editPDF": {
     "Current Page": "目前頁面",

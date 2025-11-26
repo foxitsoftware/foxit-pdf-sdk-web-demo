@@ -8,6 +8,7 @@ const {
   PDF2ExcelSettingData,
   WorkbookSettings,
   Range,
+  WStringArray,
   ConvertCallback,
   PDF2Office,
   Word2PDFSettingData,
@@ -111,12 +112,42 @@ const getFileExtensionByConvertType = (convertType) => {
   return conversionTypeMap[convertType].fileExtension;
 };
 
+async function parsePageRange(rangeStr) {
+  const result = [];
+
+if (!rangeStr || rangeStr.trim() === '') {
+    return result; 
+  }
+  const parts = rangeStr.split(',');
+  for (const part of parts) {
+    if (part.includes('-')) {
+      const [start, end] = part.split('-').map(Number);
+      if (isNaN(start) || isNaN(end) ||
+        !Number.isInteger(start) || !Number.isInteger(end) ||
+        start <= 0 || end <= 0 || start > end
+      ) {
+        throw new Error(`Invalid page range: "${part}"`);
+      }
+      for (let i = start; i <= end; i++) {
+        result.push(i-1);
+      }
+    } else {
+      const num = Number(part);
+      if (isNaN(num) || !Number.isInteger(num) || num <= 0) {
+        throw new Error(`Invalid page number: "${part}"`);
+      }
+      result.push(num-1);
+    }
+  }
+  return result;
+}
+
 async function convert(
   src_pdf_path,
   saved_file_path,
   password,
   convertType,
-  enable_ml_recognition,
+  params,
 ) {
   if (!conversionSDKInitialized) {
     await initConversionSdk();
@@ -130,7 +161,7 @@ async function convert(
 
   if (convertType === 200 || convertType === 201 || convertType === 202) {
     const custom_callback = new CustomConvertCallback();
-    const enable_retain_page_layout = false;
+    const enable_retain_page_layout = params.pdf2office.pdf2word.enable_retain_page_layout;
     const enable_generate_headers_and_footers = false;
     const enable_generate_footnotes_and_endnotes = false;
     const enable_generate_page_rendered_break = false;
@@ -139,12 +170,18 @@ async function convert(
     const powerpoint_setting_data = new PDF2PowerPointSettingData(enable_aggressively_split_sections);
     const decimal_symbol = "";
     const thousands_separator = "";
-    const excel_setting_data = new PDF2ExcelSettingData(decimal_symbol, thousands_separator, WorkbookSettings.e_WorkbookSettingsEachPage);
+    const workbook_settings = params.pdf2office.pdf2excel.workbook_settings;
+    const excel_setting_data = new PDF2ExcelSettingData(decimal_symbol, thousands_separator, workbook_settings);
+    const page_range = await parsePageRange(params.pdf2office.page_range)
     const range = new Range();
+    for (let i = 0; i < page_range.length; i++) {
+      range.AddSingle(page_range[i]);
+    }
     const metrics_data_folder_path = path.join(__dirname, 'metrics_data');
-    const include_pdf_comments = true;
+    const include_pdf_comments = params.pdf2office.include_pdf_comments;
     const enable_trailing_space = true;
-    const include_images = true;
+    const include_images = params.pdf2office.include_images;
+    const enable_ml_recognition = params.pdf2office.enable_ml_recognition;
 
     const setting_data = new PDF2OfficeSettingData(
       metrics_data_folder_path,
@@ -180,9 +217,17 @@ async function convert(
   } else if (convertType === 203 || convertType === 204 || convertType === 205) {
     try {
       const resource_data_folder_path = path.join(__dirname, 'office2pdf');
-      const is_embed_font = false;
-      const word_setting_data = new Word2PDFSettingData(false);
-      const excel_setting_data = new Excel2PDFSettingData(false, false, null);
+      const is_embed_font = params.office2pdf.is_embed_font;
+      const is_generate_bookmark = params.office2pdf.word2pdf.is_generate_bookmark;
+      const word_setting_data = new Word2PDFSettingData(is_generate_bookmark);
+      const is_separate_workbook  = params.office2pdf.excel2pdf.is_separate_workbook;
+      const is_output_hidden_worksheets = params.office2pdf.excel2pdf.is_output_hidden_worksheets;
+      const arr = params.office2pdf.excel2pdf.worksheet_names.split(',').map(s => s.trim()).filter(s => s.length > 0);
+      const worksheet_names = new WStringArray();
+      for (let i = 0; i < arr.length; i++) {
+        worksheet_names.Add(arr[i]);
+      }
+      const excel_setting_data = new Excel2PDFSettingData(is_separate_workbook, is_output_hidden_worksheets, worksheet_names);
       const setting_data = new Office2PDFSettingData(resource_data_folder_path, is_embed_font, word_setting_data, excel_setting_data);
       var ret = Office2PDF[convertConfig.method](src_pdf_path, password, saved_file_path, setting_data);
       if (!ret) {

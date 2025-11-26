@@ -1,3 +1,3 @@
-export const supportVersion = "v2.1";
+export const supportVersion = "v3.0";
 
 export const serverUrl = `${window.location.origin}/conversion-server`;
