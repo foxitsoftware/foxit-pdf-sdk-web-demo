@@ -64,12 +64,12 @@ export function getClientY (event) {
 
 export const envConfig = {
     CN: {
-      test: "https://webviewer-demo-devcn.foxitcloud.com",
-      stg: "https://webviewer-demo-stgcn.foxitcloud.com",
-      pro: "https://webviewer-demo.foxitsoftware.cn",
+      test: "https://webviewer-demo-devcn.connectedpdf.com",
+      stg: "https://webviewer-demo-stgcn.connectedpdf.com",
+      pro: "https://webviewer-demo.fuxinsoft.cn",
     },
     international: {
-      test: "https://webviewer-demo-azk8s.foxitcloud.com",
+      test: "https://webviewer-demo-dev.foxitcloud.com",
       stg: "https://webviewer-demo-stg.foxitcloud.com",
       pro: "https://webviewer-demo.foxit.com",
     },
