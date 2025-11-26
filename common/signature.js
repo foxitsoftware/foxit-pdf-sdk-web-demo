@@ -1,18 +1,7 @@
-import {envConfig} from './util.js';
-
-const envList = Object.values(envConfig).map(item=>Object.values(item)).flat();
-
-function getBaseURL(){
-    if(envList.includes(window.location.origin)){
-        return window.location.origin;
-    }
-    return envConfig.international.pro;
-}
-
 function requestData(type, url, responseType, body){
     return new Promise(function(res, rej){
         var xmlHttp = new XMLHttpRequest();
-        xmlHttp.open(type, getBaseURL() + url);
+        xmlHttp.open(type, location.host + url);
 
         xmlHttp.responseType = responseType || 'arraybuffer';
         var formData = new FormData();

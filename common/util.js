@@ -62,15 +62,15 @@ export function getClientY (event) {
   }
 };
 
-export const envConfig = {
-    CN: {
-      test: "https://webviewer-demo-devcn.connectedpdf.com",
-      stg: "https://webviewer-demo-stgcn.connectedpdf.com",
-      pro: "https://webviewer-demo.fuxinsoft.cn",
-    },
-    international: {
-      test: "https://webviewer-demo-dev.foxitcloud.com",
-      stg: "https://webviewer-demo-stg.foxitcloud.com",
-      pro: "https://webviewer-demo.foxit.com",
-    },
-  };
+// export const envConfig = {
+//     CN: {
+//       test: "https://webviewer-demo-devcn.connectedpdf.com",
+//       stg: "https://webviewer-demo-stgcn.connectedpdf.com",
+//       pro: "https://webviewer-demo.fuxinsoft.cn",
+//     },
+//     international: {
+//       test: "https://webviewer-demo-dev.foxitcloud.com",
+//       stg: "https://webviewer-demo-stg.foxitcloud.com",
+//       pro: "https://webviewer-demo.foxit.com",
+//     },
+//   };
