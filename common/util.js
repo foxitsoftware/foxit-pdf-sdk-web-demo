@@ -69,7 +69,7 @@ export const envConfig = {
       pro: "https://webviewer-demo.fuxinsoft.cn",
     },
     international: {
-      test: "https://webviewer-demo-dev.foxitcloud.com",
+      test: "https://webviewer-demo-azk8s.foxitcloud.com",
       stg: "https://webviewer-demo-stg.foxitcloud.com",
       pro: "https://webviewer-demo.foxit.com",
     },
