@@ -1,5 +1,12 @@
+import {envConfig} from '../../../common/util.js';
+
+const envList = Object.values(envConfig).map(item=>Object.values(item)).flat();
+
 function getBaseURL(){
-  return 'https://webviewer-demo.foxitsoftware.com';
+    if(envList.includes(window.location.origin)){
+        return window.location.origin;
+    }
+    return envConfig.international.pro;
 }
 
 function requestData(type, url, responseType, body){
