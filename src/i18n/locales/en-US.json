@@ -71,7 +71,8 @@
       "uploadedSuccess": "Upload file successfully.",
       "fileuploadFailed": "Failed to upload the PDF file.",
       "fileMoreThen50M": "The file is too large. The maximum file size is 50M.",
-      "fileExistTip": "The file already exists, do you want to replace it?"
+      "fileExistTip": "The file already exists, do you want to replace it?",
+      "fileExtensionError": "The file format is error, please upload the PDF file."
     },
     "CollabAuthor": {
       "inviteFailed": "Invitation failed, please try again later.",

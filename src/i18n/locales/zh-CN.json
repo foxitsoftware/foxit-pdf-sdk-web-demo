@@ -71,7 +71,8 @@
       "uploadedSuccess": "文件上传成功。",
       "fileuploadFailed": "无法上传PDF文件。",
       "fileMoreThen50M": "该文件过大。最大文件大小为50M。",
-      "fileExistTip": "该文件已存在，您是否想要替换它？"
+      "fileExistTip": "该文件已存在，您是否想要替换它？",
+      "fileExtensionError": "文件格式错误，请上传PDF文件。"
     },
     "CollabAuthor": {
       "inviteFailed": "邀请失败，请稍后再试。",

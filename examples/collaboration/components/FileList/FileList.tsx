@@ -91,6 +91,11 @@ export default (props: IProps) => {
     const uploadedfiles=fileList.map((item:any)=>{
       return item.name
     })
+    const fileExtension = file.name.split('.').pop().toLowerCase();
+    if (fileExtension !== 'pdf') {
+      message.error(t("Component.fileExtensionError"));
+      return false
+    }
     const isLt50M = file.size / 1024 / 1024 < 50
     if (!isLt50M) {
       message.error(t("Component.fileMoreThen50M"));
@@ -125,6 +130,12 @@ export default (props: IProps) => {
     } else if (info.file.status && info.file.status === 'error') {
       setIsLoading(false);
       message.error(t("Component.fileuploadFailed"));
+      let msg = t("Component.fileuploadFailed");
+      if(info.file.response.message){
+        msg = msg + ' ' + info.file.response.message;
+      }
+      message.error(msg);
+
     }
   }
   const cancelTipPopup=()=>{
