@@ -37,18 +37,36 @@ function sanitizeUsername(username) {
     return null;
   }
   
-  // Reject usernames that are too long or reserved names
-  if (username.length > 50 || username === '.' || username === '..') {
+  // Reject usernames that are too long
+  if (username.length > 50 || username.length === 0) {
+    return null;
+  }
+  
+  // Reject usernames containing path traversal sequences (.. in any form)
+  // This catches: .., ../, ..\, etc.
+  if (username.includes('..')) {
+    return null;
+  }
+  
+  // Reject usernames that start or end with a dot (hidden files, special names)
+  if (username.startsWith('.') || username.endsWith('.')) {
     return null;
   }
   
   // Reject usernames containing unsafe characters (use blacklist approach to support Unicode/international characters)
   // Exclude: path separators (/ \), null byte, control characters, and problematic characters (< > : " | ? * & ; $ ` ' = + , @)
-  const unsafeCharsRegex = /[\/\\:\*\?"<>\|&;$`'=+,@]/;
+  // Also exclude Unicode look-alike characters for slashes: ／(U+FF0F), ⁄(U+2044), ∕(U+2215)
+  const unsafeCharsRegex = /[\/\\:\*\?"<>\|&;$`'=+,@\uff0f\u2044\u2215]/;
   const controlCharsRegex = /[\x00-\x1f\x7f]/;
   const whitespaceRegex = /\s/;
   
   if (unsafeCharsRegex.test(username) || controlCharsRegex.test(username) || whitespaceRegex.test(username)) {
+    return null;
+  }
+  
+  // Final validation: use path.basename to ensure no path components
+  const basename = path_1.default.basename(username);
+  if (basename !== username) {
     return null;
   }
   
@@ -256,11 +274,38 @@ function setupFileService(app){
     })
   })
 
-  app.use(FILE_PATH_PREFIX, express_1.default.static(path_1.default.resolve(FILE_UPLOAD_BASE), {
+  // Secure static file serving with path traversal protection
+  app.use(FILE_PATH_PREFIX, (req, res, next) => {
+    // Decode the URL to catch encoded path traversal attempts
+    const decodedPath = decodeURIComponent(req.path);
+    
+    // Block path traversal attempts (including encoded variants)
+    if (decodedPath.includes('..') || decodedPath.includes('\0')) {
+      return res.status(400).json({
+        ret: -1,
+        message: 'Invalid path detected.'
+      });
+    }
+    
+    // Validate the resolved path stays within FILE_UPLOAD_BASE
+    const requestedPath = path_1.default.resolve(FILE_UPLOAD_BASE, '.' + decodedPath);
+    const normalizedBase = path_1.default.resolve(FILE_UPLOAD_BASE);
+    
+    if (!requestedPath.startsWith(normalizedBase + path_1.default.sep) && requestedPath !== normalizedBase) {
+      return res.status(400).json({
+        ret: -1,
+        message: 'Access denied.'
+      });
+    }
+    
+    next();
+  }, express_1.default.static(path_1.default.resolve(FILE_UPLOAD_BASE), {
     acceptRanges: true,
     cacheControl: false,
     etag: false,
-    lastModified: false
+    lastModified: false,
+    dotfiles: 'deny',  // Deny access to dotfiles
+    index: false       // Disable directory indexing
   }));
 }
 exports.setupFileService = setupFileService;
