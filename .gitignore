@@ -25,3 +25,7 @@ yarn-debug.log*
 yarn-error.log*
 
 foxit-lib
+
+# License keys (sensitive)
+license-key.js
+Key for Foxit PDF SDK for Web*/
