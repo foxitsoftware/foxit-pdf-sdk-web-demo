@@ -1,0 +1,19 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(dir \"C:\\\\dev\\\\github\\\\foxit-pdf-sdk-web-demo\" /B)",
+      "Bash(dir \"C:\\\\dev\\\\github\\\\foxit-pdf-sdk-web-demo\\\\Key for Foxit PDF SDK for Web v11\" /B)",
+      "Bash(npm install)",
+      "Bash(npm start)",
+      "Bash(timeout /t 20 /nobreak)",
+      "Bash(netstat:*)",
+      "Bash(taskkill //F //PID 113388)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git push)",
+      "Bash(gh issue list:*)",
+      "Bash(gh issue view:*)",
+      "Bash(cat:*)"
+    ]
+  }
+}
