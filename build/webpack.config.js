@@ -135,12 +135,6 @@ module.exports = function (env, argv) {
                                       to: path.resolve(distPath, 'lib'),
                                       force: true,
                                   },
-                                  {
-                                      from: path.resolve(__dirname, '../license-key.js'),
-                                      to: path.resolve(distPath, 'license-key.js'),
-                                      force: true,
-                                      noErrorOnMissing: true,
-                                  },
                               ]
                             : []
                     ),

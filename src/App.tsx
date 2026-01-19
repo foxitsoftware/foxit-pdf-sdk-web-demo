@@ -1,45 +1,12 @@
-import { Layout, Card, Row, Col, Typography } from "antd";
+import { Layout } from "antd";
 import "antd/dist/antd.less";
 import "./app.less";
 import React, { useCallback, useEffect, useRef, useState } from "react";
-import { Switch, Route, HashRouter, useLocation, Link } from "react-router-dom";
+import { Switch, Route, HashRouter, useLocation } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { examples } from "./foundation/examples";
 import { Tooltip } from "./components/tooltip/Tooltip";
 import { AdvancedTooltip } from "./components/advancedTooltip/AdvancedTooltip";
-
-const { Title, Text } = Typography;
-
-const ExamplesList = () => {
-  return (
-    <div style={{ padding: '40px', maxWidth: '1200px', margin: '0 auto' }}>
-      <Title level={2} style={{ marginBottom: '8px' }}>Foxit PDF SDK for Web</Title>
-      <Text type="secondary" style={{ display: 'block', marginBottom: '32px' }}>
-        Select an example to explore PDF capabilities
-      </Text>
-      <Row gutter={[16, 16]}>
-        {examples.map((example) => (
-          <Col xs={24} sm={12} md={8} lg={6} key={example.baseName}>
-            <Link to={`/${example.baseName}`} style={{ textDecoration: 'none' }}>
-              <Card
-                hoverable
-                style={{ height: '100%' }}
-                bodyStyle={{ padding: '20px' }}
-              >
-                <Title level={4} style={{ marginBottom: '8px', textTransform: 'capitalize' }}>
-                  {example.name.replace(/_/g, ' ').replace(/-/g, ' ')}
-                </Title>
-                {example.description && (
-                  <Text type="secondary">{example.description}</Text>
-                )}
-              </Card>
-            </Link>
-          </Col>
-        ))}
-      </Row>
-    </div>
-  );
-};
 // import "@foxitsoftware/foxit-pdf-sdk-for-web-library/lib/UIExtension.vw.css";
 
 import {
@@ -368,9 +335,6 @@ const App = () => {
                     </Route>
                   );
                 })}
-                <Route exact path="/">
-                  <ExamplesList />
-                </Route>
               </Switch>
             </Content>
           </Layout>

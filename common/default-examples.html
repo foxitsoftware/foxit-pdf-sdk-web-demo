@@ -78,11 +78,6 @@
     </script>
     <script>
         (function(){
-            const isLocalhost = host.indexOf('localhost') > -1 || host.indexOf('127.0.0.1') > -1 || host.indexOf('0.0.0.0') > -1;
-            if (isLocalhost) {
-                document.write('<script src="/license-key.js"><\/script>');
-                return;
-            }
             const licensePathForStg = '<%=htmlWebpackPlugin.options.licensePathForStg%>';
             const licensePathForProd = '<%=htmlWebpackPlugin.options.licensePathForProd%>';
             const licensePathForChinaStg = '<%=htmlWebpackPlugin.options.licensePathForChinaStg%>';
