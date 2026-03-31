@@ -165,13 +165,17 @@ async function convert(
     const enable_generate_headers_and_footers = false;
     const enable_generate_footnotes_and_endnotes = false;
     const enable_generate_page_rendered_break = false;
-    const word_setting_data = new PDF2WordSettingData(enable_retain_page_layout, enable_generate_headers_and_footers, enable_generate_footnotes_and_endnotes, enable_generate_page_rendered_break);
+    const max_blank_paragraphs_per_page_bottom = -1;
+    const word_setting_data = new PDF2WordSettingData(enable_retain_page_layout, enable_generate_headers_and_footers, enable_generate_footnotes_and_endnotes, enable_generate_page_rendered_break, max_blank_paragraphs_per_page_bottom);
     const enable_aggressively_split_sections = false;
-    const powerpoint_setting_data = new PDF2PowerPointSettingData(enable_aggressively_split_sections);
+    const enable_adapt_to_largest_page = false;
+    const powerpoint_setting_data = new PDF2PowerPointSettingData(enable_aggressively_split_sections, enable_adapt_to_largest_page);
     const decimal_symbol = "";
     const thousands_separator = "";
     const workbook_settings = params.pdf2office.pdf2excel.workbook_settings;
-    const excel_setting_data = new PDF2ExcelSettingData(decimal_symbol, thousands_separator, workbook_settings);
+    const enable_aggressive_table_repair = true;
+    const include_watermarks = false;
+    const excel_setting_data = new PDF2ExcelSettingData(decimal_symbol, thousands_separator, workbook_settings, enable_aggressive_table_repair, include_watermarks);
     const page_range = await parsePageRange(params.pdf2office.page_range)
     const range = new Range();
     for (let i = 0; i < page_range.length; i++) {
@@ -182,6 +186,7 @@ async function convert(
     const enable_trailing_space = true;
     const include_images = params.pdf2office.include_images;
     const enable_ml_recognition = params.pdf2office.enable_ml_recognition;
+    const enable_matching_system_fonts = false;
 
     const setting_data = new PDF2OfficeSettingData(
       metrics_data_folder_path,
@@ -192,7 +197,8 @@ async function convert(
       powerpoint_setting_data,
       excel_setting_data, 
       enable_trailing_space, 
-      include_images
+      include_images,
+      enable_matching_system_fonts
     );
     console.log('conversion setting data', setting_data);
     try {
