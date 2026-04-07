@@ -39,8 +39,14 @@ const operateType = {
 import './index.less';
 
 export var CropPagesStateHandler = function (pdfViewer) {
-    this.pdfViewer = pdfViewer
+    var self = new IStateHandler(pdfViewer);
+    if (Object.setPrototypeOf) {
+        Object.setPrototypeOf(self, CropPagesStateHandler.prototype);
+    } else {
+        self.__proto__ = CropPagesStateHandler.prototype;
+    }
     this.cursorStyle = "fv__cursor-crosshair";
+    return self;
 };
 CropPagesStateHandler.getStateName = function () {
     return 'create-crop-pages';
