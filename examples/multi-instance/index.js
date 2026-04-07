@@ -1,34 +1,34 @@
 import * as PDFViewCtrl from "PDFViewCtrl";
 import "@foxitsoftware/foxit-pdf-sdk-for-web-library/lib/PDFViewCtrl.css";
+import { createPdfViewerShadowMount } from "../../common/pdfViewShadowMount";
 import enUS from "../../src/i18n/locales/en-US.json";
 import zhCN from"../../src/i18n/locales/zh-CN.json";
 import zhTW from "../../src/i18n/locales/zh-TW.json";
 
 const libPath = "/lib/";
-const viewerOptions = {
-    libPath: libPath,
-    jr: {
-        workerPath: libPath,
-        enginePath: libPath + "jr-engine/gsdk/",
-        fontPath: "https://webpdf.foxitsoftware.com/webfonts/",
-        licenseSN: licenseSN,
-        licenseKey: licenseKey,
-    },
-    customs: {
-        ScrollWrap: PDFViewCtrl.CustomScrollWrap,
-    }
-};
 function createPDFViewer(containerId, open, openOptions) {
-    const pdfViewer = new PDFViewCtrl.PDFViewer(
-        viewerOptions
-    );
-
     var eContainer = document.getElementById(containerId);
     var eSelectPDFFile = eContainer.querySelector('[name=select-pdf-file]');
     var eFileName = eContainer.querySelector('.fv__viewer-file-name');
     var eRenderTo = eContainer.querySelector('.pdf-viewer');
+    var { mountEl, containerRoot } = createPdfViewerShadowMount(eRenderTo, libPath);
 
-    pdfViewer.init(eRenderTo);
+    const pdfViewer = new PDFViewCtrl.PDFViewer({
+        libPath: libPath,
+        jr: {
+            workerPath: libPath,
+            enginePath: libPath + "jr-engine/gsdk/",
+            fontPath: "https://webpdf.foxitsoftware.com/webfonts/",
+            licenseSN: licenseSN,
+            licenseKey: licenseKey,
+        },
+        customs: {
+            ScrollWrap: PDFViewCtrl.CustomScrollWrap,
+            containerRoot: containerRoot,
+        },
+    });
+
+    pdfViewer.init(mountEl);
     eFileName.textContent = openOptions.fileName;
 
     eSelectPDFFile.onchange = function(e) {
@@ -69,7 +69,7 @@ function reopenPDF (viewer, ex, options, eFileName) {
         var result = prompt('Please input password');
         if (result) {
             var reopenOptions = Object.assign({}, options, {password: result})
-            pdfViewer.reopenPDFDoc(ex.pdfDoc, reopenOptions);
+            viewer.reopenPDFDoc(ex.pdfDoc, reopenOptions);
         } else {
             eFileName.textContent = '';
         }

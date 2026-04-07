@@ -1,8 +1,13 @@
 import * as PDFViewCtrl from "PDFViewCtrl";
 import "@foxitsoftware/foxit-pdf-sdk-for-web-library/lib/PDFViewCtrl.css";
+import { createPdfViewerShadowMount } from "../../common/pdfViewShadowMount";
 
 const libPath = "/lib/";
-const viewerOptions = {
+const { mountEl, containerRoot } = createPdfViewerShadowMount(
+    document.querySelector('#pdf-viewer'),
+    libPath
+);
+const pdfViewer = new PDFViewCtrl.PDFViewer({
     libPath: libPath,
     jr: {
         workerPath: libPath,
@@ -13,12 +18,10 @@ const viewerOptions = {
     },
     customs: {
         ScrollWrap: PDFViewCtrl.CustomScrollWrap,
-    }
-};
-const pdfViewer = new PDFViewCtrl.PDFViewer(
-    viewerOptions
-);
-pdfViewer.init(document.querySelector('#pdf-viewer'));
+        containerRoot: containerRoot,
+    },
+});
+pdfViewer.init(mountEl);
 window.pdfViewer = pdfViewer;
 
 window.addEventListener(
