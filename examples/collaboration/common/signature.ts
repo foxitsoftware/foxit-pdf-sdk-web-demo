@@ -39,28 +39,63 @@ function requestData(type, url, responseType, body){
 };
 
 export function initSignatureHandlers(pdfui) {
-  pdfui.setVerifyHandler(function (signatureField, plainBuffer, signedData){
-    return requestData('post', '/signature/verify', 'text', {
-      filter: signatureField.getFilter(),
-      subfilter: signatureField.getSubfilter(),
-      signer: signatureField.getSigner(),
-      plainContent: new Blob([plainBuffer]),
-      signedData: new Blob([signedData])
-    });
-  });
-  pdfui.registerSignHandler({
-    filter: 'Adobe.PPKLite',
-    subfilter: 'adbe.pkcs7.sha1',
-    flag: 0x100,
-    distinguishName: 'e=support@foxitsoftware.cn',
-    location: 'FZ',
-    reason: 'Test',
-    signer: 'web sdk',
-    showTime: true,
-    sign: function(setting, buffer) {
-      return requestData('post', '/signature/digest_and_sign', 'arraybuffer', {
-        plain: new Blob([buffer])
-      })
-    }
-  });
+  const service = pdfui.getSignatureWorkflowService();
+  const engineSignatureService = pdfui.getSignatureService();
+  (() => {
+      // const service = pdfViewer.getSignatureWorkflowService();
+      engineSignatureService.setVerifyHandler(async (signatureField, plainContent, signedData, hasDataOutOfScope) => {
+          const filter = await signatureField.getFilter();
+          const subfilter = await signatureField.getSubfilter();
+          const signer = await signatureField.getSigner();
+          const formdata = new FormData();
+          formdata.append("filter", filter);
+          formdata.append("subfilter", subfilter);
+          formdata.append("signer", signer);
+          formdata.append("plainContent", new Blob([plainContent]), "plainContent");
+          formdata.append("signedData", new Blob([signedData]), "signedData");
+          
+          const response = await fetch(getBaseURL() + '/signature/verify', {
+              method: 'POST',
+              body: formdata
+          });
+          return parseInt(await response.text());
+      });
+      const sign = async (settings, plainContent) => {
+          const formdata = new FormData();
+          formdata.append("plain", new Blob([plainContent]), "plain");
+          const response = await fetch(getBaseURL() + '/signature/digest_and_sign', {
+              method: 'POST',
+              body: formdata
+          });
+          return response.arrayBuffer();
+      };
+      service.addSignerInfo({
+          filter: 'Adobe.PPKLite',
+          subfilter: 'adbe.pkcs7.sha1',
+          signer: 'web sdk',
+          sign
+      });
+      service.addSignerInfo({
+          filter: 'Adobe.PPKLite',
+          subfilter: 'adbe.pkcs7.sha1',
+          signer: 'web sdk11',
+          sign
+      });
+      service.addSignatureAPInfo({
+          title: 'Standard Style',
+          distinguishName: 'e=foxitsdk@foxitsoftware.cn',
+          location: 'FZ',
+          reason: 'Test',
+          flag: 0x17F,
+          showTime: true,
+      });
+      service.addSignatureAPInfo({
+          title: 'BJ appearance',
+          distinguishName: 'e=foxitsdk@foxitsoftware.cn',
+          location: 'BJ',
+          reason: 'TestBJ',
+          flag: 0x17F,
+          showTime: true,
+      });
+  })();
 }
