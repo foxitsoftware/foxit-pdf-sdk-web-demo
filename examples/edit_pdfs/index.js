@@ -223,7 +223,7 @@ pdfui.addViewerEventListener(Events.renderFileSuccess,()=>{
   isMobile&&cropPage()
 })
 const callback = () => {
-  addCustomTextGraphic();
+  // addCustomTextGraphic();
   pdfui.removeViewerEventListener(Events.renderPageSuccess, callback)
 }
 pdfui.addViewerEventListener(Events.renderPageSuccess, callback)
