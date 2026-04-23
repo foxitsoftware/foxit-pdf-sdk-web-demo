@@ -304,6 +304,8 @@ CropPagesStateHandler.prototype.setBox = function () {
         return doc.setPagesBox({
             indexes,
             boxes
+        }).then(() => {
+            this.pdfViewer.redraw();
         })
     })
 }
