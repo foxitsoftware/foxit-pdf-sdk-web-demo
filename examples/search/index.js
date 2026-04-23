@@ -1,4 +1,4 @@
-import "@foxitsoftware/foxit-pdf-sdk-for-web-library/lib/UIExtension.vw.css";
+import "@foxitsoftware/foxit-pdf-sdk-for-web-library/lib/UIExtension.css";
 import { createPDFUI, isDesktop } from '../../common/pdfui';
 import { openSidebar, openSidebarRightTab } from "../../src/snippets"
 

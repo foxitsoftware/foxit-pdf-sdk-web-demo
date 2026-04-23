@@ -1,5 +1,5 @@
 import * as U from "UIExtension";
-import "@foxitsoftware/foxit-pdf-sdk-for-web-library/lib/UIExtension.vw.css";
+import "@foxitsoftware/foxit-pdf-sdk-for-web-library/lib/UIExtension.css";
 import "./pdfui.less";
 import { initSignatureHandlers } from './signature';
 import {deepCloneAssign} from './util';
