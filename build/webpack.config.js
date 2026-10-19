@@ -55,12 +55,14 @@ const distPath = path.resolve(__dirname, '../dist');
 const libPath = path.resolve(libraryModulePath, 'lib');
 const licenseKeyMap = {
     cn:{
-        stg:'https://cdn-sdk-test.fuxinsoft.cn/download/foxit-pdf-sdk-for-web/pcmobile/license-key.js',
-        prod:'https://cdn-sdk.fuxinsoft.cn/download/foxit-pdf-sdk-for-web/license-key.js'
+        test: 'http://10.103.130.134:9999/FoxitPDFSDKForWeb_License/Demo-Test/license-key.js',
+        stg: 'https://cdn-sdk-test.fuxinsoft.cn/download/foxit-pdf-sdk-for-web/pcmobile/license-key.js',
+        prod: 'https://cdn-sdk.fuxinsoft.cn/download/foxit-pdf-sdk-for-web/license-key.js'
     },
-    internal:{
-        stg:'https://cdn-sdk.foxitsoftware.com/pdf-sdk/download/foxit-pdf-sdk-for-web/pcmobile/license-key.js',
-        prod:'https://cdn-sdk.foxitsoftware.com/pdf-sdk/download/foxit-pdf-sdk-for-web/license-key.js'
+    intl:{
+        test: 'http://10.103.130.134:9999/FoxitPDFSDKForWeb_License/Demo-Test/license-key.js',
+        stg: 'https://cdn-sdk.foxitsoftware.com/pdf-sdk/download/foxit-pdf-sdk-for-web/pcmobile/license-key.js',
+        prod: 'https://cdn-sdk.foxitsoftware.com/pdf-sdk/download/foxit-pdf-sdk-for-web/license-key.js'
     }
 }
 
@@ -84,10 +86,12 @@ module.exports = function (env, argv) {
                     filename: path.resolve(distPath, entry.dir, 'index.html'),
                     chunks: entry.htmlchunks,
                     info: entry.info,
-                    licensePathForStg: licenseKeyMap.internal.stg,
-                    licensePathForProd: licenseKeyMap.internal.prod,
-                    licensePathForChinaStg: licenseKeyMap.cn.stg,
-                    licensePathForChinaProd: licenseKeyMap.cn.prod,
+                    licensePathTestIntl: licenseKeyMap.intl.test,
+                    licensePathStgIntl: licenseKeyMap.intl.stg,
+                    licensePathProdIntl: licenseKeyMap.intl.prod,
+                    licensePathTestCn: licenseKeyMap.cn.test,
+                    licensePathStgCn: licenseKeyMap.cn.stg,
+                    licensePathProdCn: licenseKeyMap.cn.prod,
                     UIExtensionLib: '/lib/UIExtension.full.js',
                     PDFViewCtrlLib: '/lib/PDFViewCtrl.full.js'
                 });
