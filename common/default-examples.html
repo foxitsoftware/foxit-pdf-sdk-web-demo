@@ -96,7 +96,6 @@
             } else {
                 licensePath = '<%=htmlWebpackPlugin.options.licensePathTestCn%>';
             }
-            console.log('licensePath', licensePath);
             const LICENSE_KEY_PATH = licensePath + '?' + Date.now().toString(16);
             document.write('<script src="'+LICENSE_KEY_PATH+'"><\/script>');
         })()
