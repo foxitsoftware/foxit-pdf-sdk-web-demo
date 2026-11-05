@@ -9,7 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@foxitsoftware/foxit-pdf-conversion-sdk-node": "^1.1.0",
+    "@foxitsoftware/foxit-pdf-conversion-sdk-node": "^4.0.0",
     "axios": "^1.3.4",
     "koa": "^2.14.1",
     "koa-body": "^6.0.1",
