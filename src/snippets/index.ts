@@ -51,6 +51,19 @@ export function closeDropdown(pdfui: any, dropdownName: string){
     })
 }
 
+export function closeProtectDropdown(pdfui: any){
+  return pdfui.getComponentByName('password-protect-group').then((group:any) => {
+      const dropdown = group.childAt(0).getDropdown();
+      dropdown.deactive();
+  });
+}
+
+export function closeStampDropdown(pdfui: any){
+  return pdfui.getComponentByName("stamp-drop-down-ui").then((stampDropdown: any)=>{
+    stampDropdown.deactive();
+  });
+}
+
 export function openStampDropdown(pdfui: any){
   return pdfui.getComponentByName("stamp-drop-down-ui").then((stampDropdown: any)=>{
     stampDropdown.active();

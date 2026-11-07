@@ -6,7 +6,9 @@ import {
   openDropdown,
   closeDropdown,
   openStampDropdown,
-  openProtectDropdown
+  closeStampDropdown,
+  openProtectDropdown,
+  closeProtectDropdown
 } from "../snippets";
 
 const hello = [
@@ -162,7 +164,7 @@ const annotation = [
     sideTriangle: "top",
     header: "Stamp",
     description: "Stamp description",
-    func: () => {},
+    func: (ref: any) => closeStampDropdown(ref.current.contentWindow.pdfui),
   },
   {
     positionX: "800px",
@@ -303,8 +305,9 @@ const digital_signature = [
     sideTriangle: "left",
     header: "Insert your signature",
     description: "Insert your signature description",
-    func: (ref: any) =>
-      openSidebar(ref.current.contentWindow.pdfui, "sidebar-field")
+    func: (ref: any) => {
+      closeProtectDropdown(ref.current.contentWindow.pdfui);
+      return openSidebar(ref.current.contentWindow.pdfui, "sidebar-field")
       .then(() => {
         const el = document.querySelector('.wrapBlock-flex') as HTMLElement;
         el.style.display = 'none'
@@ -314,7 +317,8 @@ const digital_signature = [
             off();
         });
         contentWindow.__example__.openSignDialog()
-      }),
+      });
+    },
   },
   {
     positionX: "325px",
