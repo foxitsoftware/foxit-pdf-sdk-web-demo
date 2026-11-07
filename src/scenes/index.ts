@@ -204,6 +204,24 @@ const measurement = [
   },
 ]
 
+let stopRedactionDropdownReopen: (() => void) | undefined;
+
+function reopenRedactionDropdownAfterPageFocus(ref: any) {
+  stopRedactionDropdownReopen?.();
+  const contentWindow = ref.current.contentWindow;
+  const onFocus = (event: Event) => {
+    const target = event.target as HTMLElement | null;
+    if (!target?.closest?.(".fv__pdf-view-mode-item")) return;
+    stopRedactionDropdownReopen?.();
+    openDropdown(contentWindow.pdfui, "create-redaction-controllers");
+  };
+  contentWindow.addEventListener("focus", onFocus, true);
+  stopRedactionDropdownReopen = () => {
+    contentWindow.removeEventListener("focus", onFocus, true);
+    stopRedactionDropdownReopen = undefined;
+  };
+}
+
 const redaction = [
   {
     positionX: "85px",
@@ -213,6 +231,7 @@ const redaction = [
     header: "Select what to redact",
     description: "Select what to redact description",
     func: (ref:any) => {
+      stopRedactionDropdownReopen?.();
       closeDropdown(ref.current.contentWindow.pdfui,"create-redaction-controllers");
     },
   },
@@ -235,6 +254,7 @@ const redaction = [
     func: (ref:any) => {
       ref.current.contentWindow.__example__.closeSidebarRight();
       ref.current.contentWindow.__example__.unActiveAnnot();
+      reopenRedactionDropdownAfterPageFocus(ref);
       openDropdown(ref.current.contentWindow.pdfui,"create-redaction-controllers")
     },
   },
@@ -246,6 +266,7 @@ const redaction = [
     header: "Search for terms",
     description: "Search for terms description",
     func: (ref: any) => {
+      stopRedactionDropdownReopen?.();
       closeDropdown(ref.current.contentWindow.pdfui,"create-redaction-controllers")
       ref.current.contentWindow.__example__.redactionSearch();
     },
